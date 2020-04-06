@@ -1,0 +1,189 @@
+% T I T L E   P A G E
+% -------------------
+% Last updated June 14, 2017, by Stephen Carr, IST-Client Services
+% The title page is counted as page `i' but we need to suppress the
+% page number. Also, we don't want any headers or footers.
+\pagestyle{empty}
+\pagenumbering{roman}
+
+% The contents of the title page are specified in the "titlepage"
+% environment.
+\begin{titlepage}
+        \begin{center}
+        \vspace*{1.0cm}
+
+        \Huge
+        {\bf Data-Driven Models for Discrete Hedging Problem }
+
+        \vspace*{1.0cm}
+
+        \normalsize
+        by \\
+
+        \vspace*{1.0cm}
+
+        \Large
+        Ke Nian \\
+
+        \vspace*{3.0cm}
+
+        \normalsize
+        A thesis \\
+        presented to the University of Waterloo \\
+        in fulfillment of the \\
+        thesis requirement for the degree of \\
+        Doctor of Philosophy \\
+        in \\
+        Computer Science \\
+
+        \vspace*{2.0cm}
+
+        Waterloo, Ontario, Canada, 2017 \\
+
+        \vspace*{1.0cm}
+
+        \copyright\ Ke Nian 2020 \\
+        \end{center}
+\end{titlepage}
+
+% The rest of the front pages should contain no headers and be numbered using Roman numerals starting with `ii'
+\pagestyle{plain}
+\setcounter{page}{2}
+
+\cleardoublepage % Ends the current page and causes all figures and tables that have so far appeared in the input to be printed.
+% In a two-sided printing style, it also makes the next page a right-hand (odd-numbered) page, producing a blank page if necessary.
+
+
+% E X A M I N I N G   C O M M I T T E E (Required for Ph.D. theses only)
+% Remove or comment out the lines below to remove this page
+\begin{center}\textbf{Examining Committee Membership}\end{center}
+  \noindent
+The following served on the Examining Committee for this thesis. The decision of the Examining Committee is by majority vote.
+  \bigskip
+
+  \noindent
+\begin{tabbing}
+Internal-External Member: \=  \kill % using longest text to define tab length
+External Examiner: \>  undetermined \\
+\> Professor, School of Computer Science, University of Undetermined \\
+\end{tabbing}
+  \bigskip
+
+  \noindent
+\begin{tabbing}
+Internal-External Member: \=  \kill % using longest text to define tab length
+Supervisor(s): \> Yuying Li \\
+\> Professor, School of Computer Science, University of Waterloo \\
+\> Thomas F. Coleman \\
+\> Professor, Department of Combinatoric and Optimization, University of Waterloo \\
+\end{tabbing}
+  \bigskip
+
+  \noindent
+  \begin{tabbing}
+Internal-External Member: \=  \kill % using longest text to define tab length
+Internal Examiner: \>  Justin W.L. Wan \\
+\> Professor, School of Computer Science, University of Waterloo \\
+\end{tabbing}
+  \bigskip
+
+
+  \begin{tabbing}
+Internal-External Member: \=  \kill % using longest text to define tab length
+Internal Examiner: \>  Yaoliang Yu \\
+\> Assistant Professor, School of Computer Science, University of Waterloo \\
+\end{tabbing}
+  \bigskip
+  \noindent
+\begin{tabbing}
+Internal-External Member: \=  \kill % using longest text to define tab length
+Internal-External Member: \> undetermined \\
+\> Professor, Dept. of Math of Science, University of Waterloo \\
+\end{tabbing}
+  \bigskip
+
+%  \noindent
+%\begin{tabbing}
+%Internal-External Member: \=  \kill % using longest text to define tab length
+%Other Member(s): \> Leeping Fang \\
+%\> Professor, Dept. of Fine Art, University of Waterloo \\
+%\end{tabbing}
+
+\cleardoublepage
+
+% D E C L A R A T I O N   P A G E
+% -------------------------------
+  % The following is a sample Delaration Page as provided by the GSO
+  % December 13th, 2006.  It is designed for an electronic thesis.
+  \noindent
+I hereby declare that I am the sole author of this thesis. This is a true copy of the thesis, including any required final revisions, as accepted by my examiners.
+
+  \bigskip
+
+  \noindent
+I understand that my thesis may be made electronically available to the public.
+
+\cleardoublepage
+
+% A B S T R A C T
+% ---------------
+
+\begin{center}\textbf{Abstract}\end{center}
+Options hedging is a critical problem in financial risk management. The prevailing approach in financial derivative pricing and hedging has been to first assume a parametric model describing the underlying price dynamics.  An option model function $V$ is then calibrated to current  market option prices and various sensitivities are computed and  used to hedge the option risk.  It has been recognized that computing hedging position from the sensitivity of the calibrated model option value function is inadequate in minimizing variance of the option hedge risk, as it fails to capture the model parameter dependence on the underlying price.
+In this thesis, we demonstrate that this issue can exist generally when determining hedging position from the sensitivity of the option function, either  calibrated from a parametric model from spot market option prices or estimated nonparametricaly from historical option prices. Consequently the sensitivity of the estimated model option function typically does not minimize variance of the hedge risk, even instantaneously, unless the parameters dependence is addressed. We propose several data-driven approaches to directly learn a hedging function from the market data by minimizing certain measure of the local hedging risk and total hedging risk. This thesis will focus on answering the following questions: 1) Can we efficiently build direct data-driven models for discrete hedging problem that outperform existing state-of-art parametric hedging models? 2) Can we incorporate feature selection and feature extraction into the data-driven models to further improve the performance of the discrete hedging? 3) Can we build efficient models for both the one-step hedging problem and multi-steps hedging problem based on the state-of-art learning framework such as deep learning framework and kernel learning framework?
+
+Using the S\&P 500 index daily option data for more than a decade ending in August 2015, we first propose a direct data-driven approach \citep{knian2017} based on kernel learning framework and we demonstrate  that the proposed method outperforms the parametric minimum variance hedging method proposed in \citep{hulloptimal}, as well as  minimum variance hedging corrective techniques based on stochastic volatility or local volatility models.
+Furthermore, we show that the proposed approach achieves significant gain over the implied Black-Sholes delta hedging for weekly and monthly hedging.
+
+Following the direct data-driven kernel learning approach \citep{knian2017}, we propose a robust encoder-decoder  Gated Recurrent Unit (GRU), $\text{GRU}_{\delta}$, for optimal discrete option hedging. The proposed $\text{GRU}_{\delta}$ utilizes the Black-Scholes model as a pre-trained model and  incorporates sequential information and feature selection.  Using the S\&P 500 index European option market data from January 2, 2004 to August 31, 2015,   we demonstrate that the weekly and monthly hedging performance of the proposed $\text{GRU}_{\delta}$ significantly surpasses that of the data-driven minimum variance (MV) method in \citep{hulloptimal}, the regularized kernel data-driven model \citep{knian2017}, and the SABR-Bartlett method \cite{hagan2017bartlett}.
+In addition,the daily hedging performance of the proposed $\text{GRU}_{\delta}$ also surpasses that of MV methods in \cite{hulloptimal} based on parametric models, the kernel method \citep{knian2017} and SABR-Bartlett method \cite{hagan2017bartlett}.
+
+Lastly, we design a multi-steps data-driven models $\text{GRU}_{\text{total}}$ based on the $\text{GRU}_{\delta}$  to hedge the option discretely until the expiry.  We utilize SABR model and Local Volatility Function (LVF) to augment existing market data and thus alleviate the problem for lack of market option information. The augmented market data is used to train a sufficient multi-steps total hedging model $\text{GRU}_{\text{total}}$ that outperform the one-step hedging model $\text{GRU}_{\delta}$   when we evaluate the hedging performance on the expiries. We further compare the total hedging model $\text{GRU}_{\text{total}}$ built based on purely market underlying information with the total hedging model $\text{GRU}_{\text{total}}$ built based on both market underlying information and augmented option information to indicate the importance of market option information in determining the data-driven option hedging position. 
+\cleardoublepage
+
+% A C K N O W L E D G E M E N T S
+% -------------------------------
+
+\begin{center}\textbf{Acknowledgements}\end{center}
+
+I would like to thank all the little people who made this thesis possible.
+\cleardoublepage
+
+% D E D I C A T I O N
+% -------------------
+
+\begin{center}\textbf{Dedication}\end{center}
+
+This is dedicated to the one I love.
+\cleardoublepage
+
+% T A B L E   O F   C O N T E N T S
+% ---------------------------------
+\renewcommand\contentsname{Table of Contents}
+\tableofcontents
+\cleardoublepage
+\phantomsection    % allows hyperref to link to the correct page
+
+% L I S T   O F   T A B L E S
+% ---------------------------
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+\cleardoublepage
+\phantomsection		% allows hyperref to link to the correct page
+
+% L I S T   O F   F I G U R E S
+% -----------------------------
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+\cleardoublepage
+\phantomsection		% allows hyperref to link to the correct page
+
+% GLOSSARIES (Lists of definitions, abbreviations, symbols, etc. provided by the glossaries-extra package)
+% -----------------------------
+\printglossaries
+\cleardoublepage
+\phantomsection		% allows hyperref to link to the correct page
+
+% Change page numbering back to Arabic numerals
+\pagenumbering{arabic}
+

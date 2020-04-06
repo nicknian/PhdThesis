@@ -1,0 +1,771 @@
+% uWaterloo Thesis Template for LaTeX
+% Last Updated June 14, 2017 by Stephen Carr, IST Client Services
+% FOR ASSISTANCE, please send mail to rt-IST-CSmathsci@ist.uwaterloo.ca
+
+% Effective October 2006, the University of Waterloo
+% requires electronic thesis submission. See the uWaterloo thesis regulations at
+% https://uwaterloo.ca/graduate-studies/thesis.
+
+% DON'T FORGET TO ADD YOUR OWN NAME AND TITLE in the "hyperref" package
+% configuration below. THIS INFORMATION GETS EMBEDDED IN THE PDF FINAL PDF DOCUMENT.
+% You can view the information if you view Properties of the PDF document.
+
+% Many faculties/departments also require one or more printed
+% copies. This template attempts to satisfy both types of output.
+% It is based on the standard "book" document class which provides all necessary
+% sectioning structures and allows multi-part theses.
+
+% DISCLAIMER
+% To the best of our knowledge, this template satisfies the current uWaterloo requirements.
+% However, it is your responsibility to assure that you have met all
+% requirements of the University and your particular department.
+% Many thanks for the feedback from many graduates that assisted the development of this template.
+
+% -----------------------------------------------------------------------
+
+% By default, output is produced that is geared toward generating a PDF
+% version optimized for viewing on an electronic display, including
+% hyperlinks within the PDF.
+
+% E.g. to process a thesis called "mythesis.tex" based on this template, run:
+
+% pdflatex mythesis	-- first pass of the pdflatex processor
+% bibtex mythesis	-- generates bibliography from .bib data file(s)
+% makeindex         -- should be run only if an index is used
+% pdflatex mythesis	-- fixes numbering in cross-references, bibliographic references, glossaries, index, etc.
+% pdflatex mythesis	-- fixes numbering in cross-references, bibliographic references, glossaries, index, etc.
+
+% If you use the recommended LaTeX editor, Texmaker, you would open the mythesis.tex
+% file, then click the PDFLaTeX button. Then run BibTeX (under the Tools menu).
+% Then click the PDFLaTeX button two more times. If you have an index as well,
+% you'll need to run MakeIndex from the Tools menu as well, before running pdflatex
+% the last two times.
+
+% N.B. The "pdftex" program allows graphics in the following formats to be
+% included with the "\includegraphics" command: PNG, PDF, JPEG, TIFF
+% Tip 1: Generate your figures and photos in the size you want them to appear
+% in your thesis, rather than scaling them with \includegraphics options.
+% Tip 2: Any drawings you do should be in scalable vector graphic formats:
+% SVG, PNG, WMF, EPS and then converted to PNG or PDF, so they are scalable in
+% the final PDF as well.
+% Tip 3: Photographs should be cropped and compressed so as not to be too large.
+
+% To create a PDF output that is optimized for double-sided printing:
+%
+% 1) comment-out the \documentclass statement in the preamble below, and
+% un-comment the second \documentclass line.
+%
+% 2) change the value assigned below to the boolean variable
+% "PrintVersion" from "false" to "true".
+
+% --------------------- Start of Document Preamble -----------------------
+
+% Specify the document class, default style attributes, and page dimensions
+% For hyperlinked PDF, suitable for viewing on a computer, use this:
+\documentclass[letterpaper,12pt,titlepage,oneside,final]{book}
+
+% For PDF, suitable for double-sided printing, change the PrintVersion variable below
+% to "true" and use this \documentclass line instead of the one above:
+%\documentclass[letterpaper,12pt,titlepage,openright,twoside,final]{book}
+
+% Some LaTeX commands I define for my own nomenclature.
+% If you have to, it's better to change nomenclature once here than in a
+% million places throughout your thesis!
+\newcommand{\package}[1]{\textbf{#1}} % package names in bold text
+\newcommand{\cmmd}[1]{\textbackslash\texttt{#1}} % command name in tt font
+\newcommand{\href}[1]{#1} % does nothing, but defines the command so the
+    % print-optimized version will ignore \href tags (redefined by hyperref pkg).
+%\newcommand{\texorpdfstring}[2]{#1} % does nothing, but defines the command
+% Anything defined here may be redefined by packages added below...
+
+% This package allows if-then-else control structures.
+\usepackage{ifthen}
+\newboolean{PrintVersion}
+\setboolean{PrintVersion}{false}
+% CHANGE THIS VALUE TO "true" as necessary, to improve printed results for hard copies
+% by overriding some options of the hyperref package below.
+
+%\usepackage{nomencl} % For a nomenclature (optional; available from ctan.org)
+\usepackage{amsmath,amssymb,amstext} % Lots of math symbols and environments
+\usepackage[pdftex]{graphicx} % For including graphics N.B. pdftex graphics driver
+
+% Hyperlinks make it very easy to navigate an electronic document.
+% In addition, this is where you should specify the thesis title
+% and author as they appear in the properties of the PDF document.
+% Use the "hyperref" package
+% N.B. HYPERREF MUST BE THE LAST PACKAGE LOADED; ADD ADDITIONAL PKGS ABOVE
+\usepackage[pdftex,pagebackref=false]{hyperref} % with basic options
+		% N.B. pagebackref=true provides links back from the References to the body text. This can cause trouble for printing.
+\hypersetup{
+    plainpages=false,       % needed if Roman numbers in frontpages
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={uWaterloo\ LaTeX\ Thesis\ Template},    % title: CHANGE THIS TEXT!
+%    pdfauthor={Author},    % author: CHANGE THIS TEXT! and uncomment this line
+%    pdfsubject={Subject},  % subject: CHANGE THIS TEXT! and uncomment this line
+%    pdfkeywords={keyword1} {key2} {key3}, % list of keywords, and uncomment this line if desired
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,        % false: boxed links; true: colored links
+    linkcolor=blue,         % color of internal links
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+\ifthenelse{\boolean{PrintVersion}}{   % for improved print quality, change some hyperref options
+\hypersetup{	% override some previously defined hyperref options
+%    colorlinks,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=black}
+}{} % end of ifthenelse (no else)
+
+% package adeed
+\usepackage{subfigure}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathptmx}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{fullpage}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[figuresright]{rotating}
+\usepackage[mathscr]{euscript}
+\usepackage{amstext}
+\usepackage{tabularx}
+\usepackage[numbers]{natbib}
+\usepackage{lineno,xcolor}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{fancybox}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{epstopdf}
+\usepackage[lined,ruled]{algorithm2e}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{threeparttable}
+\numberwithin{equation}{section}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{cor}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+%\newtheorem{pf}{Proof}
+
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{$#2$}}%
+\newcommand*{\Resize}[2]{\resizebox{#1}{!}{$#2$}}%
+
+\newcommand{\model}{\textsc{GRU}_\delta}
+\newcommand{\modelT}{\textsc{GRU}_{\textsc{total}}}
+\newcommand{\modelN}{\textsc{NN}_\delta}
+\newcommand{\vt}[1]{\mathbf{#1}}
+\newcommand{\vw}{\mathbf{w}}
+\newcommand{\vb}{\mathbf{b}}
+%\newcommand{\pm}{\stackrel{+}{-}}
+\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vi}{\mathbf{in}}
+\newcommand{\vo}{\mathbf{o}}
+\newcommand{\vxt}{\tilde{\mathbf{x}}}
+\newcommand{\vy}{\mathbf{y}}
+\newcommand{\impsigma}{\breve{\sigma}}
+\newcommand{\barK}{\overline{K}}
+\newcommand{\barC}{\overline{C}}
+\newcommand{\vz}{\mathbf{z}}
+\newcommand{\fnp}{\tilde{f}}
+\newcommand{\vu}{\mathbf{u}}
+\newcommand{\vs}{\mathbf{s}}
+\newcommand{\vc}{\mathbf{c}}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\HK}{\mathcal{H}_K}
+\newcommand{\XS}{\mathcal{X}}
+\newcommand{\DS}{\Delta S}
+\newcommand{\Heston}{\textsc{Heston}}
+\newcommand{\DVmkt}{\Delta V^{mkt}}
+\newcommand{\DT}{\Delta t}
+\newcommand{\vuu}{\mathbf{\widetilde u}}
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\vdot}[2]{{#1}^T{#2}}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\newcommand{\sym}{\textsc{sym}}
+\newcommand{\BS}{\textsc{BS}}
+\newcommand{\LOF}{\textsc{lof}}
+\newcommand{\svm}{\textsc{svm}}
+\newcommand{\AMflag}{\text{mFLAG}}
+\newcommand{\rw}{\textsc{rw}}
+\newcommand{\diag}{\textsc{diag}}
+\newcommand{\sign}{\textsc{sign}}
+\newcommand{\MeanAbs}{\E(|\DVmkt-\DS f(\vx)|)}
+\newcommand{\Cluster}{\textsc{C}}
+\newcommand{\bi}{\text{bi}}
+\newcommand{\g}{\mathbf{g}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\valpha}{\pmb{\alpha}}
+\newcommand{\vK}{\pmb{K}}
+\newcommand{\vV}{\pmb{\breve{V}}}
+\newcommand{\e}{\mathbf{e}}
+\newcommand{\vol}{\upsilon}
+\newcommand{\vd}{\mathbf{d}}
+\newcommand{\vh}{\mathbf{h}}
+\newcommand{\vf}{\mathbf{f}}
+\newcommand{\vW}{\pmb{W}}
+\newcommand{\vU}{\pmb{U}}
+\newcommand{\np}{\text{np}}
+\newcommand{\pt}{^{+\Delta t}}
+\newcommand{\norm}{\text{norm}}
+\newcommand{\row}{\text{row}}
+\newcommand{\Vmkt}{V^{mkt}}
+\newcommand{\vecVmkt}{\mathbf{\breve{V}}}
+\newcommand{\Ncut}{\text{Ncut}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\DKLs}{\bf\textsc{DKL}_{\text{SPL}}}
+\newcommand{\DRNNc}{\bf\textsc{DRNN}_{\text{C}}}
+\newcommand{\DKLg}{\bf\textsc{DKL}_{\text{RBF}}}
+\newcommand{\IKLs}{\bf\textsc{IKL}_{\text{SPL}}}
+\newcommand{\IKLg}{\bf\textsc{IKL}_{\text{RBF}}}
+\newcommand{\LVF}{\textsc{LVF}}
+\newcommand{\Del}{\delta_{\textsc{BS}}}
+\newcommand{\SABR}{\bf\textsc{SABR}_{\text{MV}}}
+\newcommand{\MV}{\bf \textsc{MV}}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning, fit, arrows.meta}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{xparse}
+\usetikzlibrary{calc}
+\usepackage{tkz-graph}
+\usetikzlibrary{backgrounds,automata}
+\usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
+%\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
+
+
+
+\usepackage[automake,toc,abbreviations]{glossaries-extra} % Exception to the rule of hyperref being the last add-on package
+% If glossaries-extra is not in your LaTeX distribution, get it from CTAN (http://ctan.org/pkg/glossaries-extra),
+% although it's supposed to be in both the TeX Live and MikTeX distributions. There are also documentation and
+% installation instructions there.
+
+% Setting up the page margins...
+% uWaterloo thesis requirements specify a minimum of 1 inch (72pt) margin at the
+% top, bottom, and outside page edges and a 1.125 in. (81pt) gutter
+% margin (on binding side). While this is not an issue for electronic
+% viewing, a PDF may be printed, and so we have the same page layout for
+% both printed and electronic versions, we leave the gutter margin in.
+% Set margins to minimum permitted by uWaterloo thesis regulations:
+\setlength{\marginparwidth}{0pt} % width of margin notes
+% N.B. If margin notes are used, you must adjust \textwidth, \marginparwidth
+% and \marginparsep so that the space left between the margin notes and page
+% edge is less than 15 mm (0.6 in.)
+\setlength{\marginparsep}{0pt} % width of space between body text and margin notes
+\setlength{\evensidemargin}{0.125in} % Adds 1/8 in. to binding side of all
+% even-numbered pages when the "twoside" printing option is selected
+\setlength{\oddsidemargin}{0.125in} % Adds 1/8 in. to the left of all pages
+% when "oneside" printing is selected, and to the left of all odd-numbered
+% pages when "twoside" printing is selected
+\setlength{\textwidth}{6.375in} % assuming US letter paper (8.5 in. x 11 in.) and
+% side margins as above
+\raggedbottom
+
+% The following statement specifies the amount of space between
+% paragraphs. Other reasonable specifications are \bigskipamount and \smallskipamount.
+\setlength{\parskip}{\medskipamount}
+
+% The following statement controls the line spacing.  The default
+% spacing corresponds to good typographic conventions and only slight
+% changes (e.g., perhaps "1.2"), if any, should be made.
+\renewcommand{\baselinestretch}{1} % this is the default line space setting
+
+% By default, each chapter will start on a recto (right-hand side)
+% page.  We also force each section of the front pages to start on
+% a recto page by inserting \cleardoublepage commands.
+% In many cases, this will require that the verso page be
+% blank and, while it should be counted, a page number should not be
+% printed.  The following statements ensure a page number is not
+% printed on an otherwise blank verso page.
+\let\origdoublepage\cleardoublepage
+\newcommand{\clearemptydoublepage}{%
+  \clearpage{\pagestyle{empty}\origdoublepage}}
+\let\cleardoublepage\clearemptydoublepage
+
+% Define Glossary terms (This is properly done here, in the preamble. Could be \input{} from a file...)
+% Main glossary entries -- definitions of relevant terminology
+\newglossaryentry{computer}
+{
+name=computer,
+description={A programmable machine that receives input data,
+               stores and manipulates the data, and provides
+               formatted output}
+}
+
+% Nomenclature glossary entries -- New definitions, or unusual terminology
+\newglossary*{nomenclature}{Nomenclature}
+\newglossaryentry{dingledorf}
+{
+type=nomenclature,
+name=dingledorf,
+description={A person of supposed average intelligence who makes incredibly brainless misjudgments}
+}
+
+% List of Abbreviations (abbreviations type is built in to the glossaries-extra package)
+\newabbreviation{aaaaz}{AAAAZ}{American Association of Amature Astronomers and Zoologists}
+
+% List of Symbols
+\newglossary*{symbols}{List of Symbols}
+\newglossaryentry{rvec}
+{
+name={$\mathbf{v}$},
+sort={label},
+type=symbols,
+description={Random vector: a location in n-dimensional Cartesian space, where each dimensional component is determined by a random process}
+}
+
+\makeglossaries
+
+%======================================================================
+%   L O G I C A L    D O C U M E N T -- the content of your thesis
+%======================================================================
+\begin{document}
+
+% For a large document, it is a good idea to divide your thesis
+% into several files, each one containing one chapter.
+% To illustrate this idea, the "front pages" (i.e., title page,
+% declaration, borrowers' page, abstract, acknowledgements,
+% dedication, table of contents, list of tables, list of figures,
+% nomenclature) are contained within the file "uw-ethesis-frontpgs.tex" which is
+% included into the document by the following statement.
+%----------------------------------------------------------------------
+% FRONT MATERIAL
+%----------------------------------------------------------------------
+\input{uw-ethesis-frontpgs}
+
+%----------------------------------------------------------------------
+% MAIN BODY
+%----------------------------------------------------------------------
+% Because this is a short document, and to reduce the number of files
+% needed for this template, the chapters are not separate
+% documents as suggested above, but you get the idea. If they were
+% separate documents, they would each start with the \chapter command, i.e,
+% do not contain \documentclass or \begin{document} and \end{document} commands.
+%======================================================================
+\chapter{Introduction}
+Options hedging is a critical problem in financial risk management. The state-of-art approaches in financial derivative pricing and hedging rely heavily on parametric assumptions describing the dynamics of underlying asset .  The common practice is to calibrate an option pricing function based on the specific parametric model and compute various sensitivities to hedge the option risk. For example, the sensitivity of the option value function to the underlying price is used in delta hedging. Ideally, the value of an option written on the underlying asset can be perfectly replicated by a hedging portfolio consisting of the underlying asset and the  risk-free asset, when the market is complete \cite{shreve2004stochastic}.  In practice, such perfect scenarios does not exist and we have to rebalance the hedging portfolio discretely instead of continuously due to the existence of the transaction cost.  The practice of adjusting the hedging portfolio discretely is often referred to as discrete hedging.
+
+There are many parametric models proposed to describe the dynamics of underlying asset.
+The original and most celebrated parametric  Black-Scholes (BS) model uses a constant volatility \citep{black1973pricing,merton1973theory}, which is  shown
+ to produce inaccurate option prices for deeply out-of-the-money options and deeply in-the-money options \citep{genccay2003degree}.
+In addition,
+the BS model is unable to capture the non-zero correlation between the volatility and the underlying asset price \citep{french1987expected,bollerslev2006leverage}.
+ The practitioner's BS delta hedging approach sets the constant volatility in the BS model to the implied volatility calibrated to the market price at the time of re-balancing.  Many alternative parametric models have been proposed to improve the BS model,  including  the Stochastic Volatility (SV) model \cite{hagan2002managing,heston1993closed,hull1987pricing,bakshi1997empirical},  the Local Volatility Function (LVF) model \citep{coleman2001,dumas1998implied,rubinstein1994implied,dupire1994pricing}, and the jump model \citep{He06,kou2002jump}. Unfortunately, all models have been shown to have their limitations in accurately modeling option market prices.
+
+Errors in  the option value model have significant implications in hedging. Consider, for example, when the hedging position is computed from the sensitivity of the  option value function calibrated at the hedging time, the computed hedging position only depends on the assumed underlying price model and the current market option prices. Unless the assumed model for the underlying price is exact and all assumptions that results in the option pricing function are all valid, the option function calibrated at the hedging time cannot predict the future option market price.
+
+Specifically, assume that $V(S,t,T,K;\theta)$ is  the option value function and $\theta$ is the vector of model parameters of the assumed option pricing model and, at the hedging time $t$,
+option calibration ensures that
+\begin{equation} \label{eq:imp}
+V(S,t,T,K; \theta)=V^{mkt}_{t,T,K}
+\end{equation}
+where $\Vmkt$ denotes the actual market option price,  $t$ is the current trading time,  $K$  is  strike price,  $T$ is the expiry time, and $S$ is the underlying price input used in the option pricing function. We use $V^{mkt}_{t,T,K}$ to indicate it is the market price at time $t$ for  the expiry time $T$ and strike $K$.
+The option value function $V(S,t,T,K; \theta)$, calibrated at the hedging time $t$,  does not ensure that
+ $
+\frac{\partial V}{\partial S}
+$
+equals to
+$
+\frac{\partial \Vmkt}{\partial S},
+$
+which is indeed unknown.
+This leads to the dependence of the calibrated model parameter on the underlying price \citep{knian2017,coleman2001,hulloptimal}. The missing sensitivity $
+\frac{\partial \theta}{\partial S},
+$ is difficult to account for and is often ignored, though
+for some models, corrections have been proposed to account for the dependence \citep{hulloptimal,hagan2017bartlett,bartlett2006hedging}.
+%Given that it is unlikely that any parametric model can describe the underlying dynamics perfectly for option pricing, hedging positions computed by taking the derivative of the calibrated option value function inevitably suffer from the model parameter dependence issue.
+
+
+Since machine learning algorithms usually do not impose assumptions on the model to be learned, they have recently been adopted to determine an option value function directly from the market data, with the goal of avoiding the model misspecification issues from the parametric modeling approach e.g.,\citep{gradojevic2009option,garcia2000pricing,hutchinson}.
+Unfortunately, using nonparametric learning, hedging positions still need to be computed from the sensitivity of the model value function.
+While no assumption is explicitly made for the  dynamics of underlying asset, the option value function is determined by data through cross-validation, leading to training errors.
+Since there is no assurance that the  sensitivity of the learned option value function  with regards to underlying asset matches that the sensitivity of the market option price,
+the parameters of the model learned directly from data can similarly exhibit dependence on the underlying price. When the hedging position is computed from the partial derivative of the data-driven option value function, e.g.,  \citep{hutchinson}, this dependence cannot be accounted for and again is ignored. Hence, option hedging risk remains insufficiently minimized.
+
+Furthermore, using option delta $\frac{\partial V}{\partial S}$ as the hedging position becomes inadequate when discrete hedging is performed in practice, particularly when rebalancing becomes infrequent.  Instead, optimal discrete hedging strategy can be determined by determining hedging strategy directly using an appropriate objective in the discrete hedging context, e.g., minimizing the variance of the hedging error, needs to be chosen \citep{hulloptimal,Angelini10,Goutte13}.
+
+In hedging, the ultimate goal is to discover a hedging strategy  which minimizes the hedging error which is  measured by the market option and underlying prices. With the increasing availability of market option prices, a timely question arises: is it possible to learn optimal hedging positions directly from market option price and underlying price data?
+Up until now, research in learning the hedging position  directly from market data is scarce.
+Recently, a data-driven approach  \citep{hulloptimal} is proposed to learn a parametric model for the minimum variance delta hedging based on the analysis of the BS option greeks and underlying market prices. However, the proposed parametric model focuses on the instantaneous hedging error analysis in a parametric model framework.
+
+
+In this thesis, we study the discrete option hedging problem by  explicitly focusing on the issues arising from  model specification errors and model parameter dependence.
+We illustrate that the inability to minimize variance of the hedging error, when determining hedging position from option value function from a parametric model, is also shared by an option model estimated from a nonparametric method. Although a nonparametric modeling approach to option value can potentially lead to smaller mis-specification error, we illustrate that non-parametric model parameters can similarly depend on the underlying. Consequently the sensitivity of the optimally estimated option value function will not lead to minimization of option hedging risk.
+Furthermore,  the estimated pricing function inevitably has errors, due to both model mis-specification, discretization, and numerical roundoff.
+The error in the value function can potentially be substantially magnified in computing partial derivatives as hedging positions.
+
+We explore several direct market data-driven approaches to bypass  challenges mentioned above to achieve effective hedging performance.
+We first propose a  data-driven kernel learning approach \cite{knian2017} to learn a local risk minimization hedging model directly from the market data observed at the hedging time $t$.  We learn a  hedging function from the market data by minimizing  the  empirical local hedging  risk with a suitable regularization. The local risk corresponds directly to the variance of the hedging error in the discrete rebalancing period. A novel encoder-decoder  RNN model $\model$ \cite{knian2019}, to extract both sequential and local features at hedging time $t$ from market prices, is later proposed to learn option hedging positions directly from the market. We include a feature weighting procedure to select the most relevant local features at hedging time $t$ and sequential features for the sequential data-driven model $\model$. Lastly, in order to deal with multi-steps discrete total hedging scenarios where we hedge until the expiry of the option \cite{knian2020}, we enhance our sequential local hedging model $\model$ to be $\modelT$. We compared our data-driven approaches with the parametric approaches and demonstrate the effectiveness of the data-driven hedging models in terms of both local hedging risk and total hedging risk.
+
+
+
+
+
+%======================================================================
+%----------------------------------------------------------------------
+\section{Contribution}
+The contributions with respect to the data-driven kernel hedging model \cite{knian2017} are summarized below:
+\begin{itemize}
+\item We analyze and discuss implications from model mis-specification in the option value function for discrete option hedging. We illustrate challenges in accounting for the dependence of the calibrated model parameters on the underlying, which arises due to  model mis-specification.
+
+\item We analyze a regularized kernel network for option value estimation and illustrate that  the partial derivative of the estimated value function with respect to the underlying similarly does not minimize variance of the hedging risk in general, even infinitesimally.
+
+\item We propose a data-driven approach to learn a hedging position function directly by minimizing the variance of the local hedging  risk.
+    Specifically we implement a regularized spline kernel method $\DKLs$ to nonparametrically estimate the hedging function from the market data.
+
+\item Using synthetic data sets, we compare daily, weekly, and monthly hedging performance using
+   the kernel direct data-driven hedging approach with the performance of the indirect approach where hedging positions are computed from the sensitivity of the nonparametric option value function. In particular, we present computational results which demonstrate that the direct spline kernel hedging position learning outperforms the hedging position computed from the sensitivity of the spline kernel option value function.
+
+\item Using  S\&P 500 index option market data for more than a decade ending in August 31, 2015, we demonstrate that the  daily hedging performance of the direct spline kernel hedging function learning method  significantly surpasses that of the   minimum variance quadratic hedging formula proposed in \citep{hulloptimal},  as well as corrective methods based on LVF and SABR implemented in  \citep{hulloptimal}.
+
+\item We also present weekly and monthly hedging results using the  S\&P 500 index option market data and demonstrate significant enhanced performance over the BS implied volatility hedging.
+\end{itemize}
+
+The contributions with respect to the data-driven sequential hedging model \cite{knian2019} are summarized below:
+\begin{itemize}
+	\item  We propose a novel encoder-decoder  RNN model, to extract both sequential and current features from market prices, to learn option hedging positions directly from the market. We include a feature weighting procedure to select the most relevant local features and sequential time series features for the data-driven model.
+	\item To ensure robust learning, we use the Huber loss function as the learning objective,  adaptively setting the error resolution parameter to the BS hedging error, allowing it to varying from data instance to data instance. Furthermore,    the proposed $\model$ can be updated more frequently than the data-driven model in \cite{knian2017} to account for the market shifts.
+	\item Using the S\&P 500 index option market data from January 2, 2004 to  August 31st, 2015, we demonstrate that the weekly and monthly hedging performance of the proposed $\model$ significantly surpasses that
+ of the data-driven minimum variance (MV) method in \citep{hulloptimal}, the regularized kernel data-driven model \citep{knian2017}, and the SABR-Bartlett method \cite{bartlett2006hedging}.
+	\item Using the S\&P 500 index option market data from January 2, 2004 to  August 31st, 2015, we demonstrate that
+	the daily hedging performance of the proposed $\model$ surpasses that of the minimum variance quadratic hedging method  proposed in \cite{hulloptimal}, the corrective methods
+	based on LVF and SABR implemented in \cite{hulloptimal},the SABR-Bartlett method \cite{bartlett2006hedging}, as well as the data-driven model in \cite{knian2017}.
+	\item To motivate the roles of each major component of the proposed $\model$, we demonstrate performance sensitivity through computational experiments. In addition, we illustrate and analyze the relative importance of selected features.
+\end{itemize}
+
+
+The contributions with respect to the data-driven total hedging model \cite{knian2020} are summarized below:
+\begin{itemize}
+	\item  We enhance the sequential data-driven local hedging model $\model$ \cite{knian2019} to cope with total hedging scenarios where we rebalance multiple times until the expiries of the options.
+	\item  We augment the market data using SABR model and Local Volatility Function to cope with the challenges of lacking market option data.
+	\item  Using the S\&P 500 index option market data from January 2, 1996 to  August 31st, 2015, we demonstrate that the weekly, bi-weekly and monthly hedging performance of the proposed total hedging model $\modelT$  surpasses that of sequential data-driven local hedging model $\model$ \cite{knian2019} and the SABR-Bartlett method \cite{bartlett2006hedging}, when the hedging performance is evaluated on the expiries of the option.
+	\item We compare  $\modelT$ based on market option information with $\modelT$ based on purely underlying asset information and indicate the importance of  market option information in determining the total hedging position.
+\end{itemize}
+%----------------------------------------------------------------------
+\section{Outline}
+The remainder of the thesis is organized as follows.
+Chapter 2 reviews basic concept of derivative pricing models, discrete hedging problems, local and total hedging risk and various existing parametric approaches to hedge options.
+Chapter 3 discusses the kernel learning framework and introduces the data-driven kernel local hedging model $\DKLs$. Empirical results  from  data-driven kernel local hedging model $\DKLs$ are also discussed in Chapter 3.
+Chapter 4 discusses the Recurrent Neural Network(RNN) framework and introduces the data-driven sequential local hedging model $\model$. Empirical results  from  the data-driven sequential local hedging model $\model$ are also discussed in Chapter 4.
+Chapter 5 discusses the challenges of using market data to build data-driven total hedging models and the data augmentation procedure to cope with the challenges.
+Chapter 6 introduces the data-driven sequential total hedging model $\modelT$ and presents the empirical comparisons between local hedging model $\model$ and total hedging model $\modelT$.
+We conclude in Chapter 7 with summary remarks and potential extensions.
+%======================================================================
+\chapter{Background}
+%======================================================================
+\section{Option Pricing Model}
+In this chapter, we review the basic concept of option pricing models and discuss the problem of pricing model parameters dependence on underlying asset.  In addition, we specify the discrete hedging problem and define the total and local hedging risk. Most of the discussion in this chapter are drawn from \cite{shreve2004stochastic,heston1993closed,bartlett2006hedging,hagan2017bartlett,hagan2002managing}.
+\subsection{Black-Scholes Model}
+\label{sec:bs}
+A European style call or put option gives its buyer the right to buy the underlying asset on the option expiry with a strike price. Let the strike price be $K$ and  the $S_T$ be the underlying price at expiry $T$. The payoff of call options $C_T$ is :
+\[
+C_T=\max(S_T-K,0)
+\]
+The payoff of put options $P_T$ is:
+\[
+P_T=\max(K-S_T,0)
+\]
+
+Black and Scholes \cite{black1973pricing} drive the famous closed-form pricing formula for European options. They show that one can construct a riskless portfolio consisting of one option and shares of the underlying asset. The riskless portfolio needs to be continuously adjusted so that the number of shares always equal to the partial derivative of the option pricing function with regards to the underlying asset. No-arbitrage condition implies that the the return of the riskless portfolio must be equal to the risk-free interest rate. This leads to the renowned Black-Scholes (BS) partial differential equation and the closed-form pricing formula.
+
+More specifically, under BS model, it is assumed that the underlying asset price follows a geometric Brownian motion:
+\[
+dS_t=\mu S_t dt+\sigma S_t dW_t
+\]
+where $W_t$ is a standard Brownian motion, $\mu$ is the constant drift rate of  the asset and $\sigma$ is the constant volatility of the asset. We can easily show that:
+\[
+S_t=S_0 e^{(\mu-\frac{\sigma^2}{2})t+\sigma W_t}
+\]
+Let $C(t,S)$ be the option value function for call option. Follows Ito's lemma \cite{shreve2004stochastic},we have:
+\[
+dC(t,S_t)=\left(\frac{\partial C}{\partial t}(t,S_t)+\mu S_t \frac{\partial C}{\partial S}(t,S_t)+\frac{1}{2} \sigma^2 S_t^2 \frac{\partial ^2 C}{ \partial S^2}(t,S_t)\right) dt+\sigma S_t \frac{\partial C}{\partial S}(t,S_t) dW_t
+\]
+Considering a self-financing trading strategy, where any required cash is borrowed, and any excess cash is loaned, we continously adjust the shares in underlying asset to always hold $-\frac{\partial C}{\partial S}(t,S_t)$ shares at time $t$. The total value of the replicating portfolio $V_{rep}$ is:
+\[
+V_{rep}(t,S_t)=C(t,S_t)-S_t \frac{\partial C}{\partial S}(t,S_t)
+\]
+The instantaneous profit or loss is:
+\[
+dV_{rep}(t,S_t)=\left(\frac{\partial C}{ \partial t}(t,S_t) +\frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 C}{ \partial S^2 }(t,S_t) \right)
+\]
+Assume there is a riskless asset with constant rate of return $r$, which is also known as risk-free interest rate. We can see that the replicating portfolio $V_{rep}$ is also riskless because the diffusion term associated with $dW_t$ is dropped. Under no-arbitrage condition, two riskless investment must earn the same rate of return so we must have:
+\[
+dV_{rep}(t,S_t)=rV_{rep}(t,S_t)dt
+\]
+This leads to the Black-Scholes partial differential equation:
+\begin{equation}
+\frac{\partial C}{\partial t}+\frac{1}{2}\sigma^2 S^2 \frac{\partial^2 C}{\partial S^2}+rS \frac{\partial C}{\partial S}-rC=0
+\label{eq:bspde}
+\end{equation}
+The solution with European call option  is the well-known Black-Scholes pricing formula:
+\begin{equation}
+C(t,S)=S\; CDF(d_1)-e^{-r(T-t)}K\; CDF(d_2)
+\label{eq:bs}
+\end{equation}
+where $CDF$ is the cumulative density function of standard normal distributon
+\[
+d_1=\frac{\ln(S/K)+(r+\sigma^2/2)(T-t)}{\sigma \sqrt{T-t}}, \;\; d_2=d_1-\sigma  \sqrt{T-t}
+\]
+Similarly, we can derive the Black-Scholes pricing formula for  European put option to be:
+\begin{equation}
+P(t,S)=e^{-r(T-t)} K \; CDF(-d_2)-S \; CDF(-d_1)
+\label{eq:bsP}
+\end{equation}
+
+Alternatively, we can derive the Black-Scholes formula under the risk-neutral pricing framework. As the name suggests, under a risk-neural measure $Q$, all agents in the economy are neutral to risk, so that they are indifferent between investments with different risk as long as these investments have the same expected return. Under a risk-neutral measure, all tradable assets should have the same expected rate of return as the risk-free asset, which is the risk free interest rate $r$. The derivative price can thus derived from the expected payoff, discounted back to the current time at the risk-free rate $r$. It can been shown that \cite{shreve2004stochastic}, following the Black-Scholes assumption, there is a unique risk-neutral probability measure $Q$ that is equivalent to the actual physical probability measure. Under risk-neutral pricing framework, we have:
+\begin{equation}
+C(t,S)=e^{-r(T-t)} E^Q[\max(S_T-K,0)]
+\label{eq:bs2}
+\end{equation}
+\begin{equation}
+P(t,S)=e^{-r(T-t)} E^Q[\max(K-S_T,0)]
+\label{eq:bs2P}
+\end{equation}
+where $E^Q[\cdot]$ is the expectation under the risk-neutral measure $Q$.
+More specifically, define $\Theta_1$ to be the market price of risk:
+\begin{equation}
+\Theta_1=\frac{\mu-r}{\sigma}
+\label{eq:price-risk}
+\end{equation}
+We change the original Brownian motion $dW_t$ to $\hat{dW_t}$ with
+\begin{equation}
+\hat{dW_t}=dW_t+\Theta_1 dt
+\label{eq:riskS}
+\end{equation}
+The underlying dynamic will have the drift to be the risk-free interest rate $r$.
+\[
+dS_t=r S_t dt+\sigma S_t \hat{dW_t}
+\]
+It can be shown that $\hat{dW_t}$ is the Brownian motion under the risk-neutral measure $Q$ defined through Radon-Nikodym derivative via Girsanov's theorem \cite{shreve2004stochastic}. Using the fact that the drift rate of underlying asset dynamic under risk-neutral measure $Q$ is $r$, following \eqref{eq:bs2} and \eqref{eq:bs2P}, we can arrive at the same pricing formula as \eqref{eq:bs} and \eqref{eq:bsP}. Interest reader can refer to \cite{shreve2004stochastic} for more details about risk-neutral pricing and change from physical measure to risk-neutral measure $Q$.
+
+Since actual drift $\mu$ is irrelevant in determining the option price under Black-Scholes framework, in this thesis, we assume we are dealing with risk-neutral measure $Q$ and the drift of underlying dynamic is always the risk-free interested $r$. Also, in this thesis, we use $V_{BS}(S,t,T,K,r;\sigma)$ to denote the European Black-Scholes pricing function regardless of the call or put nature.
+
+Although, Black-Scholes framework provides a nice close-form formula, the real markets are never as ideal as the assumption of Black-Scholes model. Empirical  evidence indicates markets often violate the assumption of   Black-Scholes model. The two major aspects that has been criticized about Black-Scholes model are:
+\begin{enumerate}
+\item The constant volatility does not hold in real market. In practice, the implied volatility $\sigma_{imp}$, which equates the Black-Scholes option price $V_{BS}(S,t,T,K,r;\sigma)$ to market option price $V^{mkt}_{t,T,K}$, is often used to make sure that Black-Scholes price match the market observation. However, one can often find that the implied volatility $\sigma_{imp}$ tends to differ across different strikes and expiries. This breaks down the assumption of a constant volatility
+\item Transaction cost exist in real market. Due the existence of transaction cost, continuously adjusting the shares of underlying is prohibitively expensive. Therefore, perfect replication of the option is impossible and the argument of the Black-Scholes theory falls apart.
+\end{enumerate}
+The market deviations from the assumption of Black-Scholes model  motivates people to propose various approaches for relaxing the assumptions of Black and Scholes. These attempts include, but not limited to, local volatility models \citep{coleman2001,dumas1998implied,rubinstein1994implied,dupire1994pricing}, stochastic volatility models \cite{hagan2002managing,heston1993closed,hull1987pricing,bakshi1997empirical}, jump diffusion models \citep{He06,kou2002jump} and nonparametric pricing models based on regression \citep{yao2000option,bennell2004black,gradojevic2009option,garcia2000pricing,malliaris1993neural}. In the following section, we discuss two stochastic volatility models, Heston model and SABR model, which provide efficient closed-form solutions for the option price similar as Black-Scholes model.
+\subsection{Heston Model}
+Heston \cite{heston1993closed} proposed a version of the stochastic volatility model, which has become quite popular to model the volatility smiles. One of the key reason for its popularity is that European call and put option under Heston model have closed-form solution which makes the calibration of the model computationally efficient and accurate.
+The Heston model assumes that the underlying, $S_t$ follows a Black-Scholes type stochastic process, but with a stochastic variance $\upsilon_t$ that follows a Cox, Ingersoll, Ross (CIR) process \cite{cox2005theory}.
+\[
+\begin{split}
+dS_t&=\mu S_t dt + \sqrt{\upsilon} S_t dW_t\\
+d\upsilon_t&=\kappa(\overline{\upsilon}-\upsilon_t)dt+\eta \sqrt{\upsilon_t}dZ_t\\
+E[dZ_tdW_t]&=\rho dt
+\end{split}
+\]
+These parameters are described as follows:
+\begin{itemize}
+  \item $\mu$ is the drift coefficient of the underlying asset
+  \item $\overline{\upsilon}$ is the long term mean of variance
+  \item $\kappa$ is the rate of mean reversion
+  \item $\eta$ is the volatility of volatility
+  \item $S_t$ is the underlying asset price
+  \item $\upsilon_t$ is the  instantaneous variance
+  \item $W_t$ and $Z_t$ are correlated Wiener process with correlation coefficient $\rho$
+\end{itemize}
+Similarly, the Heston dynamics can be transformed to be under a risk-neutral measure $Q$.
+Heston \cite{heston1993closed} assumes that the market price of volatility risk is  proportional to the volatility $\sqrt{\upsilon_t}$:
+\begin{equation}
+\Theta_{2}=\frac{\lambda}{\eta} \sqrt{\upsilon_t}
+\label{eq:price-vol-risk}
+\end{equation}
+$\lambda$ is a parameter used to generate the market price of volatility risk.
+Recall that market price of risk is:
+\[
+\Theta_1=\frac{\mu-r}{\sqrt{\upsilon_t}}
+\]
+It can be shown that a risk-neutral measure $Q$ can be defined through Radon-Nikodym derivative via Multi-dimensional Girsanov's theorem \cite{shreve2004stochastic} using the $\Theta_1$ and $\Theta_2$.
+
+Therefore, Heston model under a risk-neutral measure $Q$ is:
+\begin{equation}
+\begin{split}
+dS&=r S dt + \sqrt{\upsilon} S \hat{dW}\\
+d\upsilon&=\kappa^*(\overline{\upsilon}^*-\upsilon)dt+\eta \sqrt{\upsilon}\hat{dZ}\\
+E[\hat{dZ}\hat{dW}]&=\rho dt
+\end{split}
+\label{eq:hestonNeutral}
+\end{equation}
+where
+\[
+\kappa^*=\kappa+\lambda, \overline{\upsilon}^*=\frac{\kappa \overline{\upsilon}}{\kappa+\lambda}
+\]
+\[
+\hat{dW}=dW+\Theta_1 dt
+\]
+\[
+\hat{dZ}=dZ+\Theta_2 dt
+\]
+Similar to Black-Scholes model, Heston model has closed-form solution. The closed formed solution for European call option under  the risk-neutral measure $Q$ is
+\[
+C(S,t,T,K,r;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)=S\; N_1-Ke^{-r(T-t)} \; N_2
+\]
+Let us define the imaginary unit $\mathcal{I}^2=-1$. Then the $N_1$ and $N_2$ are defined as:
+\[
+N_j=\frac{1}{2}+\frac{1}{\pi}\int_{0}^{\infty} Re \left[\frac{e^{-\mathcal{I} \varphi \ln{K}} f_j(S,\upsilon,t,T;\varphi)} {\mathcal{I}\varphi} \right] d\varphi;\;\;\ j=1,2
+\] with $Re[\cdot]$ denoting the real part.
+The characteristic function $f_j(S,\upsilon,t,T;\varphi)$ is :
+\[
+f_j(S,\upsilon,t,T;\varphi)=e^{A_j(t,T,\varphi)+B_j(t,T,\varphi)\upsilon+\mathcal{I} \varphi \ln{S}}\; j=1,2
+\]
+Where:
+\[
+\begin{split}
+A_j(t,T,\varphi)&=r \varphi (T-t)+ \frac{\kappa^* \overline{\upsilon}^*}{\eta^2}\left\{(b_j-\rho \eta \varphi \mathcal{I}+ d_j) (T-t)- 2\ln{\left[ \frac{1-g_je^d_j(T-t)}{1-g_j}\right]}     \right\}\\
+B_j(t,T,\varphi)&=g_j\left[ \frac{1-e^d_j(T-t)}{1-g_je^{d_j(T-t)}}\right] \\
+g_j&=\frac{b_j-\rho\varphi \mathcal{I}+d_j}{b_j-\rho\varphi \mathcal{I}-d_j}\\
+d_j&=\sqrt{(\rho \eta \varphi \mathcal{I}-b_j)^2-\eta^2(2 u_j \varphi- \varphi^2)}\\
+u_1&=0.5, u_2=-0.5, b_1=\kappa^*-\rho \upsilon, b_2=\kappa^*
+\end{split}
+\]
+European put option price can be derived from the call-put parity:
+\[
+P(S,t,T,K,r;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)=C(S,t,T,K,r;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)-S+K e^{-r(T-t)}
+\]
+The parameters to be calibrated from the market option prices are $\{\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho\}$ where $\upsilon$ is the initial instantaneous variance, $\overline{\upsilon}^*$ is the long term mean of variance under risk-neutral measurement $Q$, $\kappa^*$ is the rate of mean reversion under risk-neutral measurement $Q$, $\eta$ is the volatility of volatility, and $\rho$ is correlation.
+
+Under Black-Scholes model, an option is dependent on tradable asset $S_t$. The randomness in option value is solely determined by the randomness of the asset $S_t$. Such uncertainly can be hedged by continuously adjusting the shares of underlying asset as we have discussed in  section \ref{sec:bs}. This makes the market complete (i.e, we can construct the replicating portfolio to replicate the option value).
+Under a stochastic volatility model such as Heston model, the uncertainty of option value comes from both the underlying asset $S_t$ and the volatility (or variance $\upsilon_t$ as in Heston model). The volatility itself is not tradable which makes the market incomplete under stochastic volatility model. Incompleteness implies the risk-neutral measure is not unique. In other words, $\lambda$ is not unique. Different choices of $\lambda$ will lead to different risk-neutral measurements. However, one can assume a risk-neutral measure $Q$ exists and calibrate the Heston model to match the the market option prices directly using the dynamics in \eqref{eq:hestonNeutral} without specifying the $\lambda$. In this way, $\lambda$ has been implied and embedded into the calibrated model parameters $\kappa^*$ and $\overline{\upsilon}^*$. Interested reader can refer to \cite{heston1993closed,gatheral2011volatility} for more details of risk-neutral pricing under Heston model. In this thesis, we deal with Heston model under the risk-neural measurement $Q$. For simplicity, in this thesis,  we use $V_{Heston}(S,t,T,K,r;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)$ to denote the European Heston pricing function regardless of the call or put nature.
+\subsection{SABR Model}
+The SABR model  \citep{hagan2017bartlett,bartlett2006hedging} is another stochastic volatility model, which attempts to capture the volatility smile in derivatives markets. The name stands for "Stochastic Alpha, Beta, Rho", referring to the parameters of the model.  The SABR model is another popular stochastic volatility model widely used in financial risk management. Its popularity is due to the fact that it can reproduce comparatively well the market-observed volatility smile and that it provides a closed-form
+formula for the volatility. 
+Given the risk-free interest rate $r$, the forward $F_t$ with expiry $T$ is: 
+\[
+F_t=S_t e^{r (T-t)}
+\]
+In the SABR stochastic volatility model, the  forward $F_t$ price follows the following stochastic differential equation:
+\[
+\begin{split}
+dF_t=\alpha_t (F_t)^{\beta}dW_t\\
+d\alpha_t=\nu \alpha_t dZ_t\\
+E[dW_tdZ_t]=\rho dt
+\end{split}
+\]
+These parameters are described as follows:
+\begin{itemize}
+	\item $\alpha_t$ is the instantaneous  volatility of the Forward $F_t$.
+	\item $\nu$ is the   volatility of  instantaneous  volatility $\alpha_t$  .
+	\item $W_t$ and $Z_t$ are correlated Wiener process with correlation coefficient $\rho$
+\end{itemize}
+
+A variant of the Black–Scholes option pricing model, Black model \cite{black1976pricing}, is often used together with SABR model. Under Black model, the  forward $F_t$ price follows the following stochastic differential equation:
+\[
+dF_t=\sigma_B F_t dW_t\\
+\]
+where $\sigma_B$ is the volatility. We use $V_B(F,K,r,t,T;\sigma_{B})$ to denote the Black pricing function. For European call option:
+\[
+V_B(F,t,T,K,r;\sigma_{B})=e^{-r(T-t)}[F\; CDF (d3)-K\; CDF (d4)]
+\]
+For European put option:
+\[
+V_B(F,t,T,K,r;\sigma_{B})=e^{-r(T-t)}[K \;CDF (-d4)-F\; CDF (-d3)]
+\]
+where $CDF$ is the cumulative density function of standard normal distributon
+\[
+d_3=\frac{\ln(F/K)+\sigma^2/2(T-t)}{\sigma \sqrt{T-t}}, \;\; d_4=d_3-\sigma  \sqrt{T-t}
+\]
+Consider an option on the forward $F$ with expiry $T$ and strike $K$ at time $t$.
+If we force the SABR model price of the option into the form of the Black model valuation formula. Then the implied volatility, which is the value of the $\sigma_B$ in Black's model that forces it to match the SABR price, is approximately given by:
+
+\begin{eqnarray*}
+	\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho) &\approx&
+	\frac{\alpha}{(FK)^{(1-\beta)/2}\left[1+\frac{(1-\beta)^2}{24}\log^2(F/K)
+		+ \frac{(1-\beta)^4}{1920}\log^4(F/K) + \cdots\right]} \cdot
+	\frac{z}{x(z)}  \\
+	& & \cdot \left\{1+\left[\frac{(1-\beta)^2}{24}\frac{\alpha^2}{(FK)^{1-\beta}}
+	+ \frac{1}{4} \frac{\rho\beta\nu\alpha}{(FK)^{(1-\beta)/2}} +
+	\frac{2-3\rho^2}{24}\nu^2 \right](T-t)+\cdots\right\}
+\end{eqnarray*}
+where
+\[
+z = \frac{\nu}{\alpha}(FK)^{(1-\beta)/2}\log (F/K),\; x(z) =
+\log\left\{\frac{\sqrt{1-2\rho z + z^2}+z-\rho}{1-\rho}\right\}
+\]
+For the special case of at-the-money options, options struck at $K=F$,
+this formula reduces to
+\[
+\begin{split}
+\sigma_{ATM} &= \sigma_{B}(F,t,T,F;\alpha,\beta,\nu,\rho) \\
+&\approx
+\frac{\alpha}{F^{(1-\beta)}}\left\{1 +
+\left[\frac{(1-\beta)^2}{24}\frac{\alpha^2}{F^{2-2\beta}} +
+\frac{1}{4}\frac{\rho\beta\alpha\nu}{F^{(1-\beta)}} +
+\frac{2-3\rho^2}{24}\nu^2 \right] (T-t) + \cdots \right\}
+\end{split}
+\]
+Therefore, the European option value under SABR model is given by:
+\[
+V_{SABR}=V_B(F,t,T,K,r;\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho))
+\]
+
+The $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$ under SABR model depends on the forward $F$, the strike $K$, the time to expiry $T-t$, the initial SABR volatility $\alpha$, the power of forward $\beta$, the volatility of volatility $\nu$, and the correlation $\rho$.  
+
+
+
+\section{Discrete Hedging Problem}
+\subsection{Total and Local Hedging Risk}
+\section{Parameter Dependence on Underlying Asset}
+\subsection{Option Hedging Using the Sensitivity from Pricing Model}
+\subsection{Hull-White Correction}
+\subsection{SABR and Bartlett Correction}
+
+
+
+%----------------------------------------------------------------------
+% END MATERIAL
+%----------------------------------------------------------------------
+
+% B I B L I O G R A P H Y
+% -----------------------
+
+% The following statement selects the style to use for references.  It controls the sort order of the entries in the bibliography and also the formatting for the in-text labels.
+\bibliographystyle{plain}
+% This specifies the location of the file containing the bibliographic information.
+% It assumes you're using BibTeX (if not, why not?).
+\cleardoublepage % This is needed if the book class is used, to place the anchor in the correct page,
+                 % because the bibliography will start on its own page.
+                 % Use \clearpage instead if the document class uses the "oneside" argument
+\phantomsection  % With hyperref package, enables hyperlinking from the table of contents to bibliography
+% The following statement causes the title "References" to be used for the bibliography section:
+\renewcommand*{\bibname}{References}
+
+% Add the References to the Table of Contents
+\addcontentsline{toc}{chapter}{\textbf{References}}
+
+\bibliography{uw-ethesis}
+% Tip 5: You can create multiple .bib files to organize your references.
+% Just list them all in the \bibliogaphy command, separated by commas (no spaces).
+
+% The following statement causes the specified references to be added to the bibliography% even if they were not
+% cited in the text. The asterisk is a wildcard that causes all entries in the bibliographic database to be included (optional).
+\nocite{*}
+
+% The \appendix statement indicates the beginning of the appendices.
+\appendix
+% Add a title page before the appendices and a line in the Table of Contents
+\chapter*{APPENDICES}
+\addcontentsline{toc}{chapter}{APPENDICES}
+%======================================================================
+
+
+\end{document}
