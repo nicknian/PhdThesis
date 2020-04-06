@@ -226,6 +226,7 @@
 \newcommand{\norm}{\text{norm}}
 \newcommand{\row}{\text{row}}
 \newcommand{\Vmkt}{V^{mkt}}
+\newcommand{\Smkt}{S^{mkt}}
 \newcommand{\vecVmkt}{\mathbf{\breve{V}}}
 \newcommand{\Ncut}{\text{Ncut}}
 \newcommand{\half}{\frac{1}{2}}
@@ -409,7 +410,7 @@ Recently, a data-driven approach  \citep{hulloptimal} is proposed to learn a par
 
 In this thesis, we study the discrete option hedging problem by  explicitly focusing on the issues arising from  model specification errors and model parameter dependence.
 We illustrate that the inability to minimize variance of the hedging error, when determining hedging position from option value function from a parametric model, is also shared by an option model estimated from a nonparametric method. Although a nonparametric modeling approach to option value can potentially lead to smaller mis-specification error, we illustrate that non-parametric model parameters can similarly depend on the underlying. Consequently the sensitivity of the optimally estimated option value function will not lead to minimization of option hedging risk.
-Furthermore,  the estimated pricing function inevitably has errors, due to both model mis-specification, discretization, and numerical roundoff.
+Furthermore,  the estimated pricing function inevitably has errors, due to both model mis-specification, discretization, and numerical roundoff errors.
 The error in the value function can potentially be substantially magnified in computing partial derivatives as hedging positions.
 
 We explore several direct market data-driven approaches to bypass  challenges mentioned above to achieve effective hedging performance.
@@ -498,17 +499,18 @@ Let $C(t,S)$ be the option value function for call option. Follows Ito's lemma \
 \[
 dC(t,S_t)=\left(\frac{\partial C}{\partial t}(t,S_t)+\mu S_t \frac{\partial C}{\partial S}(t,S_t)+\frac{1}{2} \sigma^2 S_t^2 \frac{\partial ^2 C}{ \partial S^2}(t,S_t)\right) dt+\sigma S_t \frac{\partial C}{\partial S}(t,S_t) dW_t
 \]
-Considering a self-financing trading strategy, where any required cash is borrowed, and any excess cash is loaned, we continously adjust the shares in underlying asset to always hold $-\frac{\partial C}{\partial S}(t,S_t)$ shares at time $t$. The total value of the replicating portfolio $V_{rep}$ is:
+ Now consider a certain portfolio, called the delta-hedge portfolio, consisting of being short one call option and long $\frac{\partial C}{\partial S}(t,S_t)$ shares at time $t$.
+The total value of the delta-hedge portfolio $V_{\delta}$ is:
 \[
-V_{rep}(t,S_t)=C(t,S_t)-S_t \frac{\partial C}{\partial S}(t,S_t)
+V_{\delta}(t,S_t)=-C(t,S_t)+S_t \frac{\partial C}{\partial S}(t,S_t)
 \]
 The instantaneous profit or loss is:
 \[
-dV_{rep}(t,S_t)=\left(\frac{\partial C}{ \partial t}(t,S_t) +\frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 C}{ \partial S^2 }(t,S_t) \right)
+dV_{\delta}(t,S_t)=-\left(\frac{\partial C}{ \partial t}(t,S_t) +\frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 C}{ \partial S^2 }(t,S_t) \right) dt
 \]
-Assume there is a riskless asset with constant rate of return $r$, which is also known as risk-free interest rate. We can see that the replicating portfolio $V_{rep}$ is also riskless because the diffusion term associated with $dW_t$ is dropped. Under no-arbitrage condition, two riskless investment must earn the same rate of return so we must have:
+Assume there is a riskless asset with constant rate of return $r$, which is also known as risk-free interest rate. We can see that the delta-hedge portfolio $V_{\delta}$ is also riskless because the diffusion term associated with $dW_t$ is dropped. Under no-arbitrage condition, two riskless investment must earn the same rate of return so we must have:
 \[
-dV_{rep}(t,S_t)=rV_{rep}(t,S_t)dt
+dV_{\delta}(t,S_t)=rV_{\delta}(t,S_t)dt
 \]
 This leads to the Black-Scholes partial differential equation:
 \begin{equation}
@@ -517,18 +519,37 @@ This leads to the Black-Scholes partial differential equation:
 \end{equation}
 The solution with European call option  is the well-known Black-Scholes pricing formula:
 \begin{equation}
-C(t,S)=S\; CDF(d_1)-e^{-r(T-t)}K\; CDF(d_2)
+C(t,S)=S  \mathcal{N}(d_1)-e^{-r(T-t)}  K  \mathcal{N}(d_2)
 \label{eq:bs}
 \end{equation}
-where $CDF$ is the cumulative density function of standard normal distributon
+where $\mathcal{N}$ is the cumulative density function of standard normal distribution
 \[
 d_1=\frac{\ln(S/K)+(r+\sigma^2/2)(T-t)}{\sigma \sqrt{T-t}}, \;\; d_2=d_1-\sigma  \sqrt{T-t}
 \]
 Similarly, we can derive the Black-Scholes pricing formula for  European put option to be:
 \begin{equation}
-P(t,S)=e^{-r(T-t)} K \; CDF(-d_2)-S \; CDF(-d_1)
+P(t,S)=e^{-r(T-t)}  K   \mathcal{N}(-d_2)-S  \mathcal{N}(-d_1)
 \label{eq:bsP}
 \end{equation}
+
+
+\iffalse
+Another relevant portfolio is the replicating portfolio.  
+We create a portfolio where we hold some shares $\delta$ of the underlying and borrow or loan money from the risk-free asset. The value in the risk-free asset is denoted as $B(t)$. 
+\[
+    V_{rep}(t,S_t)=\delta S_t+B(t)
+\]
+We continuously adjust the shares in underlying asset to always hold $\delta=\frac{\partial C}{\partial S}(t,S_t)$ shares at time $t$ 
+and adopt a self-financing trading strategy, where any required cash is borrowed, and any excess cash is loaned such that at any time $t$:
+\[
+    V_{rep}(t,S_t)=C(t,S_t)
+\]
+In other words,  the risk-free asset account is dynamically set to be:
+\[
+B(t)=\frac{\partial C}{\partial S}(t,S_t) S_t-C(t,S_t)
+\]
+Under Black–Scholes model, we can dynamically create an portfolio with risk-free asset and underlying asset to replicate the value of option at any time $t$.
+\fi
 
 Alternatively, we can derive the Black-Scholes formula under the risk-neutral pricing framework. As the name suggests, under a risk-neural measure $Q$, all agents in the economy are neutral to risk, so that they are indifferent between investments with different risk as long as these investments have the same expected return. Under a risk-neutral measure, all tradable assets should have the same expected rate of return as the risk-free asset, which is the risk free interest rate $r$. The derivative price can thus derived from the expected payoff, discounted back to the current time at the risk-free rate $r$. It can been shown that \cite{shreve2004stochastic}, following the Black-Scholes assumption, there is a unique risk-neutral probability measure $Q$ that is equivalent to the actual physical probability measure. Under risk-neutral pricing framework, we have:
 \begin{equation}
@@ -561,7 +582,7 @@ Since actual drift $\mu$ is irrelevant in determining the option price under Bla
 Although, Black-Scholes framework provides a nice close-form formula, the real markets are never as ideal as the assumption of Black-Scholes model. Empirical  evidence indicates markets often violate the assumption of   Black-Scholes model. The two major aspects that has been criticized about Black-Scholes model are:
 \begin{enumerate}
 \item The constant volatility does not hold in real market. In practice, the implied volatility $\sigma_{imp}$, which equates the Black-Scholes option price $V_{BS}(S,t,T,K,r;\sigma)$ to market option price $V^{mkt}_{t,T,K}$, is often used to make sure that Black-Scholes price match the market observation. However, one can often find that the implied volatility $\sigma_{imp}$ tends to differ across different strikes and expiries. This breaks down the assumption of a constant volatility
-\item Transaction cost exist in real market. Due the existence of transaction cost, continuously adjusting the shares of underlying is prohibitively expensive. Therefore, perfect replication of the option is impossible and the argument of the Black-Scholes theory falls apart.
+\item Transaction cost exists in real market. Due the existence of transaction cost, continuously adjusting the shares of underlying is prohibitively expensive. Therefore, the argument of the Black-Scholes theory falls apart.
 \end{enumerate}
 The market deviations from the assumption of Black-Scholes model  motivates people to propose various approaches for relaxing the assumptions of Black and Scholes. These attempts include, but not limited to, local volatility models \citep{coleman2001,dumas1998implied,rubinstein1994implied,dupire1994pricing}, stochastic volatility models \cite{hagan2002managing,heston1993closed,hull1987pricing,bakshi1997empirical}, jump diffusion models \citep{He06,kou2002jump} and nonparametric pricing models based on regression \citep{yao2000option,bennell2004black,gradojevic2009option,garcia2000pricing,malliaris1993neural}. In the following section, we discuss two stochastic volatility models, Heston model and SABR model, which provide efficient closed-form solutions for the option price similar as Black-Scholes model.
 \subsection{Heston Model}
@@ -644,10 +665,10 @@ P(S,t,T,K,r;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)=C(S,t,T,K,r;\upsi
 \]
 The parameters to be calibrated from the market option prices are $\{\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho\}$ where $\upsilon$ is the initial instantaneous variance, $\overline{\upsilon}^*$ is the long term mean of variance under risk-neutral measurement $Q$, $\kappa^*$ is the rate of mean reversion under risk-neutral measurement $Q$, $\eta$ is the volatility of volatility, and $\rho$ is correlation.
 
-Under Black-Scholes model, an option is dependent on tradable asset $S_t$. The randomness in option value is solely determined by the randomness of the asset $S_t$. Such uncertainly can be hedged by continuously adjusting the shares of underlying asset as we have discussed in  section \ref{sec:bs}. This makes the market complete (i.e, we can construct the replicating portfolio to replicate the option value).
-Under a stochastic volatility model such as Heston model, the uncertainty of option value comes from both the underlying asset $S_t$ and the volatility (or variance $\upsilon_t$ as in Heston model). The volatility itself is not tradable which makes the market incomplete under stochastic volatility model. Incompleteness implies the risk-neutral measure is not unique. In other words, $\lambda$ is not unique. Different choices of $\lambda$ will lead to different risk-neutral measurements. However, one can assume a risk-neutral measure $Q$ exists and calibrate the Heston model to match the the market option prices directly using the dynamics in \eqref{eq:hestonNeutral} without specifying the $\lambda$. In this way, $\lambda$ has been implied and embedded into the calibrated model parameters $\kappa^*$ and $\overline{\upsilon}^*$. Interested reader can refer to \cite{heston1993closed,gatheral2011volatility} for more details of risk-neutral pricing under Heston model. In this thesis, we deal with Heston model under the risk-neural measurement $Q$. For simplicity, in this thesis,  we use $V_{Heston}(S,t,T,K,r;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)$ to denote the European Heston pricing function regardless of the call or put nature.
+Under Black-Scholes model, an option is dependent on tradable asset $S_t$. The randomness in option value is solely determined by the randomness of the asset $S_t$. Such uncertainly can be hedged by continuously adjusting the shares of underlying asset as we have discussed in  section \ref{sec:bs}. This implies a complete market \cite{shreve2004stochastic}.
+Under a stochastic volatility model such as Heston model, the uncertainty of option value comes from both the underlying asset $S_t$ and the volatility (or variance $\upsilon_t$ as in Heston model). The volatility itself is not tradable which implies an incomplete market under stochastic volatility model. The incompleteness implies the risk-neutral measure is not unique. In other words, $\lambda$ is not unique. Different choices of $\lambda$ will lead to different risk-neutral measurements. However, one can assume a risk-neutral measure $Q$ exists and calibrate the Heston model to match the the market option prices directly using the dynamics in \eqref{eq:hestonNeutral} without specifying the $\lambda$. In this way, $\lambda$ has been implied and embedded into the calibrated model parameters $\kappa^*$ and $\overline{\upsilon}^*$. Interested reader can refer to \cite{heston1993closed,gatheral2011volatility} for more details of risk-neutral pricing under Heston model. In this thesis, we deal with Heston model under the risk-neural measurement $Q$. For simplicity, in this thesis,  we use $V_{Heston}(S,t,T,K,r;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)$ to denote the European Heston pricing function regardless of the call or put nature.
 \subsection{SABR Model}
-The SABR model  \citep{hagan2017bartlett,bartlett2006hedging} is another stochastic volatility model, which attempts to capture the volatility smile in derivatives markets. The name stands for "Stochastic Alpha, Beta, Rho", referring to the parameters of the model.  The SABR model is another popular stochastic volatility model widely used in financial risk management. Its popularity is due to the fact that it can reproduce comparatively well the market-observed volatility smile and that it provides a closed-form
+The SABR model  \cite{hagan2002managing} is another stochastic volatility model, which attempts to capture the volatility smile in derivatives markets. The name stands for "Stochastic Alpha, Beta, Rho", referring to the parameters of the model.  The SABR model is another popular stochastic volatility model widely used in financial risk management. Its popularity is due to the fact that it can reproduce comparatively well the market-observed volatility smile and that it provides a closed-form
 formula for the volatility. 
 Given the risk-free interest rate $r$, the forward $F_t$ with expiry $T$ is: 
 \[
@@ -674,13 +695,13 @@ dF_t=\sigma_B F_t dW_t\\
 \]
 where $\sigma_B$ is the volatility. We use $V_B(F,K,r,t,T;\sigma_{B})$ to denote the Black pricing function. For European call option:
 \[
-V_B(F,t,T,K,r;\sigma_{B})=e^{-r(T-t)}[F\; CDF (d3)-K\; CDF (d4)]
+V_B(F,t,T,K,r;\sigma_{B})=e^{-r(T-t)}[F \mathcal{N} (d3)-K  \mathcal{N} (d4)]
 \]
 For European put option:
 \[
-V_B(F,t,T,K,r;\sigma_{B})=e^{-r(T-t)}[K \;CDF (-d4)-F\; CDF (-d3)]
+V_B(F,t,T,K,r;\sigma_{B})=e^{-r(T-t)}[K  \mathcal{N} (-d4)-F  \mathcal{N} (-d3)]
 \]
-where $CDF$ is the cumulative density function of standard normal distributon
+where $\mathcal{N}$ is the cumulative density function of standard normal distribution
 \[
 d_3=\frac{\ln(F/K)+\sigma^2/2(T-t)}{\sigma \sqrt{T-t}}, \;\; d_4=d_3-\sigma  \sqrt{T-t}
 \]
@@ -718,14 +739,75 @@ Therefore, the European option value under SABR model is given by:
 V_{SABR}=V_B(F,t,T,K,r;\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho))
 \]
 
-The $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$ under SABR model depends on the forward $F$, the strike $K$, the time to expiry $T-t$, the initial SABR volatility $\alpha$, the power of forward $\beta$, the volatility of volatility $\nu$, and the correlation $\rho$.  
+The $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$ under SABR model depends on the forward $F$, the strike $K$, the time to expiry $T-t$, the initial SABR volatility $\alpha$, the power of forward $\beta$, the volatility of volatility $\nu$, and the correlation $\rho$.  Interested reader can refer to \cite{hagan2002managing} for the detailed derivation of the analytical approximation $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$. 
 
 
 
 \section{Discrete Hedging Problem}
-\subsection{Total and Local Hedging Risk}
-\section{Parameter Dependence on Underlying Asset}
-\subsection{Option Hedging Using the Sensitivity from Pricing Model}
+In this thesis, we are dealing with real market option and underlying prices.  We use  $\Vmkt(t,T,K)$ and $\Smkt(t)$ to denote the time $t$ market price of the option with expiry $T$ and strike $K$ and the underlying price respectively. 
+Let  $\delta$ denote the hedging position in the underlying at the rebalancing time and
+$d\Vmkt_{t,T,K}$ and $d\Smkt_{t}$ denote the instantaneous change in the market option price and the underlying price respectively, the instantaneous hedging
+risk is
+\begin{equation}\label{HE}
+    \ d\Smkt_{t} delta-d \Vmkt_{t,T,K}
+\end{equation}
+
+When the market is complete as what we assume in section \ref{sec:bs} for the derivation of Black–Scholes formula, the randomness in this instantaneous hedging risk can theoretically be eliminated by continuously trading the underlying asset. However in practice, option hedging needs to be implemented in an incomplete market, since hedging can only be done at discrete times and additional risk, e.g., jump and volatility, cannot be eliminated by trading the underlying only. 
+
+The goal of the discrete option hedging in this thesis is to choose a hedging position $\delta$ in the underlying dynamically to minimize certain appropriate measurements of the hedging risk. We are interested in two different types of hedging risk:
+\begin{itemize}
+   \item  Discrete local hedging risk
+   \item  Discrete total hedging risk
+\end{itemize}
+The definition of the discrete local hedging risk and discrete total hedging risk are explained in the following subsections.
+
+\subsection{Discrete Local Hedging Risk}
+We propose to learn discrete data-driven hedging position for standard options, calls or puts, based on observations of the option market prices on the same underlying price at a set of trading times. Let $\DT$ denote the fixed re-balancing time interval.
+Each observation of a market option price  $V^{mkt}_{t,K,T}$ is uniquely associated with a triplet $\{t,T,K\}$, where $t$ is the trading time of the option price,  $K$ is the strike, and expiry $T$.
+  Denote:
+\begin{equation}
+\begin{split}
+\Delta V^{mkt}_{t,K,T}& =V_{mkt}(t+\Delta t,K,T)-V_{mkt}(t,K,T)\\
+\Delta \Smkt_{t} &=\Smkt(t+\DT)-\Smkt(t)
+\end{split}
+\label{eq:DVDS}
+\end{equation}
+The discrete local hedging risk in the rebalancing interval $\DT$ is:
+\[
+\Delta \Smkt_{t}\delta_{t,K,T} -\Delta V^{mkt}_{t,K,T}
+\]
+where $\delta_{t,K,T}$ is a hedging position.
+The discrete local hedging risk can be understand as the following.
+We set up the following portfolio at time $t$:
+\begin{itemize}
+\item A short position on option $\Vmkt(t,T,K)$
+\item Long $\delta$ shares of $\Smkt(t)$
+\item An amount in risk-free bank account $B(t)$
+\end{itemize}
+The bank account is set to be at time $t$: 
+\[
+    B(t)=\Vmkt(t,T,K)-\delta\Smkt(t)
+\]
+The portfolio value is:
+\[
+P(t)=-\Vmkt(t,T,K)+\delta\Smkt(t)+B(t)=0
+\]
+Let use assume that risk-free interest is zero. After the rebalancing interval $\DT$,
+we have:
+\[
+    P(t+\DT)-P(t)=\Delta \Smkt_{t}\delta -\Delta V^{mkt}_{t,K,T}
+\]
+The local hedging risk is therefore defined to be the one-step hedging error when we assume the risk-free interest risk is zero. As $\DT \rightarrow dt$, we also have local hedging risk converge to instantaneous hedging risk: 
+\[
+\Delta \Smkt_{t}\delta -\Delta V^{mkt}_{t,K,T}  \rightarrow d\Smkt_{t}\delta-d \Vmkt_{t,T,K}
+\]
+
+\subsection{Discrete Total Hedging Risk}
+\subsection{Connection Between the Local and Total Hedging Risk}
+
+\section{Option Hedging Using the Sensitivity from Pricing Model}
+\subsection{Classical Hedging Position From Pricing Model}
+\subsection{Parameter Dependence on Underlying Asset}
 \subsection{Hull-White Correction}
 \subsection{SABR and Bartlett Correction}
 

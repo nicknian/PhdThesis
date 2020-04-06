@@ -1,0 +1,876 @@
+\begin{thebibliography}{100}
+
+\bibitem{ait2003nonparametric}
+Yacine A{\i}t-Sahalia and Jefferson Duarte.
+\newblock Nonparametric option pricing under shape restrictions.
+\newblock {\em Journal of Econometrics}, 116(1):9--47, 2003.
+
+\bibitem{ait1998nonparametric}
+Yacine A{\"\i}t-Sahalia and Andrew~W Lo.
+\newblock Nonparametric estimation of state-price densities implicit in
+  financial asset prices.
+\newblock {\em The Journal of Finance}, 53(2):499--547, 1998.
+
+\bibitem{alexander09}
+C.~Alexander, A.~Kaeck, and L.~M. Nogueira.
+\newblock Model risk adjusted hedge ratios.
+\newblock {\em Journal of Futures Markets}, 29(11):1021--1049, 2009.
+
+\bibitem{Andersen-etal98}
+Leif Andersen and Rupert Brotherton-Ratcliffe.
+\newblock The equity option volatility smile: an implicit finite-difference
+  approach.
+\newblock {\em The Journal of Computational Finance}, 1(2):5--32, 1998.
+
+\bibitem{Angelini09}
+F.~Angelini and S.~Herzel.
+\newblock Measuring the error of dynamic hedging: a laplace transform approach.
+\newblock {\em Journal of Computational Finance}, 13:47--72, 2009.
+
+\bibitem{Angelini10}
+F.~Angelini and S.~Herzel.
+\newblock Explicit formulas for the minimal hedging strategy in a martingale
+  case.
+\newblock {\em Decisions in Economics and Finance}, 33:63--79, 2010.
+
+\bibitem{ba2016layer}
+Jimmy~Lei Ba, Jamie~Ryan Kiros, and Geoffrey~E Hinton.
+\newblock Layer normalization.
+\newblock {\em arXiv preprint arXiv:1607.06450}, 2016.
+
+\bibitem{bahdanau2014neural}
+Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio.
+\newblock Neural machine translation by jointly learning to align and
+  translate.
+\newblock {\em arXiv preprint arXiv:1409.0473}, 2014.
+
+\bibitem{bakshi2000}
+Gurdip Bakshi, Charles Cao, and Zhiwu Chen.
+\newblock {\em The Journal of finance}, 52(5):2003--2049, 1997.
+
+\bibitem{alexnader2007}
+Gurdip Bakshi, Charles Cao, and Zhiwu Chen.
+\newblock {\em The Journal of finance}, 52(5):2003--2049, 1997.
+
+\bibitem{barlett2006}
+Gurdip Bakshi, Charles Cao, and Zhiwu Chen.
+\newblock {\em The Journal of finance}, 52(5):2003--2049, 1997.
+
+\bibitem{alexander2012}
+Gurdip Bakshi, Charles Cao, and Zhiwu Chen.
+\newblock {\em The Journal of finance}, 52(5):2003--2049, 1997.
+
+\bibitem{bakshi1997empirical}
+Gurdip Bakshi, Charles Cao, and Zhiwu Chen.
+\newblock Empirical performance of alternative option pricing models.
+\newblock {\em The Journal of finance}, 52(5):2003--2049, 1997.
+
+\bibitem{bartlett2006hedging}
+Bruce Bartlett.
+\newblock Hedging under sabr model.
+\newblock {\em Wilmott magazine}, 4:2--4, 2006.
+
+\bibitem{bennell2004black}
+Julia Bennell and Charles Sutcliffe.
+\newblock Black--scholes versus artificial neural networks in pricing ftse 100
+  options.
+\newblock {\em Intelligent Systems in Accounting, Finance and Management},
+  12(4):243--260, 2004.
+
+\bibitem{black1976pricing}
+Fischer Black.
+\newblock The pricing of commodity contracts.
+\newblock {\em Journal of financial economics}, 3(1-2):167--179, 1976.
+
+\bibitem{black1973pricing}
+Fischer Black and Myron Scholes.
+\newblock The pricing of options and corporate liabilities.
+\newblock {\em The journal of political economy}, pages 637--654, 1973.
+
+\bibitem{bollerslev1986generalized}
+Tim Bollerslev.
+\newblock Generalized autoregressive conditional heteroskedasticity.
+\newblock {\em Journal of econometrics}, 31(3):307--327, 1986.
+
+\bibitem{bollerslev2006leverage}
+Tim Bollerslev, Julia Litvinova, and George Tauchen.
+\newblock Leverage and volatility feedback effects in high-frequency data.
+\newblock {\em Journal of Financial Econometrics}, 4(3):353--384, 2006.
+
+\bibitem{brand2003fast}
+Matthew Brand.
+\newblock Fast online svd revisions for lightweight recommender systems.
+\newblock In {\em Proceedings of the 2003 SIAM International Conference on Data
+  Mining}, pages 37--46. SIAM, 2003.
+
+\bibitem{broadie2000american}
+Mark Broadie, J{\'e}r{\^o}me Detemple, Eric Ghysels, and Olivier Torr{\'e}s.
+\newblock American options with stochastic dividends and volatility: A
+  nonparametric investigation.
+\newblock {\em Journal of Econometrics}, 94(1):53--92, 2000.
+
+\bibitem{broadie2000nonparametric}
+Mark Broadie, J{\'e}r{\^o}me Detemple, Eric Ghysels, and Olivier Torr{\`e}s.
+\newblock Nonparametric estimation of american options' exercise boundaries and
+  call prices.
+\newblock {\em Journal of Economic Dynamics and Control}, 24(11):1829--1857,
+  2000.
+
+\bibitem{buehler2019deep}
+Hans Buehler, Lukas Gonon, Ben Wood, Josef Teichmann, Baranidharan Mohan, and
+  Jonathan Kochems.
+\newblock Deep hedging: Hedging derivatives under generic market frictions
+  using reinforcement learning-machine learning version.
+\newblock {\em Available at SSRN}, 2019.
+
+\bibitem{byrd1987trust}
+Richard~H Byrd, Robert~B Schnabel, and Gerald~A Shultz.
+\newblock A trust region algorithm for nonlinearly constrained optimization.
+\newblock {\em SIAM Journal on Numerical Analysis}, 24(5):1152--1170, 1987.
+
+\bibitem{Carr94}
+P.~Carr.
+\newblock European put call symmetry.
+\newblock pages 509--537. Cornell University working paper, 1994.
+
+\bibitem{Carr98}
+P.~Carr, K.~Ellis, and V.~Gupta.
+\newblock Static hedging of exotic options.
+\newblock {\em Journal of Finance}, 53:1165--1190, 1998.
+
+\bibitem{chen2007large}
+Xiaohong Chen.
+\newblock Large sample sieve estimation of semi-nonparametric models.
+\newblock {\em Handbook of econometrics}, 6:5549--5632, 2007.
+
+\bibitem{chen2001semiparametric}
+Xiaohong Chen, Jeffrey Racine, and Norman~R Swanson.
+\newblock Semiparametric arx neural-network models with an application to
+  forecasting inflation.
+\newblock {\em IEEE Transactions on neural networks}, 12(4):674--683, 2001.
+
+\bibitem{chen2014lwi}
+Xilun Chen and K~Selcuk Candan.
+\newblock Lwi-svd: low-rank, windowed, incremental singular value
+  decompositions on time-evolving data sets.
+\newblock In {\em Proceedings of the 20th ACM SIGKDD international conference
+  on Knowledge discovery and data mining}, pages 987--996. ACM, 2014.
+
+\bibitem{cheng2012using}
+Shunfeng Cheng and Michael Pecht.
+\newblock Using cross-validation for model parameter selection of sequential
+  probability ratio test.
+\newblock {\em Expert Systems with Applications}, 39(9):8467--8473, 2012.
+
+\bibitem{cho2015describing}
+Kyunghyun Cho, Aaron Courville, and Yoshua Bengio.
+\newblock Describing multimedia content using attention-based encoder-decoder
+  networks.
+\newblock {\em IEEE Transactions on Multimedia}, 17(11):1875--1886, 2015.
+
+\bibitem{cho2014learning}
+Kyunghyun Cho, Bart Van~Merri{\"e}nboer, Caglar Gulcehre, Dzmitry Bahdanau,
+  Fethi Bougares, Holger Schwenk, and Yoshua Bengio.
+\newblock Learning phrase representations using rnn encoder-decoder for
+  statistical machine translation.
+\newblock {\em arXiv preprint arXiv:1406.1078}, 2014.
+
+\bibitem{chung2014empirical}
+Junyoung Chung, Caglar Gulcehre, KyungHyun Cho, and Yoshua Bengio.
+\newblock Empirical evaluation of gated recurrent neural networks on sequence
+  modeling.
+\newblock {\em arXiv preprint arXiv:1412.3555}, 2014.
+
+\bibitem{CLP07}
+T.~F. Coleman, Y.~Li, and M.~Patron.
+\newblock Total risk minimization using {M}onte-carlo simulations.
+\newblock In John~R. Birge and Vadim Linetsky, editors, {\em Handbook of
+  Financial Engineering}. Elsevier, 2007.
+
+\bibitem{coleman2001}
+Thomas~F Coleman, Yohan Kim, Yuying Li, and Arun Verma.
+\newblock Dynamic hedging with a deterministic local volatility function model.
+\newblock {\em The Journal of Risk}, 5(6):63--89, 2001.
+
+\bibitem{CLP02}
+Thomas~F. Coleman, Yuying Li, and M.~Patron.
+\newblock Discrete hedging under piecewise linear risk minimization.
+\newblock {\em The Journal of Risk}, 5:39--65, 2003.
+
+\bibitem{coleman2007total}
+Thomas~F Coleman, Yuying Li, and Maria-Cristina Patron.
+\newblock Total risk minimization using monte carlo simulations.
+\newblock {\em Handbooks in Operations Research and Management Science},
+  15:593--635, 2007.
+
+\bibitem{CLV98}
+Thomas~F. Coleman, Yuying Li, and Arun Verma.
+\newblock Reconstructing the unknown local volatility function.
+\newblock {\em The Journal of Computational Finance}, 2(3):77--102, 1999.
+
+\bibitem{collobert2006trading}
+Ronan Collobert, Fabian Sinz, Jason Weston, and L{\'e}on Bottou.
+\newblock Trading convexity for scalability.
+\newblock In {\em Proceedings of the 23rd international conference on Machine
+  learning}, pages 201--208. ACM, 2006.
+
+\bibitem{cooijmans2016recurrent}
+Tim Cooijmans, Nicolas Ballas, C{\'e}sar Laurent, {\c{C}}a{\u{g}}lar
+  G{\"u}l{\c{c}}ehre, and Aaron Courville.
+\newblock Recurrent batch normalization.
+\newblock {\em arXiv preprint arXiv:1603.09025}, 2016.
+
+\bibitem{cortes1995support}
+Corinna Cortes and Vladimir Vapnik.
+\newblock Support vector machine.
+\newblock {\em Machine learning}, 20(3):273--297, 1995.
+
+\bibitem{cox2005theory}
+John~C Cox, Jonathan~E Ingersoll~Jr, and Stephen~A Ross.
+\newblock A theory of the term structure of interest rates.
+\newblock In {\em Theory of valuation}, pages 129--164. World Scientific, 2005.
+
+\bibitem{crepey2004}
+S.~Cr$\acute{e}$pey.
+\newblock Delta-hedging vega risk.
+\newblock {\em Quantitative Finance}, 4(October):559--579, 2004.
+
+\bibitem{daglish2007volatility}
+Toby Daglish, John Hull, and Wulin Suo.
+\newblock Volatility surfaces: theory, rules of thumb, and empirical evidence.
+\newblock {\em Quantitative Finance}, 7(5):507--524, 2007.
+
+\bibitem{DermanKani94}
+E.~Derman and I.~Kani.
+\newblock Riding on a smile.
+\newblock {\em Risk}, 7:32--39, 1994.
+
+\bibitem{DermanKani96}
+E.~Derman, I.~Kani, and J.~Zou.
+\newblock The local volatility surface: Unlocking the information in index
+  option prices.
+\newblock {\em Financial Analysts Journal}, pages 25--36, 1996.
+
+\bibitem{duan2006approximating}
+J~Duan, Genevieve Gauthier, J~Simonato, and Caroline Sasseville.
+\newblock Approximating the gjr-garch and egarch option pricing models
+  analytically.
+\newblock {\em Journal of Computational Finance}, 9(3):41, 2006.
+
+\bibitem{duan1995garch}
+Jin-Chuan Duan.
+\newblock The garch option pricing model.
+\newblock {\em Mathematical finance}, 5(1):13--32, 1995.
+
+\bibitem{duan1997analytical}
+Jin-Chuan Duan, Genevieve Gauthier, and Jean-Guy Simonato.
+\newblock {\em An analytical approximation for the GARCH option pricing model}.
+\newblock {\'E}cole des hautes {\'e}tudes commerciales, Groupe de recherche en
+  finance, 1997.
+
+\bibitem{duchi2011adaptive}
+John Duchi, Elad Hazan, and Yoram Singer.
+\newblock Adaptive subgradient methods for online learning and stochastic
+  optimization.
+\newblock {\em Journal of Machine Learning Research}, 12(Jul):2121--2159, 2011.
+
+\bibitem{dumas1998implied}
+Bernard Dumas, Jeff Fleming, and Robert~E Whaley.
+\newblock Implied volatility functions: Empirical tests.
+\newblock {\em The Journal of Finance}, 53(6):2059--2106, 1998.
+
+\bibitem{Dupire94}
+B.~Dupire.
+\newblock Pricing with a smile.
+\newblock {\em Risk}, 7:18--20, 1994.
+
+\bibitem{dupire1994pricing}
+Bruno Dupire et~al.
+\newblock Pricing with a smile.
+\newblock {\em Risk}, 7(1):18--20, 1994.
+
+\bibitem{elman1990finding}
+Jeffrey~L Elman.
+\newblock Finding structure in time.
+\newblock {\em Cognitive science}, 14(2):179--211, 1990.
+
+\bibitem{engle1982autoregressive}
+Robert~F Engle.
+\newblock Autoregressive conditional heteroscedasticity with estimates of the
+  variance of united kingdom inflation.
+\newblock {\em Econometrica: Journal of the Econometric Society}, pages
+  987--1007, 1982.
+
+\bibitem{espinoza2006fixed}
+Marcelo Espinoza, Johan~AK Suykens, and Bart De~Moor.
+\newblock Fixed-size least squares support vector machines: A large scale
+  application in electrical load forecasting.
+\newblock {\em Computational Management Science}, 3(2):113--129, 2006.
+
+\bibitem{evgeniou2000regularization}
+Theodoros Evgeniou, Massimiliano Pontil, and Tomaso Poggio.
+\newblock Regularization networks and support vector machines.
+\newblock {\em Advances in computational mathematics}, 13(1):1--50, 2000.
+
+\bibitem{feng2016robust}
+Yunlong Feng, Yuning Yang, Xiaolin Huang, Siamak Mehrkanoon, and Johan~AK
+  Suykens.
+\newblock Robust support vector machines for classification with nonconvex and
+  smooth losses.
+\newblock {\em Neural computation}, 2016.
+
+\bibitem{fletcher2013practical}
+Roger Fletcher.
+\newblock {\em Practical methods of optimization}.
+\newblock John Wiley \& Sons, 2013.
+
+\bibitem{Schw89}
+H.~F\"{o}llmer and M.~Schweizer.
+\newblock Hedging by sequential regression: An introduction to the mathematics
+  of option trading.
+\newblock {\em The ASTIN Bulletin}, 1:147--160, 1989.
+
+\bibitem{french1987expected}
+Kenneth~R French, G~William Schwert, and Robert~F Stambaugh.
+\newblock Expected stock returns and volatility.
+\newblock {\em Journal of financial Economics}, 19(1):3--29, 1987.
+
+\bibitem{friedman2001elements}
+Jerome Friedman, Trevor Hastie, and Robert Tibshirani.
+\newblock {\em The elements of statistical learning}, volume~1.
+\newblock Springer series in statistics Springer, Berlin, 2001.
+
+\bibitem{garcia2000pricing}
+Ren{\'e} Garcia and Ramazan Gen{\c{c}}ay.
+\newblock Pricing and hedging derivative securities with neural networks and a
+  homogeneity hint.
+\newblock {\em Journal of Econometrics}, 94(1):93--115, 2000.
+
+\bibitem{gatheral2011volatility}
+Jim Gatheral.
+\newblock {\em The volatility surface: a practitioner's guide}, volume 357.
+\newblock John Wiley \& Sons, 2011.
+
+\bibitem{genccay2001pricing}
+Ramazan Gen{\c{c}}ay and Min Qi.
+\newblock Pricing and hedging derivative securities with neural networks:
+  Bayesian regularization, early stopping, and bagging.
+\newblock {\em IEEE Transactions on Neural Networks}, 12(4):726--734, 2001.
+
+\bibitem{genccay2003degree}
+Ramazan Gen{\c{c}}ay, Aslihan Salih, et~al.
+\newblock Degree of mispricing with the black-scholes model and nonparametric
+  cures.
+\newblock {\em Annals of Economics and Finance}, 4:73--102, 2003.
+
+\bibitem{girosi1995regularization}
+Federico Girosi, Michael Jones, and Tomaso Poggio.
+\newblock Regularization theory and neural networks architectures.
+\newblock {\em Neural computation}, 7(2):219--269, 1995.
+
+\bibitem{Goodfellow-et-al-2016}
+Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
+\newblock {\em Deep Learning}.
+\newblock MIT Press, 2016.
+\newblock \url{http://www.deeplearningbook.org}.
+
+\bibitem{goodfellow2016deep}
+Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
+\newblock {\em Deep learning}.
+\newblock MIT press, 2016.
+
+\bibitem{Goutte13}
+S.~Goutte, N.~Oudjane, and F.~Russo.
+\newblock Variance optimal hedging for discrete time processes with independent
+  increments, application to electricity markets.
+\newblock {\em Journal of Computational Finance}, 17:71--111, 2013.
+
+\bibitem{gradojevic2009option}
+Nikola Gradojevic, Ramazan Gen{\c{c}}ay, and Dragan Kukolj.
+\newblock Option pricing with modular neural networks.
+\newblock {\em IEEE transactions on neural networks}, 20(4):626--637, 2009.
+
+\bibitem{gu1994stable}
+Ming Gu and Stanley~C Eisenstat.
+\newblock A stable and fast algorithm for updating the singular value
+  decomposition, 1994.
+
+\bibitem{guyon2003introduction}
+Isabelle Guyon and Andr{\'e} Elisseeff.
+\newblock An introduction to variable and feature selection.
+\newblock {\em Journal of machine learning research}, 3(Mar):1157--1182, 2003.
+
+\bibitem{guyon2002gene}
+Isabelle Guyon, Jason Weston, Stephen Barnhill, and Vladimir Vapnik.
+\newblock Gene selection for cancer classification using support vector
+  machines.
+\newblock {\em Machine learning}, 46(1-3):389--422, 2002.
+
+\bibitem{hagan2017bartlett}
+Patrick Hagan and Andrew Lesniewski.
+\newblock Bartlett's delta in the sabr model.
+\newblock {\em Available at SSRN 2950749}, 2017.
+
+\bibitem{hagan2002managing}
+Patrick~S Hagan, Deep Kumar, Andrew~S Lesniewski, and Diana~E Woodward.
+\newblock Managing smile risk.
+\newblock {\em The Best of Wilmott}, page 249, 2002.
+
+\bibitem{He06}
+C.~He, J.S. Kennedy, T.~F. Coleman, P.~A. Forsyth, Y.~Li, and K.~R. Vetzal.
+\newblock Calibration and hedging under jump diffusion.
+\newblock {\em Review of Derivative Research}, 9(1):1--35, 2006.
+
+\bibitem{Hea01b}
+D.~Heath, E.~Platen, and M.~Schweizer.
+\newblock Numerical comparison of local risk-minimisation and mean-variance
+  hedging.
+\newblock In {\em Option pricing, interest rates and risk management}, pages
+  509--537. (ed. E. Jouini, J. Cvitanic and, M. Musiela), Cambridge Univ.
+  Press, 2001b.
+
+\bibitem{heston1993closed}
+Steven~L Heston.
+\newblock A closed-form solution for options with stochastic volatility with
+  applications to bond and currency options.
+\newblock {\em Review of financial studies}, 6(2):327--343, 1993.
+
+\bibitem{heston2000closed}
+Steven~L Heston and Saikat Nandi.
+\newblock A closed-form garch option valuation model.
+\newblock {\em The review of financial studies}, 13(3):585--625, 2000.
+
+\bibitem{hirsch1989convergent}
+Morris~W Hirsch.
+\newblock Convergent activation dynamics in continuous time networks.
+\newblock {\em Neural networks}, 2(5):331--349, 1989.
+
+\bibitem{hochreiter2001gradient}
+Sepp Hochreiter, Yoshua Bengio, Paolo Frasconi, J{\"u}rgen Schmidhuber, et~al.
+\newblock Gradient flow in recurrent nets: the difficulty of learning long-term
+  dependencies, 2001.
+
+\bibitem{hochreiter1997long}
+Sepp Hochreiter and J{\"u}rgen Schmidhuber.
+\newblock Long short-term memory.
+\newblock {\em Neural computation}, 9(8):1735--1780, 1997.
+
+\bibitem{hopfield1982neural}
+John~J Hopfield.
+\newblock Neural networks and physical systems with emergent collective
+  computational abilities.
+\newblock {\em Proceedings of the national academy of sciences},
+  79(8):2554--2558, 1982.
+
+\bibitem{Hor91}
+K.~Hornik.
+\newblock Approximation capabilities of multilayer feedforward networks.
+\newblock {\em Neural Networks}, 4(2):251--257, 1991.
+
+\bibitem{huber1964robust}
+Peter~J Huber et~al.
+\newblock Robust estimation of a location parameter.
+\newblock {\em The annals of mathematical statistics}, 35(1):73--101, 1964.
+
+\bibitem{hull1987pricing}
+John Hull and Alan White.
+\newblock The pricing of options on assets with stochastic volatilities.
+\newblock {\em The journal of finance}, 42(2):281--300, 1987.
+
+\bibitem{hulloptimal}
+John Hull and Alan White.
+\newblock Optimal delta hedging for options.
+\newblock {\em Journal of Banking \& Finance}, 82:180--190, 2017.
+
+\bibitem{hull2006options}
+John~C Hull.
+\newblock {\em Options, futures, and other derivatives}.
+\newblock Pearson Education India, 2006.
+
+\bibitem{hutchinson}
+James~M Hutchinson, Andrew~W Lo, and Tomaso Poggio.
+\newblock A nonparametric approach to pricing and hedging derivative securities
+  via learning networks.
+\newblock {\em The Journal of Finance}, 49(3):851--889, 1994.
+
+\bibitem{JackwerthRubenstein96}
+Jens Jackwerth and Mark Rubinstein.
+\newblock Recovering probability distributions from option prices.
+\newblock {\em The Journal of Finance}, 51(5):1611--1631, 1996.
+
+\bibitem{jian2011design}
+Ling Jian, Zhonghang Xia, Xijun Liang, and Chuanhou Gao.
+\newblock Design of a multiple kernel learning algorithm for ls-svm by convex
+  programming.
+\newblock {\em Neural Networks}, 24(5):476--483, 2011.
+
+\bibitem{jiao2007fast}
+Licheng Jiao, Liefeng Bo, and Ling Wang.
+\newblock Fast sparse approximation for least squares support vector machine.
+\newblock {\em IEEE Transactions on Neural Networks}, 18(3):685--697, 2007.
+
+\bibitem{jordan1986serial}
+Michael~I Jordan.
+\newblock Serial order: A parallel distributed processing approach.
+\newblock Technical report, CALIFORNIA UNIV SAN DIEGO LA JOLLA INST FOR
+  COGNITIVE SCIENCE, 1986.
+
+\bibitem{kingma2014adam}
+Diederik~P Kingma and Jimmy Ba.
+\newblock Adam: A method for stochastic optimization.
+\newblock {\em arXiv preprint arXiv:1412.6980}, 2014.
+
+\bibitem{kou2002jump}
+Steven~G Kou.
+\newblock A jump-diffusion model for option pricing.
+\newblock {\em Management science}, 48(8):1086--1101, 2002.
+
+\bibitem{le2015simple}
+Quoc~V Le, Navdeep Jaitly, and Geoffrey~E Hinton.
+\newblock A simple way to initialize recurrent networks of rectified linear
+  units.
+\newblock {\em arXiv preprint arXiv:1504.00941}, 2015.
+
+\bibitem{lenders2018trlib}
+Felix Lenders, Christian Kirches, and Andreas Potschka.
+\newblock trlib: A vector-free implementation of the gltr method for iterative
+  solution of the trust region problem.
+\newblock {\em Optimization Methods and Software}, 33(3):420--449, 2018.
+
+\bibitem{lipton2015critical}
+Zachary~C Lipton, John Berkowitz, and Charles Elkan.
+\newblock A critical review of recurrent neural networks for sequence learning.
+\newblock {\em arXiv preprint arXiv:1506.00019}, 2015.
+
+\bibitem{long2010random}
+Philip~M Long and Rocco~A Servedio.
+\newblock Random classification noise defeats all convex potential boosters.
+\newblock {\em Machine learning}, 78(3):287--304, 2010.
+
+\bibitem{maas2013rectifier}
+Andrew~L Maas, Awni~Y Hannun, and Andrew~Y Ng.
+\newblock Rectifier nonlinearities improve neural network acoustic models.
+\newblock In {\em Proc. icml}, volume~30, page~3, 2013.
+
+\bibitem{maas2012recurrent}
+Andrew~L Maas, Quoc~V Le, Tyler~M O'Neil, Oriol Vinyals, Patrick Nguyen, and
+  Andrew~Y Ng.
+\newblock Recurrent neural networks for noise reduction in robust asr.
+\newblock In {\em Thirteenth Annual Conference of the International Speech
+  Communication Association}, 2012.
+
+\bibitem{malliaris1993neural}
+Mary Malliaris and Linda Salchenberger.
+\newblock A neural network model for estimating option prices.
+\newblock {\em Applied Intelligence}, 3(3):193--206, 1993.
+
+\bibitem{mandelbrot1963variation}
+Benoit Mandelbrot.
+\newblock The variation of certain speculative prices.
+\newblock {\em The journal of business}, 36(4):394--419, 1963.
+
+\bibitem{marchiori2005feature}
+Elena Marchiori, Niels~HH Heegaard, Mikkel West-Nielsen, and Connie~R Jimenez.
+\newblock Feature selection for classification with proteomic data of mixed
+  quality.
+\newblock In {\em Computational Intelligence in Bioinformatics and
+  Computational Biology, 2005. CIBCB'05. Proceedings of the 2005 IEEE Symposium
+  on}, pages 1--7. IEEE, 2005.
+
+\bibitem{martens2010deep}
+James Martens.
+\newblock Deep learning via hessian-free optimization.
+\newblock In {\em ICML}, volume~27, pages 735--742, 2010.
+
+\bibitem{martens2011learning}
+James Martens and Ilya Sutskever.
+\newblock Learning recurrent neural networks with hessian-free optimization.
+\newblock In {\em Proceedings of the 28th International Conference on Machine
+  Learning (ICML-11)}, pages 1033--1040. Citeseer, 2011.
+
+\bibitem{mccloskey1989catastrophic}
+Michael McCloskey and Neal~J Cohen.
+\newblock Catastrophic interference in connectionist networks: The sequential
+  learning problem.
+\newblock In {\em Psychology of learning and motivation}, volume~24, pages
+  109--165. Elsevier, 1989.
+
+\bibitem{mercer1909functions}
+James Mercer.
+\newblock Functions of positive and negative type, and their connection with
+  the theory of integral equations.
+\newblock {\em Philosophical transactions of the royal society of London.
+  Series A, containing papers of a mathematical or physical character},
+  209:415--446, 1909.
+
+\bibitem{Merton73}
+R.~Merton.
+\newblock The theory of rational option pricing.
+\newblock {\em Bell Journal of Economics and Management Science}, 4:141--183,
+  1973.
+
+\bibitem{merton1973theory}
+Robert~C Merton.
+\newblock Theory of rational option pricing.
+\newblock {\em The Bell Journal of economics and management science}, pages
+  141--183, 1973.
+
+\bibitem{mishkin2015all}
+Dmytro Mishkin and Jiri Matas.
+\newblock All you need is a good init.
+\newblock {\em arXiv preprint arXiv:1511.06422}, 2015.
+
+\bibitem{mozer1989focused}
+Michael~C Mozer.
+\newblock A focused back-propagation algorithm for temporal pattern
+  recognition.
+\newblock {\em Complex systems}, 3(4):349--381, 1989.
+
+\bibitem{nesterov1983method}
+Yurii Nesterov.
+\newblock A method for unconstrained convex minimization problem with the rate
+  of convergence o (1/k2).
+\newblock In {\em Doklady an SSSR}, volume 269, pages 543--547, 1983.
+
+\bibitem{knian2017}
+Ke~Nian, Thomas~F Coleman, and Yuying Li.
+\newblock Learning minimum variance discrete hedging directly from the market.
+\newblock {\em Quantitative Finance}, pages 1--14, 2018.
+
+\bibitem{knian2019}
+Ke~Nian, Thomas~F Coleman, and Yuying Li.
+\newblock Learning sequential option hedging models from market data.
+\newblock {\em Journal of Banking and Finance}, 2019.
+\newblock Accepted Pending Revision.
+
+\bibitem{knian2020}
+Ke~Nian, Thomas~F Coleman, and Yuying Li.
+\newblock Learning sequential total hedging models from market data.
+\newblock Submitted, 2019.
+
+\bibitem{olah2015understanding}
+Christopher Olah.
+\newblock Understanding lstm networks.
+\newblock {\em GITHUB blog, posted on August}, 27:2015, 2015.
+
+\bibitem{optionmetrics2008ivy}
+LLC OptionMetrics.
+\newblock Ivy db file and data reference manual, 2008.
+
+\bibitem{pahikkala2006fast}
+Tapio Pahikkala, Jorma Boberg, and Tapio Salakoski.
+\newblock Fast n-fold cross-validation for regularized least-squares.
+\newblock In {\em Proceedings of the ninth Scandinavian conference on
+  artificial intelligence (SCAI 2006)}, pages 83--90. Otamedia Oy, Espoo,
+  Finland, 2006.
+
+\bibitem{qian1999momentum}
+Ning Qian.
+\newblock On the momentum term in gradient descent learning algorithms.
+\newblock {\em Neural networks}, 12(1):145--151, 1999.
+
+\bibitem{poulsen2009}
+K.~Poulsen R., R.~Schenk-Hopp$\acute{e}$, and C.-O Ewald.
+\newblock Risk minimization in stochastic volatility models: model risk and
+  empirical performance.
+\newblock {\em Quantitative Finance}, 9(6):693--704, 2009.
+
+\bibitem{raskutti2014early}
+Garvesh Raskutti, Martin~J Wainwright, and Bin Yu.
+\newblock Early stopping and non-parametric regression: an optimal
+  data-dependent stopping rule.
+\newblock {\em The Journal of Machine Learning Research}, 15(1):335--366, 2014.
+
+\bibitem{reddi2018convergence}
+Sashank~J Reddi, Satyen Kale, and Sanjiv Kumar.
+\newblock On the convergence of adam and beyond.
+\newblock In {\em International Conference on Learning Representations}, 2018.
+
+\bibitem{reddi2019convergence}
+Sashank~J Reddi, Satyen Kale, and Sanjiv Kumar.
+\newblock On the convergence of adam and beyond.
+\newblock {\em arXiv preprint arXiv:1904.09237}, 2019.
+
+\bibitem{robnik2003theoretical}
+Marko Robnik-{\v{S}}ikonja and Igor Kononenko.
+\newblock Theoretical and empirical analysis of relieff and rrelieff.
+\newblock {\em Machine learning}, 53(1-2):23--69, 2003.
+
+\bibitem{rubinstein1994implied}
+Mark Rubinstein.
+\newblock Implied binomial trees.
+\newblock {\em The Journal of Finance}, 49(3):771--818, 1994.
+
+\bibitem{ruder2016overview}
+Sebastian Ruder.
+\newblock An overview of gradient descent optimization algorithms.
+\newblock {\em arXiv preprint arXiv:1609.04747}, 2016.
+
+\bibitem{saxe2013exact}
+Andrew~M Saxe, James~L McClelland, and Surya Ganguli.
+\newblock Exact solutions to the nonlinear dynamics of learning in deep linear
+  neural networks.
+\newblock {\em arXiv preprint arXiv:1312.6120}, 2013.
+
+\bibitem{Sch94}
+M.~Sch\"{a}l.
+\newblock On quadratic cost criteria for option hedging.
+\newblock {\em Mathematics of Operation Research}, 19(1):121--131, 1994.
+
+\bibitem{Schw95}
+M.~Schweizer.
+\newblock Variance-optimal hedging in discrete time.
+\newblock {\em Mathematics of Operation Research}, 20:1--32, 1995.
+
+\bibitem{shreve2004stochastic}
+Steven~E Shreve.
+\newblock {\em Stochastic calculus for finance II: Continuous-time models},
+  volume~11.
+\newblock Springer Science \& Business Media, 2004.
+
+\bibitem{smola2000sparse}
+Alex~J Smola and Bernhard Sch{\"o}kopf.
+\newblock Sparse greedy matrix approximation for machine learning.
+\newblock In {\em Proceedings of the Seventeenth International Conference on
+  Machine Learning}, pages 911--918. Morgan Kaufmann Publishers Inc., 2000.
+
+\bibitem{sutskever2013importance}
+Ilya Sutskever, James Martens, George Dahl, and Geoffrey Hinton.
+\newblock On the importance of initialization and momentum in deep learning.
+\newblock In {\em International conference on machine learning}, pages
+  1139--1147, 2013.
+
+\bibitem{sutskever2014sequence}
+Ilya Sutskever, Oriol Vinyals, and Quoc~V Le.
+\newblock Sequence to sequence learning with neural networks.
+\newblock In {\em Advances in neural information processing systems}, pages
+  3104--3112, 2014.
+
+\bibitem{sutton1986two}
+Richard~S Sutton.
+\newblock Two problems with backpropagation and other steepest-descent learning
+  procedures for networks.
+\newblock In {\em Proc. 8th annual conf. cognitive science society}, pages
+  823--831. Erlbaum, 1986.
+
+\bibitem{suykens2002least}
+Johan~AK Suykens, Tony Van~Gestel, and Jos De~Brabanter.
+\newblock {\em Least squares support vector machines}.
+\newblock World Scientific, 2002.
+
+\bibitem{tan2010learning}
+Mingkui Tan, Li~Wang, and Ivor~W Tsang.
+\newblock Learning sparse svm for feature selection on very high dimensional
+  datasets.
+\newblock In {\em Proceedings of the 27th international conference on machine
+  learning (ICML-10)}, pages 1047--1054, 2010.
+
+\bibitem{tayal2014primal}
+Aditya Tayal, Thomas~F Coleman, and Yuying Li.
+\newblock Primal explicit max margin feature selection for nonlinear support
+  vector machines.
+\newblock {\em Pattern Recognition}, 47(6):2153--2164, 2014.
+
+\bibitem{tieleman2012lecture}
+Tijmen Tieleman and Geoffrey Hinton.
+\newblock Lecture 6.5-rmsprop: Divide the gradient by a running average of its
+  recent magnitude.
+\newblock {\em COURSERA: Neural networks for machine learning}, 4(2):26--31,
+  2012.
+
+\bibitem{vapnik1998statistical}
+Vladimir~Naumovich Vapnik.
+\newblock {\em Statistical learning theory}, volume~1.
+\newblock Wiley New York, 1998.
+
+\bibitem{varma2009more}
+Manik Varma and Bodla~Rakesh Babu.
+\newblock More generality in efficient multiple kernel learning.
+\newblock In {\em Proceedings of the 26th Annual International Conference on
+  Machine Learning}, pages 1065--1072. ACM, 2009.
+
+\bibitem{wahba1990spline}
+Grace Wahba.
+\newblock {\em Spline models for observational data}, volume~59.
+\newblock Siam, 1990.
+
+\bibitem{wang2014robust}
+Kuaini Wang and Ping Zhong.
+\newblock Robust non-convex least squares loss function for regression with
+  outliers.
+\newblock {\em Knowledge-Based Systems}, 71:290--302, 2014.
+
+\bibitem{werbos1988generalization}
+Paul~J Werbos.
+\newblock Generalization of backpropagation with application to a recurrent gas
+  market model.
+\newblock {\em Neural networks}, 1(4):339--356, 1988.
+
+\bibitem{williams2001using}
+Christopher~KI Williams and Matthias Seeger.
+\newblock Using the nystr{\"o}m method to speed up kernel machines.
+\newblock In {\em Advances in neural information processing systems}, pages
+  682--688, 2001.
+
+\bibitem{wu2007robust}
+Yichao Wu and Yufeng Liu.
+\newblock Robust truncated hinge loss support vector machines.
+\newblock {\em Journal of the American Statistical Association},
+  102(479):974--983, 2007.
+
+\bibitem{xu2006robust}
+Linli Xu, Koby Crammer, and Dale Schuurmans.
+\newblock Robust support vector machine training via convex outlier ablation.
+\newblock In {\em AAAI}, volume~6, pages 536--542, 2006.
+
+\bibitem{xu2017second}
+Peng Xu, Farbod Roosta-Khorasan, and Michael~W Mahoney.
+\newblock Second-order optimization for non-convex machine learning: An
+  empirical study.
+\newblock {\em arXiv preprint arXiv:1708.07827}, 2017.
+
+\bibitem{yang2014robust}
+Xiaowei Yang, Liangjun Tan, and Lifang He.
+\newblock A robust least squares support vector machine for regression and
+  classification with noise.
+\newblock {\em Neurocomputing}, 140:41--52, 2014.
+
+\bibitem{yao2000option}
+Jingtao Yao, Yili Li, and Chew~Lim Tan.
+\newblock Option price forecasting using neural networks.
+\newblock {\em Omega}, 28(4):455--466, 2000.
+
+\bibitem{yao2018inexact}
+Zhewei Yao, Peng Xu, Farbod Roosta-Khorasani, and Michael~W Mahoney.
+\newblock Inexact non-convex newton-type methods.
+\newblock {\em arXiv preprint arXiv:1802.06925}, 2018.
+
+\bibitem{yatchew2006nonparametric}
+Adonis Yatchew and Wolfgang H{\"a}rdle.
+\newblock Nonparametric state price density estimation using constrained least
+  squares and the bootstrap.
+\newblock {\em Journal of Econometrics}, 133(2):579--599, 2006.
+
+\bibitem{yin2017comparative}
+Wenpeng Yin, Katharina Kann, Mo~Yu, and Hinrich Sch{\"u}tze.
+\newblock Comparative study of cnn and rnn for natural language processing.
+\newblock {\em arXiv preprint arXiv:1702.01923}, 2017.
+
+\bibitem{yu2012polynomial}
+Yao-liang Yu, {\"O}zlem Aslan, and Dale Schuurmans.
+\newblock A polynomial-time form of robust regression.
+\newblock In {\em Advances in Neural Information Processing Systems}, pages
+  2483--2491, 2012.
+
+\bibitem{yu2015minimizing}
+Yaoliang Yu, Xun Zheng, Micol Marchetti-Bowick, and Eric Xing.
+\newblock Minimizing nonconvex non-separable functions.
+\newblock In {\em Artificial Intelligence and Statistics}, pages 1107--1115,
+  2015.
+
+\bibitem{zeiler2012adadelta}
+Matthew~D Zeiler.
+\newblock Adadelta: an adaptive learning rate method.
+\newblock {\em arXiv preprint arXiv:1212.5701}, 2012.
+
+\end{thebibliography}
