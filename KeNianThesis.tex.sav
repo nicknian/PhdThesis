@@ -94,7 +94,7 @@
 % and author as they appear in the properties of the PDF document.
 % Use the "hyperref" package
 % N.B. HYPERREF MUST BE THE LAST PACKAGE LOADED; ADD ADDITIONAL PKGS ABOVE
-\usepackage[pagebackref=false]{hyperref} % with basic options
+\usepackage[pdftex,pagebackref=false]{hyperref} % with basic options
 		% N.B. pagebackref=true provides links back from the References to the body text. This can cause trouble for printing.
 \hypersetup{
     plainpages=false,       % needed if Roman numbers in frontpages
@@ -361,23 +361,23 @@ description={Random vector: a location in n-dimensional Cartesian space, where e
 % do not contain \documentclass or \begin{document} and \end{document} commands.
 %======================================================================
 \chapter{Introduction}
-Options hedging is a critical problem in financial risk management. The state-of-art approaches in financial derivative pricing and hedging rely heavily on parametric assumptions describing the dynamics of underlying asset .  The common practice is to calibrate an option pricing function based on the specific parametric model and compute various sensitivities to hedge the option risk. For example, the sensitivity of the option value function to the underlying price is used in delta hedging. Ideally, the value of an option written on the underlying asset can be perfectly replicated by a hedging portfolio consisting of the underlying asset and the  risk-free asset, when the market is complete \cite{shreve2004stochastic}.  In practice, such perfect scenarios does not exist and we have to rebalance the hedging portfolio discretely instead of continuously due to the existence of the transaction cost.  The practice of adjusting the hedging portfolio discretely is often referred to as discrete hedging.
+Options hedging is a critical problem in financial risk management. The state-of-art approaches in financial derivative pricing and hedging rely heavily on parametric assumptions describing the underlying price dynamics.  The common practice is to calibrate an option pricing function based on the specific parametric model and compute various sensitivities to hedge the option risk. For example, the sensitivity of the option value function to the underlying price is used in delta hedging. Ideally, the value of an option written on the underlying asset can be perfectly replicated by a hedging portfolio consisting of the underlying asset and the  risk-free bond, when the market is complete \cite{shreve2004stochastic}.  In practice, such perfect scenarios does not exist and we have to rebalance the hedging portfolio discretely instead of continuously due to the existence of the transaction cost.  The practice of adjusting the hedging portfolio discretely is often referred to as discrete hedging.
 
-There are many parametric models proposed to describe the dynamics of underlying asset.
+There are many parametric models proposed to describe the underlying price dynamics.
 The original and most celebrated parametric  Black-Scholes (BS) model uses a constant volatility \citep{black1973pricing,merton1973theory}, which is  shown
  to produce inaccurate option prices for deeply out-of-the-money options and deeply in-the-money options \citep{genccay2003degree}.
 In addition,
 the BS model is unable to capture the non-zero correlation between the volatility and the underlying asset price \citep{french1987expected,bollerslev2006leverage}.
- The practitioner's BS delta hedging approach sets the constant volatility in the BS model to the implied volatility calibrated to the market price at the time of re-balancing.  Many alternative parametric models have been proposed to improve the BS model,  including  the Stochastic Volatility (SV) model \cite{hagan2002managing,heston1993closed,hull1987pricing,bakshi1997empirical},  the Local Volatility Function (LVF) model \citep{coleman2001,dumas1998implied,rubinstein1994implied,dupire1994pricing}, and the jump model \citep{He06,kou2002jump}. Unfortunately, all models have been shown to have their limitations in accurately modeling option market prices.
+ The practitioner's BS delta hedging approach sets the constant volatility in the BS model to the implied volatility calibrated to the market price at the time of re-balancing.  Many alternative parametric models have been proposed to improve the BS model,  including  the Stochastic Volatility (SV) model \cite{hagan2002managing,heston1993closed,hull1987pricing,bakshi1997empirical},  the Local Volatility Function (LVF) model \citep{coleman2001,dumas1998implied,rubinstein1994implied,dupire1994pricing}, and the jump model \citep{He06,kou2002jump}. Unfortunately, all models have been shown to have their limitation in accurately modeling option market prices.
 
 Errors in  the option value model have significant implications in hedging. Consider, for example, when the hedging position is computed from the sensitivity of the  option value function calibrated at the hedging time, the computed hedging position only depends on the assumed underlying price model and the current market option prices. Unless the assumed model for the underlying price is exact and all assumptions that results in the option pricing function are all valid, the option function calibrated at the hedging time cannot predict the future option market price.
 
-Specifically, assume that $V(S,t,T,K;\theta)$ is  the option value function and $\theta$ is the vector of model parameters of the assumed option pricing model and, at the hedging time $t$,
+Specifically, assume that $V(S,t,T,K;\theta)$ is  the option value function and $\theta$ is the vector of model parameters of the assumed underling price model and, at the hedging time $t$,
 option calibration ensures that
 \begin{equation} \label{eq:imp}
 V(S,t,T,K; \theta)=V^{mkt}_{t,T,K}
 \end{equation}
-where $\Vmkt$ denotes the actual market option price,  $t$ is the current trading time,  $K$  is  strike price,  $T$ is the expiry time, and $S$ is the underlying price input used in the option pricing function. We use $V^{mkt}_{t,T,K}$ to indicate it is the market price at time $t$ for  the expiry time $T$ and strike $K$.
+where $\Vmkt$ denotes the actual market option price,  $t$ is the current trading time,  $K$  is  strike price,  $T$ is the expiry time, and $S$ is the underlying price used in the option value function. We use $V^{mkt}_{t,T,K}$ to indicate it is the market price at time $t$ for  the expiry time $T$ and strike $K$.
 The option value function $V(S,t,T,K; \theta)$, calibrated at the hedging time $t$,  does not ensure that
  $
 \frac{\partial V}{\partial S}
@@ -396,8 +396,8 @@ for some models, corrections have been proposed to account for the dependence \c
 
 Since machine learning algorithms usually do not impose assumptions on the model to be learned, they have recently been adopted to determine an option value function directly from the market data, with the goal of avoiding the model misspecification issues from the parametric modeling approach e.g.,\citep{gradojevic2009option,garcia2000pricing,hutchinson}.
 Unfortunately, using nonparametric learning, hedging positions still need to be computed from the sensitivity of the model value function.
-While no assumption is explicitly made for the  dynamics of underlying asset, the option value function is determined by data through cross-validation, leading to training errors.
-Since there is no assurance that the  sensitivity of the learned option value function  with regards to underlying asset matches that the sensitivity of the market option price,
+While no assumption is explicitly made for the underlying price dynamics, the option value function is determined by data through cross-validation, leading to training errors.
+Since there is no assurance that the delta sensitivity of the learned option value function matches that the delta of the market option price,
 the parameters of the model learned directly from data can similarly exhibit dependence on the underlying price. When the hedging position is computed from the partial derivative of the data-driven option value function, e.g.,  \citep{hutchinson}, this dependence cannot be accounted for and again is ignored. Hence, option hedging risk remains insufficiently minimized.
 
 Furthermore, using option delta $\frac{\partial V}{\partial S}$ as the hedging position becomes inadequate when discrete hedging is performed in practice, particularly when rebalancing becomes infrequent.  Instead, optimal discrete hedging strategy can be determined by determining hedging strategy directly using an appropriate objective in the discrete hedging context, e.g., minimizing the variance of the hedging error, needs to be chosen \citep{hulloptimal,Angelini10,Goutte13}.
@@ -413,7 +413,7 @@ Furthermore,  the estimated pricing function inevitably has errors, due to both 
 The error in the value function can potentially be substantially magnified in computing partial derivatives as hedging positions.
 
 We explore several direct market data-driven approaches to bypass  challenges mentioned above to achieve effective hedging performance.
-We first propose a  data-driven kernel learning approach \cite{knian2017} to learn a local risk minimization hedging model directly from the market data observed at the hedging time $t$.  We learn a  hedging function from the market data by minimizing  the  empirical local hedging  risk with a suitable regularization. The local risk corresponds directly to the variance of the hedging error in the discrete rebalancing period. A novel encoder-decoder  RNN model $\model$ \cite{knian2019}, to extract both sequential and local features at hedging time $t$ from market prices, is later proposed to learn option hedging positions directly from the market. We include a feature weighting procedure to select the most relevant local features at hedging time $t$ and sequential features for the sequential data-driven model $\model$. Lastly, in order to deal with multi-steps discrete total hedging scenarios where we hedge until the expiry of the option \cite{knian2020}, we enhance our sequential local hedging model $\model$ to be $\modelT$. We compared our data-driven approaches with the parametric approaches and demonstrate the effectiveness of the data-driven hedging models in terms of both local hedging risk and total hedging risk.
+We first propose a  data-driven kernel learning approach \cite{knian2017} to learn a local risk minimization hedging model directly from the market data observed at the hedging time $t$.  We learn a  hedging function from the market data by minimizing  the  empirical local hedging  risk with a suitable regularization. The local risk corresponds directly to the variance of the hedging error in the discrete rebalancing period. A novel encoder-decoder  RNN model $\model$ \cite{knian2019}, to extract both sequential and current features from market prices, is later proposed to learn option hedging positions directly from the market. We include a feature weighting procedure to select the most relevant local features at hedging time $t$ and sequential time series features for the sequential data-driven model $\model$. Lastly, in order to deal with multi-steps discrete total hedging scenarios where we hedge until the expiry of the option \cite{knian2020}, we enhance our sequential local hedging model $\model$ to be $\modelT$. We compared our data-driven approaches with the parametric approaches and demonstrate the effectiveness of the data-driven hedging models in terms of both local hedging risk and total hedging risk.
 
 
 
@@ -424,7 +424,7 @@ We first propose a  data-driven kernel learning approach \cite{knian2017} to lea
 \section{Contribution}
 The contributions with respect to the data-driven kernel hedging model \cite{knian2017} are summarized below:
 \begin{itemize}
-\item We analyze and discuss implications from model mis-specification in the option value function for discrete option hedging. We illustrate challenges in accounting for the dependence of the calibrated model parameters on the underlying, which arises due to  model mis-specification.
+\item We analyze and discuss implications from model mis-specification in the option value function for discrete option hedging. We illustrate challenges in accounting for dependence of the calibrated model parameters on the underlying, which arises due to  model mis-specification.
 
 \item We analyze a regularized kernel network for option value estimation and illustrate that  the partial derivative of the estimated value function with respect to the underlying similarly does not minimize variance of the hedging risk in general, even infinitesimally.
 
@@ -455,15 +455,16 @@ The contributions with respect to the data-driven sequential hedging model \cite
 The contributions with respect to the data-driven total hedging model \cite{knian2020} are summarized below:
 \begin{itemize}
 	\item  We enhance the sequential data-driven local hedging model $\model$ \cite{knian2019} to cope with total hedging scenarios where we rebalance multiple times until the expiries of the options.
-	\item  We augment the market data using SABR model and Local Volatility Function to cope with the challenges of lacking market option data.
-	\item  Using the S\&P 500 index option market data from January 2, 1996 to  August 31st, 2015, we demonstrate that the weekly, bi-weekly and monthly hedging performance of the proposed total hedging model $\modelT$  surpasses that of sequential data-driven local hedging model $\model$ \cite{knian2019} and the SABR-Bartlett method \cite{bartlett2006hedging}, when the hedging performance is evaluated on the expiries of the option.
-	\item We compare  $\modelT$ based on market option information with $\modelT$ based on purely underlying asset information and indicate the importance of  market option information in determining the total hedging position.
+	\item  We augment the market data using SABR model and Local Volatility Function to cope with the challenges of lacking market data.
+	\item  Using the S\&P 500 index option market data from January 2, 1996 to  August 31st, 2015, we demonstrate that the weekly, bi-weekly and monthly hedging performance of the proposed total hedging model $\modelT$  surpasses that
+ of sequential data-driven local hedging model $\model$ \cite{knian2019} and the SABR-Bartlett method \cite{bartlett2006hedging}, when the hedging performance is evaluated on the expiries of the option.
 \end{itemize}
 %----------------------------------------------------------------------
 \section{Outline}
 The remainder of the thesis is organized as follows.
 Chapter 2 reviews basic concept of derivative pricing models, discrete hedging problems, local and total hedging risk and various existing parametric approaches to hedge options.
 Chapter 3 discusses the kernel learning framework and introduces the data-driven kernel local hedging model $\DKLs$. Empirical results  from  data-driven kernel local hedging model $\DKLs$ are also discussed in Chapter 3.
+.
 Chapter 4 discusses the Recurrent Neural Network(RNN) framework and introduces the data-driven sequential local hedging model $\model$. Empirical results  from  the data-driven sequential local hedging model $\model$ are also discussed in Chapter 4.
 Chapter 5 discusses the challenges of using market data to build data-driven total hedging models and the data augmentation procedure to cope with the challenges.
 Chapter 6 introduces the data-driven sequential total hedging model $\modelT$ and presents the empirical comparisons between local hedging model $\model$ and total hedging model $\modelT$.
@@ -522,7 +523,7 @@ C(t,S)=S\; CDF(d_1)-e^{-r(T-t)}K\; CDF(d_2)
 \end{equation}
 where $CDF$ is the cumulative density function of standard normal distributon
 \[
-d_1=\frac{\ln(S/K)+(r+\sigma^2/2)(T-t)}{\sigma \sqrt{T-t}}, \;\; d_2=d_1-\sigma  \sqrt{T-t}
+d_1=\frac{\log(S/K)+(r+\sigma^2/2)(T-t)}{\sigma \sqrt{T-t}}, \;\; d_2=d_1-\sigma  \sqrt{T-t}
 \]
 Similarly, we can derive the Black-Scholes pricing formula for  European put option to be:
 \begin{equation}
@@ -540,14 +541,14 @@ P(t,S)=e^{-r(T-t)} E^Q[\max(K-S_T,0)]
 \label{eq:bs2P}
 \end{equation}
 where $E^Q[\cdot]$ is the expectation under the risk-neutral measure $Q$.
-More specifically, define $\Theta_1$ to be the market price of risk:
+More specifically, define $\Theta$ to be the market price of risk:
 \begin{equation}
-\Theta_1=\frac{\mu-r}{\sigma}
+\Theta_S=\frac{\mu-r}{\sigma}
 \label{eq:price-risk}
 \end{equation}
 We change the original Brownian motion $dW_t$ to $\hat{dW_t}$ with
 \begin{equation}
-\hat{dW_t}=dW_t+\Theta_1 dt
+\hat{dW_t}=dW_t+\Theta_S dt
 \label{eq:riskS}
 \end{equation}
 The underlying dynamic will have the drift to be the risk-free interest rate $r$.
@@ -556,22 +557,24 @@ dS_t=r S_t dt+\sigma S_t \hat{dW_t}
 \]
 It can be shown that $\hat{dW_t}$ is the Brownian motion under the risk-neutral measure $Q$ defined through Radon-Nikodym derivative via Girsanov's theorem \cite{shreve2004stochastic}. Using the fact that the drift rate of underlying asset dynamic under risk-neutral measure $Q$ is $r$, following \eqref{eq:bs2} and \eqref{eq:bs2P}, we can arrive at the same pricing formula as \eqref{eq:bs} and \eqref{eq:bsP}. Interest reader can refer to \cite{shreve2004stochastic} for more details about risk-neutral pricing and change from physical measure to risk-neutral measure $Q$.
 
-Since actual drift $\mu$ is irrelevant in determining the option price under Black-Scholes framework, in this thesis, we assume we are dealing with risk-neutral measure $Q$ and the drift of underlying dynamic is always the risk-free interested $r$. Also, in this thesis, we use $V_{BS}(S,t,T,K,r;\sigma)$ to denote the European Black-Scholes pricing function regardless of the call or put nature.
+Since actual drift $\mu$ is irrelevant in determining the option price under Black-Scholes framework, in this thesis, we assume we are dealing with risk-neutral measure $Q$ and the drift of underlying dynamic is always the risk-free interested $r$. Also, in this thesis, we use $V_{BS}(S,t,T,K,r,\sigma)$ to denote the European Black-Scholes pricing function regardless of the call or put nature.
 
 Although, Black-Scholes framework provides a nice close-form formula, the real markets are never as ideal as the assumption of Black-Scholes model. Empirical  evidence indicates markets often violate the assumption of   Black-Scholes model. The two major aspects that has been criticized about Black-Scholes model are:
 \begin{enumerate}
-\item The constant volatility does not hold in real market. In practice, the implied volatility $\sigma_{imp}$, which equates the Black-Scholes option price $V_{BS}(S,t,T,K,r;\sigma)$ to market option price $V^{mkt}_{t,T,K}$, is often used to make sure that Black-Scholes price match the market observation. However, one can often find that the implied volatility $\sigma_{imp}$ tends to differ across different strikes and expiries. This breaks down the assumption of a constant volatility
+\item The constant volatility does not hold in real market. In practice, the implied volatility $\sigma_{imp}$, which equates the Black-Scholes option price $V_{BS}(S,t,T,K,r,\sigma)$ to market option price $V^{mkt}_{t,T,K}$, is often used to make sure that Black-Scholes price match the market observation. However, one can often find that the implied volatility $\sigma_{imp}$ tends to differ across different strikes and expiries. This breaks down the assumption of a constant volatility
 \item Transaction cost exist in real market. Due the existence of transaction cost, continuously adjusting the shares of underlying is prohibitively expensive. Therefore, perfect replication of the option is impossible and the argument of the Black-Scholes theory falls apart.
 \end{enumerate}
-The market deviations from the assumption of Black-Scholes model  motivates people to propose various approaches for relaxing the assumptions of Black and Scholes. These attempts include, but not limited to, local volatility models \citep{coleman2001,dumas1998implied,rubinstein1994implied,dupire1994pricing}, stochastic volatility models \cite{hagan2002managing,heston1993closed,hull1987pricing,bakshi1997empirical}, jump diffusion models \citep{He06,kou2002jump} and nonparametric pricing models based on regression \citep{yao2000option,bennell2004black,gradojevic2009option,garcia2000pricing,malliaris1993neural}. In the following section, we discuss two stochastic volatility models, Heston model and SABR model, which provide efficient closed-form solutions for the option price similar as Black-Scholes model.
+The market deviations from the theory motivates people to propose various approaches for relaxing the assumptions of Black and Scholes. These attempts include, but not limited to, local volatility models \citep{coleman2001,dumas1998implied,rubinstein1994implied,dupire1994pricing}, stochastic volatility models \cite{hagan2002managing,heston1993closed,hull1987pricing,bakshi1997empirical}, jump diffusion models \citep{He06,kou2002jump} and nonparametric pricing models based on regression \citep{yao2000option,bennell2004black,gradojevic2009option,garcia2000pricing,malliaris1993neural}. In the following section, we discuss two stochastic volatility models, Heston model and SABR model, which provide efficient closed-form solutions for the option price similar as Black-Scholes model.
 \subsection{Heston Model}
 Heston \cite{heston1993closed} proposed a version of the stochastic volatility model, which has become quite popular to model the volatility smiles. One of the key reason for its popularity is that European call and put option under Heston model have closed-form solution which makes the calibration of the model computationally efficient and accurate.
-The Heston model assumes that the underlying, $S_t$ follows a Black-Scholes type stochastic process, but with a stochastic variance $\upsilon_t$ that follows a Cox, Ingersoll, Ross (CIR) process \cite{cox2005theory}.
+The Heston model assumes that the underlying, $S_t$ follows a Black-Scholes
+type stochastic process, but with a stochastic variance $\upsilon_t$ that follows a Cox,
+Ingersoll, Ross (CIR) process.
 \[
 \begin{split}
 dS_t&=\mu S_t dt + \sqrt{\upsilon} S_t dW_t\\
 d\upsilon_t&=\kappa(\overline{\upsilon}-\upsilon_t)dt+\eta \sqrt{\upsilon_t}dZ_t\\
-E[dZ_tdW_t]&=\rho dt
+dZ_tdW_t&=\rho dt
 \end{split}
 \]
 These parameters are described as follows:
@@ -580,29 +583,17 @@ These parameters are described as follows:
   \item $\overline{\upsilon}$ is the long term mean of variance
   \item $\kappa$ is the rate of mean reversion
   \item $\eta$ is the volatility of volatility
-  \item $S_t$ is the underlying asset price
-  \item $\upsilon_t$ is the  instantaneous variance
+  \item $S_t$ is the underlying asset price process
+  \item $\upsilon_t$ is the process for instantaneous variance
   \item $W_t$ and $Z_t$ are correlated Wiener process with correlation coefficient $\rho$
 \end{itemize}
 Similarly, the Heston dynamics can be transformed to be under a risk-neutral measure $Q$.
-Heston \cite{heston1993closed} assumes that the market price of volatility risk is  proportional to the volatility $\sqrt{\upsilon_t}$:
-\begin{equation}
-\Theta_{2}=\frac{\lambda}{\eta} \sqrt{\upsilon_t}
-\label{eq:price-vol-risk}
-\end{equation}
-$\lambda$ is a parameter used to generate the market price of volatility risk.
-Recall that market price of risk is:
-\[
-\Theta_1=\frac{\mu-r}{\sqrt{\upsilon_t}}
-\]
-It can be shown that a risk-neutral measure $Q$ can be defined through Radon-Nikodym derivative via Multi-dimensional Girsanov's theorem \cite{shreve2004stochastic} using the $\Theta_1$ and $\Theta_2$.
-
-Therefore, Heston model under a risk-neutral measure $Q$ is:
+Heston model under a risk-neutral measure $Q$ is:
 \begin{equation}
 \begin{split}
 dS&=r S dt + \sqrt{\upsilon} S \hat{dW}\\
-d\upsilon&=\kappa^*(\overline{\upsilon}^*-\upsilon)dt+\eta \sqrt{\upsilon}\hat{dZ}\\
-E[\hat{dZ}\hat{dW}]&=\rho dt
+d\upsilon&=\kappa^*(\overline{\upsilon}^*-\upsilon)dt+\sigma \sqrt{\upsilon}\hat{dZ}\\
+\hat{dZ}\hat{dW}&=\rho dt
 \end{split}
 \label{eq:hestonNeutral}
 \end{equation}
@@ -610,125 +601,44 @@ where
 \[
 \kappa^*=\kappa+\lambda, \overline{\upsilon}^*=\frac{\kappa \overline{\upsilon}}{\kappa+\lambda}
 \]
+Based on the assumption of Heston \cite{heston1993closed}, the price of volatility risk is assumed to be proportional to the volatility $\sqrt{\upsilon_t}$:
 \[
-\hat{dW}=dW+\Theta_1 dt
+\Theta_{2}=\frac{\lambda}{\eta} \sqrt{\upsilon_t}
 \]
-\[
-\hat{dZ}=dZ+\Theta_2 dt
-\]
-Similar to Black-Scholes model, Heston model has closed-form solution. The closed formed solution for European call option under  the risk-neutral measure $Q$ is
-\[
-C(S,t,T,K,r;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)=S\; N_1-Ke^{-r(T-t)} \; N_2
-\]
-Let us define the imaginary unit $\mathcal{I}^2=-1$. Then the $N_1$ and $N_2$ are defined as:
-\[
-N_j=\frac{1}{2}+\frac{1}{\pi}\int_{0}^{\infty} Re \left[\frac{e^{-\mathcal{I} \varphi \ln{K}} f_j(S,\upsilon,t,T;\varphi)} {\mathcal{I}\varphi} \right] d\varphi;\;\;\ j=1,2
-\] with $Re[\cdot]$ denoting the real part.
-The characteristic function $f_j(S,\upsilon,t,T;\varphi)$ is :
-\[
-f_j(S,\upsilon,t,T;\varphi)=e^{A_j(t,T,\varphi)+B_j(t,T,\varphi)\upsilon+\mathcal{I} \varphi \ln{S}}\; j=1,2
-\]
-Where:
-\[
-\begin{split}
-A_j(t,T,\varphi)&=r \varphi (T-t)+ \frac{\kappa^* \overline{\upsilon}^*}{\eta^2}\left\{(b_j-\rho \eta \varphi \mathcal{I}+ d_j) (T-t)- 2\ln{\left[ \frac{1-g_je^d_j(T-t)}{1-g_j}\right]}     \right\}\\
-B_j(t,T,\varphi)&=g_j\left[ \frac{1-e^d_j(T-t)}{1-g_je^{d_j(T-t)}}\right] \\
-g_j&=\frac{b_j-\rho\varphi \mathcal{I}+d_j}{b_j-\rho\varphi \mathcal{I}-d_j}\\
-d_j&=\sqrt{(\rho \eta \varphi \mathcal{I}-b_j)^2-\eta^2(2 u_j \varphi- \varphi^2)}\\
-u_1&=0.5, u_2=-0.5, b_1=\kappa^*-\rho \upsilon, b_2=\kappa^*
-\end{split}
-\]
-European put option price can be derived from the call-put parity:
-\[
-P(S,t,T,K,r;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)=C(S,t,T,K,r;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)-S+K e^{-r(T-t)}
-\]
-The parameters to be calibrated from the market option prices are $\{\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho\}$ where $\upsilon$ is the initial instantaneous variance, $\overline{\upsilon}^*$ is the long term mean of variance under risk-neutral measurement $Q$, $\kappa^*$ is the rate of mean reversion under risk-neutral measurement $Q$, $\eta$ is the volatility of volatility, and $\rho$ is correlation.
 
 Under Black-Scholes model, an option is dependent on tradable asset $S_t$. The randomness in option value is solely determined by the randomness of the asset $S_t$. Such uncertainly can be hedged by continuously adjusting the shares of underlying asset as we have discussed in  section \ref{sec:bs}. This makes the market complete (i.e, we can construct the replicating portfolio to replicate the option value).
-Under a stochastic volatility model such as Heston model, the uncertainty of option value comes from both the underlying asset $S_t$ and the volatility (or variance $\upsilon_t$ as in Heston model). The volatility itself is not tradable which makes the market incomplete under stochastic volatility model. Incompleteness implies the risk-neutral measure is not unique. In other words, $\lambda$ is not unique. Different choices of $\lambda$ will lead to different risk-neutral measurements. However, one can assume a risk-neutral measure $Q$ exists and calibrate the Heston model to match the the market option prices directly using the dynamics in \eqref{eq:hestonNeutral} without specifying the $\lambda$. In this way, $\lambda$ has been implied and embedded into the calibrated model parameters $\kappa^*$ and $\overline{\upsilon}^*$. Interested reader can refer to \cite{heston1993closed,gatheral2011volatility} for more details of risk-neutral pricing under Heston model. In this thesis, we deal with Heston model under the risk-neural measurement $Q$. For simplicity, in this thesis,  we use $V_{Heston}(S,t,T,K,r;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)$ to denote the European Heston pricing function regardless of the call or put nature.
+Under a stochastic volatility model such as Heston model, the uncertainty of option value comes from both the underlying asset $S_t$ and the volatility (or variance $\upsilon_t$ as in Heston model). The volatility itself is not tradable which makes the market incomplete under stochastic volatility model. Incompleteness implies the risk-neutral measure is not unique. In other words, $\lambda$ is not unique. Different choices of $\lambda$ will lead to different risk-neutral measurement. However, one can assume a risk-neutral measure $Q$ exists and calibrate the Heston model to match the the market option prices directly using the dynamics in \eqref{eq:hestonNeutral} without specifying the $\lambda$. In this way, $\lambda$ has been implied and embedded into the calibrated model parameters $\kappa^*$ and $\overline{\upsilon}^*$. Interested reader can refer to \cite{heston1993closed,gatheral2011volatility} for more details of risk-neutral pricing under Heston model. In this thesis, we deal with Heston model under the risk-neural measurement $Q$.
+ 
+Similar to Black-Scholes model, Heston model has closed-form solution. The closed formed solution for call option under  the risk-neutral measure $Q$ is
+\[
+C(S,\upsilon,t,T)=S N_1-Ke^{-r(T-t)} N_2
+\]
+Let us define $x=\ln{S}$. Then the $N_1$ and $N_2$ are defined as:
+\[
+N_j=\frac{1}{2}+\frac{1}{\pi}\int_{0}^{\infty} Re \left[\frac{e^{-i \varphi \ln{K}} f_j(x,\upsilon,\tau;\varphi)} {i\varphi} \right] d\varphi;\;\;\ j=1,2
+\]
+The characteristic function $f_j(x,\upsilon,\tau;\varphi)$ is :
+\[
+f_j(x,\upsilon,\tau;\varphi)=e^{C_j(\tau,\varphi)+D_j(\tau,\varphi)\upsilon+i \varphi x}
+\]
+Where
+\[
+\begin{split}
+C_j(\tau,\varphi)&=r \varphi \tau+ \frac{\kappa \overline{\upsilon}}{\eta^2}\left\{(b_j-\rho \eta \varphi i+ d_j) \tau- 2\ln{\left[ \frac{1-g_je^d_j\tau}{1-g_j}\right]}     \right\}\\
+D_j(\tau,\varphi)&=g_j\left[ \frac{1-e^d_j\tau}{1-g_je^{d_j\tau}}\right] \\
+g_j&=\frac{b_j-\rho\varphi i+d_j}{b_j-\rho\varphi i-d_j}\\
+d_j&=\sqrt{(\rho \eta \varphi i-b_j)^2-\eta^2(2 u_j \varphi- \varphi^2)}\\
+u_1&=0.5, u_2=-0.5, b_1=\kappa+\lambda-\rho \upsilon, b_2=\kappa+\lambda\\
+&\text{$\lambda$ is the price of volatility risk}
+\end{split}
+\]
 \subsection{SABR Model}
-The SABR model  \citep{hagan2017bartlett,bartlett2006hedging} is another stochastic volatility model, which attempts to capture the volatility smile in derivatives markets. The name stands for "Stochastic Alpha, Beta, Rho", referring to the parameters of the model.  The SABR model is another popular stochastic volatility model widely used in financial risk management. Its popularity is due to the fact that it can reproduce comparatively well the market-observed volatility smile and that it provides a closed-form
-formula for the volatility. 
-Given the risk-free interest rate $r$, the forward $F_t$ with expiry $T$ is: 
-\[
-F_t=S_t e^{r (T-t)}
-\]
-In the SABR stochastic volatility model, the  forward $F_t$ price follows the following stochastic differential equation:
-\[
-\begin{split}
-dF_t=\alpha_t (F_t)^{\beta}dW_t\\
-d\alpha_t=\nu \alpha_t dZ_t\\
-E[dW_tdZ_t]=\rho dt
-\end{split}
-\]
-These parameters are described as follows:
-\begin{itemize}
-	\item $\alpha_t$ is the instantaneous  volatility of the Forward $F_t$.
-	\item $\nu$ is the   volatility of  instantaneous  volatility $\alpha_t$  .
-	\item $W_t$ and $Z_t$ are correlated Wiener process with correlation coefficient $\rho$
-\end{itemize}
-
-A variant of the Black–Scholes option pricing model, Black model \cite{black1976pricing}, is often used together with SABR model. Under Black model, the  forward $F_t$ price follows the following stochastic differential equation:
-\[
-dF_t=\sigma_B F_t dW_t\\
-\]
-where $\sigma_B$ is the volatility. We use $V_B(F,K,r,t,T;\sigma_{B})$ to denote the Black pricing function. For European call option:
-\[
-V_B(F,t,T,K,r;\sigma_{B})=e^{-r(T-t)}[F\; CDF (d3)-K\; CDF (d4)]
-\]
-For European put option:
-\[
-V_B(F,t,T,K,r;\sigma_{B})=e^{-r(T-t)}[K \;CDF (-d4)-F\; CDF (-d3)]
-\]
-where $CDF$ is the cumulative density function of standard normal distributon
-\[
-d_3=\frac{\ln(F/K)+\sigma^2/2(T-t)}{\sigma \sqrt{T-t}}, \;\; d_4=d_3-\sigma  \sqrt{T-t}
-\]
-Consider an option on the forward $F$ with expiry $T$ and strike $K$ at time $t$.
-If we force the SABR model price of the option into the form of the Black model valuation formula. Then the implied volatility, which is the value of the $\sigma_B$ in Black's model that forces it to match the SABR price, is approximately given by:
-
-\begin{eqnarray*}
-	\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho) &\approx&
-	\frac{\alpha}{(FK)^{(1-\beta)/2}\left[1+\frac{(1-\beta)^2}{24}\log^2(F/K)
-		+ \frac{(1-\beta)^4}{1920}\log^4(F/K) + \cdots\right]} \cdot
-	\frac{z}{x(z)}  \\
-	& & \cdot \left\{1+\left[\frac{(1-\beta)^2}{24}\frac{\alpha^2}{(FK)^{1-\beta}}
-	+ \frac{1}{4} \frac{\rho\beta\nu\alpha}{(FK)^{(1-\beta)/2}} +
-	\frac{2-3\rho^2}{24}\nu^2 \right](T-t)+\cdots\right\}
-\end{eqnarray*}
-where
-\[
-z = \frac{\nu}{\alpha}(FK)^{(1-\beta)/2}\log (F/K),\; x(z) =
-\log\left\{\frac{\sqrt{1-2\rho z + z^2}+z-\rho}{1-\rho}\right\}
-\]
-For the special case of at-the-money options, options struck at $K=F$,
-this formula reduces to
-\[
-\begin{split}
-\sigma_{ATM} &= \sigma_{B}(F,t,T,F;\alpha,\beta,\nu,\rho) \\
-&\approx
-\frac{\alpha}{F^{(1-\beta)}}\left\{1 +
-\left[\frac{(1-\beta)^2}{24}\frac{\alpha^2}{F^{2-2\beta}} +
-\frac{1}{4}\frac{\rho\beta\alpha\nu}{F^{(1-\beta)}} +
-\frac{2-3\rho^2}{24}\nu^2 \right] (T-t) + \cdots \right\}
-\end{split}
-\]
-Therefore, the European option value under SABR model is given by:
-\[
-V_{SABR}=V_B(F,t,T,K,r;\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho))
-\]
-
-The $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$ under SABR model depends on the forward $F$, the strike $K$, the time to expiry $T-t$, the initial SABR volatility $\alpha$, the power of forward $\beta$, the volatility of volatility $\nu$, and the correlation $\rho$.  
-
-
-
-\section{Discrete Hedging Problem}
-\subsection{Total and Local Hedging Risk}
-\section{Parameter Dependence on Underlying Asset}
 \subsection{Option Hedging Using the Sensitivity from Pricing Model}
+\section{Parameter Dependence on Underlying Asset}
 \subsection{Hull-White Correction}
 \subsection{SABR and Bartlett Correction}
-
+\section{Discrete Hedging Problem}
+\subsection{Total and Local Hedging Risk}
 
 
 %----------------------------------------------------------------------
