@@ -11,11 +11,48 @@
 \BOOKMARK [1][-]{section.2.2}{Discrete Hedging Problem}{chapter.2}% 11
 \BOOKMARK [2][-]{subsection.2.2.1}{Discrete Local Hedging Risk}{section.2.2}% 12
 \BOOKMARK [2][-]{subsection.2.2.2}{Discrete Total Hedging Risk}{section.2.2}% 13
-\BOOKMARK [2][-]{subsection.2.2.3}{Connection Between the Local and Total Hedging Risk}{section.2.2}% 14
+\BOOKMARK [2][-]{subsection.2.2.3}{Interest Rate and Dividend}{section.2.2}% 14
 \BOOKMARK [1][-]{section.2.3}{Option Hedging Using the Sensitivity from Pricing Model}{chapter.2}% 15
 \BOOKMARK [2][-]{subsection.2.3.1}{Classical Hedging Position From Pricing Model}{section.2.3}% 16
 \BOOKMARK [2][-]{subsection.2.3.2}{Parameter Dependence on Underlying Asset}{section.2.3}% 17
-\BOOKMARK [2][-]{subsection.2.3.3}{Hull-White Correction}{section.2.3}% 18
-\BOOKMARK [2][-]{subsection.2.3.4}{SABR and Bartlett Correction}{section.2.3}% 19
-\BOOKMARK [0][-]{section*.8}{References}{}% 20
-\BOOKMARK [0][-]{appendix*.10}{APPENDICES}{}% 21
+\BOOKMARK [2][-]{subsection.2.3.3}{Corrections Under Black-Scholes Framework}{section.2.3}% 18
+\BOOKMARK [1][-]{section.2.4}{Overview of the Data-Driven Hedging Models}{chapter.2}% 19
+\BOOKMARK [0][-]{chapter.3}{Data-Driven Kernel Learning Framework for Local Hedging Risk}{}% 20
+\BOOKMARK [1][-]{section.3.1}{Regularized Kernel Pricing Model}{chapter.3}% 21
+\BOOKMARK [2][-]{subsection.3.1.1}{Indirect Hedging Positions From Kernel Pricing Functions}{section.3.1}% 22
+\BOOKMARK [1][-]{section.3.2}{Regularized Kernel Hedging Model}{chapter.3}% 23
+\BOOKMARK [1][-]{section.3.3}{Cross Validation}{chapter.3}% 24
+\BOOKMARK [1][-]{section.3.4}{Comparison using synthetic data}{chapter.3}% 25
+\BOOKMARK [1][-]{section.3.5}{Enhancement Over the Kernel Local Hedging Model}{chapter.3}% 26
+\BOOKMARK [0][-]{chapter.4}{Data-Driven Sequential Learning Framework for Local Hedging Risk}{}% 27
+\BOOKMARK [1][-]{section.4.1}{ The Proposed GRU for market data-driven hedging}{chapter.4}% 28
+\BOOKMARK [2][-]{subsection.4.1.1}{Local Discrete Hedging GRU Model}{section.4.1}% 29
+\BOOKMARK [2][-]{subsection.4.1.2}{Feature Selection via Embedded Feature Weighting}{section.4.1}% 30
+\BOOKMARK [2][-]{subsection.4.1.3}{GRU Encoder}{section.4.1}% 31
+\BOOKMARK [2][-]{subsection.4.1.4}{Decoder}{section.4.1}% 32
+\BOOKMARK [2][-]{subsection.4.1.5}{Robust Loss Function}{section.4.1}% 33
+\BOOKMARK [1][-]{section.4.2}{Training GRU}{chapter.4}% 34
+\BOOKMARK [2][-]{subsection.4.2.1}{Initialization}{section.4.2}% 35
+\BOOKMARK [2][-]{subsection.4.2.2}{Optimization}{section.4.2}% 36
+\BOOKMARK [2][-]{subsection.4.2.3}{Pre-training and Regularization}{section.4.2}% 37
+\BOOKMARK [2][-]{subsection.4.2.4}{Model Re-use and Re-initialization}{section.4.2}% 38
+\BOOKMARK [1][-]{section.4.3}{Alternative Data-Driven Hedging Models Under Neural Network Framework}{chapter.4}% 39
+\BOOKMARK [0][-]{chapter.5}{Local Discrete Hedging Performance Comparison Using S\046P 500 index Options}{}% 40
+\BOOKMARK [1][-]{section.5.1}{Data and Experimental Setting}{chapter.5}% 41
+\BOOKMARK [2][-]{subsection.5.1.1}{Weekly and Monthly Hedging Comparisons}{section.5.1}% 42
+\BOOKMARK [2][-]{subsection.5.1.2}{Feature Importance}{section.5.1}% 43
+\BOOKMARK [2][-]{subsection.5.1.3}{Daily Hedging Comparison}{section.5.1}% 44
+\BOOKMARK [1][-]{section.5.2}{Concluding Remarks for Data-Driven Local Hedging Models}{chapter.5}% 45
+\BOOKMARK [0][-]{chapter.6}{Data-Driven Sequential Learning Framework for Total Hedging Risk}{}% 46
+\BOOKMARK [1][-]{section.6.1}{Testing with Synthetic Data}{chapter.6}% 47
+\BOOKMARK [2][-]{subsection.6.1.1}{Black-Scholes Model}{section.6.1}% 48
+\BOOKMARK [1][-]{section.6.2}{Data Augmentation for Market Option Data}{chapter.6}% 49
+\BOOKMARK [2][-]{subsection.6.2.1}{No-Arbitrage Price Surface}{section.6.2}% 50
+\BOOKMARK [1][-]{section.6.3}{Proposed Model For Synthetic Experiments}{chapter.6}% 51
+\BOOKMARK [1][-]{section.6.4}{Overview of the Discrete Total Hedging Model}{chapter.6}% 52
+\BOOKMARK [2][-]{subsection.6.4.1}{Synthetic Exploration}{section.6.4}% 53
+\BOOKMARK [1][-]{section.6.5}{Data-Driven Total Discrete Hedging Model and the Different Choices of Features}{chapter.6}% 54
+\BOOKMARK [1][-]{section.6.6}{Total Discrete Hedging Performance Comparison Using S\046P 500 index Options }{chapter.6}% 55
+\BOOKMARK [0][-]{chapter.7}{Conclusion and Future Work}{}% 56
+\BOOKMARK [0][-]{section*.16}{References}{}% 57
+\BOOKMARK [0][-]{appendix*.18}{APPENDICES}{}% 58

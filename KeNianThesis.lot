@@ -1,2 +1,24 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Daily Local Hedging Risk Comparison Between $\delta ^{SABR}_{t,T,K}$ and $\delta ^{Bartlett}_{t,T,K}$}}{28}{table.2.1}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Parameters for the Heston Model}}{40}{table.3.1}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Daily Hedging Comparison}}{41}{table.3.2}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Weekly Hedging Comparison}}{42}{table.3.3}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces Monthly Hedging Comparison}}{42}{table.3.4}%
+\contentsline {table}{\numberline {3.5}{\ignorespaces Daily Hedging Comparison }}{43}{table.3.5}%
+\contentsline {table}{\numberline {3.6}{\ignorespaces Weekly Hedging Comparison}}{44}{table.3.6}%
+\contentsline {table}{\numberline {3.7}{\ignorespaces Monthly Hedging Comparison}}{44}{table.3.7}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Meta-Parameters for the Trust-Region Algorithm \ref {alg:trust}}}{53}{table.4.1}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces S\&P 500 Call Options Hedging Comparison on Traded Data, bold entries indicating best Gain from $\textsc {GRU}_\delta $}}{61}{table.5.1}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces S\&P 500 Put Options Hedging Comparison on Traded Data, bold entries indicating best Gain from $\textsc {GRU}_\delta $}}{62}{table.5.2}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces S\&P 500 Call Option Hedging For 1-Business Day: bold entries indicating best Gain from $\textsc {GRU}_\delta $}}{66}{table.5.3}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces S\&P 500 Put Option Hedging For 1-Business Day: bold entries indicating best Gain from $\textsc {GRU}_\delta $ }}{66}{table.5.4}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces Total Risk}}{70}{table.6.1}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Total Cost}}{70}{table.6.2}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Total Risk Monthly}}{78}{table.6.3}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Total Risk Weekly}}{80}{table.6.4}%
+\addvspace {10\p@ }

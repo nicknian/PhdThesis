@@ -467,6 +467,11 @@ INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmr
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
 INPUT c:\Users\nfswx\Documents\GitHub\PhdThesis\KeNianThesis.toc
 INPUT c:\Users\nfswx\Documents\GitHub\PhdThesis\KeNianThesis.toc
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmrc7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmrc7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmrc7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmrc7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
 OUTPUT c:\Users\nfswx\Documents\GitHub\PhdThesis\KeNianThesis.toc
 INPUT c:\Users\nfswx\Documents\GitHub\PhdThesis\KeNianThesis.lot
 INPUT c:\Users\nfswx\Documents\GitHub\PhdThesis\KeNianThesis.lot
@@ -489,16 +494,20 @@ INPUT c:\Users\nfswx\Documents\GitHub\PhdThesis\KeNianThesis.symbols-gls
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7t.vf
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\symbol\psyr.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmr10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7y.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmsy10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\symbol\psyr.tfm
+INPUT C:\Users\nfswx\AppData\Local\MiKTeX\2.9\fonts\tfm\public\rsfs\rsfs10.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7m.vf
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\psyro.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmmi10.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmri8r.tfm
-INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmrc7t.tfm
-INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmrc7t.tfm
-INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmrc7t.tfm
-INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb7t.tfm
-INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmrc7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7y.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmsy10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\symbol\psyr.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\MiKTeX\2.9\fonts\tfm\public\rsfs\rsfs10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb7t.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmrc7t.vf
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmb7t.vf
@@ -510,22 +519,296 @@ INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7y.vf
 INPUT C:\Users\nfswx\AppData\Local\MiKTeX\2.9\fonts\tfm\public\rsfs\rsfs10.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7t.vf
-INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\symbol\psyr.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmr10.tfm
-INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7y.vf
-INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmsy10.tfm
-INPUT C:\Users\nfswx\AppData\Local\MiKTeX\2.9\fonts\tfm\public\rsfs\rsfs10.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7t.vf
-INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\symbol\psyr.tfm
-INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmr10.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7v.vf
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmex10.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmex10.tfm
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\symbol\psyr.tfm
-INPUT c:\Users\nfswx\Documents\GitHub\PhdThesis\KeNianThesis.bbl
-INPUT c:\Users\nfswx\Documents\GitHub\PhdThesis\KeNianThesis.bbl
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmri7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7m.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7m.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7m.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7y.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7y.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7y.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7v.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7v.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7v.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmri7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmri7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmri7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmr7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmr7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7m.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\psyro.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmri8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\symbol\psyr.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7y.vf
+INPUT C:\Users\nfswx\AppData\Local\MiKTeX\2.9\fonts\tfm\public\rsfs\rsfs10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmrc7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT figures\Bartlett.eps
+INPUT .\figures\Bartlett.eps
+INPUT .\figures\Bartlett.eps
+INPUT .\figures\Bartlett-eps-converted-to.pdf
+INPUT .\figures\Bartlett-eps-converted-to.pdf
+INPUT .\figures\Bartlett.eps
+INPUT .\figures\Bartlett-eps-converted-to.pdf
+INPUT .\figures\Bartlett-eps-converted-to.pdf
+INPUT .\figures\Bartlett-eps-converted-to.pdf
+INPUT .\figures\Bartlett-eps-converted-to.pdf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmb7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7v.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmex10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmex10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\symbol\psyr.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmb7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmbc7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmbc7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmbc7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7m.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7m.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7y.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7y.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7v.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7v.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmri7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmri7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmrc7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmrc7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmrc7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmbc7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmr7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmr7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmb7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\symbol\psyr.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmr10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7y.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmsy10.tfm
+INPUT C:\Users\nfswx\AppData\Local\MiKTeX\2.9\fonts\tfm\public\rsfs\rsfs10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmrc7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7m.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\psyro.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmmi10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmri8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmrc7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7m.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7y.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7v.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmri7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmbc7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmbc7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmbc7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmss8.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7m.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\psyro.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmmi10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmri8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7m.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7y.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\zptmcm7v.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmb7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmri7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmrc7t.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmr7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmrc7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\ptmr7t.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\times\zptmcm7m.vf
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\psyro.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmmi10.tfm
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmri8r.tfm
+INPUT figures\CLocal1.eps
+INPUT .\figures\CLocal1.eps
+INPUT .\figures\CLocal1.eps
+INPUT .\figures\CLocal1-eps-converted-to.pdf
+INPUT .\figures\CLocal1-eps-converted-to.pdf
+INPUT .\figures\CLocal1.eps
+INPUT .\figures\CLocal1-eps-converted-to.pdf
+INPUT .\figures\CLocal1-eps-converted-to.pdf
+INPUT .\figures\CLocal1-eps-converted-to.pdf
+INPUT .\figures\CLocal1-eps-converted-to.pdf
+INPUT figures\C1.eps
+INPUT .\figures\C1.eps
+INPUT .\figures\C1.eps
+INPUT .\figures\C1-eps-converted-to.pdf
+INPUT .\figures\C1-eps-converted-to.pdf
+INPUT .\figures\C1.eps
+INPUT .\figures\C1-eps-converted-to.pdf
+INPUT .\figures\C1-eps-converted-to.pdf
+INPUT .\figures\C1-eps-converted-to.pdf
+INPUT .\figures\C1-eps-converted-to.pdf
+INPUT figures\CLocal2.eps
+INPUT .\figures\CLocal2.eps
+INPUT .\figures\CLocal2.eps
+INPUT .\figures\CLocal2-eps-converted-to.pdf
+INPUT .\figures\CLocal2-eps-converted-to.pdf
+INPUT .\figures\CLocal2.eps
+INPUT .\figures\CLocal2-eps-converted-to.pdf
+INPUT .\figures\CLocal2-eps-converted-to.pdf
+INPUT .\figures\CLocal2-eps-converted-to.pdf
+INPUT .\figures\CLocal2-eps-converted-to.pdf
+INPUT figures\C2.eps
+INPUT .\figures\C2.eps
+INPUT .\figures\C2.eps
+INPUT .\figures\C2-eps-converted-to.pdf
+INPUT .\figures\C2-eps-converted-to.pdf
+INPUT .\figures\C2.eps
+INPUT .\figures\C2-eps-converted-to.pdf
+INPUT .\figures\C2-eps-converted-to.pdf
+INPUT .\figures\C2-eps-converted-to.pdf
+INPUT .\figures\C2-eps-converted-to.pdf
+INPUT figures\PLocal1.eps
+INPUT .\figures\PLocal1.eps
+INPUT .\figures\PLocal1.eps
+INPUT .\figures\PLocal1-eps-converted-to.pdf
+INPUT .\figures\PLocal1-eps-converted-to.pdf
+INPUT .\figures\PLocal1.eps
+INPUT .\figures\PLocal1-eps-converted-to.pdf
+INPUT .\figures\PLocal1-eps-converted-to.pdf
+INPUT .\figures\PLocal1-eps-converted-to.pdf
+INPUT .\figures\PLocal1-eps-converted-to.pdf
+INPUT figures\P1.eps
+INPUT .\figures\P1.eps
+INPUT .\figures\P1.eps
+INPUT .\figures\P1-eps-converted-to.pdf
+INPUT .\figures\P1-eps-converted-to.pdf
+INPUT .\figures\P1.eps
+INPUT .\figures\P1-eps-converted-to.pdf
+INPUT .\figures\P1-eps-converted-to.pdf
+INPUT .\figures\P1-eps-converted-to.pdf
+INPUT .\figures\P1-eps-converted-to.pdf
+INPUT figures\PLocal2.eps
+INPUT .\figures\PLocal2.eps
+INPUT .\figures\PLocal2.eps
+INPUT .\figures\PLocal2-eps-converted-to.pdf
+INPUT .\figures\PLocal2-eps-converted-to.pdf
+INPUT .\figures\PLocal2.eps
+INPUT .\figures\PLocal2-eps-converted-to.pdf
+INPUT .\figures\PLocal2-eps-converted-to.pdf
+INPUT .\figures\PLocal2-eps-converted-to.pdf
+INPUT .\figures\PLocal2-eps-converted-to.pdf
+INPUT figures\P2.eps
+INPUT .\figures\P2.eps
+INPUT .\figures\P2.eps
+INPUT .\figures\P2-eps-converted-to.pdf
+INPUT .\figures\P2-eps-converted-to.pdf
+INPUT .\figures\P2.eps
+INPUT .\figures\P2-eps-converted-to.pdf
+INPUT .\figures\P2-eps-converted-to.pdf
+INPUT .\figures\P2-eps-converted-to.pdf
+INPUT .\figures\P2-eps-converted-to.pdf
+INPUT figures\CLocal0.eps
+INPUT .\figures\CLocal0.eps
+INPUT .\figures\CLocal0.eps
+INPUT .\figures\CLocal0-eps-converted-to.pdf
+INPUT .\figures\CLocal0-eps-converted-to.pdf
+INPUT .\figures\CLocal0.eps
+INPUT .\figures\CLocal0-eps-converted-to.pdf
+INPUT .\figures\CLocal0-eps-converted-to.pdf
+INPUT .\figures\CLocal0-eps-converted-to.pdf
+INPUT .\figures\CLocal0-eps-converted-to.pdf
+INPUT figures\C0.eps
+INPUT .\figures\C0.eps
+INPUT .\figures\C0.eps
+INPUT .\figures\C0-eps-converted-to.pdf
+INPUT .\figures\C0-eps-converted-to.pdf
+INPUT .\figures\C0.eps
+INPUT .\figures\C0-eps-converted-to.pdf
+INPUT .\figures\C0-eps-converted-to.pdf
+INPUT .\figures\C0-eps-converted-to.pdf
+INPUT .\figures\C0-eps-converted-to.pdf
+INPUT figures\PLocal0.eps
+INPUT .\figures\PLocal0.eps
+INPUT .\figures\PLocal0.eps
+INPUT .\figures\PLocal0-eps-converted-to.pdf
+INPUT .\figures\PLocal0-eps-converted-to.pdf
+INPUT .\figures\PLocal0.eps
+INPUT .\figures\PLocal0-eps-converted-to.pdf
+INPUT .\figures\PLocal0-eps-converted-to.pdf
+INPUT .\figures\PLocal0-eps-converted-to.pdf
+INPUT .\figures\PLocal0-eps-converted-to.pdf
+INPUT figures\P0.eps
+INPUT .\figures\P0.eps
+INPUT .\figures\P0.eps
+INPUT .\figures\P0-eps-converted-to.pdf
+INPUT .\figures\P0-eps-converted-to.pdf
+INPUT .\figures\P0.eps
+INPUT .\figures\P0-eps-converted-to.pdf
+INPUT .\figures\P0-eps-converted-to.pdf
+INPUT .\figures\P0-eps-converted-to.pdf
+INPUT .\figures\P0-eps-converted-to.pdf
+INPUT figures\ImpVol.eps
+INPUT .\figures\ImpVol.eps
+INPUT .\figures\ImpVol.eps
+INPUT .\figures\ImpVol-eps-converted-to.pdf
+INPUT .\figures\ImpVol-eps-converted-to.pdf
+INPUT .\figures\ImpVol.eps
+INPUT .\figures\ImpVol-eps-converted-to.pdf
+INPUT .\figures\ImpVol-eps-converted-to.pdf
+INPUT .\figures\ImpVol-eps-converted-to.pdf
+INPUT .\figures\ImpVol-eps-converted-to.pdf
+INPUT figures\Price.eps
+INPUT .\figures\Price.eps
+INPUT .\figures\Price.eps
+INPUT .\figures\Price-eps-converted-to.pdf
+INPUT .\figures\Price-eps-converted-to.pdf
+INPUT .\figures\Price.eps
+INPUT .\figures\Price-eps-converted-to.pdf
+INPUT .\figures\Price-eps-converted-to.pdf
+INPUT .\figures\Price-eps-converted-to.pdf
+INPUT .\figures\Price-eps-converted-to.pdf
+INPUT c:\Users\nfswx\Documents\GitHub\PhdThesis\KeNianThesis.bbl
+INPUT c:\Users\nfswx\Documents\GitHub\PhdThesis\KeNianThesis.bbl
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\cm\cmtt12.tfm
 INPUT c:\Users\nfswx\Documents\GitHub\PhdThesis\KeNianThesis.aux
 INPUT c:\Users\nfswx\Documents\GitHub\PhdThesis\KeNianThesis.out
@@ -537,10 +820,14 @@ INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfon
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr10.pfb
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr10.pfb
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmss8.pfb
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmss8.pfb
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmtt12.pfb
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmtt12.pfb
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\symbols\msbm10.pfb
+INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\symbols\msbm10.pfb
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\rsfs\rsfs10.pfb
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\rsfs\rsfs10.pfb
 INPUT C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\urw\symbol\usyr.pfb

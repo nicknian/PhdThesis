@@ -1,2 +1,34 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Comparison based on 2012-01-04 S\&P500 index option}}{27}{figure.2.1}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces $\textsc {GRU}_\delta $: GRU Encode-Decoder Hedging Model }}{48}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Illustration of the GRU Cell}}{50}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces $\textsc {NN}_\delta $: decoder only model}}{57}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces $\textsc {GRU}_{c}$: Removing the Output Gate}}{57}{figure.4.4}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Feature Scores for Weekly and Monthly Hedging Models on Traded S\&P500 Call Option Data }}{63}{figure.5.1}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Weekly Hedging}}}{63}{figure.5.1}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Weekly Hedging}}}{63}{figure.5.1}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Local Features Monthly Hedging}}}{63}{figure.5.1}%
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Sequential Features Monthly Hedging}}}{63}{figure.5.1}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Feature Score for Weekly and Monthly Hedging Models on Traded S\&P500 Put Option Data}}{64}{figure.5.2}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Weekly Hedging}}}{64}{figure.5.2}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Weekly Hedging}}}{64}{figure.5.2}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Local Features Monthly Hedging}}}{64}{figure.5.2}%
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Sequential Features Monthly Hedging}}}{64}{figure.5.2}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Feature Score for Daily Hedging Model: S\&P500 Call Option (Traded Data)}}{67}{figure.5.3}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Daily Hedging}}}{67}{figure.5.3}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Daily Hedging}}}{67}{figure.5.3}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Feature Score for Daily Hedging Model: S\&P500 Put Option (Traded Data)}}{67}{figure.5.4}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Daily Hedging}}}{67}{figure.5.4}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Daily Hedging}}}{67}{figure.5.4}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Proposed Model For Synthetic Cases}}{77}{figure.6.1}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Refined Model For Real Cases}}{78}{figure.6.2}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces The Price Surface and Implied Volatility Surface for 2012-01-04 SP500 index option}}{79}{figure.6.3}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Implied Volatility Surface}}}{79}{figure.6.3}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Price Surface}}}{79}{figure.6.3}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Planned Model}}{80}{figure.6.4}%
+\addvspace {10\p@ }
