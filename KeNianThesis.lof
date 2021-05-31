@@ -25,10 +25,34 @@
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Daily Hedging}}}{67}{figure.5.4}%
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Daily Hedging}}}{67}{figure.5.4}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Proposed Model For Synthetic Cases}}{77}{figure.6.1}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Refined Model For Real Cases}}{78}{figure.6.2}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces The Price Surface and Implied Volatility Surface for 2012-01-04 SP500 index option}}{79}{figure.6.3}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Implied Volatility Surface}}}{79}{figure.6.3}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Price Surface}}}{79}{figure.6.3}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Planned Model}}{80}{figure.6.4}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces The Price Surface and Implied Volatility Surface for 2012-01-04 SP500 index option}}{76}{figure.6.1}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Implied Volatility Surface}}}{76}{figure.6.1}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Price Surface}}}{76}{figure.6.1}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Planned Model}}{79}{figure.6.2}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparing Total Model and Local Model on Weekly Hedging Put Options}}{79}{figure.6.3}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{79}{figure.6.3}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{79}{figure.6.3}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{79}{figure.6.3}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Comparing Total Model and Bartlett Model on Weekly Hedging Put Options}}{80}{figure.6.4}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{80}{figure.6.4}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{80}{figure.6.4}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{80}{figure.6.4}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing Total Model and Black–Scholes Model on Weekly Hedging Put Options}}{80}{figure.6.5}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{80}{figure.6.5}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{80}{figure.6.5}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{80}{figure.6.5}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing Total Model and Local Model on Monthly Hedging Put Options}}{80}{figure.6.6}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{80}{figure.6.6}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{80}{figure.6.6}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{80}{figure.6.6}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparing Total Model and Bartlett Model on Monthly Hedging Put Options}}{80}{figure.6.7}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{80}{figure.6.7}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{80}{figure.6.7}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{80}{figure.6.7}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Comparing Total Model and Black–Scholes Model on Monthly Hedging Put Options}}{81}{figure.6.8}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{81}{figure.6.8}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{81}{figure.6.8}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{81}{figure.6.8}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {1}{\ignorespaces Proposed Model For Synthetic Cases}}{96}{figure.Alph0.1}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Refined Model For Real Cases}}{97}{figure.Alph0.2}%

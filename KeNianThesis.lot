@@ -17,8 +17,10 @@
 \contentsline {table}{\numberline {5.3}{\ignorespaces S\&P 500 Call Option Hedging For 1-Business Day: bold entries indicating best Gain from $\textsc {GRU}_\delta $}}{66}{table.5.3}%
 \contentsline {table}{\numberline {5.4}{\ignorespaces S\&P 500 Put Option Hedging For 1-Business Day: bold entries indicating best Gain from $\textsc {GRU}_\delta $ }}{66}{table.5.4}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Total Risk}}{70}{table.6.1}%
-\contentsline {table}{\numberline {6.2}{\ignorespaces Total Cost}}{70}{table.6.2}%
-\contentsline {table}{\numberline {6.3}{\ignorespaces Total Risk Monthly}}{78}{table.6.3}%
-\contentsline {table}{\numberline {6.4}{\ignorespaces Total Risk Weekly}}{80}{table.6.4}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Summary of Weekly Hedging Call Options}}{75}{table.6.1}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Summary of Monthly Hedging Call Options}}{77}{table.6.2}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Summary of Weekly Hedging Put Options}}{78}{table.6.3}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Summary of Monthly Hedging Put Options}}{81}{table.6.4}%
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {1}{\ignorespaces Total Risk}}{98}{table.Alph0.1}%
+\contentsline {table}{\numberline {2}{\ignorespaces Total Cost}}{98}{table.Alph0.2}%

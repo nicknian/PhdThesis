@@ -49,18 +49,17 @@
 \contentsline {subsection}{\numberline {5.1.3}Daily Hedging Comparison}{64}{subsection.5.1.3}%
 \contentsline {section}{\numberline {5.2}Concluding Remarks for Data-Driven Local Hedging Models}{67}{section.5.2}%
 \contentsline {chapter}{\numberline {6}Data-Driven Sequential Learning Framework for Total Hedging Risk}{69}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Testing with Synthetic Data}{69}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Black-Scholes Model}{70}{subsection.6.1.1}%
-\contentsline {section}{\numberline {6.2}Data Augmentation for Market Option Data}{71}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}No-Arbitrage Price Surface}{72}{subsection.6.2.1}%
-\contentsline {subsubsection}{SABR Interpolation and Extrapolation}{72}{section*.13}%
-\contentsline {subsubsection}{Volatility Interpolation}{73}{section*.14}%
-\contentsline {subsubsection}{Augemented Training Scenarios}{76}{section*.15}%
-\contentsline {section}{\numberline {6.3}Proposed Model For Synthetic Experiments}{76}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Overview of the Discrete Total Hedging Model}{78}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Synthetic Exploration}{78}{subsection.6.4.1}%
-\contentsline {section}{\numberline {6.5}Data-Driven Total Discrete Hedging Model and the Different Choices of Features}{78}{section.6.5}%
-\contentsline {section}{\numberline {6.6}Total Discrete Hedging Performance Comparison Using S\&P 500 index Options }{78}{section.6.6}%
-\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{81}{chapter.7}%
-\contentsline {chapter}{\textbf {References}}{82}{section*.16}%
-\contentsline {chapter}{APPENDICES}{94}{appendix*.18}%
+\contentsline {section}{\numberline {6.1}Data Augmentation for Market Option Data}{69}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}No-Arbitrage Price Surface}{71}{subsection.6.1.1}%
+\contentsline {subsubsection}{SABR Interpolation and Extrapolation}{71}{section*.13}%
+\contentsline {subsubsection}{Volatility Interpolation}{72}{section*.14}%
+\contentsline {subsubsection}{Augemented Training Scenarios}{75}{section*.15}%
+\contentsline {section}{\numberline {6.2}Total Discrete Hedging Performance Comparison Using S\&P 500 index Options}{75}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Call Option}{75}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Put Option}{75}{subsection.6.2.2}%
+\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{82}{chapter.7}%
+\contentsline {chapter}{\textbf {References}}{83}{section*.16}%
+\contentsline {section}{\numberline {.1}Proposed Model For Synthetic Experiments}{95}{section.Alph0.1}%
+\contentsline {section}{\numberline {.2}Testing with Synthetic Data}{97}{section.Alph0.2}%
+\contentsline {subsection}{\numberline {.2.1}Black-Scholes Model}{97}{subsection.Alph0.2.1}%
+\contentsline {chapter}{APPENDICES}{98}{table.Alph0.2}%

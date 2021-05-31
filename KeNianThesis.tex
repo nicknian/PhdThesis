@@ -601,7 +601,7 @@ where $q$ is the given annual dividend yield. In this thesis, we use $V_{BS}(S,t
 Although, Black-Scholes framework provides a nice close-form formula, the real markets are never as ideal as the assumption of Black-Scholes model. Empirical  evidence indicates markets often violate the assumption of   Black-Scholes model. The two major aspects that has been criticized about Black-Scholes model are:
 \begin{enumerate}
 \item The constant volatility does not hold in real market. In practice, the implied volatility $\sigma^{imp}$, which equates the Black-Scholes option price $V_{BS}(S,t,T,K,r,q;\sigma)$ to market option price $V^{mkt}_{t,T,K}$, is often used to make sure that Black-Scholes price match the market observation. However, one can often find that the implied volatility $\sigma^{imp}$ tends to differ across different strikes and expiries. This breaks down the assumption of a constant volatility
-\item Transaction cost exists in real market. Due the existence of transaction cost, continuously adjusting the shares of underlying is prohibitively expensive. Therefore, the argument of the Black-Scholes theory falls apart.
+\item Transaction cost exists in real market. Due to the existence of transaction cost, continuously adjusting the shares of underlying can be prohibitively expensive. Therefore, the argument of the Black-Scholes theory falls apart.
 \end{enumerate}
 The market deviations from the assumption of Black-Scholes model  motivates people to propose various approaches for relaxing the assumptions of Black and Scholes. These attempts include, but not limited to, local volatility models \citep{coleman2001,dumas1998implied,rubinstein1994implied,dupire1994pricing}, stochastic volatility models \cite{hagan2002managing,heston1993closed,hull1987pricing,bakshi1997empirical}, jump diffusion models \citep{He06,kou2002jump} and nonparametric pricing models based on regression \citep{yao2000option,bennell2004black,gradojevic2009option,garcia2000pricing,malliaris1993neural}. In the following section, we discuss two stochastic volatility models relevant to this thesis, Heston model and SABR model, which provide efficient closed-form solutions for the option price similar as Black-Scholes model.
 \subsection{Heston Model}
@@ -851,7 +851,7 @@ Therefore, if we assume the risk-free interest rate is zero (or omit $d B_t$ sin
     d P^{H}_{t}=\ d\Smkt_{t} \delta_{t,T,K}-d \Vmkt_{t,T,K}
 \end{equation}
 When the market is complete as what we assume in section \ref{sec:bs} for the derivation of Black–Scholes formula, the randomness in this instantaneous hedging risk can theoretically be eliminated by continuously trading the underlying asset and set $\delta=\frac{d \Vmkt_{t,T,K}}{d\Smkt_{t}}$. However in practice, option hedging needs to be implemented in an incomplete market, since hedging can only be done at discrete times.
-Besides additional risk, e.g., jump and volatility, cannot be eliminated by trading the underlying asset only \cite{heston1993closed,gatheral2011volatility}. Lastly, in practice, $\frac{d \Vmkt_{t,T,K}}{d\Smkt_{t}}$ is hard to be accurately computed due the pricing model parameters dependence on underlying asset. The pricing model parameters dependence will be explained in more details in section \ref{sec：dependence}. 
+Besides additional risk, e.g., jump and volatility, cannot be eliminated by trading the underlying asset only \cite{heston1993closed,gatheral2011volatility}. Lastly, in practice, $\frac{d \Vmkt_{t,T,K}}{d\Smkt_{t}}$ is hard to be accurately computed due to the pricing model parameters dependence on underlying asset. The pricing model parameters dependence will be explained in more details in section \ref{sec：dependence}. 
  Therefore, the hedging risk cannot be eliminated even instantaneously. 
 
 In practice, one actually care about the portfolio changes after a discrete time interval $\DT$.
@@ -875,7 +875,7 @@ consider a hedging portfolio $P_{H}(t,T,K)$ which is composed of:
 	\item Long $\delta_{t,T,K}$ (hedging position) shares of $\Smkt(t)$
 	\item An amount in a risk-free bank account $B(t)$
 \end{itemize}
-For notational simplicity since the $T$ and $K$ are fixed in following discussion, we denote:
+For the notational simplicity since the $T$ and $K$ are fixed in following discussion, we denote:
 \[
     \Vmkt_{t}=\Vmkt (t,T,K)\;,\Smkt_{t}=\Smkt(t)\;,\delta_{t}=\delta_{t,T,K},B_t=B(t)\;, P^{H}_t=P_H(t,T,K)
 \]
@@ -920,9 +920,9 @@ Plug in the notation for $T$ and $K$, the discrete total hedging risk is:
     P_H(T,T,K)=\sum_{j=0}^{N-1}\left\{ \Delta \Smkt_{t_j} \delta_{t_j,T,K} -\Delta \Vmkt_{t_j,T,K} \right\}
     \label{eq:TotalObjV2}
     \end{equation}
-By comparing equation \eqref{eq:local} and \eqref{eq:TotalObjV2}, we can see that the {\em discrete total hedging risk} is summation of the {\em discrete local hedging risk} evaluated at discrete rebalancing time $\{t_0,t_1,\dots,t_{N-1}\}$. 
+By comparing equation \eqref{eq:local} and \eqref{eq:TotalObjV2}, we can see that the {\em discrete total hedging risk} is the summation of the {\em discrete local hedging risk} evaluated at discrete rebalancing time $\{t_0,t_1,\dots,t_{N-1}\}$. 
 \subsection{Interest Rate and Dividend}
-In the previous discussion, we assume zero interest rate  when we define the {\em discrete total hedging risk} and the {\em discrete local hedging risk}. In the years of publication of the results presented in \cite{knian2017} and \cite{knian2019}, the zero interest rate  was assumed when measuring the hedging performance under discrete local hedging risk framework. The results presented \cite{knian2017} and \cite{knian2019} were evaluated from 2007 to 2015. During  most of the time from 2007 and 2015, the interest rate is virtually zero. So the zero interest assumption is valid during most of the time.  In \cite{knian2020}, such assumption is relaxed and we include the effect of interest rate when we evaluate total hedging performance. We assume the interest rate is fixed as a constant during the life time of the hedging portfolio and denote it as $r$, the discrete total hedging risk is therefore:
+In the previous discussion, we assume zero interest rate  when we define the {\em discrete total hedging risk} and the {\em discrete local hedging risk}. In the years of publication of the results presented in \cite{knian2017} and \cite{knian2019}, the zero interest rate  was assumed when measuring the hedging performance under discrete local hedging risk framework. The results presented \cite{knian2017} and \cite{knian2019} were evaluated from 2007 to 2015. During  most of the time from 2007 and 2015, the interest rate is virtually zero. So the zero interest assumption is valid during most of the time.  In \cite{knian2020}, such assumption is relaxed and we include the effect of interest rate when we evaluate the total hedging performance. We assume the interest rate is fixed as a constant during the life time of the hedging portfolio and denote it as $r$, the discrete total hedging risk is therefore:
 \begin{equation}
     P_H(T,T,K)=\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} \Smkt_{t_{j+1}}-e^{r (N-j) \Delta t}\Smkt_{t_{j}}\right] \delta_{t_j,T,K} \right\}+e^{r N \Delta t} \Vmkt_{t_0,T,K}-\Vmkt_{T,T,K}
     \label{eq:TotalObjV3}
@@ -930,7 +930,8 @@ In the previous discussion, we assume zero interest rate  when we define the {\e
 
 In this thesis, we are dealing with S\&P 500 index option. For S\&P 500 index, the closing index price of each day is already adjusted to capture corporate actions that affect market capitalization such as as additional share insurance, dividends and restructuring events such as mergers or spin-offs\cite{lassance2018comparison}. When we calibrating the  option pricing models such as Black-Scholes model,   an estimate of the dividends to be paid up until the option’s expiration are needed. For dividend-paying indices, we assume that the security pays dividends continuously, according to a continuously-compounded annual dividend yield $q$. 
 
-For the calibration of different pricing models in this thesis, we use the option market data from OptionMetric \cite{optionmetrics2008ivy} database. The OptionMetric \cite{optionmetrics2008ivy} database provides us market option quotes for each trading day from 1996-01 to 2015-08-31. We use the zero curves on each trading day provided by the OptionMetric \cite{optionmetrics2008ivy} database to extract the risk-free interest rate $r$. In addition, OptionMetric \cite{optionmetrics2008ivy} database provides annual  dividend yield $q$ for S\&P 500 index. The $q$ is recorded daily for the S\&P 500 index and supplied as the input for calibrating the option pricing models.  Details of how OptionMetric compute the zero curves and the annual dividend yield $q$  using market data can be found in \cite{optionmetrics2008ivy}.
+For the calibration of different pricing models in this thesis, we use the option market data from OptionMetric \cite{optionmetrics2008ivy} database. The OptionMetric \cite{optionmetrics2008ivy} database provides us market option quotes for each trading day from 1996-01 to 2015-08-31. We use the zero curves on each trading day provided by the OptionMetric \cite{optionmetrics2008ivy} database to extract the risk-free interest rate $r$. The zero curve used by the OptionMetric database is derived from ICE
+IBA LIBOR rates and settlement prices of CME Eurodollar futures. For a given option, the appropriate interest rate input $r$ corresponds to the zero-coupon rate that has a maturity equal to the option’s expiration $T-t$, and is obtained by linearly interpolating between the two closest zero-coupon rates on the zero curve. In addition, OptionMetric \cite{optionmetrics2008ivy} database provides annual  dividend yield $q$ for S\&P 500 index. The $q$ is recorded daily for the S\&P 500 index and supplied as the input for calibrating the option pricing models.  Details of how OptionMetric compute the zero curves and the annual dividend yield $q$  using market data can be found in \cite{optionmetrics2008ivy}.
 
 
 \section{Option Hedging Using the Sensitivity from Pricing Model}
@@ -2869,61 +2870,7 @@ Although minimizing the total hedging risk, which is hedging portfolio value at 
 
 In this chapter, we  provide several achievable remedies  to deal with issue of lack of market data.  A enhanced  sequential total hedging model $\modelT$ is introduced to minimize a discrete total hedging objective. We then build the total hedging model $\modelT$ based on the remedies we proposed and demonstrate the effectiveness of each of the remedies using real market data experiments.  
 
-\section{Testing with Synthetic Data}
 
-We have conducted primitive experiments with the Black-Scholes Model, Heston Model, GARCH model.
-
-The input is $\vy_{t_i}=\{S_{t_i}/K,t,\delta_{BS}^{t_i}\}$. The previous output from the previous rebalancing time is also added as one of the input. In terms of performance, the performance of the model is also similar to the spline model proposed in \cite{coleman2007total} and the analytical solution of the total risk minimization. The model we proposed is the simple model in Figure 3.
-The model we proposed is the simple model in Figure 3.
-The evaluation criteria are same as in \cite{coleman2007total}:
-\begin{itemize}
-\item Total risk: Average of the absolute value of the final portfolio value:
-\[ \begin{split}
-|P_{t_N^-}|&=\left|e^{-r T}\left( e^{r \Delta t}B_{t_{N-1}}- V_{t_N}+ S_{t_N} \delta_{t_{N-1}} \right)\right| \\
-&=\left|e^{-r T}\left(\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} S_{t_{j+1}}-e^{r (N-j) \Delta t}S_{t_{j}}\right] \delta_{t_j} \right\}+e^{r N \Delta t} V_{t_0}-V_{t_N}\right)\right|
-\end{split}
-\]
-\item Total cost: Average of the total cost in rebalancing the portfolio:
-\[
-e^{-r T}\left(V_{t_N}-\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} S_{t_{j+1}}-e^{r (N-j) \Delta t}S_{t_{j}}\right] \delta_{t_j} \right\}\right)
-\]
-\end{itemize}
-
-\subsection{Black-Scholes Model}
-We adopt the same experimental setting as \cite{coleman2007total}. Specifically, we assume $S_0=100$,$K=100$, $T=1$, $\mu=0.15$,$r=0.04$, and $\sigma=0.2$.
-We have 600 time steps with $\Delta t=1/600$. We can hedge every 25,50,100,300 time steps.
-\begin{table}[htp!]
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-  \hline
-  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
-  method       &25 &50&100&300 \\
-  GRU          & 0.8448& 1.1845& 1.6518 & 2.7989 \\
-  GRU (Refined)& 0.8376& 1.1426& 1.6896 & 2.8038 \\
-  Spline       & 0.8563& 1.1789& 1.6518 & 2.7843 \\
-  Analytical   & 0.8295& 1.1636& 1.6479 & 2.7914 \\
-  Delta        & 0.9481&1.3385 & 1.9128 & 3.4582 \\
-  \hline
-\end{tabular}
-\caption{Total Risk}
-\end{table}
-
-
-\begin{table}[htp!]
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-  \hline
-  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
-  method &25 &50&100&300 \\
-  GRU          & 5.8943& 5.8812& 5.7378 & 5.2507 \\
-  GRU (Refined)& 5.9682& 5.8370& 5.8549 & 5.1759 \\
-  Spline    & 5.9118& 5.8445& 5.7119 & 5.2530 \\
-  Analytical& 5.9413& 5.8773& 5.7399 & 5.2565 \\
-  Delta     & 6.0483& 6.0897& 6.1734 & 6.5382 \\
-  \hline
-\end{tabular}
-\caption{Total Cost}
-\end{table}
 
 
 \section{Data Augmentation for Market Option Data}
@@ -2945,7 +2892,7 @@ However, in reality,  we have the following challenges:
 	\item Option data  in real market is limited. 
 	\begin{enumerate}
 		\item Options listed in exchange in real market only have fixed expiry dates. For example, the expiration date for  S\&P 500 index option is fixed at the third Friday of each month. Therefore, if we only use market available expiration dates, the number of training scenarios will also be severely limited. 
-		\item In addition, option with specific strike $K$ and expiry $T$ is not traded on every data. Even we use market available expiration dates, on the initial date when we want to set up the hedging portfolio, we may not have the initial market option price $\Vmkt_{t_0,T,K}$.
+		\item In addition, the option with specific strike $K$ and expiry $T$ is not traded on every data. Even we use market available expiration dates, on the initial date when we want to set up the hedging portfolio, we may not have the initial market option price $\Vmkt_{t_0,T,K}$.
 	\end{enumerate}
 \end{enumerate}
 In order to overcome the above challenges, we propose the following solution.  
@@ -3047,7 +2994,7 @@ Given a grid of expiries $0=T_0 < T_1 < \dots< T_{max} $ and  the grid of normal
 		\vdots & \vdots\\
 		\sigma_{T_i,K_j}  , \; &\text{if} \; K_{j-1}<K \leq K_j\\
 		\vdots & \vdots\\
-		\sigma_{T_i,K_Max}  , \; &\text{if} \; K_{max} \geq K\\
+		\sigma_{T_i,K_{max}} , \; &\text{if} \; K_{max} \geq K\\
 		\end{array} \right.
 \]
 We further assume:
@@ -3096,7 +3043,7 @@ where $\mathcal{\mathbb{M}}$ is a tri-diagonal matrix parametrized by  $\sigma(T
 	\]
 	and $C_{SABR}(T_{i+1},K_j)$ is the SABR price for the grid point $(T_{i+1},K_j)$.
 
-	Given $\widehat{C}(T_{i},\widehat{K}_j)$, This can be done by:
+	Given $\widehat{C}(T_{i},\widehat{K}_j)$, this can be done by:
 	\begin{equation}
 	\inf_{\sigma(T_i,.)} \sum_{j}(\frac{\widehat{C}(T_{i+1},\widehat{K}_j)-\widehat{C}_{SABR}(T_{i+1},k_j)}{Vega_{B}(T_{i+1},\widehat{K}_j)})^2
 	\label{eq:LVFCal}
@@ -3127,11 +3074,369 @@ C(T,K)=\widehat{C}(T,\widehat{K}){D(t,T)F(t,T)}
 Interpolation based on the above procedure can guarantee the option prices computed is arbitrage-free. Detailed proof can be found in \cite{andreasen2010volatility}. To sum up, with the help of SABR model and the volatility interpolation procedure, we can compute the arbitrage-free option price for any arbitrary $T$ for the predetermined grid of strikes $0=K_0<K_1<\dots<K_{max}$. 
 \subsubsection{Augemented Training Scenarios}
 
+\begin{figure}
+	\centering
+	\subfigure[Implied  Volatility Surface]{
+		\includegraphics[width=0.8\textwidth]{./figures/ImpVol}
+	}
+	\subfigure[Price Surface]{
+		\includegraphics[width=0.8\textwidth]{./figures/Price}
+	}
+	\caption{The Price Surface and Implied Volatility Surface for 2012-01-04 SP500 index option}
+\end{figure}
+
+
+\begin{figure}[htp!]
+	\centering
+	\resizebox{0.65\textwidth}{!}{
+		\begin{tikzpicture}[
+		prod/.style={circle, draw, inner sep=0pt},
+		ct/.style={circle, draw, inner sep=5pt, ultra thick, minimum width=10mm},
+		ft/.style={circle, draw, minimum width=8mm, inner sep=1pt},
+		filter/.style={circle, draw, minimum width=7mm, inner sep=1pt, path picture={\draw[thick, rounded corners] (path picture bounding box.center)--++(65:2mm)--++(0:1mm);
+				\draw[thick, rounded corners] (path picture bounding box.center)--++(245:2mm)--++(180:1mm);}},
+		mylabel/.style={font=\scriptsize\sffamily},
+		>=LaTeX
+		]
+		\node[draw,rectangle]  (s1) at (4.5, -1) {softmax};
+		\node[draw,rectangle]  (s3) at (7.5, -1) {softmax};
+		\node [draw,circle,inner sep=0pt] (rp1) at (3*1, -1) {$\times$};
+		\node  (rp2) at (3*2, -1.5) {$\dots$};
+		\node [draw,circle,inner sep=0pt] (rp3) at (3*3, -1) {$\times$};
+		
+		\foreach \i [count=\step from 1] in {$\vx_1^{t_i}$,$\dots$,$\vx_K^{t_i}$}
+		\node (ri\step) at (3*\step, -2) {\i};
+		\node  (sw1) at (4.5, -2) {SW};
+		\node  (sw3) at (7.5, -2) {SW};
+		\draw[->] (s1.west) to node[below]{$\mathbf{\alpha}$} (rp1.east);
+		\draw[->] (s3.east) to node[below]{$\mathbf{\alpha}$} (rp3.west);
+		\draw[->] (ri1.north) to (rp1.south);
+		\draw[->] (ri3.north) to (rp3.south);
+		\draw[->] (sw1.north) to (s1.south);
+		\draw[->] (sw3.north) to (s3.south);
+		\node (h2) at (3*2, 0.0) {$\dots$};
+		\foreach \step in {1,3} {
+			\node[draw,rectangle] (h\step) at (3*\step, 0.0) {GRU};
+		}
+		\draw[->] (rp1.north) to node[left]{$\widehat{\vx}_1^{t_i}$} (h1.south);
+		\draw[->] (rp3.north) to node[left]{$\widehat{\vx}_K^{t_i}$} (h3.south);
+		
+		\foreach \step in {1,...,2} {
+			\pgfmathtruncatemacro{\next}{add(\step,1)}
+			\draw[->] (h\step.east) -> (h\next.west);
+		}
+		\node[fit=(ri1) (ri3) (s1) (s3) (h1) (h3), draw, inner sep=0pt] (fit4) { };
+		\node[align=center, outer sep=0] (encoder) [right=of fit4] {Hedging \\Encoder};
+		\node[draw,circle,inner sep=0pt]  (l1) at (6, 2) {$\times$};
+		\node[draw,rectangle]  (l3) at (6, 1) {softmax};
+		\node  (l2) at (4.5, 2) {$\vy_{t_i}$};
+		\node  (l4) at (4.5, 1) {$LW$};
+		\draw[->] (l4.east) to (l3.west);
+		\draw[->] (l2.east) to (l1.west);
+		\draw[->] (l3.north) to node[left]{$\omega$} (l1.south);
+		\node (he2) at (6, 3) {$\widehat{\vy}_{t_i}$};
+		\node (he3) at (9, 3) {$\widehat{\mathbf{h}}_E^{t_i}$};
+		
+		\node[draw,rectangle]  (hedge) at (7.5, 4) {NN};
+		\node[filter](output) at (7.5, 5) {};
+		\node[draw,rectangle] (loss) at (7.5, 7) {Loss};
+		\node (V0) at (7.5, 8) {$V_{t_0}$};
+		\node  (outputPre) at (6, 5) {...};
+		\node  (outputNext) at (9, 5) {...};
+		\node  (hedgePre) at (6, 4) {...};
+		\node (hedgeNext) at (9, 4) {...};
+		
+	
+		\node[draw,rectangle]  (hedge0) at (4.5, 4) {NN};
+		\node[filter](output0) at (4.5, 5) {};
+		\node[draw,rectangle]  (hedgeF) at (10.5, 4) {NN};
+		\node[filter](outputF) at (10.5, 5) {};
+		\draw[->] (l1.north) -> (he2.south);
+		\draw[->] (h3.north) -> (he3.south);
+		\draw[->] (he2.north) -> (hedge.south);
+		\draw[->] (he3.north) -> (hedge.south);
+		\draw[->] (V0.south) -> (loss.north);
+	
+		\draw[->] (hedge.north) to node[left]{${\mathbf{c}}_{t_i}$} (output.south);
+		\draw[->] (hedge.north) to node[left]{${\mathbf{c}}_{t_i}$} (output.south);
+		
+		\draw[->] (hedge0.north) to node[left]{${\mathbf{c}}_{t_0}$} (output0.south);
+		\draw[->] (hedgeF.north) to node[left]{${\mathbf{c}}_{t_{N-1}}$} (outputF.south);
+	
+		\node[fit=(hedge) (hedge0) (hedgeF) (output0) (output) (outputF), draw, inner sep=0pt] (fit5) { };
+		\node[align=center, outer sep=0] (encoder) [right=of fit5] {Hedging\\ Decoder};
+		\node[rectangle]  (delta0) at (4.5, 6) {$\delta_{t_0}$};
+		\node[rectangle]  (deltaP) at (6, 6) {...};
+		\node[rectangle]  (delta) at (7.5, 6) {$\delta_{t_i}$};
+		\node[rectangle]  (deltaN) at (9, 6) {...};
+		\node[rectangle]  (deltaF) at (10.5, 6) {$\delta_{t_{N-1}}$};
+		\draw[->] (delta0.north) -> (loss.south);
+		\draw[->] (deltaP.north) -> (loss.south);
+		\draw[->] (delta.north) -> (loss.south);
+		\draw[->] (deltaN.north) -> (loss.south);
+		\draw[->] (deltaF.north) -> (loss.south);
+		
+		\draw[->] (output0.north) -> (delta0.south);
+		\draw[->] (output.north) -> (delta.south);
+		\draw[->] (outputF.north) -> (deltaF.south);
+		
+		\draw [->]  (deltaP.east) to[out=0,in=180] (hedge.west);
+		\draw [->]  (delta0.east) to[out=0,in=180] (hedgePre.west);
+		\draw [->]  (delta.east) to[out=0,in=180] (hedgeNext.west);	
+		\draw [->]  (deltaN.east) to[out=0,in=180] (hedgeF.west);			
+		\end{tikzpicture}
+	}
+	\caption{Planned Model}
+	\label{fig:RNNModel}
+\end{figure}
+
+
+\section{Total Discrete Hedging Performance Comparison Using  S\&P 500 index Options}
+\subsection{Call Option}
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[htp!]
+	\centering
+    \begin{tabular}{ll|l|l|l|}
+    \cline{3-5}
+                                                          &          & Near-The-Money   & In-The-Money     & Out-of-The-Money \\ \hline
+    \multicolumn{1}{|l|}{\multirow{4}{*}{Mean abs Error}} & Total    & \textbf{0.1927}  & \textbf{0.0571}  & \textbf{0.7344}  \\  
+    \multicolumn{1}{|l|}{}                                & Local    & 0.2250           & 0.0866           & 0.8285           \\  
+    \multicolumn{1}{|l|}{}                                & Bartlett & 0.2347           & 0.0641           & 0.7383           \\  
+    \multicolumn{1}{|l|}{}                                & BS       & 0.2198           & 0.0531           & 0.9706           \\ \hline
+    \multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & Total    & \textbf{-0.2827} & \textbf{-0.1121} & \textbf{-0.5298} \\  
+    \multicolumn{1}{|l|}{}                                & Local    & -0.3622          & -0.1806          & -0.5753          \\  
+    \multicolumn{1}{|l|}{}                                & Bartlett & -0.4836          & -0.1656          & -0.9841          \\  
+    \multicolumn{1}{|l|}{}                                & BS       & -0.4823          & -0.1523          & -0.8603          \\ \hline
+    \multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & Total    & \textbf{-0.4721} & \textbf{-0.1865} & \textbf{-1.0003} \\  
+    \multicolumn{1}{|l|}{}                                & Local    & -0.5643          & -0.2081          & -1.1673          \\  
+    \multicolumn{1}{|l|}{}                                & Bartlett & -0.7103          & -0.2192          & -1.4232          \\  
+    \multicolumn{1}{|l|}{}                                & BS       & -0.7009          & -0.2724          & -1.2299          \\ \hline
+    \multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & Total    & \textbf{-0.5301} & \textbf{-0.1976} & -1.5077          \\  
+    \multicolumn{1}{|l|}{}                                & Local    & -0.6361          & -0.2168          & -1.3583          \\  
+    \multicolumn{1}{|l|}{}                                & Bartlett & -0.778           & -0.2654          & -1.6152          \\  
+    \multicolumn{1}{|l|}{}                                & BS       & -0.7171          & -0.3653          & \textbf{-1.3363} \\ \hline
+    \multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (99\%)}}    & Total    & -0.8205          & \textbf{-0.3261} & -1.6090          \\  
+    \multicolumn{1}{|l|}{}                                & Local    & \textbf{-0.7942} & -0.2301          & -2.1206          \\  
+    \multicolumn{1}{|l|}{}                                & Bartlett & -1.0827          & -0.2883          & -2.1225          \\  
+    \multicolumn{1}{|l|}{}                                & BS       & -1.0040          & -0.4712          & \textbf{-1.6074} \\ \hline
+    \end{tabular}
+	\caption{Summary of Weekly Hedging Call Options} \label{table:CallTotalW}
+    \end{table}
+
+
+\begin{table}[htp!]
+	\centering
+    \begin{tabular}{ll|l|l|l|}
+    \cline{3-5}
+                                                          &          & Near-The-Money   & In-The-Money     & Out-of-The-Money \\ \hline
+    \multicolumn{1}{|l|}{\multirow{4}{*}{Mean abs Error}} & Total    & \textbf{0.2643}  & \textbf{0.0633}  & 1.0479           \\  
+    \multicolumn{1}{|l|}{}                                & Local    & 0.2740           & 0.0642           & 1.2255           \\  
+    \multicolumn{1}{|l|}{}                                & Bartlett & 0.282            & 0.073            & \textbf{0.9674}  \\  
+    \multicolumn{1}{|l|}{}                                & BS       & 0.2865           & 0.0655           & 1.3248           \\ \hline
+    \multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & Total    & -0.4102          & -0.1472          & -1.0842          \\  
+    \multicolumn{1}{|l|}{}                                & Local    & \textbf{-0.3998} & \textbf{-0.1394} & \textbf{-0.9531} \\  
+    \multicolumn{1}{|l|}{}                                & Bartlett & -0.4775          & -0.1611          & -1.1936          \\  
+    \multicolumn{1}{|l|}{}                                & BS       & -0.5115          & -0.1554          & -1.3442          \\ \hline
+    \multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & Total    & \textbf{-0.6073} & \textbf{-0.3125} & \textbf{-1.6658} \\  
+    \multicolumn{1}{|l|}{}                                & Local    & -0.6671          & -0.3144          & -1.6962          \\  
+    \multicolumn{1}{|l|}{}                                & Bartlett & -0.6680          & -0.3372          & -2.0221          \\  
+    \multicolumn{1}{|l|}{}                                & BS       & -0.9735          & -0.4380          & -2.0016          \\ \hline
+    \multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & Total    & -0.7752          & \textbf{-0.4300} & \textbf{-1.7567} \\  
+    \multicolumn{1}{|l|}{}                                & Local    & -0.8703          & -0.4329          & -1.9142          \\  
+    \multicolumn{1}{|l|}{}                                & Bartlett & \textbf{-0.7201} & -0.4815          & -2.3799          \\  
+    \multicolumn{1}{|l|}{}                                & BS       & -1.2384          & -0.6058          & -2.8419          \\ \hline
+    \multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (99\%)}}    & Total    & -0.8692          & \textbf{-0.4627} & -2.7536          \\  
+    \multicolumn{1}{|l|}{}                                & Local    & -1.0861          & -0.4670          & \textbf{-2.5194} \\  
+    \multicolumn{1}{|l|}{}                                & Bartlett & \textbf{-0.8090}  & -0.5725          & -2.8797          \\  
+    \multicolumn{1}{|l|}{}                                & BS       & -1.2864          & -0.7859          & -3.0839          \\ \hline
+    \end{tabular}
+	\caption{Summary of Monthly Hedging Call Options} \label{table:CallTotalM}
+    \end{table}
 
 
 
+\subsection{Put Option}
+This is section for Put option
 
 
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[htp!]
+	\centering
+	\begin{tabular}{ll|l|l|l|}
+	\cline{3-5}
+														  &          & Near-The-Money   & In-The-Money     & Out-of-The-Money  \\ \hline
+	\multicolumn{1}{|l|}{\multirow{4}{*}{Mean abs Error}} & Total    & 0.2535           & \textbf{0.0965}  & \textbf{1.5356}   \\ 
+	\multicolumn{1}{|l|}{}                                & Local    & \textbf{0.2505}  & 0.1109           & 1.5424            \\ 
+	\multicolumn{1}{|l|}{}                                & Bartlett & 0.2516           & 0.1140           & 1.6042            \\ 
+	\multicolumn{1}{|l|}{}                                & BS       & 0.2763           & 0.1232           & 1.7074            \\ \hline
+	\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & Total    & -0.8124          & \textbf{-0.2364} & \textbf{-7.2478}  \\ 
+	\multicolumn{1}{|l|}{}                                & Local    & \textbf{-0.7888} & -0.2995          & -8.0562           \\ 
+	\multicolumn{1}{|l|}{}                                & Bartlett & -0.8229          & -0.3160          & -8.0506           \\  
+	\multicolumn{1}{|l|}{}                                & BS       & -0.8683          & -0.4262          & -8.7359           \\ \hline
+	\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & Total    & \textbf{-1.0475} & \textbf{-0.3452} & \textbf{-10.9438} \\ 
+	\multicolumn{1}{|l|}{}                                & Local    & -1.2335          & -0.5405          & -11.8778          \\  
+	\multicolumn{1}{|l|}{}                                & Bartlett & -1.2775          & -0.5981          & -13.2250          \\  
+	\multicolumn{1}{|l|}{}                                & BS       & -1.4724          & -0.7182          & -13.3229          \\ \hline
+	\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & Total    & \textbf{-1.1138} & \textbf{-0.3763} & \textbf{-11.7573} \\  
+	\multicolumn{1}{|l|}{}                                & Local    & -1.4584          & -0.6686          & -13.2533          \\ 
+	\multicolumn{1}{|l|}{}                                & Bartlett & -1.4361          & -0.7996          & -14.5369          \\  
+	\multicolumn{1}{|l|}{}                                & BS       & -1.7616          & -0.7969          & -19.0709          \\ \hline
+	\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR(99\%)}}     & Total    & \textbf{-1.3597} & \textbf{-0.4616} & \textbf{-15.1555} \\  
+	\multicolumn{1}{|l|}{}                                & Local    & -1.7104          & -0.8854          & -16.1956          \\ 
+	\multicolumn{1}{|l|}{}                                & Bartlett & -1.7732          & -0.9739          & -17.0642          \\ 
+	\multicolumn{1}{|l|}{}                                & BS       & -2.2754          & -1.1338          & -20.6381          \\ \hline
+	\end{tabular}
+	\caption{Summary of Weekly Hedging Put Options} \label{table:putTotalW}
+	\end{table}
+
+\newpage
+\begin{figure}[htp!]
+	\centering
+
+	\subfigure[]{
+	   \includegraphics[width=0.32\textwidth]{./figures/LocalVersusTotalNTM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/LocalVersusTotalITM.pdf}}
+	\subfigure[]{
+	   \includegraphics[width=0.32\textwidth]{./figures/LocalVersusTotalOTM.pdf}}
+	\caption{Comparing Total Model and Local Model on Weekly Hedging Put Options} \label{fig:putTotalW1}
+	\end{figure}
+
+
+
+	\begin{figure}[htp!]
+		\centering
+		\subfigure[]{
+		   \includegraphics[width=0.32\textwidth]{./figures/BartlettVersusTotalNTM.pdf}}
+		\subfigure[]{
+			\includegraphics[width=0.32\textwidth]{./figures/BartlettVersusTotalITM.pdf}}
+		\subfigure[]{
+				\includegraphics[width=0.32\textwidth]{./figures/BartlettVersusTotalOTM.pdf}}
+		\caption{Comparing Total Model and Bartlett Model on Weekly Hedging Put Options} \label{fig:putTotalW2}
+		\end{figure}
+
+		\begin{figure}[htp!]
+			\centering
+	
+			\subfigure[]{
+			   \includegraphics[width=0.32\textwidth]{./figures/BSVersusTotalNTM.pdf}}
+			\subfigure[]{
+				\includegraphics[width=0.32\textwidth]{./figures/BSVersusTotalITM.pdf}}
+				\subfigure[]{
+					\includegraphics[width=0.32\textwidth]{./figures/BSVersusTotalOTM.pdf}}
+			\caption{Comparing Total Model and Black–Scholes Model on Weekly Hedging Put Options} \label{fig:putTotalW3}
+			\end{figure}
+
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[htp!]
+	\centering
+	\begin{tabular}{ll|l|l|l|}
+	\cline{3-5}
+														  &          & Near-The-Money   & In-The-Money     & Out-of-The-Money  \\ \hline
+	\multicolumn{1}{|l|}{\multirow{4}{*}{Mean abs Error}} & Total    & \textbf{0.2986}  & \textbf{0.1240}  & 1.7639            \\  
+	\multicolumn{1}{|l|}{}                                & Local    & 0.3485           & 0.1394           & \textbf{1.6849}   \\  
+	\multicolumn{1}{|l|}{}                                & Bartlett & 0.3205           & 0.1583           & 1.7383            \\  
+	\multicolumn{1}{|l|}{}                                & BS       & 0.3224           & 0.1342           & 1.8482            \\ \hline
+	\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & Total    & \textbf{-0.7395} & \textbf{-0.2562} & -8.5602           \\  
+	\multicolumn{1}{|l|}{}                                & Local    & -0.7558          & -0.3268          & \textbf{-8.1812}  \\  
+	\multicolumn{1}{|l|}{}                                & Bartlett & -0.8370          & -0.3583          & -9.0303           \\  
+	\multicolumn{1}{|l|}{}                                & BS       & -0.7768          & -0.3088          & -9.7018           \\ \hline
+	\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & Total    & -1.7761          & \textbf{-0.3577} & \textbf{-13.3160} \\  
+	\multicolumn{1}{|l|}{}                                & Local    & -1.8144          & -0.4898          & -14.6857          \\  
+	\multicolumn{1}{|l|}{}                                & Bartlett & \textbf{-1.5710} & -0.6016          & -14.4425          \\  
+	\multicolumn{1}{|l|}{}                                & BS       & -1.8682          & -0.5401          & -16.1024          \\ \hline
+	\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & Total    & -2.1792          & \textbf{-0.4121} & -15.2323          \\  
+	\multicolumn{1}{|l|}{}                                & Local    & \textbf{-2.1577} & -0.6454          & -16.5192          \\  
+	\multicolumn{1}{|l|}{}                                & Bartlett & -2.9164          & -0.7728          & \textbf{-15.0144} \\  
+	\multicolumn{1}{|l|}{}                                & BS       & -2.5569          & -0.7583          & -15.8393          \\ \hline
+	\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (99\%)}}    & Total    & -3.4001          & \textbf{0.4509}  & \textbf{-20.6503} \\  
+	\multicolumn{1}{|l|}{}                                & Local    & -3.3717          & -0.6910          & -21.7928          \\  
+	\multicolumn{1}{|l|}{}                                & Bartlett & \textbf{-2.9164} & -0.8463          & -24.1757          \\  
+	\multicolumn{1}{|l|}{}                                & BS       & -3.5486          & -0.8109          & -26.4941          \\ \hline
+	\end{tabular}
+	\caption{Summary of Monthly Hedging Put Options}
+	\label{table:putTotalM}
+	\end{table}
+
+
+\begin{figure}[htp!]
+	\centering
+
+	\subfigure[]{
+	   \includegraphics[width=0.32\textwidth]{./figures/MLocalVersusTotalNTM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/MLocalVersusTotalITM.pdf}}
+	\subfigure[]{
+	   \includegraphics[width=0.32\textwidth]{./figures/MLocalVersusTotalOTM.pdf}}
+	\caption{Comparing Total Model and Local Model on Monthly Hedging Put Options} \label{fig:putTotalM1}
+	\end{figure}
+
+
+
+	\begin{figure}[htp!]
+		\centering
+		\subfigure[]{
+		   \includegraphics[width=0.32\textwidth]{./figures/MBartlettVersusTotalNTM.pdf}}
+		\subfigure[]{
+			\includegraphics[width=0.32\textwidth]{./figures/MBartlettVersusTotalITM.pdf}}
+		\subfigure[]{
+				\includegraphics[width=0.32\textwidth]{./figures/BartlettVersusTotalOTM.pdf}}
+		\caption{Comparing Total Model and Bartlett Model on Monthly Hedging Put Options} \label{fig:putTotalM2}
+		\end{figure}
+
+		\begin{figure}[htp!]
+			\centering
+	
+			\subfigure[]{
+			   \includegraphics[width=0.32\textwidth]{./figures/MBSVersusTotalNTM.pdf}}
+			\subfigure[]{
+				\includegraphics[width=0.32\textwidth]{./figures/MBSVersusTotalITM.pdf}}
+				\subfigure[]{
+					\includegraphics[width=0.32\textwidth]{./figures/MBSVersusTotalOTM.pdf}}
+			\caption{Comparing Total Model and Black–Scholes Model on Monthly Hedging Put Options} \label{fig:putTotalM3}
+			\end{figure}
+\chapter{Conclusion and Future Work}
+
+
+\label{sec:Conclusion}
+%----------------------------------------------------------------------
+% END MATERIAL
+%----------------------------------------------------------------------
+
+% B I B L I O G R A P H Y
+% -----------------------
+
+% The following statement selects the style to use for references.  It controls the sort order of the entries in the bibliography and also the formatting for the in-text labels.
+\bibliographystyle{plainnat}
+% This specifies the location of the file containing the bibliographic information.
+% It assumes you're using BibTeX (if not, why not?).
+\cleardoublepage % This is needed if the book class is used, to place the anchor in the correct page,
+                 % because the bibliography will start on its own page.
+                 % Use \clearpage instead if the document class uses the "oneside" argument
+\phantomsection  % With hyperref package, enables hyperlinking from the table of contents to bibliography
+% The following statement causes the title "References" to be used for the bibliography section:
+\renewcommand*{\bibname}{References}
+
+% Add the References to the Table of Contents
+\addcontentsline{toc}{chapter}{\textbf{References}}
+
+\bibliography{uw-ethesis}
+% Tip 5: You can create multiple .bib files to organize your references.
+% Just list them all in the \bibliogaphy command, separated by commas (no spaces).
+
+% The following statement causes the specified references to be added to the bibliography% even if they were not
+% cited in the text. The asterisk is a wildcard that causes all entries in the bibliographic database to be included (optional).
+\nocite{*}
+
+% The \appendix statement indicates the beginning of the appendices.
+\appendix
+% Add a title page before the appendices and a line in the Table of Contents
+\chapter*{APPENDICES}
 
 \section{Proposed Model For Synthetic Experiments}
 In this section, we propose a model that is mainly used for synthetic cases. We assume that we are rebalance the hedging portfolio at discrete time periods.
@@ -3452,198 +3757,61 @@ Therefore, we want to demonstrate the following things:
 	\label{fig:RNNModel}
 \end{figure}
 
+\section{Testing with Synthetic Data}
 
+We have conducted primitive experiments with the Black-Scholes Model, Heston Model, GARCH model.
 
+The input is $\vy_{t_i}=\{S_{t_i}/K,t,\delta_{BS}^{t_i}\}$. The previous output from the previous rebalancing time is also added as one of the input. In terms of performance, the performance of the model is also similar to the spline model proposed in \cite{coleman2007total} and the analytical solution of the total risk minimization. The model we proposed is the simple model in Figure 3.
+The model we proposed is the simple model in Figure 3.
+The evaluation criteria are same as in \cite{coleman2007total}:
+\begin{itemize}
+\item Total risk: Average of the absolute value of the final portfolio value:
+\[ \begin{split}
+|P_{t_N^-}|&=\left|e^{-r T}\left( e^{r \Delta t}B_{t_{N-1}}- V_{t_N}+ S_{t_N} \delta_{t_{N-1}} \right)\right| \\
+&=\left|e^{-r T}\left(\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} S_{t_{j+1}}-e^{r (N-j) \Delta t}S_{t_{j}}\right] \delta_{t_j} \right\}+e^{r N \Delta t} V_{t_0}-V_{t_N}\right)\right|
+\end{split}
+\]
+\item Total cost: Average of the total cost in rebalancing the portfolio:
+\[
+e^{-r T}\left(V_{t_N}-\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} S_{t_{j+1}}-e^{r (N-j) \Delta t}S_{t_{j}}\right] \delta_{t_j} \right\}\right)
+\]
+\end{itemize}
 
-
-
-\begin{figure}
-	\centering
-	\subfigure[Implied  Volatility Surface]{
-		\includegraphics[width=0.8\textwidth]{./figures/ImpVol}
-	}
-	\subfigure[Price Surface]{
-		\includegraphics[width=0.8\textwidth]{./figures/Price}
-	}
-	\caption{The Price Surface and Implied Volatility Surface for 2012-01-04 SP500 index option}
-\end{figure}
-
-\section{Overview of the Discrete Total Hedging Model}
-\label{sec:RNNTotal}
-\subsection{Synthetic Exploration}
-
-\section{Data-Driven Total Discrete Hedging Model and the Different Choices of Features}
-\section{Total Discrete Hedging Performance Comparison Using  S\&P 500 index Options }
-\begin{figure}[htp!]
-	\centering
-	\resizebox{0.65\textwidth}{!}{
-		\begin{tikzpicture}[
-		prod/.style={circle, draw, inner sep=0pt},
-		ct/.style={circle, draw, inner sep=5pt, ultra thick, minimum width=10mm},
-		ft/.style={circle, draw, minimum width=8mm, inner sep=1pt},
-		filter/.style={circle, draw, minimum width=7mm, inner sep=1pt, path picture={\draw[thick, rounded corners] (path picture bounding box.center)--++(65:2mm)--++(0:1mm);
-				\draw[thick, rounded corners] (path picture bounding box.center)--++(245:2mm)--++(180:1mm);}},
-		mylabel/.style={font=\scriptsize\sffamily},
-		>=LaTeX
-		]
-		\node[draw,rectangle]  (s1) at (4.5, -1) {softmax};
-		\node[draw,rectangle]  (s3) at (7.5, -1) {softmax};
-		\node [draw,circle,inner sep=0pt] (rp1) at (3*1, -1) {$\times$};
-		\node  (rp2) at (3*2, -1.5) {$\dots$};
-		\node [draw,circle,inner sep=0pt] (rp3) at (3*3, -1) {$\times$};
-		
-		\foreach \i [count=\step from 1] in {$\vx_1^{t_i}$,$\dots$,$\vx_K^{t_i}$}
-		\node (ri\step) at (3*\step, -2) {\i};
-		\node  (sw1) at (4.5, -2) {SW};
-		\node  (sw3) at (7.5, -2) {SW};
-		\draw[->] (s1.west) to node[below]{$\mathbf{\alpha}$} (rp1.east);
-		\draw[->] (s3.east) to node[below]{$\mathbf{\alpha}$} (rp3.west);
-		\draw[->] (ri1.north) to (rp1.south);
-		\draw[->] (ri3.north) to (rp3.south);
-		\draw[->] (sw1.north) to (s1.south);
-		\draw[->] (sw3.north) to (s3.south);
-		\node (h2) at (3*2, 0.0) {$\dots$};
-		\foreach \step in {1,3} {
-			\node[draw,rectangle] (h\step) at (3*\step, 0.0) {GRU};
-		}
-		\draw[->] (rp1.north) to node[left]{$\widehat{\vx}_1^{t_i}$} (h1.south);
-		\draw[->] (rp3.north) to node[left]{$\widehat{\vx}_K^{t_i}$} (h3.south);
-		
-		\foreach \step in {1,...,2} {
-			\pgfmathtruncatemacro{\next}{add(\step,1)}
-			\draw[->] (h\step.east) -> (h\next.west);
-		}
-		\node[fit=(ri1) (ri3) (s1) (s3) (h1) (h3), draw, inner sep=0pt] (fit4) { };
-		\node[align=center, outer sep=0] (encoder) [right=of fit4] {Hedging \\Encoder};
-		\node[draw,circle,inner sep=0pt]  (l1) at (6, 2) {$\times$};
-		\node[draw,rectangle]  (l3) at (6, 1) {softmax};
-		\node  (l2) at (4.5, 2) {$\vy_{t_i}$};
-		\node  (l4) at (4.5, 1) {$LW$};
-		\draw[->] (l4.east) to (l3.west);
-		\draw[->] (l2.east) to (l1.west);
-		\draw[->] (l3.north) to node[left]{$\omega$} (l1.south);
-		\node (he2) at (6, 3) {$\widehat{\vy}_{t_i}$};
-		\node (he3) at (9, 3) {$\widehat{\mathbf{h}}_E^{t_i}$};
-		
-		\node[draw,rectangle]  (hedge) at (7.5, 4) {NN};
-		\node[filter](output) at (7.5, 5) {};
-		\node[draw,rectangle] (loss) at (7.5, 7) {Loss};
-		\node (V0) at (7.5, 8) {$V_{t_0}$};
-		\node  (outputPre) at (6, 5) {...};
-		\node  (outputNext) at (9, 5) {...};
-		\node  (hedgePre) at (6, 4) {...};
-		\node (hedgeNext) at (9, 4) {...};
-		
-	
-		\node[draw,rectangle]  (hedge0) at (4.5, 4) {NN};
-		\node[filter](output0) at (4.5, 5) {};
-		\node[draw,rectangle]  (hedgeF) at (10.5, 4) {NN};
-		\node[filter](outputF) at (10.5, 5) {};
-		\draw[->] (l1.north) -> (he2.south);
-		\draw[->] (h3.north) -> (he3.south);
-		\draw[->] (he2.north) -> (hedge.south);
-		\draw[->] (he3.north) -> (hedge.south);
-		\draw[->] (V0.south) -> (loss.north);
-	
-		\draw[->] (hedge.north) to node[left]{${\mathbf{c}}_{t_i}$} (output.south);
-		\draw[->] (hedge.north) to node[left]{${\mathbf{c}}_{t_i}$} (output.south);
-		
-		\draw[->] (hedge0.north) to node[left]{${\mathbf{c}}_{t_0}$} (output0.south);
-		\draw[->] (hedgeF.north) to node[left]{${\mathbf{c}}_{t_{N-1}}$} (outputF.south);
-	
-		\node[fit=(hedge) (hedge0) (hedgeF) (output0) (output) (outputF), draw, inner sep=0pt] (fit5) { };
-		\node[align=center, outer sep=0] (encoder) [right=of fit5] {Hedging\\ Decoder};
-		\node[rectangle]  (delta0) at (4.5, 6) {$\delta_{t_0}$};
-		\node[rectangle]  (deltaP) at (6, 6) {...};
-		\node[rectangle]  (delta) at (7.5, 6) {$\delta_{t_i}$};
-		\node[rectangle]  (deltaN) at (9, 6) {...};
-		\node[rectangle]  (deltaF) at (10.5, 6) {$\delta_{t_{N-1}}$};
-		\draw[->] (delta0.north) -> (loss.south);
-		\draw[->] (deltaP.north) -> (loss.south);
-		\draw[->] (delta.north) -> (loss.south);
-		\draw[->] (deltaN.north) -> (loss.south);
-		\draw[->] (deltaF.north) -> (loss.south);
-		
-		\draw[->] (output0.north) -> (delta0.south);
-		\draw[->] (output.north) -> (delta.south);
-		\draw[->] (outputF.north) -> (deltaF.south);
-		
-		\draw [->]  (deltaP.east) to[out=0,in=180] (hedge.west);
-		\draw [->]  (delta0.east) to[out=0,in=180] (hedgePre.west);
-		\draw [->]  (delta.east) to[out=0,in=180] (hedgeNext.west);	
-		\draw [->]  (deltaN.east) to[out=0,in=180] (hedgeF.west);			
-		\end{tikzpicture}
-	}
-	\caption{Planned Model}
-	\label{fig:RNNModel}
-\end{figure}
-
-
-
+\subsection{Black-Scholes Model}
+We adopt the same experimental setting as \cite{coleman2007total}. Specifically, we assume $S_0=100$,$K=100$, $T=1$, $\mu=0.15$,$r=0.04$, and $\sigma=0.2$.
+We have 600 time steps with $\Delta t=1/600$. We can hedge every 25,50,100,300 time steps.
 \begin{table}[htp!]
-	\centering
-	\begin{tabular}{|c|c|c|c|c|c|}
-	  \hline
-	  method      &Mean Abs &VaR95&CVaR95&VaR99 &CVaR \\
-	  BS          &0.3900   &0.5321   &1.1404    &1.3621   &1.9858 \\
-	  Bartlett    &0.3200   &0.4137   &0.8702    &1.068    &1.9219\\
-	  Local       &0.3042   &0.3063   &0.6233    &0.7542   &1.3794 \\
-	  Total       &0.2730   &0.2698   &0.6210    &0.7498   &1.2501 \\
-	  \hline
-	\end{tabular}
-	\caption{Total Risk Monthly}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  method       &25 &50&100&300 \\
+  GRU          & 0.8448& 1.1845& 1.6518 & 2.7989 \\
+  GRU (Refined)& 0.8376& 1.1426& 1.6896 & 2.8038 \\
+  Spline       & 0.8563& 1.1789& 1.6518 & 2.7843 \\
+  Analytical   & 0.8295& 1.1636& 1.6479 & 2.7914 \\
+  Delta        & 0.9481&1.3385 & 1.9128 & 3.4582 \\
+  \hline
+\end{tabular}
+\caption{Total Risk}
 \end{table}
 
 
 \begin{table}[htp!]
-	\centering
-	\begin{tabular}{|c|c|c|c|c|c|}
-	  \hline
-	  method      &Mean Abs &VaR95&CVaR95&VaR99 &CVaR99 \\
-	  BS          &0.2820   &0.4233   &0.7325    &0.9397   &1.2573 \\
-	  Bartlett    &0.2575   &0.4159   &0.7911    &1.0114   &1.4209\\
-	  Local       &0.2785   &0.2661   &0.5652    &0.6613   &1.1151 \\
-	  Total       &0.2255   &0.3243   &0.6838    &0.8266   &1.1632 \\
-	  \hline
-	\end{tabular}
-	\caption{Total Risk Weekly}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  method &25 &50&100&300 \\
+  GRU          & 5.8943& 5.8812& 5.7378 & 5.2507 \\
+  GRU (Refined)& 5.9682& 5.8370& 5.8549 & 5.1759 \\
+  Spline    & 5.9118& 5.8445& 5.7119 & 5.2530 \\
+  Analytical& 5.9413& 5.8773& 5.7399 & 5.2565 \\
+  Delta     & 6.0483& 6.0897& 6.1734 & 6.5382 \\
+  \hline
+\end{tabular}
+\caption{Total Cost}
 \end{table}
-
-\chapter{Conclusion and Future Work}
-\label{sec:Conclusion}
-%----------------------------------------------------------------------
-% END MATERIAL
-%----------------------------------------------------------------------
-
-% B I B L I O G R A P H Y
-% -----------------------
-
-% The following statement selects the style to use for references.  It controls the sort order of the entries in the bibliography and also the formatting for the in-text labels.
-\bibliographystyle{plainnat}
-% This specifies the location of the file containing the bibliographic information.
-% It assumes you're using BibTeX (if not, why not?).
-\cleardoublepage % This is needed if the book class is used, to place the anchor in the correct page,
-                 % because the bibliography will start on its own page.
-                 % Use \clearpage instead if the document class uses the "oneside" argument
-\phantomsection  % With hyperref package, enables hyperlinking from the table of contents to bibliography
-% The following statement causes the title "References" to be used for the bibliography section:
-\renewcommand*{\bibname}{References}
-
-% Add the References to the Table of Contents
-\addcontentsline{toc}{chapter}{\textbf{References}}
-
-\bibliography{uw-ethesis}
-% Tip 5: You can create multiple .bib files to organize your references.
-% Just list them all in the \bibliogaphy command, separated by commas (no spaces).
-
-% The following statement causes the specified references to be added to the bibliography% even if they were not
-% cited in the text. The asterisk is a wildcard that causes all entries in the bibliographic database to be included (optional).
-\nocite{*}
-
-% The \appendix statement indicates the beginning of the appendices.
-\appendix
-% Add a title page before the appendices and a line in the Table of Contents
-\chapter*{APPENDICES}
 \addcontentsline{toc}{chapter}{APPENDICES}
 %======================================================================
 

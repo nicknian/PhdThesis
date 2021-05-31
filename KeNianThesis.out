@@ -44,15 +44,14 @@
 \BOOKMARK [2][-]{subsection.5.1.3}{Daily Hedging Comparison}{section.5.1}% 44
 \BOOKMARK [1][-]{section.5.2}{Concluding Remarks for Data-Driven Local Hedging Models}{chapter.5}% 45
 \BOOKMARK [0][-]{chapter.6}{Data-Driven Sequential Learning Framework for Total Hedging Risk}{}% 46
-\BOOKMARK [1][-]{section.6.1}{Testing with Synthetic Data}{chapter.6}% 47
-\BOOKMARK [2][-]{subsection.6.1.1}{Black-Scholes Model}{section.6.1}% 48
-\BOOKMARK [1][-]{section.6.2}{Data Augmentation for Market Option Data}{chapter.6}% 49
-\BOOKMARK [2][-]{subsection.6.2.1}{No-Arbitrage Price Surface}{section.6.2}% 50
-\BOOKMARK [1][-]{section.6.3}{Proposed Model For Synthetic Experiments}{chapter.6}% 51
-\BOOKMARK [1][-]{section.6.4}{Overview of the Discrete Total Hedging Model}{chapter.6}% 52
-\BOOKMARK [2][-]{subsection.6.4.1}{Synthetic Exploration}{section.6.4}% 53
-\BOOKMARK [1][-]{section.6.5}{Data-Driven Total Discrete Hedging Model and the Different Choices of Features}{chapter.6}% 54
-\BOOKMARK [1][-]{section.6.6}{Total Discrete Hedging Performance Comparison Using S\046P 500 index Options }{chapter.6}% 55
-\BOOKMARK [0][-]{chapter.7}{Conclusion and Future Work}{}% 56
-\BOOKMARK [0][-]{section*.16}{References}{}% 57
-\BOOKMARK [0][-]{appendix*.18}{APPENDICES}{}% 58
+\BOOKMARK [1][-]{section.6.1}{Data Augmentation for Market Option Data}{chapter.6}% 47
+\BOOKMARK [2][-]{subsection.6.1.1}{No-Arbitrage Price Surface}{section.6.1}% 48
+\BOOKMARK [1][-]{section.6.2}{Total Discrete Hedging Performance Comparison Using S\046P 500 index Options}{chapter.6}% 49
+\BOOKMARK [2][-]{subsection.6.2.1}{Call Option}{section.6.2}% 50
+\BOOKMARK [2][-]{subsection.6.2.2}{Put Option}{section.6.2}% 51
+\BOOKMARK [0][-]{chapter.7}{Conclusion and Future Work}{}% 52
+\BOOKMARK [0][-]{section*.16}{References}{}% 53
+\BOOKMARK [1][-]{section.Alph0.1}{Proposed Model For Synthetic Experiments}{section*.16}% 54
+\BOOKMARK [1][-]{section.Alph0.2}{Testing with Synthetic Data}{section*.16}% 55
+\BOOKMARK [2][-]{subsection.Alph0.2.1}{Black-Scholes Model}{section.Alph0.2}% 56
+\BOOKMARK [0][-]{table.Alph0.2}{APPENDICES}{}% 57
