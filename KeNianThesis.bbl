@@ -1,4 +1,4 @@
-\begin{thebibliography}{161}
+\begin{thebibliography}{165}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -264,6 +264,13 @@ Tim Cooijmans, Nicolas Ballas, C{\'e}sar Laurent, {\c{C}}a{\u{g}}lar
 \newblock Recurrent batch normalization.
 \newblock \emph{arXiv preprint arXiv:1603.09025}, 2016.
 
+\bibitem[Corbetta et~al.(2019)Corbetta, Cohort, Laachir, and
+  Martini]{corbetta2019robust}
+Jacopo Corbetta, Pierre Cohort, Ismail Laachir, and Claude Martini.
+\newblock Robust calibration and arbitrage-free interpolation of ssvi slices.
+\newblock \emph{Decisions in Economics and Finance}, 42\penalty0 (2):\penalty0
+  665--677, 2019.
+
 \bibitem[Cortes and Vapnik(1995)]{cortes1995support}
 Corinna Cortes and Vladimir Vapnik.
 \newblock Support vector machine.
@@ -405,10 +412,22 @@ Ren{\'e} Garcia and Ramazan Gen{\c{c}}ay.
 \newblock \emph{Journal of Econometrics}, 94\penalty0 (1):\penalty0 93--115,
   2000.
 
+\bibitem[Gatheral(2004)]{gatheral2004parsimonious}
+Jim Gatheral.
+\newblock A parsimonious arbitrage-free implied volatility parameterization
+  with application to the valuation of volatility derivatives.
+\newblock \emph{Presentation at Global Derivatives \& Risk Management, Madrid},
+  page~0, 2004.
+
 \bibitem[Gatheral(2011)]{gatheral2011volatility}
 Jim Gatheral.
 \newblock \emph{The volatility surface: a practitioner's guide}, volume 357.
 \newblock John Wiley \& Sons, 2011.
+
+\bibitem[Gatheral and Jacquier(2014)]{gatheral2014arbitrage}
+Jim Gatheral and Antoine Jacquier.
+\newblock Arbitrage-free svi volatility surfaces.
+\newblock \emph{Quantitative Finance}, 14\penalty0 (1):\penalty0 59--71, 2014.
 
 \bibitem[Gen{\c{c}}ay and Qi(2001)]{genccay2001pricing}
 Ramazan Gen{\c{c}}ay and Min Qi.
@@ -497,6 +516,11 @@ D.~Heath, E.~Platen, and M.~Schweizer.
 \newblock In \emph{Option pricing, interest rates and risk management}, pages
   509--537. (ed. E. Jouini, J. Cvitanic and, M. Musiela), Cambridge Univ.
   Press, 2001b.
+
+\bibitem[Hendriks and Martini(2017)]{hendriks2017extended}
+Sebas Hendriks and Claude Martini.
+\newblock The extended ssvi volatility surface.
+\newblock \emph{Available at SSRN 2971502}, 2017.
 
 \bibitem[Heston(1993)]{heston1993closed}
 Steven~L Heston.

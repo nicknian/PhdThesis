@@ -2864,11 +2864,12 @@ Overall, our research demonstrates the potential role of a market data-driven ap
 A natural extension  is to extend the sequential local hedging model to be a total hedging model where we rebalance multiple times until the expiries of the options. In the following chapter \ref{sec:RNNTotal}, we discuss the challenges associated with building such models and present our exploration on the data-driven total hedging model.
 
 \chapter{Data-Driven Sequential Learning Framework for Total Hedging Risk}
+\label{sec:RNNTotal}
 As we have discussed in section \ref{sec:DiscreteHedgingCriteria}, in reality, one often want to hedge until the expiry of the option. Enhancing the local hedging model $\model$ to output the multiple hedging positions by minimizing a total hedging objective is quite attractive. From the model perspective, such enhancement is achievable. Indeed, recently a deep hedging model was proposed to minimize the total option hedging risk evaluated at the option expiry  \citep{buehler2019deep}. It is shown  that using a RNN to represent the hedging position model can be a computationally efficient framework to determine the optimal hedging function when the market is incomplete, e.g., under the transaction cost \citep{buehler2019deep}.
 
 Although minimizing the total hedging risk, which is hedging portfolio value at the expiry $T$, is more desirable. There are several major obstacles in obtaining enough market data to build a data-driven total hedging model. The deep hedging model \citep{buehler2019deep} is built on synthetic data. It is hard to directly apply their methodology in real world due to the lack of market data needed to build a sufficient model. 
 
-In this chapter, we  provide several achievable remedies  to deal with issue of lack of market data.  A enhanced  sequential total hedging model $\modelT$ is introduced to minimize a discrete total hedging objective. We then build the total hedging model $\modelT$ based on the remedies we proposed and demonstrate the effectiveness of each of the remedies using real market data experiments.  
+In this chapter, we  provide an achievable remedy  to deal with issue of lack of market data.  A enhanced  sequential total hedging model $\modelT$ is introduced to minimize a discrete total hedging objective. We then build the total hedging model $\modelT$ based on the remedy we proposed and demonstrate the effectiveness of the remedy and the  total hedging model $\modelT$ using real market data experiments.  
 
 
 
@@ -2892,20 +2893,21 @@ However, in reality,  we have the following challenges:
 	\item Option data  in real market is limited. 
 	\begin{enumerate}
 		\item Options listed in exchange in real market only have fixed expiry dates. For example, the expiration date for  S\&P 500 index option is fixed at the third Friday of each month. Therefore, if we only use market available expiration dates, the number of training scenarios will also be severely limited. 
-		\item In addition, the option with specific strike $K$ and expiry $T$ is not traded on every data. Even we use market available expiration dates, on the initial date when we want to set up the hedging portfolio, we may not have the initial market option price $\Vmkt_{t_0,T,K}$.
+		\item In addition, the option with specific strike $K$ and expiry $T$ is not traded on every data. Even we use market available expiration dates, on the initial date $t_0$ when we want to set up the hedging portfolio and the dates $t_j$ where we rebalance the hedging portfolio, we may not have the  market option data available for  the option with specific strike $K$ and expiry $T$.
 	\end{enumerate}
 \end{enumerate}
-In order to overcome the above challenges, we propose the following solution.  
+In order to overcome the above challenges, we propose the following remedy.  
 \begin{enumerate}
 	\item Overlapping underlying asset path is allowed to be used.
 	\item Instead of using only market available expiration dates, we assume every business day can be the expiration dates of the options.
-	\item A no-arbitrage price surface is calibrated every day $t$ to obtain option price for any arbitrary combination of  $K$ and $T$: $V^{Aug}_{t,T,K}$.
+	\item A no-arbitrage price surface is calibrated on each business day to obtain option price for any arbitrary combination of  $K$ and $T$: $V^{Aug}_{t,T,K}$.
 \end{enumerate}
 
-Therefore, we can greatly increase the number of training scenarios, since now the hedging scenarios can have arbitrary combination of $T$ and $K$ even if the combination of $T$ and $K$ is not observed in the market. 
+Therefore, we can greatly increase the number of training scenarios, since now the hedging scenarios can have arbitrary combination of $T$ and $K$ even if the combination of $T$ and $K$ is not directly observed in the market. 
 
 \subsection{No-Arbitrage Price Surface}
-In this section, we describe how to calibrate an arbitrage-free price surface on each business day. We want to create a price surface that is \textbf{arbitrage-free}. In addition, we want to able to \textbf{extrapolate} for deep in-money options and deep out-of-money options. 
+\label{sec:NoArb}
+In this section, we describe how to calibrate an arbitrage-free price surface on each business day. We want to create a price surface that is \textbf{arbitrage-free}. In addition, we want to be able to \textbf{extrapolate} for  in-money options and out-of-money options. 
 Let  $Surf_{t}(T,K)$ be the option price surface function at time $t$. We want to make sure that the price surface satisfies the following no-arbitrage conditions:
 \begin{enumerate}
 		\item No call spread arbitrage or put spread arbitrage:
@@ -2930,10 +2932,21 @@ Let  $Surf_{t}(T,K)$ be the option price surface function at time $t$. We want t
 In the following subsection, we will discuss the steps of calibration of the arbitrage-free surface.
 \subsubsection{SABR Interpolation and Extrapolation}
 In this thesis, we will use SABR model to obtain the option price for arbitrary strike $K$ unobserved in the market.
-On each business day $t$, we have observed option quotes for a set of market observed expires. We denote the market available expires as $T_1 < \dots< T_{max}$. We thus have a grid of expires $t=T_0 < T_1 < \dots< T_{max}$ where we have market quotes for option (Note for for $T_0$, the market option price is just the option payoff at $t$).
+On each business day $t$, we have observed option quotes for a set of market observed expires. We denote the market available expires as.
+\[
+\mathbf{T}^{mkt}_t=\{ T^{t}_{0}<
+T^{t}_1 < \dots< T^{t}_{max}
+\}
+\]
+The first expiry is set to be $t$: $T^{t}_{0}=t$. Note that for $T^{t}_{0}$, the market option price is just the option payoff at $t$ which is $\max\{S(t)-K,0\}$ or  $\max\{K-S(t),0\}$ . 
 
+Since in this subsection, we are discussion how to obtain a arbitrage-free surface on a fixed date $t$, for the notational simplicity, we will omit the superscript  and subscript $t$ in this subsection \ref{sec:NoArb}, thus we denote the grid of market observed expires on t to be \[
+\{ T_{0}<
+T_1 < \dots< T_{max}
+\}
+\]
 We firstly use SABR model to obtain option price for a predetermined grid of strike $0=K_0<K_1<\dots<K_{max}$.  More specifically, for a fixed expiry $T_i$, let us define 
-\[K^{mkt}=
+\[K^{mkt}_{T_i}=
 \{
 	\mathbb{K}^{mkt}_{1},\dots,K^{mkt}_{N_K}
 \}
@@ -2943,29 +2956,48 @@ We solve
 \[
 \min_{\alpha,\beta,\nu,\rho} \sum_{j=1}^{N_K} \left(V_{SABR}(S,t,T_i,K^{mkt}_j,r,q;\alpha,\beta,\nu,\rho)-\Vmkt(t,T_i,K^{mkt}_j)\right)^2
 \]
-where $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ is option pricing function described in section \ref{sec:SABR}.
+where $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ is option pricing function described in section \ref{sec:SABR}. \footnote{The $\Vmkt(t,T_i,K^{mkt}_j)$ is the mid-price of market observed best bid and  best ask prices. We use market quotes in calibration and even if the trading volume is zero, we will still include them in the calibration.}
 
 For each $T_i$, we calibrate a separate set of SABR parameters and we then use the calibrated SABR parameters to compute SABR price of the predetermined grid of strikes for each $T_i$.  The SABR prices of the predetermined grid of strikes are used as the calibration targets for the volatility interpolation procedure described in the following subsection.
 
-Although SABR model is computationally efficient and can match the market volatility smile well, it is not arbitrage-free. Butterfly and call spread arbitrage can exist.
-In addition,  for each expiry, a separate set SABR parameters are calibrated so calender spread arbitrage can also exist.
-Therefore, before using the SABR price as the target for the LVF calibration, we need to fix the potential arbitrage.
+Although SABR model is computationally efficient and can match the market volatility smile well, it is not arbitrage-free.  
 
-In this thesis, we use the sufficient conditions for no arbitrage \cite{carr2005note} to check whether arbitrage exists for
- the grid of strikes: $0=K_0<K_1<\dots<K_{max}$, and the grid of expiries $t=T_0 < T_1 < \dots< T_{max} $. If arbitrage is detected, we will manually adjust the option prices from SABR model to satisfy the no-arbitrage condition.
+The butterfly and the call spread arbitrage can exist although their occurrences are infrequent. In addition,  for each expiry, a separate set SABR parameters are calibrated so calender spread arbitrage can also exist. Therefore, before using the SABR price as the target for the LVF  calibration, we need to check whether the arbitrage  exists or not. 
+
+In this thesis, we use the sufficient conditions for no arbitrage \cite{carr2005note} to check whether arbitrage exists for SABR prices computed based on  the grid of strikes: $0=K_0<K_1<\dots<K_{max}$, and the grid of expiries $t=T_0 < T_1 < \dots< T_{max} $. Let $C_{SABR}(T,K)$ be the call option price of  the expiry $T$ and strike $K$ returned by the SABR pricing function $V_{SABR}(\cdot)$. Taking the call option as the example \footnote{In the following discussion, we use the call option as the example but the analysis also holds for put options.}, the criteria are set as the following: 
+\begin{enumerate}
+	\item No call spread arbitrage condition:
+\[
+0 \leq \frac{C_{SABR}(T_{j},K_{i-1})-C_{SABR}(T_{j},K_{i})}{K_i-K_{i-1}} \leq 1
+\]
+
+	\item  No butterfly spread arbitrage condition:
+	 \[
+	C_{SABR}(T_{j},K_{i-1})-C_{SABR}(T_{j},K_{i}) \geq \frac{K_i-K_{i-1}}{K_{i+1}-K_{i}}
+	\left( C_{SABR}(T_{j},K_{i})-C_{SABR}(T_{j},K_{i+1})  \right)
+	\]
+	\item  No calendar spread arbitrage:
+	\[
+	C_{SABR}(T_{j},K_{i})\geq C_{SABR}(T_{j-1},K_{i})
+	\]
+\end{enumerate}
+
+ 
+ If we found that the prices returned by the SABR model has failed any  of the above  arbitrage conditions, we will manually adjust the option prices from SABR model until we can pass these conditions. Please, note that this manual process is rarely needed in practice.
 
 \subsubsection{Volatility Interpolation}
-\citet{andreasen2010volatility} have introduced an efficient and arbitrage free volatility interpolation method based on a one step finite difference implicit Euler scheme applied to a local volatility parametrization. In this thesis, we use the volatility interpolation approach to compute option price for arbitrary expiry $T$ unobserved in market.
+\citet{andreasen2010volatility} have introduced an efficient and arbitrage-free volatility interpolation method based on a one step finite difference implicit Euler scheme applied to a local volatility parametrization. In this thesis, we use the volatility interpolation approach to compute option price for arbitrary expiry $T$ unobserved in market.
 
-The volatility interpolation method is based on the Dupire formula.  The Dupire enables us to deduce the volatility function in a local volatility
+The volatility interpolation method is based on the Dupire's equation \cite{dupire1994pricing}.  The Dupire's equation enables us to deduce the volatility function in a local volatility
 model from quoted put and call options in the market.
 Under a risk-neutral measure, we assume:
 	\[
 	\frac{d S_t}{ S_t}= \left(r-q\right)dt +\sigma(t,S_t) dZ_t
 	\]
- Let C be the call option pricing function \footnote{In the following discussion, we use call option as the example but the analysis also holds for put options.}. Dupire's equation states:
+where $r$ is the risk-free interest rate and $q$ is the dividend yield.
+ Let $C(T,K)$ be the call option pricing function \footnote{In the following discussion, we use the call option as the example but the analysis also holds for put options.}. Dupire's equation states:
 	\[
-	\frac{\partial C}{\partial T}=\frac{1}{2} {\sigma}^2(T,K)K^2  \frac{\partial^2 C}{ \partial K^2}-(r-q) K\frac{\partial C}{\partial K}-qC
+	\frac{\partial C(T,K)}{\partial T}=\frac{1}{2} {\sigma}^2(T,K)K^2  \frac{\partial^2 C}{ \partial K^2}-(r-q) K\frac{\partial C(T,K)}{\partial K}-qC(T,K)
 	\]
 Define the normalized call price in terms of discount factor $D(t,T)$ and forward price $F(t,T)$ and the normalized strike $\widehat{K}$ as:
 \[
@@ -2978,28 +3010,27 @@ F(t,T)&=S_te^{(r-q)(T-t)}\\
 \]
 Dupire's equation can be simplified as:
 \[
-\frac{\partial \widehat{C}}{\partial T}=\frac{1}{2} \widehat{\sigma}^2(T,\widehat{K}) \widehat{K}^2  \frac{\partial^2 \widehat{C}}{ \partial \widehat{K}^2},\;\; \widehat{\sigma}(T,\widehat{K})={\sigma}(T,K)
+\frac{\partial \widehat{C}(T,\widehat{K})}{\partial T}=\frac{1}{2} \widehat{\sigma}^2(T,\widehat{K}) \widehat{K}^2  \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2},\;\; \widehat{\sigma}(T,\widehat{K})={\sigma}(T,K)
 \]
 
-
- We recursively solve the finite difference  discretization of the Dupure forward equation using fully implicit method:
+Therefore, we can recursively solve the finite difference  discretization of the Dupire's forward equation using the fully implicit method:
 \[
-\frac{\partial \widehat{C}}{\partial T}=\frac{1}{2} \widehat{\sigma}^2(T,\widehat{K}) \widehat{K}^2  \frac{\partial^2 \widehat{C}}{ \partial \widehat{K}^2}
+\frac{\partial \widehat{C}(T,\widehat{K})}{\partial T}=\frac{1}{2} \widehat{\sigma}^2(T,\widehat{K}) \widehat{K}^2  \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2}
 \]
-with initial condition $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$, lower boundary condition $\widehat{C}(T,0)=1$, upper boundary condition $\widehat{C}(T,\widehat{K}_{max})=0$.
-Given a grid of expiries $0=T_0 < T_1 < \dots< T_{max} $ and  the grid of normalized strike: $0=\widehat{K}_0<\widehat{K}_1<\dots<\widehat{K}_{max}$, we assume $\sigma(T_i,K)$  to be a piecewise constant functions for a given $T_i$.
+with the initial condition $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$, lower boundary condition $\widehat{C}(T,0)=1$, upper boundary condition $\widehat{C}(T,\widehat{K}_{max})=0$.
+Given a grid of expiries $t=T_0 < T_1 < \dots< T_{max} $ and  a grid of normalized strike: $0=\widehat{K}_0<\widehat{K}_1<\dots<\widehat{K}_{max}$, we assume $\widehat{\sigma}(T,\widehat{K})$  to be a piecewise constant functions for a given $T_i$.
 \[
-	\sigma(T_i,K)=\left\{ \begin{array}{ll}
-		\sigma_{T_i,K_0}  , \; &\text{if} \; K \leq K_0\\
+	\widehat{\sigma}(T_i,\widehat{K})=\left\{ \begin{array}{ll}
+		\sigma_{T_i,\widehat{K}_0}  , \; &\text{if} \; \widehat{K} \leq \widehat{K}_0\\
 		\vdots & \vdots\\
-		\sigma_{T_i,K_j}  , \; &\text{if} \; K_{j-1}<K \leq K_j\\
+		\sigma_{T_i,\widehat{K}_j}  , \; &\text{if} \; \widehat{K}_{j-1}<\widehat{K} \leq \widehat{K}_j\\
 		\vdots & \vdots\\
-		\sigma_{T_i,K_{max}} , \; &\text{if} \; K_{max} \geq K\\
+		\sigma_{T_i,\widehat{K}_{max}} , \; &\text{if} \;  \widehat{K} > \widehat{K}_{max} \\
 		\end{array} \right.
 \]
 We further assume:
 \[
- \frac{\partial^2 \widehat{C}(T,0)}{ \partial \widehat{K}^2}=\frac{\partial^2 \widehat{C}(T,\widehat{K}_{max})}{ \partial \widehat{K}^2}=0
+ \frac{\partial^2 \widehat{C}(T,\widehat{K}_0)}{ \partial \widehat{K}^2}=\frac{\partial^2 \widehat{C}(T,\widehat{K}_{max})}{ \partial \widehat{K}^2}=0
 \]
 The fully implicit finite difference method in matrix form is:
 \[\begin{bmatrix}
@@ -3041,16 +3072,16 @@ where $\mathcal{\mathbb{M}}$ is a tri-diagonal matrix parametrized by  $\sigma(T
 	\[
 	K_j=\widehat{K}_j F(t,T_{i+1})
 	\]
-	and $C_{SABR}(T_{i+1},K_j)$ is the SABR price for the grid point $(T_{i+1},K_j)$.
+	and $C_{SABR}(T_{i+1},K_j)$ is the price returned by the SABR pricing model for the grid point $(T_{i+1},K_j)$.
 
 	Given $\widehat{C}(T_{i},\widehat{K}_j)$, this can be done by:
 	\begin{equation}
-	\inf_{\sigma(T_i,.)} \sum_{j}(\frac{\widehat{C}(T_{i+1},\widehat{K}_j)-\widehat{C}_{SABR}(T_{i+1},k_j)}{Vega_{B}(T_{i+1},\widehat{K}_j)})^2
+	\inf_{\sigma(T_i,.)} \sum_{j}(\frac{\widehat{C}(T_{i+1},\widehat{K}_j)-\widehat{C}_{SABR}(T_{i+1},k_j)}{Vega_{BS}(T_{i+1},\widehat{K}_j)})^2
 	\label{eq:LVFCal}
  	\end{equation}
-	Note that $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is given, we can therefore recursively solve the optimization problem for $T_1, \dots, T_{max}$.
+	Note that $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is given, we can therefore recursively solve the optimization problem for $T_1, \dots, T_{max}$. The $Vega_{B}$ is the Black vega based on the implied volatility returned from the calibrated SABR model.
 
-	After optimization,  the local volatility functions are translated into arbitrage-consistent prices for a discrete set of expiries but it does not directly specify the option prices between the expiries.  For $T \in [T_i,T_{i+1})$, we can fill in the gaps by:
+	After optimization,  the local volatility functions are translated into arbitrage-free prices for a discrete set of expiries but it does not directly specify the option prices between the expiries.  For $T \in [T_i,T_{i+1})$, we can fill in the gaps by:
 	\[
 	\begin{bmatrix}
 	\widehat{C}(T,\widehat{K}_0)\\
@@ -3072,9 +3103,11 @@ We then recover the call price by:
 C(T,K)=\widehat{C}(T,\widehat{K}){D(t,T)F(t,T)}
 \]
 Interpolation based on the above procedure can guarantee the option prices computed is arbitrage-free. Detailed proof can be found in \cite{andreasen2010volatility}. To sum up, with the help of SABR model and the volatility interpolation procedure, we can compute the arbitrage-free option price for any arbitrary $T$ for the predetermined grid of strikes $0=K_0<K_1<\dots<K_{max}$. 
-\subsubsection{Augemented Training Scenarios}
 
-\begin{figure}
+
+\subsection{Data Augmentation for Training Scenarios}
+Following the calibration process in section \ref{sec:NoArb}, on each trading date $t$, we can obtain a pricing surface $Surf_{t}(T,K)$. The $T$ can be any business day that is larger than the current trading date $t$ and smaller than the maximum expiry $T_{max}$ observed in market on date $t$. The $K$ can be any strike that belongs to the given grid of strikes $0=K_0<K_1<\dots<K_{max}$. As an example, in Figure \ref{fig:CaliExp}, we show the resulting price surface and implied  volatility surface for SP500 index Call Options  on 2012-01-04. In Figure $\ref{fig:CaliExp}$, we use $\tau=T-t$ to denote the time to maturity.
+\begin{figure}[htp!]
 	\centering
 	\subfigure[Implied  Volatility Surface]{
 		\includegraphics[width=0.8\textwidth]{./figures/ImpVol}
@@ -3082,10 +3115,46 @@ Interpolation based on the above procedure can guarantee the option prices compu
 	\subfigure[Price Surface]{
 		\includegraphics[width=0.8\textwidth]{./figures/Price}
 	}
-	\caption{The Price Surface and Implied Volatility Surface for 2012-01-04 SP500 index option}
+	\caption{The Price Surface and Implied Volatility Surface Calibrated for SP500 index Call Options on 2012-01-04}
+	\label{fig:CaliExp}
 \end{figure}
 
+Based on the calibration process we mentioned above, we describe the procedure of gathering the training scenarios for hedging 100 business days  as the following:
+\begin{enumerate}
+	\item We pick a arbitrary train expiry date $T_{train}$. Note that  $T_{train}$ does not have to be a real expiry that exists in market. $T_{train}$ can be any business day.
+	\item We then obtain  a starting date to set up the hedging portfolio $t_0$ which is  a $100$-business days away from $T_{train}$. That is to say $T_{train}-t_0=100/250$ where we assume there are 250 business days in one year. 
+	\item We check all the market observed strikes for all the business dates between $t_0$ and  $T_{train}$. Let $K^{mkt}_{max}$ be the maximum of  strikes we observed in markets between between $t_0$ and  $T_{train}$. 
+	\item  The grid of strikes are defined as: $\mathbf{K}_{grid}=\{0=K_0<K_1<\dots<K_{max}\}$ where $K_i-K_{i-1}=\Delta K, i \geq 1$ and $K_{max}=2 \times K^{mkt}_{max}$. Please note that the grid of strikes is the same for all business day $t$ between  $t_0$ and  $T_{train}$ when we calibrate the surface for each $t$.
+	\item On each business day $t$ between  $t_0$ and  $T_{train}$, we can observed a set of market observed expires: $\mathbf{T}_t^{mkt}=\{T_0^{t},T_1^{t},\dots,T_{max}^{t}\}$.
+	
+	
+	\item  We calibrate the SABR models for each market observed expires $T_i^{t} \in \mathbf{T}_t^{mkt},	\;  t \in [t_0, T),T \in \mathbf{T}_t^{mkt}$. The calibrated SABR models return the prices  for the grid $0=K_0<K_1<\dots<K_{max}$ and we fix the potential arbitrages for SABR prices returned by the SABR models, if there is any. After this process, we will have $V_{SABR}(t,T,K)$ where $t \in [t_0, T), T \in \mathbf{T}_t^{mkt}, K \in \mathbf{K}_{grid}$.
+	\item Then we can use the  volatility interpolation process \cite{andreasen2010volatility} to obtain option prices on each day $t$ for the expiry $T_{train}$ we picked on step 1: $V^{Aug}_{t,T_{train},K}$ where $t \in [t_0, T), K \in \mathbf{K}_{grid}$.  Furthermore, we can also obtain other option related information such as Black-Scholes delta, gamma, vega and so on.
+	
+	\item We can repeat step 1 to 7 for all $T_{train}$ within a training period. For instance, if we take 2007-01-01 to 2008-01-01 as the training period, the $T_{train}$ can be  any business day within that period.
+	\item We prepare the training data based on the augmented option data and underlying data. Please note that for the underlying asset history, we do not need to augment it since the prices of underlying asset, e.g., S\&P500 index, can be observed  on every business days. 
+\end{enumerate}
+\subsection{Data Augmentation for Testing Scenarios}
+For testing, we only test on real market observed expires and strikes. More specifically, the procedure of gathering the testing scenarios for hedging 100 business days is as the following:
 
+\begin{enumerate}
+	\item We pick a  test expiry date $T_{test}$. Note that  $T_{test}$ must be a real expiry that exists in market. 
+	\item We then obtain  a starting date to set up the hedge portfolio $t_0$ which is  a $100$-business days away from $T_{test}$. That is to say $T_{test}-t_0=100/250$ where we assume there are 250 business days in one year. 
+	\item On the starting date $t_0$, we can obtain all market option quotes for the expiry  $T_{test}$ and we have a grid of market strikes for expiry $T_{test}$ on $t_0$:
+	$\mathbf{K}^{mkt}_{t_0,T_{test}}=\{K^{mkt}_1<\dots<K^{mkt}_{N_K}\}$. The grid for testing is set to be $\mathbf{K}^{test}_{grid}=\mathbf{K}^{mkt}_{t_0,T_{test}}$.
+	\item On each business day $t$ between  $t_0$ and  $T_{test}$, we can observed a set of market observed expires: $\mathbf{T}_t^{mkt}=\{T_0^{t},T_1^{t},\dots,T_{max}^{t}\}$.
+	\item  We calibrate the SABR models for each market observed expires $T_i^{t} \in \mathbf{T}_t^{mkt},	\;  t \in [t_0, T),T \in \mathbf{T}_t^{mkt}$. The calibrated SABR models return the prices  for the grid of strikes and we fix the potential arbitrages for SABR prices returned by the SABR models, if there is any. 
+	\item After this step 5, on each business day $t$ between  $t_0$ and  $T_{test}$, if we cannot obtain the option prices with expiry $T_{test}$ and associated information such as delta, gamma, and vega directly from market for $K \in \mathbf{K}^{test}_{grid}$. We will query the calibrated SABR models to obtain them.
+\end{enumerate}
+The step 5 and 6 are frequently needed since that the option with a specific strike are usually not traded every days so SABR model will be needed. 
+
+\subsection{Alternative Methods for Calibrating Arbitrage-Free Surface}
+There are many other alternative methods to calibrate the arbitrage-free surface. One of the most successful volatility surface models is the Stochastic Inspired Volatility model (SVI) \cite{gatheral2004parsimonious} used internally at Merrill Lynch and publicly disclosed by Jim Gatheral in 2004.  SVI is a simple  five-parameters formula. Therefore, no necessary and sufficient conditions are known ensuring the absence of arbitrage. Numerous applied research teams have attempted to extend SVI to a whole surface model. This has been achieved in 2012 by Gatheral and Jacquier with the Surface SVI (SSVI) \cite{gatheral2014arbitrage}. SSVI is parameterized in a way that a  SSVI slice at a given maturity $T$ is a SVI slice with only 3 parameters. This restriction allows to get explicit sufficient conditions for absence of arbitrage, while allowing enough flexibility for calibration. The SSVI model is recently extended by \cite{hendriks2017extended} and \cite{corbetta2019robust}. If the input market data used for calibration contains arbitrage, the calibrated surface from SSVI \cite{gatheral2014arbitrage} or its extension can typically be viewed as the surface that is as close as possible to the original market data, while staying arbitrage-free. Lastly, the SSVI calibration is conducted similarly as the arbitrage-free surface calibration mentioned in this subsection.  Firstly, one will fit SVI to options with a discrete set of expiries which are observed from market directly. Secondly, one may then interpolate between two expiries using the certain volatility interpolation algorithms that   guaranteeing no static arbitrages. 
+
+In this thesis, the major goal is not to compare the arbitrage-free surface calibration methods. Therefore, we leave the exploration of the alternative methods to calibrate the arbitrage-free surface as the future work of our study. 
+
+
+\section{Total Hedging Model and Local Hedging Model}
 \begin{figure}[htp!]
 	\centering
 	\resizebox{0.65\textwidth}{!}{
@@ -3190,7 +3259,7 @@ Interpolation based on the above procedure can guarantee the option prices compu
 	\label{fig:RNNModel}
 \end{figure}
 
-
+\newpage
 \section{Total Discrete Hedging Performance Comparison Using  S\&P 500 index Options}
 \subsection{Call Option}
 % Please add the following required packages to your document preamble:

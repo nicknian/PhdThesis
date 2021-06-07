@@ -52,14 +52,17 @@
 \contentsline {section}{\numberline {6.1}Data Augmentation for Market Option Data}{69}{section.6.1}%
 \contentsline {subsection}{\numberline {6.1.1}No-Arbitrage Price Surface}{71}{subsection.6.1.1}%
 \contentsline {subsubsection}{SABR Interpolation and Extrapolation}{71}{section*.13}%
-\contentsline {subsubsection}{Volatility Interpolation}{72}{section*.14}%
-\contentsline {subsubsection}{Augemented Training Scenarios}{75}{section*.15}%
-\contentsline {section}{\numberline {6.2}Total Discrete Hedging Performance Comparison Using S\&P 500 index Options}{75}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Call Option}{75}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Put Option}{75}{subsection.6.2.2}%
-\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{82}{chapter.7}%
-\contentsline {chapter}{\textbf {References}}{83}{section*.16}%
-\contentsline {section}{\numberline {.1}Proposed Model For Synthetic Experiments}{95}{section.Alph0.1}%
-\contentsline {section}{\numberline {.2}Testing with Synthetic Data}{97}{section.Alph0.2}%
-\contentsline {subsection}{\numberline {.2.1}Black-Scholes Model}{97}{subsection.Alph0.2.1}%
-\contentsline {chapter}{APPENDICES}{98}{table.Alph0.2}%
+\contentsline {subsubsection}{Volatility Interpolation}{73}{section*.14}%
+\contentsline {subsection}{\numberline {6.1.2}Data Augmentation for Training Scenarios}{75}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Data Augmentation for Testing Scenarios}{77}{subsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.1.4}Alternative Methods for Calibrating Arbitrage-Free Surface}{78}{subsection.6.1.4}%
+\contentsline {section}{\numberline {6.2}Total Hedging Model and Local Hedging Model}{78}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Total Discrete Hedging Performance Comparison Using S\&P 500 index Options}{79}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Call Option}{79}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Put Option}{79}{subsection.6.3.2}%
+\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{86}{chapter.7}%
+\contentsline {chapter}{\textbf {References}}{87}{section*.15}%
+\contentsline {section}{\numberline {.1}Proposed Model For Synthetic Experiments}{99}{section.Alph0.1}%
+\contentsline {section}{\numberline {.2}Testing with Synthetic Data}{101}{section.Alph0.2}%
+\contentsline {subsection}{\numberline {.2.1}Black-Scholes Model}{101}{subsection.Alph0.2.1}%
+\contentsline {chapter}{APPENDICES}{102}{table.Alph0.2}%

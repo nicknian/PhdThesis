@@ -433,68 +433,81 @@
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
+\newlabel{sec:RNNTotal}{{6}{69}{Data-Driven Sequential Learning Framework for Total Hedging Risk}{chapter.6}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {6.1}Data Augmentation for Market Option Data}{69}{section.6.1}\protected@file@percent }
 \newlabel{sec:DataAugmentation}{{6.1}{69}{Data Augmentation for Market Option Data}{section.6.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}No-Arbitrage Price Surface}{71}{subsection.6.1.1}\protected@file@percent }
+\newlabel{sec:NoArb}{{6.1.1}{71}{No-Arbitrage Price Surface}{subsection.6.1.1}{}}
 \@writefile{toc}{\contentsline {subsubsection}{SABR Interpolation and Extrapolation}{71}{section*.13}\protected@file@percent }
 \citation{carr2005note}
 \citation{andreasen2010volatility}
-\@writefile{toc}{\contentsline {subsubsection}{Volatility Interpolation}{72}{section*.14}\protected@file@percent }
+\citation{dupire1994pricing}
+\@writefile{toc}{\contentsline {subsubsection}{Volatility Interpolation}{73}{section*.14}\protected@file@percent }
 \citation{andreasen2010volatility}
-\newlabel{eq:LVFCal}{{6.1.1}{74}{Volatility Interpolation}{equation.6.1.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Augemented Training Scenarios}{75}{section*.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Total Discrete Hedging Performance Comparison Using S\&P 500 index Options}{75}{section.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Call Option}{75}{subsection.6.2.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Summary of Weekly Hedging Call Options}}{75}{table.6.1}\protected@file@percent }
-\newlabel{table:CallTotalW}{{6.1}{75}{Summary of Weekly Hedging Call Options}{table.6.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Put Option}{75}{subsection.6.2.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces The Price Surface and Implied Volatility Surface for 2012-01-04 SP500 index option}}{76}{figure.6.1}\protected@file@percent }
+\newlabel{eq:LVFCal}{{6.1.1}{75}{Volatility Interpolation}{equation.6.1.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Data Augmentation for Training Scenarios}{75}{subsection.6.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces The Price Surface and Implied Volatility Surface Calibrated for SP500 index Call Options on 2012-01-04}}{76}{figure.6.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Implied Volatility Surface}}}{76}{figure.6.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Price Surface}}}{76}{figure.6.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Summary of Monthly Hedging Call Options}}{77}{table.6.2}\protected@file@percent }
-\newlabel{table:CallTotalM}{{6.2}{77}{Summary of Monthly Hedging Call Options}{table.6.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces Summary of Weekly Hedging Put Options}}{78}{table.6.3}\protected@file@percent }
-\newlabel{table:putTotalW}{{6.3}{78}{Summary of Weekly Hedging Put Options}{table.6.3}{}}
+\newlabel{fig:CaliExp}{{6.1}{76}{The Price Surface and Implied Volatility Surface Calibrated for SP500 index Call Options on 2012-01-04}{figure.6.1}{}}
+\citation{andreasen2010volatility}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.3}Data Augmentation for Testing Scenarios}{77}{subsection.6.1.3}\protected@file@percent }
+\citation{gatheral2004parsimonious}
+\citation{gatheral2014arbitrage}
+\citation{hendriks2017extended}
+\citation{corbetta2019robust}
+\citation{gatheral2014arbitrage}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.4}Alternative Methods for Calibrating Arbitrage-Free Surface}{78}{subsection.6.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Total Hedging Model and Local Hedging Model}{78}{section.6.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Planned Model}}{79}{figure.6.2}\protected@file@percent }
 \newlabel{fig:RNNModel}{{6.2}{79}{Planned Model}{figure.6.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparing Total Model and Local Model on Weekly Hedging Put Options}}{79}{figure.6.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{79}{figure.6.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{79}{figure.6.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{79}{figure.6.3}\protected@file@percent }
-\newlabel{fig:putTotalW1}{{6.3}{79}{Comparing Total Model and Local Model on Weekly Hedging Put Options}{figure.6.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Comparing Total Model and Bartlett Model on Weekly Hedging Put Options}}{80}{figure.6.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{80}{figure.6.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{80}{figure.6.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{80}{figure.6.4}\protected@file@percent }
-\newlabel{fig:putTotalW2}{{6.4}{80}{Comparing Total Model and Bartlett Model on Weekly Hedging Put Options}{figure.6.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing Total Model and Black–Scholes Model on Weekly Hedging Put Options}}{80}{figure.6.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{80}{figure.6.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{80}{figure.6.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{80}{figure.6.5}\protected@file@percent }
-\newlabel{fig:putTotalW3}{{6.5}{80}{Comparing Total Model and Black–Scholes Model on Weekly Hedging Put Options}{figure.6.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing Total Model and Local Model on Monthly Hedging Put Options}}{80}{figure.6.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{80}{figure.6.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{80}{figure.6.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{80}{figure.6.6}\protected@file@percent }
-\newlabel{fig:putTotalM1}{{6.6}{80}{Comparing Total Model and Local Model on Monthly Hedging Put Options}{figure.6.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparing Total Model and Bartlett Model on Monthly Hedging Put Options}}{80}{figure.6.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{80}{figure.6.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{80}{figure.6.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{80}{figure.6.7}\protected@file@percent }
-\newlabel{fig:putTotalM2}{{6.7}{80}{Comparing Total Model and Bartlett Model on Monthly Hedging Put Options}{figure.6.7}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces Summary of Monthly Hedging Put Options}}{81}{table.6.4}\protected@file@percent }
-\newlabel{table:putTotalM}{{6.4}{81}{Summary of Monthly Hedging Put Options}{table.6.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces Comparing Total Model and Black–Scholes Model on Monthly Hedging Put Options}}{81}{figure.6.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{81}{figure.6.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{81}{figure.6.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{81}{figure.6.8}\protected@file@percent }
-\newlabel{fig:putTotalM3}{{6.8}{81}{Comparing Total Model and Black–Scholes Model on Monthly Hedging Put Options}{figure.6.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Total Discrete Hedging Performance Comparison Using S\&P 500 index Options}{79}{section.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Call Option}{79}{subsection.6.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Put Option}{79}{subsection.6.3.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Summary of Weekly Hedging Call Options}}{80}{table.6.1}\protected@file@percent }
+\newlabel{table:CallTotalW}{{6.1}{80}{Summary of Weekly Hedging Call Options}{table.6.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Summary of Monthly Hedging Call Options}}{81}{table.6.2}\protected@file@percent }
+\newlabel{table:CallTotalM}{{6.2}{81}{Summary of Monthly Hedging Call Options}{table.6.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces Summary of Weekly Hedging Put Options}}{82}{table.6.3}\protected@file@percent }
+\newlabel{table:putTotalW}{{6.3}{82}{Summary of Weekly Hedging Put Options}{table.6.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparing Total Model and Local Model on Weekly Hedging Put Options}}{83}{figure.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{83}{figure.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{83}{figure.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{83}{figure.6.3}\protected@file@percent }
+\newlabel{fig:putTotalW1}{{6.3}{83}{Comparing Total Model and Local Model on Weekly Hedging Put Options}{figure.6.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Comparing Total Model and Bartlett Model on Weekly Hedging Put Options}}{83}{figure.6.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{83}{figure.6.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{83}{figure.6.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{83}{figure.6.4}\protected@file@percent }
+\newlabel{fig:putTotalW2}{{6.4}{83}{Comparing Total Model and Bartlett Model on Weekly Hedging Put Options}{figure.6.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing Total Model and Black–Scholes Model on Weekly Hedging Put Options}}{83}{figure.6.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{83}{figure.6.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{83}{figure.6.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{83}{figure.6.5}\protected@file@percent }
+\newlabel{fig:putTotalW3}{{6.5}{83}{Comparing Total Model and Black–Scholes Model on Weekly Hedging Put Options}{figure.6.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces Summary of Monthly Hedging Put Options}}{84}{table.6.4}\protected@file@percent }
+\newlabel{table:putTotalM}{{6.4}{84}{Summary of Monthly Hedging Put Options}{table.6.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing Total Model and Local Model on Monthly Hedging Put Options}}{84}{figure.6.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{84}{figure.6.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{84}{figure.6.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{84}{figure.6.6}\protected@file@percent }
+\newlabel{fig:putTotalM1}{{6.6}{84}{Comparing Total Model and Local Model on Monthly Hedging Put Options}{figure.6.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparing Total Model and Bartlett Model on Monthly Hedging Put Options}}{85}{figure.6.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{85}{figure.6.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{85}{figure.6.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{85}{figure.6.7}\protected@file@percent }
+\newlabel{fig:putTotalM2}{{6.7}{85}{Comparing Total Model and Bartlett Model on Monthly Hedging Put Options}{figure.6.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces Comparing Total Model and Black–Scholes Model on Monthly Hedging Put Options}}{85}{figure.6.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{85}{figure.6.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{85}{figure.6.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{85}{figure.6.8}\protected@file@percent }
+\newlabel{fig:putTotalM3}{{6.8}{85}{Comparing Total Model and Black–Scholes Model on Monthly Hedging Put Options}{figure.6.8}{}}
 \bibstyle{plainnat}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{82}{chapter.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{86}{chapter.7}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{sec:Conclusion}{{7}{82}{Conclusion and Future Work}{chapter.7}{}}
+\newlabel{sec:Conclusion}{{7}{86}{Conclusion and Future Work}{chapter.7}{}}
 \bibdata{uw-ethesis}
 \bibcite{ait2003nonparametric}{{1}{2003}{{A{\i }t-Sahalia and Duarte}}{{}}}
 \bibcite{ait1998nonparametric}{{2}{1998}{{A{\"\i }t-Sahalia and Lo}}{{}}}
@@ -509,7 +522,7 @@
 \bibcite{alexnader2007}{{11}{1997{}}{{Bakshi et~al.}}{{Bakshi, Cao, and Chen}}}
 \bibcite{bakshi1997empirical}{{12}{1997{}}{{Bakshi et~al.}}{{Bakshi, Cao, and Chen}}}
 \bibcite{bakshi2000}{{13}{1997{}}{{Bakshi et~al.}}{{Bakshi, Cao, and Chen}}}
-\@writefile{toc}{\contentsline {chapter}{\textbf  {References}}{83}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\textbf  {References}}{87}{section*.15}\protected@file@percent }
 \bibcite{barlett2006}{{14}{1997{}}{{Bakshi et~al.}}{{Bakshi, Cao, and Chen}}}
 \bibcite{bartlett2006hedging}{{15}{2006}{{Bartlett}}{{}}}
 \bibcite{bennell2004black}{{16}{2004}{{Bennell and Sutcliffe}}{{}}}
@@ -539,139 +552,143 @@
 \bibcite{coleman2007total}{{40}{2007{}}{{Coleman et~al.}}{{Coleman, Li, and Patron}}}
 \bibcite{collobert2006trading}{{41}{2006}{{Collobert et~al.}}{{Collobert, Sinz, Weston, and Bottou}}}
 \bibcite{cooijmans2016recurrent}{{42}{2016}{{Cooijmans et~al.}}{{Cooijmans, Ballas, Laurent, G{\"u}l{\c {c}}ehre, and Courville}}}
-\bibcite{cortes1995support}{{43}{1995}{{Cortes and Vapnik}}{{}}}
-\bibcite{cox2005theory}{{44}{2005}{{Cox et~al.}}{{Cox, Ingersoll~Jr, and Ross}}}
-\bibcite{crepey2004}{{45}{2004}{{Cr$\acute  {e}$pey}}{{}}}
-\bibcite{daglish2007volatility}{{46}{2007}{{Daglish et~al.}}{{Daglish, Hull, and Suo}}}
-\bibcite{DermanKani94}{{47}{1994}{{Derman and Kani}}{{}}}
-\bibcite{DermanKani96}{{48}{1996}{{Derman et~al.}}{{Derman, Kani, and Zou}}}
-\bibcite{duan2006approximating}{{49}{2006}{{Duan et~al.}}{{Duan, Gauthier, Simonato, and Sasseville}}}
-\bibcite{duan1995garch}{{50}{1995}{{Duan}}{{}}}
-\bibcite{duan1997analytical}{{51}{1997}{{Duan et~al.}}{{Duan, Gauthier, and Simonato}}}
-\bibcite{duchi2011adaptive}{{52}{2011}{{Duchi et~al.}}{{Duchi, Hazan, and Singer}}}
-\bibcite{dumas1998implied}{{53}{1998}{{Dumas et~al.}}{{Dumas, Fleming, and Whaley}}}
-\bibcite{Dupire94}{{54}{1994}{{Dupire}}{{}}}
-\bibcite{dupire1994pricing}{{55}{1994}{{Dupire et~al.}}{{}}}
-\bibcite{elman1990finding}{{56}{1990}{{Elman}}{{}}}
-\bibcite{engle1982autoregressive}{{57}{1982}{{Engle}}{{}}}
-\bibcite{espinoza2006fixed}{{58}{2006}{{Espinoza et~al.}}{{Espinoza, Suykens, and De~Moor}}}
-\bibcite{evgeniou2000regularization}{{59}{2000}{{Evgeniou et~al.}}{{Evgeniou, Pontil, and Poggio}}}
-\bibcite{feng2016robust}{{60}{2016}{{Feng et~al.}}{{Feng, Yang, Huang, Mehrkanoon, and Suykens}}}
-\bibcite{fletcher2013practical}{{61}{2013}{{Fletcher}}{{}}}
-\bibcite{Schw89}{{62}{1989}{{F\"{o}llmer and Schweizer}}{{}}}
-\bibcite{french1987expected}{{63}{1987}{{French et~al.}}{{French, Schwert, and Stambaugh}}}
-\bibcite{friedman2001elements}{{64}{2001}{{Friedman et~al.}}{{Friedman, Hastie, and Tibshirani}}}
-\bibcite{garcia2000pricing}{{65}{2000}{{Garcia and Gen{\c {c}}ay}}{{}}}
-\bibcite{gatheral2011volatility}{{66}{2011}{{Gatheral}}{{}}}
-\bibcite{genccay2001pricing}{{67}{2001}{{Gen{\c {c}}ay and Qi}}{{}}}
-\bibcite{genccay2003degree}{{68}{2003}{{Gen{\c {c}}ay et~al.}}{{Gen{\c {c}}ay, Salih, et~al.}}}
-\bibcite{girosi1995regularization}{{69}{1995}{{Girosi et~al.}}{{Girosi, Jones, and Poggio}}}
-\bibcite{Goodfellow-et-al-2016}{{70}{2016{}}{{Goodfellow et~al.}}{{Goodfellow, Bengio, and Courville}}}
-\bibcite{goodfellow2016deep}{{71}{2016{}}{{Goodfellow et~al.}}{{Goodfellow, Bengio, and Courville}}}
-\bibcite{Goutte13}{{72}{2013}{{Goutte et~al.}}{{Goutte, Oudjane, and Russo}}}
-\bibcite{gradojevic2009option}{{73}{2009}{{Gradojevic et~al.}}{{Gradojevic, Gen{\c {c}}ay, and Kukolj}}}
-\bibcite{gu1994stable}{{74}{1994}{{Gu and Eisenstat}}{{}}}
-\bibcite{guyon2003introduction}{{75}{2003}{{Guyon and Elisseeff}}{{}}}
-\bibcite{guyon2002gene}{{76}{2002}{{Guyon et~al.}}{{Guyon, Weston, Barnhill, and Vapnik}}}
-\bibcite{hagan2017bartlett}{{77}{2017}{{Hagan and Lesniewski}}{{}}}
-\bibcite{hagan2002managing}{{78}{2002}{{Hagan et~al.}}{{Hagan, Kumar, Lesniewski, and Woodward}}}
-\bibcite{He06}{{79}{2006}{{He et~al.}}{{He, Kennedy, Coleman, Forsyth, Li, and Vetzal}}}
-\bibcite{Hea01b}{{80}{2001b}{{Heath et~al.}}{{Heath, Platen, and Schweizer}}}
-\bibcite{heston1993closed}{{81}{1993}{{Heston}}{{}}}
-\bibcite{heston2000closed}{{82}{2000}{{Heston and Nandi}}{{}}}
-\bibcite{hirsch1989convergent}{{83}{1989}{{Hirsch}}{{}}}
-\bibcite{hochreiter1997long}{{84}{1997}{{Hochreiter and Schmidhuber}}{{}}}
-\bibcite{hochreiter2001gradient}{{85}{2001}{{Hochreiter et~al.}}{{Hochreiter, Bengio, Frasconi, Schmidhuber, et~al.}}}
-\bibcite{hopfield1982neural}{{86}{1982}{{Hopfield}}{{}}}
-\bibcite{Hor91}{{87}{1991}{{Hornik}}{{}}}
-\bibcite{Huber1964robust}{{88}{1964}{{Huber et~al.}}{{}}}
-\bibcite{hull1987pricing}{{89}{1987}{{Hull and White}}{{}}}
-\bibcite{hulloptimal}{{90}{2017}{{Hull and White}}{{}}}
-\bibcite{hull2006options}{{91}{2006}{{Hull}}{{}}}
-\bibcite{hutchinson}{{92}{1994}{{Hutchinson et~al.}}{{Hutchinson, Lo, and Poggio}}}
-\bibcite{JackwerthRubenstein96}{{93}{1996}{{Jackwerth and Rubinstein}}{{}}}
-\bibcite{jian2011design}{{94}{2011}{{Jian et~al.}}{{Jian, Xia, Liang, and Gao}}}
-\bibcite{jiao2007fast}{{95}{2007}{{Jiao et~al.}}{{Jiao, Bo, and Wang}}}
-\bibcite{jordan1986serial}{{96}{1986}{{Jordan}}{{}}}
-\bibcite{kingma2014adam}{{97}{2014}{{Kingma and Ba}}{{}}}
-\bibcite{kou2002jump}{{98}{2002}{{Kou}}{{}}}
-\bibcite{lassance2018comparison}{{99}{2018}{{Lassance and Vrins}}{{}}}
-\bibcite{le2015simple}{{100}{2015}{{Le et~al.}}{{Le, Jaitly, and Hinton}}}
-\bibcite{lenders2018trlib}{{101}{2018}{{Lenders et~al.}}{{Lenders, Kirches, and Potschka}}}
-\bibcite{lipton2015critical}{{102}{2015}{{Lipton et~al.}}{{Lipton, Berkowitz, and Elkan}}}
-\bibcite{long2010random}{{103}{2010}{{Long and Servedio}}{{}}}
-\bibcite{maas2012recurrent}{{104}{2012}{{Maas et~al.}}{{Maas, Le, O'Neil, Vinyals, Nguyen, and Ng}}}
-\bibcite{maas2013rectifier}{{105}{2013}{{Maas et~al.}}{{Maas, Hannun, and Ng}}}
-\bibcite{malliaris1993neural}{{106}{1993}{{Malliaris and Salchenberger}}{{}}}
-\bibcite{mandelbrot1963variation}{{107}{1963}{{Mandelbrot}}{{}}}
-\bibcite{marchiori2005feature}{{108}{2005}{{Marchiori et~al.}}{{Marchiori, Heegaard, West-Nielsen, and Jimenez}}}
-\bibcite{martens2010deep}{{109}{2010}{{Martens}}{{}}}
-\bibcite{martens2011learning}{{110}{2011}{{Martens and Sutskever}}{{}}}
-\bibcite{mccloskey1989catastrophic}{{111}{1989}{{McCloskey and Cohen}}{{}}}
-\bibcite{mercer1909functions}{{112}{1909}{{Mercer}}{{}}}
-\bibcite{Merton73}{{113}{1973{}}{{Merton}}{{}}}
-\bibcite{merton1973theory}{{114}{1973{}}{{Merton}}{{}}}
-\bibcite{mishkin2015all}{{115}{2015}{{Mishkin and Matas}}{{}}}
-\bibcite{mozer1989focused}{{116}{1989}{{Mozer}}{{}}}
-\bibcite{nesterov1983method}{{117}{1983}{{Nesterov}}{{}}}
-\bibcite{knian2017}{{118}{2018}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
-\bibcite{knian2019}{{119}{2019{}}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
-\bibcite{knian2020}{{120}{2019{}}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
-\bibcite{olah2015understanding}{{121}{2015}{{Olah}}{{}}}
-\bibcite{optionmetrics2008ivy}{{122}{2008}{{OptionMetrics}}{{}}}
-\bibcite{pahikkala2006fast}{{123}{2006}{{Pahikkala et~al.}}{{Pahikkala, Boberg, and Salakoski}}}
-\bibcite{qian1999momentum}{{124}{1999}{{Qian}}{{}}}
-\bibcite{poulsen2009}{{125}{2009}{{R. et~al.}}{{R., Schenk-Hopp$\acute  {e}$, and Ewald}}}
-\bibcite{raskutti2014early}{{126}{2014}{{Raskutti et~al.}}{{Raskutti, Wainwright, and Yu}}}
-\bibcite{reddi2018convergence}{{127}{2018}{{Reddi et~al.}}{{Reddi, Kale, and Kumar}}}
-\bibcite{reddi2019convergence}{{128}{2019}{{Reddi et~al.}}{{Reddi, Kale, and Kumar}}}
-\bibcite{robnik2003theoretical}{{129}{2003}{{Robnik-{\v {S}}ikonja and Kononenko}}{{}}}
-\bibcite{rubinstein1994implied}{{130}{1994}{{Rubinstein}}{{}}}
-\bibcite{ruder2016overview}{{131}{2016}{{Ruder}}{{}}}
-\bibcite{saxe2013exact}{{132}{2013}{{Saxe et~al.}}{{Saxe, McClelland, and Ganguli}}}
-\bibcite{Sch94}{{133}{1994}{{Sch\"{a}l}}{{}}}
-\bibcite{Schw95}{{134}{1995}{{Schweizer}}{{}}}
-\bibcite{shreve2004stochastic}{{135}{2004}{{Shreve}}{{}}}
-\bibcite{smola2000sparse}{{136}{2000}{{Smola and Sch{\"o}kopf}}{{}}}
-\bibcite{sutskever2013importance}{{137}{2013}{{Sutskever et~al.}}{{Sutskever, Martens, Dahl, and Hinton}}}
-\bibcite{sutskever2014sequence}{{138}{2014}{{Sutskever et~al.}}{{Sutskever, Vinyals, and Le}}}
-\bibcite{sutton1986two}{{139}{1986}{{Sutton}}{{}}}
-\bibcite{suykens2002least}{{140}{2002}{{Suykens et~al.}}{{Suykens, Van~Gestel, and De~Brabanter}}}
-\bibcite{tan2010learning}{{141}{2010}{{Tan et~al.}}{{Tan, Wang, and Tsang}}}
-\bibcite{tayal2014primal}{{142}{2014}{{Tayal et~al.}}{{Tayal, Coleman, and Li}}}
-\bibcite{tieleman2012lecture}{{143}{2012}{{Tieleman and Hinton}}{{}}}
-\bibcite{vapnik1998statistical}{{144}{1998}{{Vapnik}}{{}}}
-\bibcite{varma2009more}{{145}{2009}{{Varma and Babu}}{{}}}
-\bibcite{wahba1990spline}{{146}{1990}{{Wahba}}{{}}}
-\bibcite{wang2014robust}{{147}{2014}{{Wang and Zhong}}{{}}}
-\bibcite{werbos1988generalization}{{148}{1988}{{Werbos}}{{}}}
-\bibcite{williams2001using}{{149}{2001}{{Williams and Seeger}}{{}}}
-\bibcite{wu2007robust}{{150}{2007}{{Wu and Liu}}{{}}}
-\bibcite{xu2006robust}{{151}{2006}{{Xu et~al.}}{{Xu, Crammer, and Schuurmans}}}
-\bibcite{xu2017second}{{152}{2017}{{Xu et~al.}}{{Xu, Roosta-Khorasan, and Mahoney}}}
-\bibcite{yang2014robust}{{153}{2014}{{Yang et~al.}}{{Yang, Tan, and He}}}
-\bibcite{yao2000option}{{154}{2000}{{Yao et~al.}}{{Yao, Li, and Tan}}}
-\bibcite{yao2018inexact}{{155}{2018}{{Yao et~al.}}{{Yao, Xu, Roosta-Khorasani, and Mahoney}}}
-\bibcite{yatchew2006nonparametric}{{156}{2006}{{Yatchew and H{\"a}rdle}}{{}}}
-\bibcite{yin2017comparative}{{157}{2017}{{Yin et~al.}}{{Yin, Kann, Yu, and Sch{\"u}tze}}}
-\bibcite{yu2012polynomial}{{158}{2012}{{Yu et~al.}}{{Yu, Aslan, and Schuurmans}}}
-\bibcite{yu2015minimizing}{{159}{2015}{{Yu et~al.}}{{Yu, Zheng, Marchetti-Bowick, and Xing}}}
-\bibcite{yung2003empirical}{{160}{2003}{{Yung and Zhang}}{{}}}
-\bibcite{zeiler2012adadelta}{{161}{2012}{{Zeiler}}{{}}}
+\bibcite{corbetta2019robust}{{43}{2019}{{Corbetta et~al.}}{{Corbetta, Cohort, Laachir, and Martini}}}
+\bibcite{cortes1995support}{{44}{1995}{{Cortes and Vapnik}}{{}}}
+\bibcite{cox2005theory}{{45}{2005}{{Cox et~al.}}{{Cox, Ingersoll~Jr, and Ross}}}
+\bibcite{crepey2004}{{46}{2004}{{Cr$\acute  {e}$pey}}{{}}}
+\bibcite{daglish2007volatility}{{47}{2007}{{Daglish et~al.}}{{Daglish, Hull, and Suo}}}
+\bibcite{DermanKani94}{{48}{1994}{{Derman and Kani}}{{}}}
+\bibcite{DermanKani96}{{49}{1996}{{Derman et~al.}}{{Derman, Kani, and Zou}}}
+\bibcite{duan2006approximating}{{50}{2006}{{Duan et~al.}}{{Duan, Gauthier, Simonato, and Sasseville}}}
+\bibcite{duan1995garch}{{51}{1995}{{Duan}}{{}}}
+\bibcite{duan1997analytical}{{52}{1997}{{Duan et~al.}}{{Duan, Gauthier, and Simonato}}}
+\bibcite{duchi2011adaptive}{{53}{2011}{{Duchi et~al.}}{{Duchi, Hazan, and Singer}}}
+\bibcite{dumas1998implied}{{54}{1998}{{Dumas et~al.}}{{Dumas, Fleming, and Whaley}}}
+\bibcite{Dupire94}{{55}{1994}{{Dupire}}{{}}}
+\bibcite{dupire1994pricing}{{56}{1994}{{Dupire et~al.}}{{}}}
+\bibcite{elman1990finding}{{57}{1990}{{Elman}}{{}}}
+\bibcite{engle1982autoregressive}{{58}{1982}{{Engle}}{{}}}
+\bibcite{espinoza2006fixed}{{59}{2006}{{Espinoza et~al.}}{{Espinoza, Suykens, and De~Moor}}}
+\bibcite{evgeniou2000regularization}{{60}{2000}{{Evgeniou et~al.}}{{Evgeniou, Pontil, and Poggio}}}
+\bibcite{feng2016robust}{{61}{2016}{{Feng et~al.}}{{Feng, Yang, Huang, Mehrkanoon, and Suykens}}}
+\bibcite{fletcher2013practical}{{62}{2013}{{Fletcher}}{{}}}
+\bibcite{Schw89}{{63}{1989}{{F\"{o}llmer and Schweizer}}{{}}}
+\bibcite{french1987expected}{{64}{1987}{{French et~al.}}{{French, Schwert, and Stambaugh}}}
+\bibcite{friedman2001elements}{{65}{2001}{{Friedman et~al.}}{{Friedman, Hastie, and Tibshirani}}}
+\bibcite{garcia2000pricing}{{66}{2000}{{Garcia and Gen{\c {c}}ay}}{{}}}
+\bibcite{gatheral2004parsimonious}{{67}{2004}{{Gatheral}}{{}}}
+\bibcite{gatheral2011volatility}{{68}{2011}{{Gatheral}}{{}}}
+\bibcite{gatheral2014arbitrage}{{69}{2014}{{Gatheral and Jacquier}}{{}}}
+\bibcite{genccay2001pricing}{{70}{2001}{{Gen{\c {c}}ay and Qi}}{{}}}
+\bibcite{genccay2003degree}{{71}{2003}{{Gen{\c {c}}ay et~al.}}{{Gen{\c {c}}ay, Salih, et~al.}}}
+\bibcite{girosi1995regularization}{{72}{1995}{{Girosi et~al.}}{{Girosi, Jones, and Poggio}}}
+\bibcite{Goodfellow-et-al-2016}{{73}{2016{}}{{Goodfellow et~al.}}{{Goodfellow, Bengio, and Courville}}}
+\bibcite{goodfellow2016deep}{{74}{2016{}}{{Goodfellow et~al.}}{{Goodfellow, Bengio, and Courville}}}
+\bibcite{Goutte13}{{75}{2013}{{Goutte et~al.}}{{Goutte, Oudjane, and Russo}}}
+\bibcite{gradojevic2009option}{{76}{2009}{{Gradojevic et~al.}}{{Gradojevic, Gen{\c {c}}ay, and Kukolj}}}
+\bibcite{gu1994stable}{{77}{1994}{{Gu and Eisenstat}}{{}}}
+\bibcite{guyon2003introduction}{{78}{2003}{{Guyon and Elisseeff}}{{}}}
+\bibcite{guyon2002gene}{{79}{2002}{{Guyon et~al.}}{{Guyon, Weston, Barnhill, and Vapnik}}}
+\bibcite{hagan2017bartlett}{{80}{2017}{{Hagan and Lesniewski}}{{}}}
+\bibcite{hagan2002managing}{{81}{2002}{{Hagan et~al.}}{{Hagan, Kumar, Lesniewski, and Woodward}}}
+\bibcite{He06}{{82}{2006}{{He et~al.}}{{He, Kennedy, Coleman, Forsyth, Li, and Vetzal}}}
+\bibcite{Hea01b}{{83}{2001b}{{Heath et~al.}}{{Heath, Platen, and Schweizer}}}
+\bibcite{hendriks2017extended}{{84}{2017}{{Hendriks and Martini}}{{}}}
+\bibcite{heston1993closed}{{85}{1993}{{Heston}}{{}}}
+\bibcite{heston2000closed}{{86}{2000}{{Heston and Nandi}}{{}}}
+\bibcite{hirsch1989convergent}{{87}{1989}{{Hirsch}}{{}}}
+\bibcite{hochreiter1997long}{{88}{1997}{{Hochreiter and Schmidhuber}}{{}}}
+\bibcite{hochreiter2001gradient}{{89}{2001}{{Hochreiter et~al.}}{{Hochreiter, Bengio, Frasconi, Schmidhuber, et~al.}}}
+\bibcite{hopfield1982neural}{{90}{1982}{{Hopfield}}{{}}}
+\bibcite{Hor91}{{91}{1991}{{Hornik}}{{}}}
+\bibcite{Huber1964robust}{{92}{1964}{{Huber et~al.}}{{}}}
+\bibcite{hull1987pricing}{{93}{1987}{{Hull and White}}{{}}}
+\bibcite{hulloptimal}{{94}{2017}{{Hull and White}}{{}}}
+\bibcite{hull2006options}{{95}{2006}{{Hull}}{{}}}
+\bibcite{hutchinson}{{96}{1994}{{Hutchinson et~al.}}{{Hutchinson, Lo, and Poggio}}}
+\bibcite{JackwerthRubenstein96}{{97}{1996}{{Jackwerth and Rubinstein}}{{}}}
+\bibcite{jian2011design}{{98}{2011}{{Jian et~al.}}{{Jian, Xia, Liang, and Gao}}}
+\bibcite{jiao2007fast}{{99}{2007}{{Jiao et~al.}}{{Jiao, Bo, and Wang}}}
+\bibcite{jordan1986serial}{{100}{1986}{{Jordan}}{{}}}
+\bibcite{kingma2014adam}{{101}{2014}{{Kingma and Ba}}{{}}}
+\bibcite{kou2002jump}{{102}{2002}{{Kou}}{{}}}
+\bibcite{lassance2018comparison}{{103}{2018}{{Lassance and Vrins}}{{}}}
+\bibcite{le2015simple}{{104}{2015}{{Le et~al.}}{{Le, Jaitly, and Hinton}}}
+\bibcite{lenders2018trlib}{{105}{2018}{{Lenders et~al.}}{{Lenders, Kirches, and Potschka}}}
+\bibcite{lipton2015critical}{{106}{2015}{{Lipton et~al.}}{{Lipton, Berkowitz, and Elkan}}}
+\bibcite{long2010random}{{107}{2010}{{Long and Servedio}}{{}}}
+\bibcite{maas2012recurrent}{{108}{2012}{{Maas et~al.}}{{Maas, Le, O'Neil, Vinyals, Nguyen, and Ng}}}
+\bibcite{maas2013rectifier}{{109}{2013}{{Maas et~al.}}{{Maas, Hannun, and Ng}}}
+\bibcite{malliaris1993neural}{{110}{1993}{{Malliaris and Salchenberger}}{{}}}
+\bibcite{mandelbrot1963variation}{{111}{1963}{{Mandelbrot}}{{}}}
+\bibcite{marchiori2005feature}{{112}{2005}{{Marchiori et~al.}}{{Marchiori, Heegaard, West-Nielsen, and Jimenez}}}
+\bibcite{martens2010deep}{{113}{2010}{{Martens}}{{}}}
+\bibcite{martens2011learning}{{114}{2011}{{Martens and Sutskever}}{{}}}
+\bibcite{mccloskey1989catastrophic}{{115}{1989}{{McCloskey and Cohen}}{{}}}
+\bibcite{mercer1909functions}{{116}{1909}{{Mercer}}{{}}}
+\bibcite{Merton73}{{117}{1973{}}{{Merton}}{{}}}
+\bibcite{merton1973theory}{{118}{1973{}}{{Merton}}{{}}}
+\bibcite{mishkin2015all}{{119}{2015}{{Mishkin and Matas}}{{}}}
+\bibcite{mozer1989focused}{{120}{1989}{{Mozer}}{{}}}
+\bibcite{nesterov1983method}{{121}{1983}{{Nesterov}}{{}}}
+\bibcite{knian2017}{{122}{2018}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
+\bibcite{knian2019}{{123}{2019{}}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
+\bibcite{knian2020}{{124}{2019{}}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
+\bibcite{olah2015understanding}{{125}{2015}{{Olah}}{{}}}
+\bibcite{optionmetrics2008ivy}{{126}{2008}{{OptionMetrics}}{{}}}
+\bibcite{pahikkala2006fast}{{127}{2006}{{Pahikkala et~al.}}{{Pahikkala, Boberg, and Salakoski}}}
+\bibcite{qian1999momentum}{{128}{1999}{{Qian}}{{}}}
+\bibcite{poulsen2009}{{129}{2009}{{R. et~al.}}{{R., Schenk-Hopp$\acute  {e}$, and Ewald}}}
+\bibcite{raskutti2014early}{{130}{2014}{{Raskutti et~al.}}{{Raskutti, Wainwright, and Yu}}}
+\bibcite{reddi2018convergence}{{131}{2018}{{Reddi et~al.}}{{Reddi, Kale, and Kumar}}}
+\bibcite{reddi2019convergence}{{132}{2019}{{Reddi et~al.}}{{Reddi, Kale, and Kumar}}}
+\bibcite{robnik2003theoretical}{{133}{2003}{{Robnik-{\v {S}}ikonja and Kononenko}}{{}}}
+\bibcite{rubinstein1994implied}{{134}{1994}{{Rubinstein}}{{}}}
+\bibcite{ruder2016overview}{{135}{2016}{{Ruder}}{{}}}
+\bibcite{saxe2013exact}{{136}{2013}{{Saxe et~al.}}{{Saxe, McClelland, and Ganguli}}}
+\bibcite{Sch94}{{137}{1994}{{Sch\"{a}l}}{{}}}
+\bibcite{Schw95}{{138}{1995}{{Schweizer}}{{}}}
+\bibcite{shreve2004stochastic}{{139}{2004}{{Shreve}}{{}}}
+\bibcite{smola2000sparse}{{140}{2000}{{Smola and Sch{\"o}kopf}}{{}}}
+\bibcite{sutskever2013importance}{{141}{2013}{{Sutskever et~al.}}{{Sutskever, Martens, Dahl, and Hinton}}}
+\bibcite{sutskever2014sequence}{{142}{2014}{{Sutskever et~al.}}{{Sutskever, Vinyals, and Le}}}
+\bibcite{sutton1986two}{{143}{1986}{{Sutton}}{{}}}
+\bibcite{suykens2002least}{{144}{2002}{{Suykens et~al.}}{{Suykens, Van~Gestel, and De~Brabanter}}}
+\bibcite{tan2010learning}{{145}{2010}{{Tan et~al.}}{{Tan, Wang, and Tsang}}}
+\bibcite{tayal2014primal}{{146}{2014}{{Tayal et~al.}}{{Tayal, Coleman, and Li}}}
+\bibcite{tieleman2012lecture}{{147}{2012}{{Tieleman and Hinton}}{{}}}
+\bibcite{vapnik1998statistical}{{148}{1998}{{Vapnik}}{{}}}
+\bibcite{varma2009more}{{149}{2009}{{Varma and Babu}}{{}}}
+\bibcite{wahba1990spline}{{150}{1990}{{Wahba}}{{}}}
+\bibcite{wang2014robust}{{151}{2014}{{Wang and Zhong}}{{}}}
+\bibcite{werbos1988generalization}{{152}{1988}{{Werbos}}{{}}}
+\bibcite{williams2001using}{{153}{2001}{{Williams and Seeger}}{{}}}
+\bibcite{wu2007robust}{{154}{2007}{{Wu and Liu}}{{}}}
+\bibcite{xu2006robust}{{155}{2006}{{Xu et~al.}}{{Xu, Crammer, and Schuurmans}}}
+\bibcite{xu2017second}{{156}{2017}{{Xu et~al.}}{{Xu, Roosta-Khorasan, and Mahoney}}}
+\bibcite{yang2014robust}{{157}{2014}{{Yang et~al.}}{{Yang, Tan, and He}}}
+\bibcite{yao2000option}{{158}{2000}{{Yao et~al.}}{{Yao, Li, and Tan}}}
+\bibcite{yao2018inexact}{{159}{2018}{{Yao et~al.}}{{Yao, Xu, Roosta-Khorasani, and Mahoney}}}
+\bibcite{yatchew2006nonparametric}{{160}{2006}{{Yatchew and H{\"a}rdle}}{{}}}
+\bibcite{yin2017comparative}{{161}{2017}{{Yin et~al.}}{{Yin, Kann, Yu, and Sch{\"u}tze}}}
+\bibcite{yu2012polynomial}{{162}{2012}{{Yu et~al.}}{{Yu, Aslan, and Schuurmans}}}
+\bibcite{yu2015minimizing}{{163}{2015}{{Yu et~al.}}{{Yu, Zheng, Marchetti-Bowick, and Xing}}}
+\bibcite{yung2003empirical}{{164}{2003}{{Yung and Zhang}}{{}}}
+\bibcite{zeiler2012adadelta}{{165}{2012}{{Zeiler}}{{}}}
 \citation{*}
 \citation{coleman2007total}
-\@writefile{toc}{\contentsline {section}{\numberline {.1}Proposed Model For Synthetic Experiments}{95}{section.Alph0.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {.1}Proposed Model For Synthetic Experiments}{99}{section.Alph0.1}\protected@file@percent }
 \citation{coleman2007total}
 \citation{coleman2007total}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Proposed Model For Synthetic Cases}}{96}{figure.Alph0.1}\protected@file@percent }
-\newlabel{fig:RNNModel}{{1}{96}{Proposed Model For Synthetic Cases}{figure.Alph0.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Proposed Model For Synthetic Cases}}{100}{figure.Alph0.1}\protected@file@percent }
+\newlabel{fig:RNNModel}{{1}{100}{Proposed Model For Synthetic Cases}{figure.Alph0.1}{}}
 \citation{coleman2007total}
 \citation{coleman2007total}
 \citation{coleman2007total}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Refined Model For Real Cases}}{97}{figure.Alph0.2}\protected@file@percent }
-\newlabel{fig:RNNModel}{{2}{97}{Refined Model For Real Cases}{figure.Alph0.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {.2}Testing with Synthetic Data}{97}{section.Alph0.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {.2.1}Black-Scholes Model}{97}{subsection.Alph0.2.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Total Risk}}{98}{table.Alph0.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Total Cost}}{98}{table.Alph0.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{APPENDICES}{98}{table.Alph0.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Refined Model For Real Cases}}{101}{figure.Alph0.2}\protected@file@percent }
+\newlabel{fig:RNNModel}{{2}{101}{Refined Model For Real Cases}{figure.Alph0.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {.2}Testing with Synthetic Data}{101}{section.Alph0.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {.2.1}Black-Scholes Model}{101}{subsection.Alph0.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Total Risk}}{102}{table.Alph0.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Total Cost}}{102}{table.Alph0.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{APPENDICES}{102}{table.Alph0.2}\protected@file@percent }
