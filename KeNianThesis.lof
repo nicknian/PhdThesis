@@ -1,58 +1,80 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Comparison based on 2012-01-04 S\&P500 index option}}{27}{figure.2.1}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Comparing the original SABR delta $\delta ^{SABR}_{t,T,K}$ and Bartlett delta $\delta ^{Bartlett}_{t,T,K}$ from SABR models calibrated with $\beta =0,\tmspace +\thickmuskip {.2777em} 0.5, \tmspace +\thickmuskip {.2777em}1.0$ on 2012-01-04 for S\&P500 index option. The computation of Bartlett delta $\delta ^{Bartlett}_{t,T,K}$ is more robust to the choice of $\beta $.}}{27}{figure.2.1}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces $\textsc {GRU}_\delta $: GRU Encode-Decoder Hedging Model }}{48}{figure.4.1}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Illustration of the GRU Cell}}{50}{figure.4.2}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces $\textsc {NN}_\delta $: decoder only model}}{57}{figure.4.3}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces $\textsc {GRU}_{c}$: Removing the Output Gate}}{57}{figure.4.4}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces $\textsc {GRU}_\delta $: GRU encode-decoder hedging model. The encoder summarizes the time series $\mathbf {Y}_{t}^{T,K}=\left [\mathbf {y}^{T,K}_{\tau _{1}},\dots ,\mathbf {y}^{T,K}_{\tau _{N+1}}\right ]$ as a succinct vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {h}$}\mathaccent "0362{\mathbf {h}}_E$. The decoder outputs the hedging position based on the vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {h}$}\mathaccent "0362{\mathbf {h}}_E$ and the local feature vector $\mathbf {x}^{T,K}_{t}$ observed at the hedging time $t$. More specifically, in the decoder, a candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$ is firstly produced. The final output $\delta ^M_{t,T,K}$ is computed based on the linear combination of BS delta $\delta ^{BS}_{t,T,K}$ and the candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$. The combination weight is determined by $W_{\delta }$. The feature weight $\omega ^L$ and $\omega ^S$ are used to produce the weighted local feature and $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {x}$}\mathaccent "0362{\mathbf {x}}^{T,K}_{t}$ and weighted sequential feature $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {y}$}\mathaccent "0362{\mathbf {y}}^{T,K}_{\tau }$ respectively. The weighting acts as a feature selection process. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input. }}{48}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Illustration of the GRU cell. At step $i$, GRU cell produces a vector $\mathbf {h}_{i}$ as the current hidden states based on the hidden states produced from the previous steps $\mathbf {h}_{i-1}$ and the input $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {y}$}\mathaccent "0362{\mathbf {y}}^{T,K}_{\tau _{i}}$. The reset unit produces the weight $\mathbf {r}_i$ which determines how much information is retained from $\mathbf {h}_{i-1}$. The final output from the GRU cell $\mathbf {h}_{i}$ is computed based on a weighted combination of the previous activation $\mathbf {h}_{i-1}$ and the candidate activation $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {h}$}\mathaccent "0362{\mathbf {h}}_i$, where the combination weight $\mathbf {z}_i$ is produced by the update unit. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input.}}{50}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces $\textsc {NN}_\delta $: decoder GRU only. This simplified model only retains the decoder. The decoder computes the hedging position solely based on the information vector $\mathbf {x}_{t}^{T,K}$ observed at time $t$. A candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$ is produced. The final output $\delta ^M_{t,T,K}$ is computed based on the linear combination of BS delta $\delta ^{BS}_{t,T,K}$ and the candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$. The combination weight is determined by $W_{\delta }$. The feature weight $\omega ^L$ is used to produce the weighted local feature $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {x}$}\mathaccent "0362{\mathbf {x}}^{T,K}_{t}$. The weighting acts as a feature selection process. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input.}}{57}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces $\textsc {GRU}_{c}$: This simplified model removes the output gate in the decoder. The encoder summarizes the time series $\mathbf {Y}_{t}^{T,K}=\left [\mathbf {y}^{T,K}_{\tau _{1}},\dots ,\mathbf {y}^{T,K}_{\tau _{N+1}}\right ]$ as a succinct vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {h}$}\mathaccent "0362{\mathbf {h}}_E$. The decoder outputs the hedging position based on the vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {h}$}\mathaccent "0362{\mathbf {h}}_E$ and the local feature vector $\mathbf {x}^{T,K}_{t}$ observed at the hedging time $t$ directly. The output gate is removed and we do not combine the output with $\delta ^{BS}_{t,T,K}$ using linear combination as in Figure \ref {fig:RNNModel}. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input. }}{58}{figure.4.4}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Feature Scores for Weekly and Monthly Hedging Models on Traded S\&P500 Call Option Data }}{63}{figure.5.1}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Weekly Hedging}}}{63}{figure.5.1}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Weekly Hedging}}}{63}{figure.5.1}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Local Features Monthly Hedging}}}{63}{figure.5.1}%
-\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Sequential Features Monthly Hedging}}}{63}{figure.5.1}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Feature Score for Weekly and Monthly Hedging Models on Traded S\&P500 Put Option Data}}{64}{figure.5.2}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Weekly Hedging}}}{64}{figure.5.2}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Weekly Hedging}}}{64}{figure.5.2}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Local Features Monthly Hedging}}}{64}{figure.5.2}%
-\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Sequential Features Monthly Hedging}}}{64}{figure.5.2}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Feature Score for Daily Hedging Model: S\&P500 Call Option (Traded Data)}}{67}{figure.5.3}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Daily Hedging}}}{67}{figure.5.3}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Daily Hedging}}}{67}{figure.5.3}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Feature Score for Daily Hedging Model: S\&P500 Put Option (Traded Data)}}{67}{figure.5.4}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Daily Hedging}}}{67}{figure.5.4}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Daily Hedging}}}{67}{figure.5.4}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Feature scores for weekly and monthly hedging models $\textsc {GRU}_\delta $ on traded S\&P500 call option data.}}{64}{figure.5.1}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Weekly Hedging}}}{64}{figure.5.1}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Weekly Hedging}}}{64}{figure.5.1}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Local Features Monthly Hedging}}}{64}{figure.5.1}%
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Sequential Features Monthly Hedging}}}{64}{figure.5.1}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Feature score for weekly and monthly hedging models $\textsc {GRU}_\delta $ on traded S\&P500 put option data}}{65}{figure.5.2}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Weekly Hedging}}}{65}{figure.5.2}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Weekly Hedging}}}{65}{figure.5.2}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Local Features Monthly Hedging}}}{65}{figure.5.2}%
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Sequential Features Monthly Hedging}}}{65}{figure.5.2}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Feature score for daily hedging model $\textsc {GRU}_\delta $: S\&P500 call option (traded data)}}{68}{figure.5.3}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Daily Hedging}}}{68}{figure.5.3}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Daily Hedging}}}{68}{figure.5.3}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Feature score for daily hedging model $\textsc {GRU}_\delta $: S\&P500 put option (traded data)}}{68}{figure.5.4}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Daily Hedging}}}{68}{figure.5.4}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Daily Hedging}}}{68}{figure.5.4}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces The Price Surface and Implied Volatility Surface Calibrated for SP500 index Call Options on 2012-01-04}}{76}{figure.6.1}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Implied Volatility Surface}}}{76}{figure.6.1}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Price Surface}}}{76}{figure.6.1}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Planned Model}}{79}{figure.6.2}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparing Total Model and Local Model on Weekly Hedging Put Options}}{83}{figure.6.3}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{83}{figure.6.3}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{83}{figure.6.3}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{83}{figure.6.3}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Comparing Total Model and Bartlett Model on Weekly Hedging Put Options}}{83}{figure.6.4}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{83}{figure.6.4}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{83}{figure.6.4}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{83}{figure.6.4}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing Total Model and Black–Scholes Model on Weekly Hedging Put Options}}{83}{figure.6.5}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{83}{figure.6.5}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{83}{figure.6.5}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{83}{figure.6.5}%
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing Total Model and Local Model on Monthly Hedging Put Options}}{84}{figure.6.6}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{84}{figure.6.6}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{84}{figure.6.6}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{84}{figure.6.6}%
-\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparing Total Model and Bartlett Model on Monthly Hedging Put Options}}{85}{figure.6.7}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{85}{figure.6.7}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{85}{figure.6.7}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{85}{figure.6.7}%
-\contentsline {figure}{\numberline {6.8}{\ignorespaces Comparing Total Model and Black–Scholes Model on Monthly Hedging Put Options}}{85}{figure.6.8}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{85}{figure.6.8}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{85}{figure.6.8}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{85}{figure.6.8}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces The price surface and implied volatility surface calibrated for SP500 index Call Options on 2012-01-04.}}{77}{figure.6.1}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Implied Volatility Surface}}}{77}{figure.6.1}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Price Surface}}}{77}{figure.6.1}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces $\textsc {GRU}_{\textsc {total}}$: GRU encode-decoder total hedging model. The encoder summarizes the time series $\mathbf {Y}_{t}^{T,K}=\left [\mathbf {y}^{T,K}_{\tau _{1}},\dots ,\mathbf {y}^{T,K}_{\tau _{N+1}}\right ]$ as a succinct vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {h}$}\mathaccent "0362{\mathbf {h}}_E$. The decoder outputs the hedging position based on the vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {h}$}\mathaccent "0362{\mathbf {h}}_E$ and the previous hedging position $\delta ^M_{t-\Delta t,T,K}$ observed at the hedging time $t$. More specifically, in the decoder, a candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$ is firstly produced. The final output $\delta ^M_{t,T,K}$ is computed based on the linear combination of BS delta $\delta ^{BS}_{t,T,K}$ and the candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$. The combination weight is determined by $W_{\delta }$. The feature weight $\omega ^L$ is used to compute weighted sequential feature $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {y}$}\mathaccent "0362{\mathbf {y}}^{T,K}_{\tau }$. The weighting acts as a feature selection process. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input. The output $\delta ^M_{t,T,K}$ at $t$ is used as the input for next step $t+\Delta t$.}}{82}{figure.6.2}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and local model $\textsc {GRU}_{\textsc {local}}$ on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{90}{figure.6.3}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{90}{figure.6.3}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{90}{figure.6.3}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{90}{figure.6.3}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and BS Model on weekly hedging S\&P 500 call options in terms of the the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{90}{figure.6.4}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{90}{figure.6.4}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{90}{figure.6.4}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{90}{figure.6.4}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and Bartlett model on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{90}{figure.6.5}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{90}{figure.6.5}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{90}{figure.6.5}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{90}{figure.6.5}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and local model $\textsc {GRU}_{\textsc {local}}$ on monthly hedging S\&P 500 call options in terms of thethe distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{93}{figure.6.6}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{93}{figure.6.6}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{93}{figure.6.6}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{93}{figure.6.6}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and BS model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{93}{figure.6.7}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{93}{figure.6.7}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{93}{figure.6.7}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{93}{figure.6.7}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and bartlett model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{93}{figure.6.8}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{93}{figure.6.8}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{93}{figure.6.8}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{93}{figure.6.8}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and local model $\textsc {GRU}_{\textsc {local}}$ on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{96}{figure.6.9}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{96}{figure.6.9}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{96}{figure.6.9}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{96}{figure.6.9}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and BS model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{96}{figure.6.10}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{96}{figure.6.10}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{96}{figure.6.10}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{96}{figure.6.10}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and Bartlett model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{96}{figure.6.11}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{96}{figure.6.11}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{96}{figure.6.11}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{96}{figure.6.11}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and local model $\textsc {GRU}_{\textsc {local}}$ on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{98}{figure.6.12}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{98}{figure.6.12}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{98}{figure.6.12}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{98}{figure.6.12}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and BS model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{98}{figure.6.13}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{98}{figure.6.13}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{98}{figure.6.13}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{98}{figure.6.13}%
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and Bartlett model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{98}{figure.6.14}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{98}{figure.6.14}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{98}{figure.6.14}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{98}{figure.6.14}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1}{\ignorespaces Proposed Model For Synthetic Cases}}{100}{figure.Alph0.1}%
-\contentsline {figure}{\numberline {2}{\ignorespaces Refined Model For Real Cases}}{101}{figure.Alph0.2}%

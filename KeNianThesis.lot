@@ -1,26 +1,31 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Daily Local Hedging Risk Comparison Between $\delta ^{SABR}_{t,T,K}$ and $\delta ^{Bartlett}_{t,T,K}$}}{28}{table.2.1}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Daily local hedging risk comparison between original delta $\delta ^{SABR}_{t,T,K}$ from SABR model and $\delta ^{Bartlett}_{t,T,K}$ from Bartlett correction. The performance is evaluated in terms of improvement over Black-Scholes delta on local hedging risk.}}{28}{table.2.1}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Parameters for the Heston Model}}{40}{table.3.1}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Daily Hedging Comparison}}{41}{table.3.2}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces Weekly Hedging Comparison}}{42}{table.3.3}%
-\contentsline {table}{\numberline {3.4}{\ignorespaces Monthly Hedging Comparison}}{42}{table.3.4}%
-\contentsline {table}{\numberline {3.5}{\ignorespaces Daily Hedging Comparison }}{43}{table.3.5}%
-\contentsline {table}{\numberline {3.6}{\ignorespaces Weekly Hedging Comparison}}{44}{table.3.6}%
-\contentsline {table}{\numberline {3.7}{\ignorespaces Monthly Hedging Comparison}}{44}{table.3.7}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Parameters for the Heston model. This set of parameters is used to generate synthetic experiments for demonstrating the effectiveness of $\bf \textsc {DKL}_{\text {SPL}}$ on local hedging.}}{40}{table.3.1}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Daily hedging comparison on synthetic experiments between various hedging strategies. The hedging performance is evaluated in terms of local hedging risk.}}{41}{table.3.2}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Weekly hedging comparison on synthetic experiments between various hedging strategies. The hedging performance is evaluated in terms of local hedging risk.}}{42}{table.3.3}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces Monthly hedging comparison on synthetic experiments between various hedging strategies. The hedging performance is evaluated in terms of local hedging risk.}}{42}{table.3.4}%
+\contentsline {table}{\numberline {3.5}{\ignorespaces Daily hedging comparison on synthetic experiments between various hedging strategies. One additional feature $\delta _{BS}$ is added. The hedging performance is evaluated in terms of local hedging risk. }}{43}{table.3.5}%
+\contentsline {table}{\numberline {3.6}{\ignorespaces Weekly hedging comparison on synthetic experiments between various hedging strategies. One additional feature $\delta _{BS}$ is added. The hedging performance is evaluated in terms of local hedging risk.}}{44}{table.3.6}%
+\contentsline {table}{\numberline {3.7}{\ignorespaces Monthly hedging comparison on synthetic experiments between various hedging strategies. One additional feature $\delta _{BS}$ is added. The hedging performance is evaluated in terms of local hedging risk.}}{44}{table.3.7}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Meta-Parameters for the Trust-Region Algorithm \ref {alg:trust}}}{53}{table.4.1}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Meta-parameters for the trust-region algorithm. The trust-region algorithm is used for training all the data-driven models based on neural network framework in this thesis.}}{53}{table.4.1}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces S\&P 500 Call Options Hedging Comparison on Traded Data, bold entries indicating best Gain from $\textsc {GRU}_\delta $}}{61}{table.5.1}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces S\&P 500 Put Options Hedging Comparison on Traded Data, bold entries indicating best Gain from $\textsc {GRU}_\delta $}}{62}{table.5.2}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces S\&P 500 Call Option Hedging For 1-Business Day: bold entries indicating best Gain from $\textsc {GRU}_\delta $}}{66}{table.5.3}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces S\&P 500 Put Option Hedging For 1-Business Day: bold entries indicating best Gain from $\textsc {GRU}_\delta $ }}{66}{table.5.4}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Sequential features for model $\textsc {GRU}_\delta $ at time $t$ are the historical time series of the features listed in this table}}{60}{table.5.1}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Local features $\mathbf {x}_{t}^{T,K}$ at time $t$ for model $\textsc {GRU}_\delta $}}{60}{table.5.2}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces S\&P 500 call options hedging comparison on traded data, bold entries indicating best Gain from $\textsc {GRU}_\delta $. The Gain ratio is a measure for the local hedging performance. The larger the gain ratio is, the better improvement the model achieves over the baseline BS delta hedging method in terms of local hedging risk. The gain ratio is reported on different delta buckets. }}{62}{table.5.3}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces S\&P 500 put options hedging comparison on traded data, bold entries indicating best Gain from $\textsc {GRU}_\delta $. The Gain ratio is a measure for the local hedging performance. The larger the gain ratio is, the better improvement the model achieves over the baseline BS delta hedging method in terms of local hedging risk. The gain ratio is reported on different delta buckets. }}{63}{table.5.4}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces S\&P 500 call option hedging for 1-business day: bold entries indicating best Gain from $\textsc {GRU}_\delta $. The Gain ratio is a measure for the local hedging performance. The larger the gain ratio is, the better improvement the model achieves over the baseline BS delta hedging method in terms of local hedging risk. The gain ratio is reported on different delta buckets.}}{67}{table.5.5}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces S\&P 500 put option hedging for 1-business day: bold entries indicating best Gain from $\textsc {GRU}_\delta $. The Gain ratio is a measure for the local hedging performance. The larger the gain ratio is, the better improvement the model achieves over the baseline BS delta hedging method in terms of local hedging risk. The gain ratio is reported on different delta buckets. }}{67}{table.5.6}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Summary of Weekly Hedging Call Options}}{80}{table.6.1}%
-\contentsline {table}{\numberline {6.2}{\ignorespaces Summary of Monthly Hedging Call Options}}{81}{table.6.2}%
-\contentsline {table}{\numberline {6.3}{\ignorespaces Summary of Weekly Hedging Put Options}}{82}{table.6.3}%
-\contentsline {table}{\numberline {6.4}{\ignorespaces Summary of Monthly Hedging Put Options}}{84}{table.6.4}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Sequential features for $\textsc {GRU}_{\textsc {total}}$ and $\textsc {GRU}_{\textsc {local}}$ at time $t$ are the historical time series of features listed in this table.}}{87}{table.6.1}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Summary of weekly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{89}{table.6.2}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Summary of monthly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{92}{table.6.3}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Summary of weekly hedging S\&P 500 put options for 100 Business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{95}{table.6.4}%
+\contentsline {table}{\numberline {6.5}{\ignorespaces Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{97}{table.6.5}%
+\contentsline {table}{\numberline {6.6}{\ignorespaces Summary of weekly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading.}}{100}{table.6.6}%
+\contentsline {table}{\numberline {6.7}{\ignorespaces Summary of monthly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading.}}{101}{table.6.7}%
+\contentsline {table}{\numberline {6.8}{\ignorespaces Summary of weekly hedging S\&P 500 put options for 100 Business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{103}{table.6.8}%
+\contentsline {table}{\numberline {6.9}{\ignorespaces Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading.}}{104}{table.6.9}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {1}{\ignorespaces Total Risk}}{102}{table.Alph0.1}%
-\contentsline {table}{\numberline {2}{\ignorespaces Total Cost}}{102}{table.Alph0.2}%

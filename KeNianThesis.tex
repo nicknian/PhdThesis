@@ -168,6 +168,7 @@
 \newcommand*{\Resize}[2]{\resizebox{#1}{!}{$#2$}}%
 \newcommand{\model}{\textsc{GRU}_\delta}
 \newcommand{\modelT}{\textsc{GRU}_{\textsc{total}}}
+\newcommand{\modelL}{\textsc{GRU}_{\textsc{local}}}
 \newcommand{\modelN}{\textsc{NN}_\delta}
 \newcommand{\vt}[1]{\mathbf{#1}}
 \newcommand{\vw}{\mathbf{w}}
@@ -457,9 +458,9 @@ The contributions with respect to the data-driven sequential hedging model \cite
 The contributions with respect to the data-driven total hedging model \cite{knian2020} are summarized below:
 \begin{itemize}
 	\item  We enhance the sequential data-driven local hedging model $\model$ \cite{knian2019} to cope with total hedging scenarios where we rebalance multiple times until the expiries of the options.
-	\item  We augment the market data using SABR model and Local Volatility Function to cope with the challenges of lacking market option data.
-	\item  Using the S\&P 500 index call option market data from January 2, 1996 to  August 31st, 2015, we demonstrate that the weekly, bi-weekly and monthly hedging performance of the proposed total hedging model $\modelT$  surpasses that of sequential data-driven local hedging model $\model$ \cite{knian2019} and the SABR-Bartlett method \cite{bartlett2006hedging}, when the hedging performance is evaluated on the expiries of the option.
-	\item We compare  $\modelT$ based on market option information with $\modelT$ based on purely underlying asset information and indicate the importance of  market option information in determining the total hedging position.
+	\item  We augment the market data using SABR model and local volatility model to cope with the challenges of lacking market option data.
+	\item  Using the S\&P 500 index call option market data from January 1, 2000 to  August 31st, 2015, we demonstrate the effectiveness on  weekly and monthly hedging performance of the proposed total hedging model $\modelT$. We compare $\modelT$ with the sequential data-driven local hedging model $\modelL$, which adopts the same model structure but is trained with a different  objective functions, the BS delta hedging model and the SABR-Bartlett method \cite{bartlett2006hedging}. Ihe hedging performance is evaluated on the expiries of the option. Additionally, we compare different hedging strategies on the effectiveness in reducing loss tail risk at either sell-side or buy-side of the option trading.
+
 \end{itemize}
 %----------------------------------------------------------------------
 \section{Outline}
@@ -469,7 +470,7 @@ Chapter \ref{sec:kernel}  discusses the kernel learning framework and introduces
 Chapter \ref{sec:RNNLocal} discusses the Recurrent Neural Network(RNN) framework and introduces the data-driven sequential local hedging model $\model$.
 Chapter \ref{sec:LocalComparison} discuss the  empirical results  from  the data-driven sequential local hedging model $\model$ and data-driven kernel local hedging model $\DKLs$.
 
-Chapter \ref{sec:RNNTotal} introduces the data-driven sequential total hedging model $\modelT$ and presents the empirical comparisons between local hedging model $\model$ and total hedging model $\modelT$.
+Chapter \ref{sec:RNNTotal} introduces the data-driven sequential total hedging model $\modelT$ and presents the empirical comparisons between local hedging model $\modelL$ and total hedging model $\modelT$.
 Chapter \ref{sec:RNNTotal}  also discusses the challenges of using market data to build data-driven total hedging models and the data augmentation procedure to cope with the challenges.
 We conclude in Chapter \ref{sec:Conclusion}  with summary remarks and potential extensions.
 %======================================================================
@@ -868,7 +869,8 @@ The local hedging risk is therefore defined to be the one-step hedging error whe
 \]
 
 \subsection{Discrete Total Hedging Risk}
-In reality, one usually want to hedge until the expiries of the options, which requires rebalancing the hedging portfolio multiple times. Again,
+\label{sec:DiscreteTotalRisk}
+In reality, one usually want to hedge until the expiries of the options, which requires re-balancing the hedging portfolio multiple times. Again,
 consider a hedging portfolio $P_{H}(t,T,K)$ which is composed of:
 \begin{itemize}
 	\item A short position on option $\Vmkt(t,T,K)$
@@ -879,7 +881,7 @@ For the notational simplicity since the $T$ and $K$ are fixed in following discu
 \[
     \Vmkt_{t}=\Vmkt (t,T,K)\;,\Smkt_{t}=\Smkt(t)\;,\delta_{t}=\delta_{t,T,K},B_t=B(t)\;, P^{H}_t=P_H(t,T,K)
 \]
-The hedging portfolio is rebalanced at discrete times $\{t_0,t_1,\dots,t_{N-1}\}$. 
+Assume we rebalance $N_{rb}$ times. The hedging portfolio is rebalanced at discrete times $\{t_0,t_1,\dots,t_{N_{rb}-1}\}$. 
 Initially at $t_0$, we have
 \[
 P^H_{t_0}=  -V_{t_0}^{mkt}+\delta_{t_0} S_{t_0}+ B_{t_0}=0
@@ -893,41 +895,49 @@ The bank account is updated by:
 \[
 B_{t_{j}}= B_{t_{j-1}}-S_{t_j}(\delta_{t_j}-\delta_{t_{j-1}})
 \]
-Let $t_j^+$ and $t_j^-$   be the time immediately after  and immediately before $t_j$. Assume that the performance is measured at the $t_N^-$, where $t_N=T$ is the expiry:
+Let $t_j^+$ and $t_j^-$   be the time immediately after  and immediately before $t_j$. Assume that the performance is measured at the $t_{N_{rb}}^-$, where $t_{N_{rb}}=T$ is the expiry:
 \begin{equation}
 \begin{split}
-P_{t_N^-}&=B_{t_{N-1}}- V_{t_N}^{mkt}+ S_{t_N} \delta_{t_{N-1}}  \\
-&=\sum_{j=0}^{N-1}\left\{ \left(S_{t_{j+1}}-S_{t_{j}}\right) \delta_{t_j} \right\}+ V_{t_0}^{mkt}-V_{t_N}^{mkt}\\
-&=\sum_{j=0}^{N-1}\left\{ \left( S_{t_{j+1}}-S_{t_{j}}\right) \delta_{t_j} -(V_{t_{j+1}}^{mkt}-V_{t_j}^{mkt}) \right\}
+P_{t_{N_{rb}}^-}&=B_{t_{N_{rb}-1}}- V_{t_{N_{rb}}}^{mkt}+ S_{t_{N_{rb}}} \delta_{t_{N_{rb}-1}}  \\
+&=\sum_{j=0}^{N_{rb}-1}\left\{ \left(S_{t_{j+1}}-S_{t_{j}}\right) \delta_{t_j} \right\}+ V_{t_0}^{mkt}-V_{t_{N_{rb}}}^{mkt}\\
+&=\sum_{j=0}^{N_{rb}-1}\left\{ \left( S_{t_{j+1}}-S_{t_{j}}\right) \delta_{t_j} -(V_{t_{j+1}}^{mkt}-V_{t_j}^{mkt}) \right\}
 \end{split}
 \label{eq:TotalObj}
 \end{equation}
 Equation \eqref{eq:TotalObj} is defined as the {\em discrete total hedging risk}.
-If we always set $\delta_t=\frac{d V_t^{mkt}}{d S_t}$ and let $\Delta t \rightarrow 0$ (we continuously rebalance the portfolio), then $P_{t_N^-}=0$. In reality, even if we can set the hedging position to be the actual partial derivative of market option price with regards to underlying price $\delta_t=\frac{d V_t^{mkt}}{d S_t}$,  we can only rebalance discretely due to the transaction cost. Thus, $P_{t_N^-}$ can take positive (profit) and negative value (loss).
+If we always set $\delta_t=\frac{d V_t^{mkt}}{d S_t}$ and let $\Delta t \rightarrow 0$ (we continuously rebalance the portfolio), then $P_{t_{N_{rb}}^-}=0$. In reality, even if we can set the hedging position to be the actual partial derivative of market option price with regards to underlying price $\delta_t=\frac{d V_t^{mkt}}{d S_t}$,  we can only rebalance discretely due to the transaction cost. Thus, $P_{t_{N_{rb}}^-}$ can take positive (profit) and negative value (loss).
 The  {\em discrete total hedging risk} measures the hedging portfolio profit and loss at the expiry $T$. 
 
 Equation \eqref{eq:TotalObj} can be written as:
 \[
 \begin{split}
-P^H_{t_N^-}&=\sum_{j=0}^{N-1}\left\{ \left( S_{t_{j+1}}-S_{t_{j}}\right) \delta_{t_j} -(V_{t_{j+1}}^{mkt}-V_{t_j}^{mkt}) \right\}\\
-&=\sum_{j=0}^{N-1}\left\{ \DS_{t_j} \delta_{t_j} -\Delta V^{mkt}_{t_j} \right\}
+P^H_{t_{N_{rb}}^-}&=\sum_{j=0}^{N_{rb}-1}\left\{ \left( S_{t_{j+1}}-S_{t_{j}}\right) \delta_{t_j} -(V_{t_{j+1}}^{mkt}-V_{t_j}^{mkt}) \right\}\\
+&=\sum_{j=0}^{N_{rb}-1}\left\{ \DS_{t_j} \delta_{t_j} -\Delta V^{mkt}_{t_j} \right\}
 \end{split}
-\label{eq:TotalObjV2}
 \]
 with $\Delta V^{mkt}_{t_j}$and  $\DS_{t_j}$ given in \eqref{eq:DVDS}.
 Plug in the notation for $T$ and $K$, the discrete total hedging risk is:
 \begin{equation}
-    P_H(T,T,K)=\sum_{j=0}^{N-1}\left\{ \Delta \Smkt_{t_j} \delta_{t_j,T,K} -\Delta \Vmkt_{t_j,T,K} \right\}
+    P_H(T,T,K)=\sum_{j=0}^{N_{rb}-1}\left\{ \Delta \Smkt_{t_j} \delta_{t_j,T,K} -\Delta \Vmkt_{t_j,T,K} \right\}
     \label{eq:TotalObjV2}
     \end{equation}
-By comparing equation \eqref{eq:local} and \eqref{eq:TotalObjV2}, we can see that the {\em discrete total hedging risk} is the summation of the {\em discrete local hedging risk} evaluated at discrete rebalancing time $\{t_0,t_1,\dots,t_{N-1}\}$. 
+By comparing equation \eqref{eq:local} and \eqref{eq:TotalObjV2}, we can see that the {\em discrete total hedging risk} is the summation of the {\em discrete local hedging risk} evaluated at discrete rebalancing time $\{t_0,t_1,\dots,t_{N_{rb}-1}\}$. 
 \subsection{Interest Rate and Dividend}
 In the previous discussion, we assume zero interest rate  when we define the {\em discrete total hedging risk} and the {\em discrete local hedging risk}. In the years of publication of the results presented in \cite{knian2017} and \cite{knian2019}, the zero interest rate  was assumed when measuring the hedging performance under discrete local hedging risk framework. The results presented \cite{knian2017} and \cite{knian2019} were evaluated from 2007 to 2015. During  most of the time from 2007 and 2015, the interest rate is virtually zero. So the zero interest assumption is valid during most of the time.  In \cite{knian2020}, such assumption is relaxed and we include the effect of interest rate when we evaluate the total hedging performance. We assume the interest rate is fixed as a constant during the life time of the hedging portfolio and denote it as $r$, the discrete total hedging risk is therefore:
-\begin{equation}
-    P_H(T,T,K)=\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} \Smkt_{t_{j+1}}-e^{r (N-j) \Delta t}\Smkt_{t_{j}}\right] \delta_{t_j,T,K} \right\}+e^{r N \Delta t} \Vmkt_{t_0,T,K}-\Vmkt_{T,T,K}
-    \label{eq:TotalObjV3}
-\end{equation}
+%\begin{equation}
+%    P_H(T,T,K)=\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} \Smkt_{t_{j+1}}-e^{r (N-j) \Delta t}\Smkt_{t_{j}}\right] \delta_{t_j,T,K} \right\}+e^{r N \Delta t} \Vmkt_{t_0,T,K}-\Vmkt_{T,T,K}
+%    \label{eq:TotalObjV3}
+%\end{equation}
 
+
+
+\begin{equation}
+P_H(T,T,K)=\sum_{j=0}^{N_{rb}-1}\left\{ \left[\frac{\Smkt_{t_{j+1}}}{D(t_{j+1},T)}-\frac{\Smkt_{t_{j}}}{D(t_{j},T)}\right] \delta^M_{t_j,T,K} \right\}+\frac{\Vmkt_{t_0,T,K}}{D(t_{0},T)}-\Vmkt_{T,T,K}
+ \label{eq:TotalObjV3}
+\end{equation}
+where
+\[D(t,T)=e^{-r(T-t)}\]
+Now, consider at a arbitrary rebalancing time $t \in \{t_0,t_1, \dots, t_{N_{rb}-1}\}$, strike $K$, and expiry $T$. Assume we have computed the hedging position at previous rebalancing time $t-\Delta$: $\delta_{t-\Delta t, T,K}$. 
 In this thesis, we are dealing with S\&P 500 index option. For S\&P 500 index, the closing index price of each day is already adjusted to capture corporate actions that affect market capitalization such as as additional share insurance, dividends and restructuring events such as mergers or spin-offs\cite{lassance2018comparison}. When we calibrating the  option pricing models such as Black-Scholes model,   an estimate of the dividends to be paid up until the option’s expiration are needed. For dividend-paying indices, we assume that the security pays dividends continuously, according to a continuously-compounded annual dividend yield $q$. 
 
 For the calibration of different pricing models in this thesis, we use the option market data from OptionMetric \cite{optionmetrics2008ivy} database. The OptionMetric \cite{optionmetrics2008ivy} database provides us market option quotes for each trading day from 1996-01 to 2015-08-31. We use the zero curves on each trading day provided by the OptionMetric \cite{optionmetrics2008ivy} database to extract the risk-free interest rate $r$. The zero curve used by the OptionMetric database is derived from ICE
@@ -1216,7 +1226,7 @@ The Bartlett correction improves over the SABR delta in two different aspects:
     \item Empirically, the Bartlett correction is less sensitive to the choice of $\beta$ parameter. In practice, the $\beta$ is often fixed instead of being calibrated together with $\alpha,\nu,\rho$ in SABR model. Different choices of $\beta$ can often all fit the market prices but different choices of $\beta$ can often lead to different SABR delta $\delta^{SABR}_{t,T,K}$ position. On the other hand, the $\delta^{Bartlett}_{t,T,K}$ is consistent with different choices of $\beta$. This phenomenon is shown in Figure \ref{fig:Bartlett}. We calibrate a SABR model for S\&P 500 index option with trading time $t$ being 2012-01-04 and expiry being 2012-12-31. We compute and compare delta position and we can see that for SABR delta, different choice of $\beta$ can lead to  significantly different hedging position while the Bartlett delta position is consistent.
     \begin{figure}[htp!]
         \includegraphics[width=\textwidth]{./figures/Bartlett}
-        \caption{Comparison based on 2012-01-04 S\&P500 index option}
+        \caption{Comparing the original SABR delta $\delta^{SABR}_{t,T,K}$ and Bartlett delta  $\delta^{Bartlett}_{t,T,K}$ from SABR models calibrated with $\beta=0,\; 0.5, \;1.0$ on 2012-01-04 for S\&P500 index option. The computation of Bartlett delta  $\delta^{Bartlett}_{t,T,K}$ is more robust to the choice of $\beta$.}
         \label{fig:Bartlett}
     \end{figure}
     \item  Empirically, the Bartlett correction provides better hedging strategy. As an example, one can observe significant  hedging performance difference between $\delta^{Bartlett}_{t,T,K}$ and  $\delta^{SABR}_{t,T,K}$  on S\&P 500 index options. More specifically, we calibrate SABR model on each trading date from Jan 1st 2007 to August 31st 2015 as what we have discussed in section \ref{sec:pricing} with $\beta=1$. And we compare the local hedging performance for all the traded options from Jan 1st 2007 to August 31st 2015.
@@ -1235,7 +1245,7 @@ The Bartlett correction improves over the SABR delta in two different aspects:
             Gain (\%) &-4.2 & 27.1 \\
             \hline
         \end{tabular}
-        \caption{Daily Local Hedging Risk Comparison Between  $\delta^{SABR}_{t,T,K}$ and   $\delta^{Bartlett}_{t,T,K}$}
+        \caption{Daily local hedging risk comparison between original delta $\delta^{SABR}_{t,T,K}$ from SABR model and  $\delta^{Bartlett}_{t,T,K}$ from Bartlett correction. The performance is evaluated in terms of improvement over Black-Scholes delta on local hedging risk.}
         \label{table:Bartlett}
     \end{table}
     As we can see in Table \ref{table:Bartlett}, $\delta^{Bartlett}_{t,T,K}$ performs much better than $\delta^{SABR}_{t,T,K}$. What is more, $\delta^{SABR}_{t,T,K}$ actually performs worse than Black–Scholes delta $\delta^{BS}_{t,T,K}$ with implied volatility. The similar phenomenon has been observed in \cite{lassance2018comparison} where Heston and Heston-Nandi model performance worse than Black–Scholes delta $\delta^{BS}_{t,T,K}$ with implied volatility.  \textbf{The difference of the hedging performance between $\delta^{Bartlett}_{t,T,K}$ and $\delta^{SABR}_{t,T,K}$ is an example to illustrate how the unaccounted  pricing model parameter dependence on underlying asset affects the hedging performance. }Unfortunately, the pricing model parameter dependence often is not that easy to be accounted for as in SABR model with Bartlett correction.
@@ -1626,7 +1636,7 @@ In addition,  a vector of simulated (traded)  market call option prices  are  ge
 \end{tabular}
 \end{center}
 
-\caption{Parameters for the Heston Model}
+\caption{Parameters for the Heston model. This set of parameters is used to generate synthetic experiments for demonstrating the effectiveness of $\DKLs$ on local hedging.}
 \label{para}
 \end{table}
 
@@ -1689,7 +1699,7 @@ $\Heston$ & 63.6 & 0.121 & 0.173 & 0.266 & 0.360 \\
 %$\DKLsd$  & \textbf{70.9} &\textbf{ 0.110 }& \textbf{0.154} & \textbf{0.234} & \textbf{0.322} \\
 \hline
 \end{tabular}
-\caption{Daily Hedging Comparison}
+\caption{Daily hedging comparison on synthetic experiments between various hedging strategies. The hedging performance is evaluated in terms of local hedging risk.}
 \label{Daily}
  \begin{tablenotes}
     \small
@@ -1715,7 +1725,7 @@ $\DKLs$  & \textbf{50.8} & \textbf{0.312} & \textbf{0.435} & \textbf{0.622} & \t
 $\Heston$ & 45.7 & 0.319 & 0.456 & 0.651 & 0.840 \\
 \hline
 \end{tabular}
-\caption{Weekly Hedging Comparison}
+\caption{Weekly hedging comparison on synthetic experiments between various hedging strategies. The hedging performance is evaluated in terms of local hedging risk.}
 \label{Weekly}
  \begin{tablenotes}
     \small
@@ -1741,7 +1751,7 @@ $\DKLs$  & {35.4} & {0.858} & {1.165} & {1.610} & {1.922} \\
 $\Heston$ & \textbf{38.7} & \textbf{0.814} & \textbf{1.136} & \textbf{1.544} & \textbf{1.829} \\
 \hline
 \end{tabular}
-\caption{Monthly Hedging Comparison}
+\caption{Monthly hedging comparison on synthetic experiments between various hedging strategies. The hedging performance is evaluated in terms of local hedging risk.}
 \label{Monthly}
 \begin{tablenotes}
     \small
@@ -1780,7 +1790,7 @@ present hedging results for  $\DKLs$ \& $\DKLg$ for  $\{\textsc{moneyness} \;(S_
  \multicolumn{2}{|c|}{ $\Heston$ }& 63.6 & 0.121 & 0.173 & 0.266 & 0.360 \\
 \hline
 \end{tabular}
-\caption{ Daily Hedging Comparison }
+\caption{ Daily hedging comparison on synthetic experiments between various hedging strategies. One additional feature $\delta_{BS}$ is added. The hedging performance is evaluated in terms of local hedging risk. }
 \label{DailyD}
 \begin{tablenotes}
     \small
@@ -1805,7 +1815,7 @@ present hedging results for  $\DKLs$ \& $\DKLg$ for  $\{\textsc{moneyness} \;(S_
  \multicolumn{2}{|c|} {$\Heston$} & 45.7 & 0.319 & 0.456 & 0.651 & 0.840 \\
 \hline
 \end{tabular}
-\caption{ Weekly Hedging Comparison}
+\caption{ Weekly hedging comparison on synthetic experiments between various hedging strategies. One additional feature $\delta_{BS}$ is added. The hedging performance is evaluated in terms of local hedging risk.}
 \label{WeeklyD}
 \begin{tablenotes}
     \small
@@ -1830,7 +1840,7 @@ present hedging results for  $\DKLs$ \& $\DKLg$ for  $\{\textsc{moneyness} \;(S_
  \multicolumn{2}{|c|} {$\Heston$} & \textbf{38.7} & \textbf{0.814} & \textbf{1.136} & \textbf{1.544} & \textbf{1.829} \\
 \hline
 \end{tabular}
-\caption{ Monthly Hedging Comparison}
+\caption{ Monthly hedging comparison on synthetic experiments between various hedging strategies. One additional feature $\delta_{BS}$ is added. The hedging performance is evaluated in terms of local hedging risk.}
 \label{MonthlyD}
 \begin{tablenotes}
     \small
@@ -2013,7 +2023,9 @@ The overall structure of the proposed model is illustrated in Figure \ref{fig:RN
 		\node[align=center, outer sep=0] (encoder) [left=of fit3] {Decoder};
 		\end{tikzpicture}
 	}
-	\caption{$\model$: GRU Encode-Decoder Hedging Model  }
+	\caption{ $\model$: GRU encode-decoder hedging model. 
+		The encoder summarizes the time series $\mathbf{Y}_{t}^{T,K}=\left[\vy^{T,K}_{\tau_{1}},\dots,\vy^{T,K}_{\tau_{N+1}}\right]$ as a succinct  vector $\widehat{\mathbf{h}}_E$. The decoder outputs the hedging position based on the vector $\widehat{\mathbf{h}}_E$ and the local feature vector $\vx^{T,K}_{t}$ observed at the hedging time $t$. More specifically, in the decoder, a candidate output $\widehat{\delta}^M_{t,T,K}$ is firstly produced. The final output $\delta^M_{t,T,K}$ is computed based on the linear combination of BS delta $\delta^{BS}_{t,T,K}$ and the candidate output  $\widehat{\delta}^M_{t,T,K}$. The combination weight is determined by  $W_{\delta}$. The feature weight $\omega^L$ and $\omega^S$ are used to produce the weighted local feature and  $\widehat{\vx}^{T,K}_{t}$ and weighted sequential feature $\widehat{\vy}^{T,K}_{\tau}$ respectively. The weighting acts as a feature selection process.
+		Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input.  }
 	\label{fig:RNNModel}
 \end{figure}
 
@@ -2128,7 +2140,9 @@ parameters shared by all GRU cells.
 			\draw[->] (final.north) coordinate (aux)--++(90:5mm) node[above]{$\vh_{i}$ };
 			%\node[filter, below=23mm of x3, label={[mylabel]right:tanh}] (ex1) {};
 			\end{tikzpicture}
-	\caption{Illustration of the GRU Cell}
+	\caption{Illustration of the GRU cell. 
+		At step $i$,  GRU cell produces a vector  $\vh_{i}$ as the current hidden states based on the hidden states produced from the previous steps $\vh_{i-1}$  and the input $\widehat{\vy}^{T,K}_{\tau_{i}}$. The reset unit produces the weight $\mathbf{r}_i$ which determines how much information is retained from $\vh_{i-1}$.  
+		The final output from the GRU cell $\vh_{i}$ is  computed based on a weighted combination of the previous activation $\vh_{i-1}$ and the candidate activation $\widehat{\vh}_i$, where the combination weight $\mathbf{z}_i$ is produced by the update unit. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input.}
 	\label{fig:RNN}
 \end{figure}
 The hidden state at the last step $\vh_{N+1}$, corresponding to time ${\tau_{N+1}}={t}$, is supplied to
@@ -2245,7 +2259,7 @@ Consequently we use a trust region method, which is shown in Algorithm \ref{alg:
 	\end{tabular}
 	\end{center}
 	
-	\caption{Meta-Parameters for the Trust-Region Algorithm \ref{alg:trust}}
+	\caption{Meta-parameters for the trust-region algorithm. The trust-region algorithm is used for training  all the data-driven models based on neural network framework in this thesis.}
 	\label{para2}
 	\end{table}
 
@@ -2256,7 +2270,7 @@ Consequently we use a trust region method, which is shown in Algorithm \ref{alg:
 	\SetAlgoNoLine
 	
 	\KwIn{$\theta_0 \in \Real^n$: initial vector of parameters.\newline
-		$Obj(\theta)$: the objective function (For $\model$, we use either \eqref{l1} or  \eqref{l2})\newline
+		$Obj(\theta)$: the objective function (For $\model$, we use either \eqref{l1} or  \eqref{l2}. For $\modelT$, we use \eqref{eq:totalObjLinear}. For  $\modelL$, we use \eqref{eq:totalObjLinear}.  )\newline
 		$\mathcal{R}_0$: initial trust region radius \newline
 		$\epsilon_{\theta}$: tolerance for the norm of the gradient \newline
 		$\epsilon_{r}$: tolerance for the trust region radius \newline
@@ -2340,7 +2354,7 @@ The pre-training stage guarantees that the initial performance of the model on t
 Additionally  the validation set is also used to select  whether to use the mean square objective function \eqref{l1} or  the modified Huber loss objective \eqref{l2} . The model trained with the objective function that performs better on the validation set is used when predicting the hedging position of the testing data instances, which are unobserved at the time of training.
 
 
-\subsection{Model Re-use and  Re-initialization}
+\subsection{Model Re-use and  Re-initialization}\label{sec:reuse}
 In contrast to the regularized kernel method in \citep{knian2017},  one advantage of the proposed $\model$ is
 that the parameters from one trained model can be readily reused as the starting point for the model training on a subsequent rebalancing day.
 This allows a model to be updated more frequently, adapting to market changes without completely rebuilding a model.
@@ -2415,7 +2429,8 @@ Lastly, before jumping into the real data experimental results for local discret
 		
 		
 		\end{tikzpicture}
-	}\caption{$\modelN$: decoder only model}
+	}\caption{$\modelN$: decoder GRU only. 
+	This simplified model only retains the decoder. The decoder computes the hedging position solely based on the information vector $\vx_{t}^{T,K}$ observed at time $t$. A candidate output $\widehat{\delta}^M_{t,T,K}$ is produced. The final output $\delta^M_{t,T,K}$ is computed based on the linear combination of BS delta $\delta^{BS}_{t,T,K}$ and the candidate output  $\widehat{\delta}^M_{t,T,K}$. The combination weight is determined by  $W_{\delta}$. The feature weight $\omega^L$ is used to produce the weighted local feature   $\widehat{\vx}^{T,K}_{t}$. The weighting acts as a feature selection process. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input.}
 	\label{fig:DNN}
 \end{figure}
 
@@ -2481,7 +2496,8 @@ Lastly, before jumping into the real data experimental results for local discret
 	
 			\node at (10.75, -3) {};
 			\end{tikzpicture}
-	}\caption{$\textsc{GRU}_{c}$: Removing the Output Gate}
+	}\caption{$\textsc{GRU}_{c}$: This simplified model removes  the output gate in  the decoder. The encoder summarizes the time series $\mathbf{Y}_{t}^{T,K}=\left[\vy^{T,K}_{\tau_{1}},\dots,\vy^{T,K}_{\tau_{N+1}}\right]$ as a succinct  vector $\widehat{\mathbf{h}}_E$. The decoder outputs the hedging position based on the vector $\widehat{\mathbf{h}}_E$ and the local feature vector $\vx^{T,K}_{t}$ observed at the hedging time $t$ directly. The output gate is removed and we do not combine the output with $\delta^{BS}_{t,T,K}$ using linear combination as in Figure \ref{fig:RNNModel}.
+	Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input.  }
 	\label{fig:DRNNC}
 	\end{figure}
 
@@ -2509,31 +2525,44 @@ Options with time-to-expiry less than 14 days are removed from the data set.  Th
 As in \cite{hulloptimal},  the option data instances are divided into nine buckets according to the Black–Scholes delta $\delta^{BS}$ from the implied volatility (rounded to the nearest tenth) for  detailed hedging performance comparisons.
 
 
-Inputs to $\model$, $\mathbf{Y}_{t}^{T,K} \in \Real^{d_s \times (N+1)}$, are  6  sequential features and the length of each sequence is 6, i.e., $d_s=6$ and $N=5$.  At each hedging time $t$, the six features are:
-\begin{enumerate}
-	\item  option middle price  for the previous 5 business days and the hedging day $t$,
-
-	\item  option implied volatility  for the previous 5 business days and the hedging day $t$,
-	\item  option  Black–Scholes delta  for the previous 5 business days and the hedging day $t$,
-	\item  option Black–Scholes gamma  for the previous 5 business days and the hedging day $t$,
-	\item  option Black–Scholes vega  for the previous 5 business days and the hedging day $t$,
-	\item  moneyness  for the previous 5 business days and the hedging day $t$.
-\end{enumerate}
- At each hedging time $t$, there are 10 local features  $\vx_{t}^{T,K}$:
-\begin{enumerate}
-	\item moneyness,
-	
-	\item time to expiry,
-	\item index close price,
-	\item option bid price,
-	\item option offer price;
-\item option Black–Scholes delta,
-\item minimum variance delta $\delta_{MV}$  \eqref{eq:HullWhite} estimated using
-the training data set,
-	\item option implied volatility;
-	\item option Black–Scholes gamma;
-	\item option Black–Scholes vega.
-\end{enumerate}
+Inputs to $\model$, $\mathbf{Y}_{t}^{T,K} \in \Real^{d_s \times (N+1)}$, are  6  sequential features and the length of each sequence is 6, i.e., $d_s=6$ and $N=5$. At each hedging time $t$, the $\mathbf{Y}_{t}^{T,K}$ is  the matrix recording the historical time series of the feature listed in Table \ref{table:SeqForLocal}.
+\begin{table}[htp!]
+	\centering
+	\begin{tabular}{|l|}
+		\hline
+		option middle price\\ \hline
+		option implied volatility\\ 
+		\hline
+		option BS delta\\
+		\hline
+		option BS gamma\\
+		\hline
+		option BS vega\\
+		\hline
+		moneyness\\
+		\hline
+	\end{tabular}
+	\label{table:SeqForLocal}
+	\caption{Sequential features for model $\model$ at time $t$ are the historical time series of the features listed in this table}
+\end{table}
+At each hedging time $t$, there are 10 local features  $\vx_{t}^{T,K}$:
+\begin{table}[htp!]
+	\centering
+	\begin{tabular}{|l|}
+		\hline
+		moneyness \\ \hline
+		time to expiry\\ \hline
+		index close price\\ \hline
+		option bid price\\ \hline
+		option offer price\\ \hline
+		option BS delta\\ \hline
+		$\delta_{MV}$ from equation \eqref{eq:HullWhite} \\ \hline
+		option implied volatility\\ \hline
+		option BS gamma\\ \hline
+		option BS vega\\ \hline
+	\end{tabular}
+	\caption{Local features  $\vx_{t}^{T,K}$ at time $t$ for model $\model$}
+\end{table}
 
 The number of hidden states, for the single-layer GRU encoder, the neural network outputting $\widehat{\delta}^M_{t,T,K}$, and the neural network outputting $W_{\delta}$  in Figure \ref{fig:RNNModel}, are all set to be 5.   In comparison with most RNN applications, we note we train a relatively small model and the number of data instances available for the hedging problem is also relatively small.
 We note that our training and testing data instances are generated from daily observations with a moving window.  On each day, data instances observed in the previous 36 months are reserved as the training set and the validation set. For daily and weekly hedging, the validation consists of the data instances observed during the past 30 days. For monthly hedging, the validation set is the data instances observed during the previous 60 days. This is because, for monthly hedging, the  $\DS_t$ and $\Delta V^{mkt}_{t,T,K}$  of many data instances during the last 30 days have not been observed.
@@ -2625,7 +2654,7 @@ We also note that the out-of-sample results for the $\MV$ model in \cite{hullopt
 			Overall&15.1&18.6 &20.2     &39.9 &33.5  &\textbf{43.7}    &13.4  & 4.5   &16.3 &35.4     &38.0    & \textbf{44.5}  \\
 			\hline
 		\end{tabular}
-		\caption{S\&P 500 Call Options Hedging Comparison on Traded Data, bold entries indicating best Gain from $\model$}
+		\caption{S\&P 500 call options hedging comparison on traded data, bold entries indicating best Gain from $\model$.  The Gain ratio is a measure for the local hedging performance. The larger the gain ratio is, the better improvement the model achieves over the baseline BS delta hedging method in terms of local hedging risk. The gain ratio is reported on different delta buckets.  }
 \label{SP500CallC}
 \end{threeparttable}
 \end{table}
@@ -2650,17 +2679,17 @@ We also note that the out-of-sample results for the $\MV$ model in \cite{hullopt
 
 			-0.8   &21.5  &-0.1 &18.3   &39.6 &40.1 &\textbf{44.2}  &11.5 &5.6 &6.1   &41.7        &35.6 & \textbf{49.5}  \\
 
-			-0.7   &19.1  &0.4  &20.2   &44.0 &40.6 &\textbf{49.6}  &9.6  &6.7 &7.3   &43.4        &42.1 & \textbf{52.4}  \\
-			-0.6   &16.1  &9.1  &20.8   &43.0 &43.6 &\textbf{51.3}  &8.1  &8.6 &10.3  &42.1        &42.5 & \textbf{51.6}  \\
-			-0.5   &15.3  &20.9 &22.4   &43.4&41.3 &\textbf{53.5}  &7.7  &13.2 &13.9  &41.2        &42.7 & \textbf{51.4}  \\
-			-0.4   &12.3  &25.7 &21.0   &41.4&45.6 &\textbf{53.2}  &6.8  &14.4 &15.6  &40.7        &42.9 & \textbf{53.4}  \\
-			-0.3   &9.7   &29.4 &22.2   &38.2&44.6 &\textbf{51.1}  &4.7  &13.6 &19.5  &34.1       &47.5  & \textbf{48.4}  \\
-			-0.2   &7.8   &33.1 &20.8   &29.8 &40.4&\textbf{46.3}  &2.9  &10.7 &20.6  &21.7         & 36.7 &\textbf{44.7}  \\
-			-0.1   &4.9   &30.5 &19.2   &15.5&36.4 &\textbf{37.2}  &-1.8 &10.8 &13.0  &12.3         &24.1& \textbf{26.8}  \\
-			Overall&14.4  &26.4 &20.4   &38.7 &42.4&\textbf{49.1}  &8.6  &12.1 &13.5  &38.6        &43.5 & \textbf{49.5}  \\
+			-0.7   &19.1  &0.4  &20.2   &44.0 &39.6 &\textbf{49.6}  &9.6  &6.7 &7.3   &43.4        &41.1 & \textbf{52.4}  \\
+			-0.6   &16.1  &9.1  &20.8   &43.0 &40.3 &\textbf{51.3}  &8.1  &8.6 &10.3  &42.1        &41.5 & \textbf{51.6}  \\
+			-0.5   &15.3  &20.9 &22.4   &43.4&36.1.3 &\textbf{53.5}  &7.7  &13.2 &13.9  &41.2        &42.7 & \textbf{51.4}  \\
+			-0.4   &12.3  &25.7 &21.0   &41.4&37.4.6 &\textbf{53.2}  &6.8  &14.4 &15.6  &40.7        &42.9 & \textbf{53.4}  \\
+			-0.3   &9.7   &29.4 &22.2   &38.2&37.4.6 &\textbf{51.1}  &4.7  &13.6 &19.5  &34.1       &42.5  & \textbf{48.4}  \\
+			-0.2   &7.8   &33.1 &20.8   &29.8 &25.4&\textbf{46.3}  &2.9  &10.7 &20.6  &21.7         & 24.7 &\textbf{44.7}  \\
+			-0.1   &4.9   &30.5 &19.2   &15.5&10.4 &\textbf{37.2}  &-1.8 &10.8 &13.0  &12.3         &15.1& \textbf{26.8}  \\
+			Overall&14.4  &26.4 &20.4   &38.7 &32.5&\textbf{49.1}  &8.6  &12.1 &13.5  &38.6        &40.5 & \textbf{49.5}  \\
 			\hline
 		\end{tabular}
-		\caption{S\&P 500 Put Options Hedging Comparison on Traded Data, bold entries indicating best Gain from $\model$}
+		\caption{S\&P 500 put options hedging comparison on traded data, bold entries indicating best Gain from $\model$. The Gain ratio is a measure for the local hedging performance. The larger the gain ratio is, the better improvement the model achieves over the baseline BS delta hedging method in terms of local hedging risk. The gain ratio is reported on different delta buckets. }
 \label{SP500PutC}
 \end{threeparttable}
 \end{table}
@@ -2693,7 +2722,7 @@ the model is updated daily and  the normalized feature weights vary with the tra
 	\includegraphics[width=0.48\textwidth]{./figures/CLocal2}}
 \subfigure[Sequential Features Monthly Hedging]{
 	\includegraphics[width=0.48\textwidth]{./figures/C2}}
-\caption{Feature Scores for Weekly and Monthly Hedging Models on  Traded S\&P500 Call Option  Data } \label{fig:call1}
+\caption{Feature scores for weekly and monthly hedging models $\model$ on  traded S\&P500 call option  data.} \label{fig:call1}
 \end{figure}
 
 
@@ -2724,7 +2753,7 @@ In addition, the past implied volatility has often been identified as an importa
 	\includegraphics[width=0.48\textwidth]{./figures/PLocal2}}
 \subfigure[Sequential Features Monthly Hedging]{
 	\includegraphics[width=0.48\textwidth]{./figures/P2}}
-\caption{Feature Score for Weekly and Monthly Hedging Models on Traded S\&P500 Put Option  Data} \label{fig:put1}
+\caption{Feature score for weekly and monthly hedging models $\model$ on traded S\&P500 put option  data} \label{fig:put1}
 \end{figure}
 
 \subsection{Daily Hedging Comparison}\label{sec:daily}
@@ -2791,7 +2820,7 @@ For the testing result using only traded data, the overall results from $\model$
   Overall & 25.7 & 24.6 & 25.5 &27.1 &24.8 & 31.3  & 26.0        &\textbf{32.9} & \textbf{28.7} \\
   \hline
 \end{tabular}
-\caption{S\&P 500 Call Option Hedging For 1-Business Day: bold entries indicating best Gain from $\model$}
+\caption{S\&P 500 call option hedging for 1-business day: bold entries indicating best Gain from $\model$.  The Gain ratio is a measure for the local hedging performance. The larger the gain ratio is, the better improvement the model achieves over the baseline BS delta hedging method in terms of local hedging risk. The gain ratio is reported on different delta buckets.}
 \label{SP500Call}
 
 \end{threeparttable}
@@ -2818,7 +2847,7 @@ For the testing result using only traded data, the overall results from $\model$
 			Overall &22.5  &19.0  &10.2 &20.0 &24.8   &23.4   &23.2  &\textbf{26.2}    &\textbf{29.7} \\
   \hline
 \end{tabular}
-\caption{S\&P 500 Put Option Hedging For 1-Business Day: bold entries indicating best Gain from $\model$  }
+\caption{S\&P 500 put option hedging for 1-business day: bold entries indicating best Gain from $\model$. The Gain ratio is a measure for the local hedging performance. The larger the gain ratio is, the better improvement the model achieves over the baseline BS delta hedging method in terms of local hedging risk. The gain ratio is reported on different delta buckets.  }
 \label{SP500Put}
 
 \end{threeparttable}
@@ -2831,7 +2860,7 @@ We similarly demonstrate feature importance in Figure \ref{fig:call1daily}\&\ref
 	\includegraphics[width=0.48\textwidth]{./figures/CLocal0}}
 \subfigure[Sequential Features Daily Hedging]{
 	\includegraphics[width=0.48\textwidth]{./figures/C0}}
-\caption{Feature Score for Daily Hedging Model: S\&P500 Call Option (Traded Data)} \label{fig:call1daily}
+\caption{Feature score for daily hedging model $\model$: S\&P500 call option (traded data)} \label{fig:call1daily}
 \end{figure}
 
 From subplots (a) and (b) in Figure \ref{fig:put1daily}, it can be observed that the index price $S$ is often ranked as the most important local feature for daily hedging put options. The past implied volatility sequence, the past  BS delta sequence, and the past option price $V_{mid}$  are often identified as the three important sequential features.
@@ -2841,26 +2870,9 @@ From subplots (a) and (b) in Figure \ref{fig:put1daily}, it can be observed that
 	\includegraphics[width=0.48\textwidth]{./figures/PLocal0}}
 \subfigure[Sequential Features Daily Hedging]{
 	\includegraphics[width=0.48\textwidth]{./figures/P0}}
-\caption{Feature Score for Daily Hedging Model:  S\&P500 Put Option (Traded Data)} \label{fig:put1daily}
+\caption{Feature score for daily hedging model $\model$:  S\&P500 put option (traded data)} \label{fig:put1daily}
 \end{figure}
-\section{Concluding Remarks for Data-Driven Local Hedging Models}\label{sec:Localconclusion}
-
-In this thesis, we have proposed a direct kernel hedging model $\DKLs$ and a novel encoder-decoder  model, $\model$ , for discrete local risk option hedging. The $\DKLs$ is our preliminary exploration on computing a data-driven local hedging model without estimating a option pricing model. The $\model$ is our enhancement to data-driven local hedging model. $\model$ consists of an encoder, which generates a concise representation of the past market  information. The decoder uses the Black-Scholes delta as a pre-trained model and utilizes a gate to generate a predicative hedging model,  combining the pre-trained delta model and the outputs from the encoder. Feature selections are implemented through normalized weights embedded in the model training. In addition, a data instance adaptive Huber loss function is incorporated  for robustness, with the error from the pre-trained Black-Scholes delta model for each instance as the thresholding parameter.
-
-
-Using the S\&P 500 index and the index option data,  from January 1, 2004, to  August 31st, 2015, we assess and compare
-hedging performance of the  $\model$ and $\DKLs$ with other hedging strategies.
- For weekly and monthly hedging, computational results demonstrate that performance of the proposed $\model$  significantly surpasses that of the MV model , SABR-Bartlett, regularized spline kernel model $\DKLs$ , all of which perform significantly better than the Black–Scholes model with implied volatility.
-In addition, the $\DKLs$ also outperforms MV model in terms of weekly and monthly hedging results.
-We further demonstrate that the encoder for the sequential features plays a significant role in $\model$, since removing the encoder deteriorates hedging performance.
-Lastly, by comparing the weekly and monthly hedging performance from $\textsc{GRU}_{c}$ and $\model$, we demonstrate that the output gate,  robust loss and training procedure, also play  a significant role in $\model$.
-
-We further demonstrate that the daily hedging performance of the proposed $\model$  also surpasses that of the MV hedging method , LVF and SABR corrective methods  (implemented in \cite{hulloptimal}), data-driven regularized spline kernel network model $\DKLs$ , and SABR-Bartlett. In addition, $\DKLs$ also outperforms MV hedging method , LVF and SABR corrective methods  (implemented in \cite{hulloptimal}).
-
-Besides, from the testing hedging performance, we assess feature importance in  $\model$  for the S\&P 500 index  option hedging. The monthly average feature weights identify the underlying as the most important local feature and the past implied volatility sequence as the most important sequential feature during normal market periods.
-
-Overall, our research demonstrates the potential role of a market data-driven approach for financial derivative risk management.
-
+\section{From Local Hedging Models to Total Hedging Models}\label{sec:Localconclusion}
 A natural extension  is to extend the sequential local hedging model to be a total hedging model where we rebalance multiple times until the expiries of the options. In the following chapter \ref{sec:RNNTotal}, we discuss the challenges associated with building such models and present our exploration on the data-driven total hedging model.
 
 \chapter{Data-Driven Sequential Learning Framework for Total Hedging Risk}
@@ -2878,32 +2890,34 @@ In this chapter, we  provide an achievable remedy  to deal with issue of lack of
 \label{sec:DataAugmentation}
 Recall that the discrete total hedging risk \eqref{eq:TotalObjV3} is defined as the the hedging portfolio value at expiry:
 \[
-    P_H(T,T,K)=\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} \Smkt_{t_{j+1}}-e^{r (N-j) \Delta t}\Smkt_{t_{j}}\right] \delta_{t_j,T,K} \right\}+e^{r N \Delta t} \Vmkt_{t_0,T,K}-\Vmkt_{T,T,K}
+P_H(T,T,K)=\sum_{j=0}^{N_{rb}-1}\left\{ \left[\frac{\Smkt_{t_{j+1}}}{D(t_{j+1},T)}-\frac{\Smkt_{t_{j}}}{D(t_{j},T)}\right] \delta^M_{t_j,T,K} \right\}+\frac{\Vmkt_{t_0,T,K}}{D(t_{0},T)}-\Vmkt_{T,T,K}
 \]
+where
+\[D(t,T)=e^{-r(T-t)}\]
 
 Suppose we have $M$ hedging scenarios, a data driven model can be built by minimizing total hedging loss function such as MSE:
 \[
-    MSE_{total}=\sum_{i=1}^M P_H(T_i,T_i,K_i)^2
+    MSE_{total}=\frac{1}{M}\sum_{i=1}^M P_H(T_i,T_i,K_i)^2
 \]
 
-Clearly, in order to build a efficient data-driven total hedging model, one needs to gather a sufficiently large number of sample  $M$.  In addition, ideally, one can also use non-overlapping underlying asset paths to generate training and testing hedging scenarios.
+Clearly, in order to build a efficient data-driven total hedging model, one needs to gather a sufficient  number of sample  $M$.  In addition, ideally, one should also use non-overlapping underlying asset paths to generate training and testing hedging scenarios to avoid the correlation of different hedging scenarios.
 However, in reality,  we have the following challenges:
 \begin{enumerate}
 	\item Using non-overlapping underlying asset path to  generate training and testing scenarios is not practical. For instance, assuming we are building a data-driven model for hedging 3 months until expiry, with non-overlapping underlying asset paths, 20 years of market data can provide only 80 different non-overlapping underlying asset paths which is clearly not enough to build a data-driven model.
 	\item Option data  in real market is limited. 
 	\begin{enumerate}
-		\item Options listed in exchange in real market only have fixed expiry dates. For example, the expiration date for  S\&P 500 index option is fixed at the third Friday of each month. Therefore, if we only use market available expiration dates, the number of training scenarios will also be severely limited. 
-		\item In addition, the option with specific strike $K$ and expiry $T$ is not traded on every data. Even we use market available expiration dates, on the initial date $t_0$ when we want to set up the hedging portfolio and the dates $t_j$ where we rebalance the hedging portfolio, we may not have the  market option data available for  the option with specific strike $K$ and expiry $T$.
+		\item Options listed in exchange in real market only have fixed expiry dates. For example, the expiration date for the standard S\&P 500 index option is fixed at the third Friday of each month.\footnote{Starting from 2016, CBOE also introduces weekly S\&P 500 index options which expired on Monday, Wednesday and Friday of each week. The data we gathered is up to 2015-08-31, so our experiments in this thesis does not include those data.} Therefore, if we only use market available expiration dates, the number of training scenarios will also be severely limited. 
+		\item In addition, the option with specific strike $K$ and expiry $T$ is not traded or quoted on every date. Even we use market available expiration dates, on the initial date $t_0$ when we want to set up the hedging portfolio and the dates $t_j$ where we rebalance the hedging portfolio, we may not have the  market option data available for  the option with a specific combination of strike $K$ and expiry $T$.
 	\end{enumerate}
 \end{enumerate}
 In order to overcome the above challenges, we propose the following remedy.  
 \begin{enumerate}
 	\item Overlapping underlying asset path is allowed to be used.
 	\item Instead of using only market available expiration dates, we assume every business day can be the expiration dates of the options.
-	\item A no-arbitrage price surface is calibrated on each business day to obtain option price for any arbitrary combination of  $K$ and $T$: $V^{Aug}_{t,T,K}$.
+	\item A no-arbitrage price surface is calibrated on each business day to obtain option price for a range of arbitrary combination of  $K$ and $T$: $V^{Aug}_{t,T,K}$.
 \end{enumerate}
 
-Therefore, we can greatly increase the number of training scenarios, since now the hedging scenarios can have arbitrary combination of $T$ and $K$ even if the combination of $T$ and $K$ is not directly observed in the market. 
+Therefore, we can greatly increase the number of training scenarios, since now the hedging scenarios can have arbitrary combinations of $T$ and $K$ even if the combinations of $T$ and $K$ are not directly observed in the market. 
 
 \subsection{No-Arbitrage Price Surface}
 \label{sec:NoArb}
@@ -2930,17 +2944,17 @@ Let  $Surf_{t}(T,K)$ be the option price surface function at time $t$. We want t
 		\]
 \end{enumerate}
 In the following subsection, we will discuss the steps of calibration of the arbitrage-free surface.
-\subsubsection{SABR Interpolation and Extrapolation}
-In this thesis, we will use SABR model to obtain the option price for arbitrary strike $K$ unobserved in the market.
+\subsubsection{SABR Interpolation and Extrapolation Between Strikes}
+In this thesis, we will use SABR model to obtain the option price for an arbitrary strike $K$ unobserved in the market.
 On each business day $t$, we have observed option quotes for a set of market observed expires. We denote the market available expires as.
 \[
 \mathbf{T}^{mkt}_t=\{ T^{t}_{0}<
 T^{t}_1 < \dots< T^{t}_{max}
 \}
 \]
-The first expiry is set to be $t$: $T^{t}_{0}=t$. Note that for $T^{t}_{0}$, the market option price is just the option payoff at $t$ which is $\max\{S(t)-K,0\}$ or  $\max\{K-S(t),0\}$ . 
+The first expiry is set to be $t$: $T^{t}_{0}=t$. Note that for the first expiry $T^{t}_{0}=t$, the market option value at $t$ is just the option payoff at $t$ which is $\max\{S_t-K,0\}$ (call) or  $\max\{K-S_t,0\}$ (put). 
 
-Since in this subsection, we are discussion how to obtain a arbitrage-free surface on a fixed date $t$, for the notational simplicity, we will omit the superscript  and subscript $t$ in this subsection \ref{sec:NoArb}, thus we denote the grid of market observed expires on t to be \[
+Since in this subsection, we are discussion how to obtain a arbitrage-free surface on a fixed date $t$, for the notational simplicity, we will omit the superscript  and subscript $t$ in this subsection \ref{sec:NoArb}, we denote the grid of market observed expires on t to be \[
 \{ T_{0}<
 T_1 < \dots< T_{max}
 \}
@@ -2948,23 +2962,23 @@ T_1 < \dots< T_{max}
 We firstly use SABR model to obtain option price for a predetermined grid of strike $0=K_0<K_1<\dots<K_{max}$.  More specifically, for a fixed expiry $T_i$, let us define 
 \[K^{mkt}_{T_i}=
 \{
-	\mathbb{K}^{mkt}_{1},\dots,K^{mkt}_{N_K}
+	K^{mkt}_{1},\dots,K^{mkt}_{N_K}
 \}
 \] 
 to be the strikes for which market option price is available for $T_i$.
 We solve
 \[
-\min_{\alpha,\beta,\nu,\rho} \sum_{j=1}^{N_K} \left(V_{SABR}(S,t,T_i,K^{mkt}_j,r,q;\alpha,\beta,\nu,\rho)-\Vmkt(t,T_i,K^{mkt}_j)\right)^2
+\min_{\alpha,\nu,\rho} \sum_{j=1}^{N_K} \left(V_{SABR}(S,t,T_i,K^{mkt}_j,r,q;\alpha,\beta,\nu,\rho)-\Vmkt(t,T_i,K^{mkt}_j)\right)^2
 \]
-where $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ is option pricing function described in section \ref{sec:SABR}. \footnote{The $\Vmkt(t,T_i,K^{mkt}_j)$ is the mid-price of market observed best bid and  best ask prices. We use market quotes in calibration and even if the trading volume is zero, we will still include them in the calibration.}
+where $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ is option pricing function described in section \ref{sec:SABR}. Since we are dealing with S\&P500 index option, the log-normal assumption is more appropriate, we fix $\beta=1$ in the calibration process.  Note that we have three parameters to be calibrated so we need to observe at least 3 data points from market to successfully build a SABR model. Therefore, the number of strikes $N_K$ must be larger than 3. \footnote{The $\Vmkt(t,T_i,K^{mkt}_j)$ is the mid-price of market observed best bid and  best ask prices. We use market quotes in calibration and even if the trading volume is zero, we will still include them in the calibration.}
 
 For each $T_i$, we calibrate a separate set of SABR parameters and we then use the calibrated SABR parameters to compute SABR price of the predetermined grid of strikes for each $T_i$.  The SABR prices of the predetermined grid of strikes are used as the calibration targets for the volatility interpolation procedure described in the following subsection.
 
 Although SABR model is computationally efficient and can match the market volatility smile well, it is not arbitrage-free.  
 
-The butterfly and the call spread arbitrage can exist although their occurrences are infrequent. In addition,  for each expiry, a separate set SABR parameters are calibrated so calender spread arbitrage can also exist. Therefore, before using the SABR price as the target for the LVF  calibration, we need to check whether the arbitrage  exists or not. 
+The butterfly and the call or put spread arbitrage can exist although their occurrences are infrequent. In addition,  for each expiry, a separate set SABR parameters are calibrated so calender spread arbitrage can also exist. Therefore, before using the SABR price as the target for the LVF  calibration, we need to check whether the arbitrage  exists or not. 
 
-In this thesis, we use the sufficient conditions for no arbitrage \cite{carr2005note} to check whether arbitrage exists for SABR prices computed based on  the grid of strikes: $0=K_0<K_1<\dots<K_{max}$, and the grid of expiries $t=T_0 < T_1 < \dots< T_{max} $. Let $C_{SABR}(T,K)$ be the call option price of  the expiry $T$ and strike $K$ returned by the SABR pricing function $V_{SABR}(\cdot)$. Taking the call option as the example \footnote{In the following discussion, we use the call option as the example but the analysis also holds for put options.}, the criteria are set as the following: 
+In this thesis, we use the sufficient conditions for no arbitrage \cite{carr2005note} to check whether arbitrage exists for SABR prices computed based on  the grid of strikes: $0=K_0<K_1<\dots<K_{max}$, and the grid of expiries $t=T_0 < T_1 < \dots< T_{max} $. Let $C_{SABR}(T,K)$ be the call option price of  the expiry $T$ and strike $K$ returned by the SABR pricing function $V_{SABR}(\cdot)$. Taking the call option as the example , the criteria are set as the following: 
 \begin{enumerate}
 	\item No call spread arbitrage condition:
 \[
@@ -2985,7 +2999,7 @@ In this thesis, we use the sufficient conditions for no arbitrage \cite{carr2005
  
  If we found that the prices returned by the SABR model has failed any  of the above  arbitrage conditions, we will manually adjust the option prices from SABR model until we can pass these conditions. Please, note that this manual process is rarely needed in practice.
 
-\subsubsection{Volatility Interpolation}
+\subsubsection{Volatility Interpolation Between Expiries}
 \citet{andreasen2010volatility} have introduced an efficient and arbitrage-free volatility interpolation method based on a one step finite difference implicit Euler scheme applied to a local volatility parametrization. In this thesis, we use the volatility interpolation approach to compute option price for arbitrary expiry $T$ unobserved in market.
 
 The volatility interpolation method is based on the Dupire's equation \cite{dupire1994pricing}.  The Dupire's equation enables us to deduce the volatility function in a local volatility
@@ -2995,9 +3009,9 @@ Under a risk-neutral measure, we assume:
 	\frac{d S_t}{ S_t}= \left(r-q\right)dt +\sigma(t,S_t) dZ_t
 	\]
 where $r$ is the risk-free interest rate and $q$ is the dividend yield.
- Let $C(T,K)$ be the call option pricing function \footnote{In the following discussion, we use the call option as the example but the analysis also holds for put options.}. Dupire's equation states:
+ Let $C(T,K)$ be the call option pricing function, Dupire's equation states:
 	\[
-	\frac{\partial C(T,K)}{\partial T}=\frac{1}{2} {\sigma}^2(T,K)K^2  \frac{\partial^2 C}{ \partial K^2}-(r-q) K\frac{\partial C(T,K)}{\partial K}-qC(T,K)
+	\frac{\partial C(T,K)}{\partial T}=\frac{1}{2} {\sigma}^2(T,K)K^2  \frac{\partial^2 C(T,K)}{ \partial K^2}-(r-q) K\frac{\partial C(T,K)}{\partial K}-qC(T,K)
 	\]
 Define the normalized call price in terms of discount factor $D(t,T)$ and forward price $F(t,T)$ and the normalized strike $\widehat{K}$ as:
 \[
@@ -3008,7 +3022,7 @@ F(t,T)&=S_te^{(r-q)(T-t)}\\
 \widehat{C}(T,\widehat{K})&=\frac{C(T,\widehat{K} F(t,T))}{D(t,T)F(t,T)}=\frac{C(T,K)}{D(t,T)F(t,T)}
 \end{split}
 \]
-Dupire's equation can be simplified as:
+Dupire's equation can be simplified as \cite{andreasen2010volatility}:
 \[
 \frac{\partial \widehat{C}(T,\widehat{K})}{\partial T}=\frac{1}{2} \widehat{\sigma}^2(T,\widehat{K}) \widehat{K}^2  \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2},\;\; \widehat{\sigma}(T,\widehat{K})={\sigma}(T,K)
 \]
@@ -3076,7 +3090,7 @@ where $\mathcal{\mathbb{M}}$ is a tri-diagonal matrix parametrized by  $\sigma(T
 
 	Given $\widehat{C}(T_{i},\widehat{K}_j)$, this can be done by:
 	\begin{equation}
-	\inf_{\sigma(T_i,.)} \sum_{j}(\frac{\widehat{C}(T_{i+1},\widehat{K}_j)-\widehat{C}_{SABR}(T_{i+1},k_j)}{Vega_{BS}(T_{i+1},\widehat{K}_j)})^2
+	\inf_{\sigma(T_i,.)} \sum_{j}(\frac{\widehat{C}(T_{i+1},\widehat{K}_j)-\widehat{C}_{SABR}(T_{i+1},k_j)}{Vega_{B}(T_{i+1},\widehat{K}_j)})^2
 	\label{eq:LVFCal}
  	\end{equation}
 	Note that $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is given, we can therefore recursively solve the optimization problem for $T_1, \dots, T_{max}$. The $Vega_{B}$ is the Black vega based on the implied volatility returned from the calibrated SABR model.
@@ -3104,9 +3118,16 @@ C(T,K)=\widehat{C}(T,\widehat{K}){D(t,T)F(t,T)}
 \]
 Interpolation based on the above procedure can guarantee the option prices computed is arbitrage-free. Detailed proof can be found in \cite{andreasen2010volatility}. To sum up, with the help of SABR model and the volatility interpolation procedure, we can compute the arbitrage-free option price for any arbitrary $T$ for the predetermined grid of strikes $0=K_0<K_1<\dots<K_{max}$. 
 
+In the above discussion, we use the call option as the example but the analysis also holds for put options. More specifically, let $P(T,K)$	be the function of put option price, the Dupire's equation for put option is:
+\[
+\frac{\partial \widehat{P}(T,\widehat{K})}{\partial T}=\frac{1}{2} \widehat{\sigma}^2(T,\widehat{K}) \widehat{K}^2  \frac{\partial^2 \widehat{P}(T,\widehat{K})}{ \partial \widehat{K}^2},\;\; \widehat{\sigma}(T,\widehat{K})={\sigma}(T,K).
+\]
+Therefore, one can use the above volatility interpolation procedure to obtain put option prices for unobserved expiries as well. 
+
 
 \subsection{Data Augmentation for Training Scenarios}
-Following the calibration process in section \ref{sec:NoArb}, on each trading date $t$, we can obtain a pricing surface $Surf_{t}(T,K)$. The $T$ can be any business day that is larger than the current trading date $t$ and smaller than the maximum expiry $T_{max}$ observed in market on date $t$. The $K$ can be any strike that belongs to the given grid of strikes $0=K_0<K_1<\dots<K_{max}$. As an example, in Figure \ref{fig:CaliExp}, we show the resulting price surface and implied  volatility surface for SP500 index Call Options  on 2012-01-04. In Figure $\ref{fig:CaliExp}$, we use $\tau=T-t$ to denote the time to maturity.
+\label{sec:Augtrain}
+Following the calibration process in section \ref{sec:NoArb}, on each trading date $t$, we can obtain a pricing surface $Surf_{t}(T,K)$. The $T$ can be any business day that is larger than the current trading date $t$ and smaller than the maximum expiry $T_{max}$ observed in market on date $t$. The $K$ can be any strike that belongs to the given grid of strikes $0=K_0<K_1<\dots<K_{max}$. As an example, in Figure \ref{fig:CaliExp}, we show the resulting price surface and implied  volatility surface for SP500 index call options  on 2012-01-04. In Figure $\ref{fig:CaliExp}$, we use $\tau=T-t$ to denote the time to maturity.
 \begin{figure}[htp!]
 	\centering
 	\subfigure[Implied  Volatility Surface]{
@@ -3115,46 +3136,113 @@ Following the calibration process in section \ref{sec:NoArb}, on each trading da
 	\subfigure[Price Surface]{
 		\includegraphics[width=0.8\textwidth]{./figures/Price}
 	}
-	\caption{The Price Surface and Implied Volatility Surface Calibrated for SP500 index Call Options on 2012-01-04}
+	\caption{The price surface and implied volatility surface calibrated for SP500 index Call Options on 2012-01-04.}
 	\label{fig:CaliExp}
 \end{figure}
 
-Based on the calibration process we mentioned above, we describe the procedure of gathering the training scenarios for hedging 100 business days  as the following:
+Based on the calibration process we mentioned above, we describe the procedure of gathering the training scenarios for hedging $N_H$ business days  as the following:
 \begin{enumerate}
 	\item We pick a arbitrary train expiry date $T_{train}$. Note that  $T_{train}$ does not have to be a real expiry that exists in market. $T_{train}$ can be any business day.
-	\item We then obtain  a starting date to set up the hedging portfolio $t_0$ which is  a $100$-business days away from $T_{train}$. That is to say $T_{train}-t_0=100/250$ where we assume there are 250 business days in one year. 
+	\item We then obtain  a starting date  $t_0$ to set up the hedging portfolio which is  a $N_H$-business days away from $T_{train}$. That is to say $T_{train}-t_0=N_H/250$ where we assume there are 250 business days in one year. 
 	\item We check all the market observed strikes for all the business dates between $t_0$ and  $T_{train}$. Let $K^{mkt}_{max}$ be the maximum of  strikes we observed in markets between between $t_0$ and  $T_{train}$. 
-	\item  The grid of strikes are defined as: $\mathbf{K}_{grid}=\{0=K_0<K_1<\dots<K_{max}\}$ where $K_i-K_{i-1}=\Delta K, i \geq 1$ and $K_{max}=2 \times K^{mkt}_{max}$. Please note that the grid of strikes is the same for all business day $t$ between  $t_0$ and  $T_{train}$ when we calibrate the surface for each $t$.
-	\item On each business day $t$ between  $t_0$ and  $T_{train}$, we can observed a set of market observed expires: $\mathbf{T}_t^{mkt}=\{T_0^{t},T_1^{t},\dots,T_{max}^{t}\}$.
+	\item  The grid of augmented strikes are defined as: $\mathbf{K}^{Aug}_{grid,T_{train}}=\{0=K_0<K_1<\dots<K_{max}\}$ where $K_i-K_{i-1}=\Delta K, i \geq 1$ and $K_{max}=2 \times K^{mkt}_{max}$. Please note that the grid of strikes is the same for all business day $t$ between  $t_0$ and  $T_{train}$ when we calibrate the surface. In this chapter, we set $\Delta K=5$ for experiments on S\&P 500 index options which is consistent with the S\&P500 index option strike specification in real market \cite{hull2006options}.
+	\item On each business day $t \in [t_0,T_{train})$ , we can observed a set of market observed expiries: $\mathbf{T}_t^{mkt}=\{T_0^{t},T_1^{t},\dots,T_{max}^{t}\}$.
 	
 	
-	\item  We calibrate the SABR models for each market observed expires $T_i^{t} \in \mathbf{T}_t^{mkt},	\;  t \in [t_0, T),T \in \mathbf{T}_t^{mkt}$. The calibrated SABR models return the prices  for the grid $0=K_0<K_1<\dots<K_{max}$ and we fix the potential arbitrages for SABR prices returned by the SABR models, if there is any. After this process, we will have $V_{SABR}(t,T,K)$ where $t \in [t_0, T), T \in \mathbf{T}_t^{mkt}, K \in \mathbf{K}_{grid}$.
-	\item Then we can use the  volatility interpolation process \cite{andreasen2010volatility} to obtain option prices on each day $t$ for the expiry $T_{train}$ we picked on step 1: $V^{Aug}_{t,T_{train},K}$ where $t \in [t_0, T), K \in \mathbf{K}_{grid}$.  Furthermore, we can also obtain other option related information such as Black-Scholes delta, gamma, vega and so on.
+	\item  We calibrate the SABR models for each market observed expiries $T_i^{t} \in \mathbf{T}_t^{mkt},	\;  t \in [t_0, T)$. The calibrated SABR models return the prices  for the grid $0=K_0<K_1<\dots<K_{max}$ and we fix the potential arbitrages for SABR prices returned by the SABR models, if there is any. After this process, we will have $V^{SABR}_{t,T,K}$ where $ t \in [t,T_{train}), T \in \mathbf{T}_t^{mkt}, K \in \mathbf{K}^{Aug}_{grid,T_{train}}$.
+	\item If $T_{train} \in \mathbf{T}_t^{mkt}$ and $\Vmkt_{t,T_{train},K}$ is directly observable from market. 
+	We will just use the market data to construct the time series needed for the hedging model. 
 	
-	\item We can repeat step 1 to 7 for all $T_{train}$ within a training period. For instance, if we take 2007-01-01 to 2008-01-01 as the training period, the $T_{train}$ can be  any business day within that period.
-	\item We prepare the training data based on the augmented option data and underlying data. Please note that for the underlying asset history, we do not need to augment it since the prices of underlying asset, e.g., S\&P500 index, can be observed  on every business days. 
+	\item If $T_{train} \in \mathbf{T}_t^{mkt}$ but  the 
+	$\Vmkt_{t,T_{train},K}$ is not directly observable from market due to the fact that there is no market quote for strike $K$, we will use SABR model to fill the gaps. In this case, we assume  $\Vmkt_{t,T_{train},K}=V^{SABR}_{t,T_{train},K}$.
+	
+	
+	\item If $T_{train} \notin \mathbf{T}_t^{mkt}$ or we do not have enough data to calibrate a SABR model for $T_{train} \in  \mathbf{T}_t^{mkt}$, we can use the  volatility interpolation process based on LVF \cite{andreasen2010volatility} to obtain option prices on each day $t$ for the expiry $T_{train}$ we picked on step 1: $V^{LVF}_{t,T_{train},K}$ where $t \in [t_0, T_{train}), K \in \mathbf{K}^{Aug}_{grid,T_{train}}$.  In this case, we assume  $\Vmkt_{t,T_{train},K}=V^{LVF}_{t,T_{train},K}$. Furthermore, we can also obtain other option related information such as Black-Scholes delta, gamma, vega and so on.
+
+%	
+%	\item We can repeat step 1 to 7 for all $T_{train}$ within a training period. For instance, if we take 2007-01-01 to 2008-01-01 as the training period, then $T_{train}$ will be  any business day within that period.
+%	\item We prepare the training data based on the augmented option data and underlying data. Please note that for the underlying asset history, we do not need to augment it since the prices of underlying asset, e.g., S\&P500 index, can be observed  on every business days.
 \end{enumerate}
 \subsection{Data Augmentation for Testing Scenarios}
-For testing, we only test on real market observed expires and strikes. More specifically, the procedure of gathering the testing scenarios for hedging 100 business days is as the following:
+For testing, we only test on  market observed expiries and strikes. More specifically, the procedure of gathering the testing scenarios for hedging $N_H$ business days is as the following:
 
 \begin{enumerate}
 	\item We pick a  test expiry date $T_{test}$. Note that  $T_{test}$ must be a real expiry that exists in market. 
-	\item We then obtain  a starting date to set up the hedge portfolio $t_0$ which is  a $100$-business days away from $T_{test}$. That is to say $T_{test}-t_0=100/250$ where we assume there are 250 business days in one year. 
+	\item We then obtain  a starting date to set up the hedge portfolio $t_0$ which is  a $N_H$-business days away from $T_{test}$. That is to say $T_{test}-t_0=N_H/250$ where we assume there are 250 business days in one year. 
 	\item On the starting date $t_0$, we can obtain all market option quotes for the expiry  $T_{test}$ and we have a grid of market strikes for expiry $T_{test}$ on $t_0$:
-	$\mathbf{K}^{mkt}_{t_0,T_{test}}=\{K^{mkt}_1<\dots<K^{mkt}_{N_K}\}$. The grid for testing is set to be $\mathbf{K}^{test}_{grid}=\mathbf{K}^{mkt}_{t_0,T_{test}}$.
-	\item On each business day $t$ between  $t_0$ and  $T_{test}$, we can observed a set of market observed expires: $\mathbf{T}_t^{mkt}=\{T_0^{t},T_1^{t},\dots,T_{max}^{t}\}$.
+	$\mathbf{K}^{mkt}_{t_0,T_{test}}=\{K^{mkt}_1<\dots<K^{mkt}_{N_K}\}$. The grid for testing is set to be $\mathbf{K}^{test}_{grid}=\{K_0=0<K_1<\dots<K_{max}\}$ where $K_i-K_{i-1}=\Delta K, i \geq 1$ and $K_{max}=2 \times K^{mkt}_{N_K}$. Please note that $\mathbf{K}^{mkt}_{t_0,T_{test}} \subset \mathbf{K}^{test}_{grid}$.  
+	\item On each business day $t \in [t,T_{test})$, we can observed a set of market observed expiries: $\mathbf{T}_t^{mkt}=\{T_0^{t},T_1^{t},\dots,T_{max}^{t}\}$.
 	\item  We calibrate the SABR models for each market observed expires $T_i^{t} \in \mathbf{T}_t^{mkt},	\;  t \in [t_0, T),T \in \mathbf{T}_t^{mkt}$. The calibrated SABR models return the prices  for the grid of strikes and we fix the potential arbitrages for SABR prices returned by the SABR models, if there is any. 
-	\item After this step 5, on each business day $t$ between  $t_0$ and  $T_{test}$, if we cannot obtain the option prices with expiry $T_{test}$ and associated information such as delta, gamma, and vega directly from market for $K \in \mathbf{K}^{test}_{grid}$. We will query the calibrated SABR models to obtain them.
+	\item If $T_{test} \in \mathbf{T}_t^{mkt}, K \in \mathbf{K}^{mkt}_{t_0,T_{test}}$,  and $\Vmkt_{t,T_{test},K}$ is directly observable from market. 
+We will just use the market data to construct the time series needed for the hedging model. 
+	\item If $T_{test} \in \mathbf{T}_t^{mkt}, K \in \mathbf{K}^{mkt}_{t_0,T_{test}}$ but  the 
+$\Vmkt_{t,T_{test},K}$ is not directly observable from market, we will use SABR model to fill the gaps. In this case,we assume  $\Vmkt_{t,T_{test},K}=V^{SABR}_{t,T_{test},K}$.
+\item
+If  we do not have enough data to calibrate a SABR model for $T_{test} \in  \mathbf{T}_t^{mkt}$, we can use the  volatility interpolation process \cite{andreasen2010volatility} to obtain option prices on each day $t$ for the expiry $T_{train}$ we picked on step 1: $V^{LVF}_{t,T_{test},K}$ where $t \in [t_0, T_{test}), K \in \mathbf{K}^{mkt}_{t_0,T_{test}}$.  In this case, we assume $\Vmkt_{t,T_{test},K}=V^{LVF}_{t,T_{test},K}$. Furthermore, we can also obtain other option related information such as Black-Scholes delta, gamma, vega and so on.
 \end{enumerate}
-The step 5 and 6 are frequently needed since that the option with a specific strike are usually not traded every days so SABR model will be needed. 
+Even if $T_{test}$ is a real expiry in market, the step 5 to 7 are frequently needed since that the options with a specific strike and expiry combination are usually not traded every day so SABR model will be needed to fill in the gaps. 
+Fo ra  market observable expiry with $T-t<1$, on each date, we usually will have enough data to calibrate a SABR model. In this thesis, we are hedging for less than 1 year, so step 8 is rarely needed. For the test scenarios, we only care about real expiries  $T_{test} \in \mathbf{T}_t^{mkt}$ and real strikes $K \in \mathbf{K}^{mkt}_{t_0,T_{test}}$ in market. 
+
 
 \subsection{Alternative Methods for Calibrating Arbitrage-Free Surface}
-There are many other alternative methods to calibrate the arbitrage-free surface. One of the most successful volatility surface models is the Stochastic Inspired Volatility model (SVI) \cite{gatheral2004parsimonious} used internally at Merrill Lynch and publicly disclosed by Jim Gatheral in 2004.  SVI is a simple  five-parameters formula. Therefore, no necessary and sufficient conditions are known ensuring the absence of arbitrage. Numerous applied research teams have attempted to extend SVI to a whole surface model. This has been achieved in 2012 by Gatheral and Jacquier with the Surface SVI (SSVI) \cite{gatheral2014arbitrage}. SSVI is parameterized in a way that a  SSVI slice at a given maturity $T$ is a SVI slice with only 3 parameters. This restriction allows to get explicit sufficient conditions for absence of arbitrage, while allowing enough flexibility for calibration. The SSVI model is recently extended by \cite{hendriks2017extended} and \cite{corbetta2019robust}. If the input market data used for calibration contains arbitrage, the calibrated surface from SSVI \cite{gatheral2014arbitrage} or its extension can typically be viewed as the surface that is as close as possible to the original market data, while staying arbitrage-free. Lastly, the SSVI calibration is conducted similarly as the arbitrage-free surface calibration mentioned in this subsection.  Firstly, one will fit SVI to options with a discrete set of expiries which are observed from market directly. Secondly, one may then interpolate between two expiries using the certain volatility interpolation algorithms that   guaranteeing no static arbitrages. 
+There are many other alternative methods to calibrate the arbitrage-free surface. One of the most successful volatility surface models is the Stochastic Inspired Volatility model (SVI) \cite{gatheral2004parsimonious} used internally at Merrill Lynch and publicly disclosed by Jim Gatheral in 2004.  SVI is a simple  five-parameters formula. Therefore, no necessary and sufficient conditions are known ensuring the absence of arbitrage. Numerous applied research teams have attempted to extend SVI to a whole surface model. This has been achieved in 2012 by Gatheral and Jacquier with the Surface SVI (SSVI) \cite{gatheral2014arbitrage}. SSVI is parameterized in a way that a  SSVI slice at a given maturity $T$ is a SVI slice with only 3 parameters. This restriction allows to get explicit sufficient conditions for absence of arbitrage, while allowing enough flexibility for calibration. The SSVI model is recently extended by \cite{hendriks2017extended} and \cite{corbetta2019robust}. If the input market data used for calibration contains arbitrage, the calibrated surface from SSVI \cite{gatheral2014arbitrage} or its extension \cite{hendriks2017extended,corbetta2019robust} can typically be viewed as the surface that is as close as possible to the original market data, while staying arbitrage-free. Lastly, the SSVI calibration is conducted similarly as the arbitrage-free surface calibration process mentioned in this thesis. One will fit SVI to options with a discrete set of expiries which is observed from market directly. Then, one may interpolate between two expiries using the certain volatility interpolation algorithms that  guaranteeing no static arbitrages. 
 
 In this thesis, the major goal is not to compare the arbitrage-free surface calibration methods. Therefore, we leave the exploration of the alternative methods to calibrate the arbitrage-free surface as the future work of our study. 
 
 
-\section{Total Hedging Model and Local Hedging Model}
+\section{Total Hedging Model}
+In this section, we describe the total hedging model.
+Figure \ref{fig:RNNModelTotal} depicts the proposed total discrete GRU  hedging  model $\modelT$,
+which is derived from the local hedging model $\model$ we proposed in chapter \ref{sec:RNNLocal}.
+This model uses the sequential features, which encode information in between two consecutive re-balancing time steps, and the hedging position from the previous re-balancing time as the input. The output hedging position is used as the input for the next re-balancing time.
+
+Following the discrete total risk definition in section \ref{sec:DiscreteTotalRisk}, consider a hedging portfolio $P_{H}(t,T,K)$ which is composed of:
+\begin{itemize}
+	\item A short position on option $\Vmkt(t,T,K)$
+	\item Long $\delta^{M}_{t,T,K}$ (or short if $\delta^{M}_{t,T,K}<0$ ) shares of $\Smkt(t)$
+	\item An amount in a risk-free bank account $B(t)$
+\end{itemize}
+For the notational simplicity, we denote:
+\[
+\Vmkt_{t,T,K}=\Vmkt (t,T,K)\;,\Smkt_{t}=\Smkt(t)\;,B_t=B(t)\;, P^{H}_{t,T,K}=P_{H}(t,T,K)
+\]
+Also, if $\Vmkt_{t,T,K}$ is not directly observable from market, it is set to be the augmented option prices either from SABR model or LVF model as discussed in section \ref{sec:DataAugmentation}. 
+Initially at $t_0$, we have
+\[
+P^H_{t_0,T,K}=  -V_{t_0,T,K}^{mkt}+\delta^{M}_{t_0,T,K} S_{t_0}+ B_{t_0}=0
+\]
+and
+\[
+B_{t_0}=V_{t_0}^{mkt}-\delta^{M}_{t_0,T,K} S_{t_0}
+\]
+Let us assume we rebalance $N_{rb}$ times until the expiry and the gap between each rebalancing time is fixed to be $\DT$:
+\[
+t_j=t_0+j \Delta t;\; j=0,\dots,N_{rb}-1;\;\;t_0=T-N_{rb}\DT
+\]
+At each rebalancing time $t_j$, we update our hedging position by changing the share we hold from $\delta^{M}_{t_{j}-\Delta t,T,K}$ to $\delta^{M}_{t_j,T,K}$ at $t_j$, where any required cash is borrowed, and any excess cash is loaned. As discussed in section \ref{sec:DiscreteTotalRisk}, the final hedging portfolio value at $T$ is:
+
+\begin{equation}
+P_H(T,T,K)=\sum_{j=0}^{N_{rb}-1}\left\{ \left[\frac{\Smkt_{t_{j+1}}}{D(t_{j+1},T)}-\frac{\Smkt_{t_{j}}}{D(t_{j},T)}\right] \delta^M_{t_j,T,K} \right\}+\frac{\Vmkt_{t_0,T,K}}{D(t_{0},T)}-\Vmkt_{T,T,K}
+\label{eq:FinalHValue}
+\end{equation}
+where
+\[D(t,T)=e^{-r(T-t)}\]
+Now, consider at a arbitrary rebalancing time $t \in \{t_0,t_1, \dots, t_{N_{rb}-1}\}$, strike $K$, and expiry $T$. Assume we have computed the hedging position at previous rebalancing time $t-\Delta$: $\delta_{t-\Delta t, T,K}$. 
+
+Let $\DT_{d}$ denote the time interval for sequential information recording. In  the subsequent empirical study, the interval $\DT_{d}$ equals one-day.  We denote the sequential features recording the daily history for hedging the option with expiry $T$ and strike $K$ as
+\[
+\mathbf{Y}_{t}^{T,K}=\left[\vy^{T,K}_{t-N \DT_{d}},\dots,\vy^{T,K}_{t}\right]
+\]
+For notational simplicity, we denote $\tau_i=t-(N+1-i)\DT_d$ with $i=1, \dots,N+1$, we thus have:
+\[
+\mathbf{Y}_{t}^{T,K}=\left[\vy^{T,K}_{\tau_{1}},\dots,\vy^{T,K}_{\tau_{N+1}}\right]
+\]
+The vector $\vy^{T,K}_{\tau_{i}} \in \Real^{d_s}$ has  $d_s$ features at time $\tau_{i}$ in the input sequential feature.
+ $d_s$ is the dimension for the sequential feature $\mathbf{Y}_{t}^{T,K}$, and
+$N+1$ is the length of the sequential feature sequence. We set $N=\frac{\Delta t}{\Delta t_d}$, so $\mathbf{Y}_{t}^{T,K}$ contains the sequential information in between two consecutive rebalancing time $t$ and $t-\Delta t$.
+The encoder transforms information from the sequential feature $\mathbf{Y}_{t}^{T,K}$ to  a fixed-sized vector
+$\mathbf{\widehat{h}}_E$   and the decoder makes the final prediction based on both $\mathbf{\widehat{h}}_E$  and the previous hedging position $\delta^{M}_{t-\Delta t,T,K}$. The overall structure of the proposed model is illustrated in Figure \ref{fig:RNNModelTotal}. 
+
 \begin{figure}[htp!]
 	\centering
 	\resizebox{0.65\textwidth}{!}{
@@ -3167,18 +3255,20 @@ In this thesis, the major goal is not to compare the arbitrage-free surface cali
 		mylabel/.style={font=\scriptsize\sffamily},
 		>=LaTeX
 		]
-		\node[draw,rectangle]  (s1) at (4.5, -1) {softmax};
-		\node[draw,rectangle]  (s3) at (7.5, -1) {softmax};
-		\node [draw,circle,inner sep=0pt] (rp1) at (3*1, -1) {$\times$};
-		\node  (rp2) at (3*2, -1.5) {$\dots$};
-		\node [draw,circle,inner sep=0pt] (rp3) at (3*3, -1) {$\times$};
 		
-		\foreach \i [count=\step from 1] in {$\vx_1^{t_i}$,$\dots$,$\vx_K^{t_i}$}
-		\node (ri\step) at (3*\step, -2) {\i};
-		\node  (sw1) at (4.5, -2) {SW};
-		\node  (sw3) at (7.5, -2) {SW};
-		\draw[->] (s1.west) to node[below]{$\mathbf{\alpha}$} (rp1.east);
-		\draw[->] (s3.east) to node[below]{$\mathbf{\alpha}$} (rp3.west);
+		
+		\node[draw,rectangle]  (s1) at (4.5, -3) {softmax};
+		\node[draw,rectangle]  (s3) at (7.5, -3) {softmax};
+		\node [inner sep=0pt] (rp1) at (3*1, -3) {$\odot$};
+		\node  (rp2) at (3*2, -1.5) {$\dots$};
+		\node [inner sep=0pt] (rp3) at (3*3, -3) {$\odot$};
+		
+		\foreach \i [count=\step from 1] in {$\vy^{T,K}_{\tau_{1}}$,$\dots$,$\vy^{T,K}_{\tau_{N+1}}$}
+		\node (ri\step) at (3*\step, -4) {\i};
+		\node  (sw1) at (4.5, -4) {$\omega^S$ };
+		\node  (sw3) at (7.5, -4) {$\omega^S$};
+		\draw[->] (s1.west) to node[below]{} (rp1.east);
+		\draw[->] (s3.east) to node[below]{} (rp3.west);
 		\draw[->] (ri1.north) to (rp1.south);
 		\draw[->] (ri3.north) to (rp3.south);
 		\draw[->] (sw1.north) to (s1.south);
@@ -3187,292 +3277,746 @@ In this thesis, the major goal is not to compare the arbitrage-free surface cali
 		\foreach \step in {1,3} {
 			\node[draw,rectangle] (h\step) at (3*\step, 0.0) {GRU};
 		}
-		\draw[->] (rp1.north) to node[left]{$\widehat{\vx}_1^{t_i}$} (h1.south);
-		\draw[->] (rp3.north) to node[left]{$\widehat{\vx}_K^{t_i}$} (h3.south);
+		\draw[->] (rp1.north) to node[right]{$\widehat{\vy}^{T,K}_{\tau_{1}}$} (h1.south);
+		\draw[->] (rp3.north) to node[left]{$\widehat{\vy}^{T,K}_{\tau_{N+1}}$} (h3.south);
 		
-		\foreach \step in {1,...,2} {
-			\pgfmathtruncatemacro{\next}{add(\step,1)}
-			\draw[->] (h\step.east) -> (h\next.west);
-		}
-		\node[fit=(ri1) (ri3) (s1) (s3) (h1) (h3), draw, inner sep=0pt] (fit4) { };
-		\node[align=center, outer sep=0] (encoder) [right=of fit4] {Hedging \\Encoder};
-		\node[draw,circle,inner sep=0pt]  (l1) at (6, 2) {$\times$};
-		\node[draw,rectangle]  (l3) at (6, 1) {softmax};
-		\node  (l2) at (4.5, 2) {$\vy_{t_i}$};
-		\node  (l4) at (4.5, 1) {$LW$};
-		\draw[->] (l4.east) to (l3.west);
-		\draw[->] (l2.east) to (l1.west);
-		\draw[->] (l3.north) to node[left]{$\omega$} (l1.south);
-		\node (he2) at (6, 3) {$\widehat{\vy}_{t_i}$};
-		\node (he3) at (9, 3) {$\widehat{\mathbf{h}}_E^{t_i}$};
+		%\draw[->] (i4) -> (h4.south);
+		\draw[->] (h1.east) to node[below]{$\vh_1$} (h2.west);
+		\draw[->] (h2.east) to node[below]{$\vh_{N}$} (h3.west);
+		%\foreach \step in {1,...,2} {
+		%	\pgfmathtruncatemacro{\next}{add(\step,1)}
+		%	\draw[->] (h\step.east) -> (h\next.west);
+		%}
+		\node[fit=(ri1) (ri3) (s1) (s3) (h1) (h3), draw, inner sep=0pt] (fit1) { };
+		\node[align=center, outer sep=0] (encoder) [right=of fit1] {Encoder};
 		
-		\node[draw,rectangle]  (hedge) at (7.5, 4) {NN};
-		\node[filter](output) at (7.5, 5) {};
-		\node[draw,rectangle] (loss) at (7.5, 7) {Loss};
-		\node (V0) at (7.5, 8) {$V_{t_0}$};
-		\node  (outputPre) at (6, 5) {...};
-		\node  (outputNext) at (9, 5) {...};
-		\node  (hedgePre) at (6, 4) {...};
-		\node (hedgeNext) at (9, 4) {...};
 		
-	
-		\node[draw,rectangle]  (hedge0) at (4.5, 4) {NN};
-		\node[filter](output0) at (4.5, 5) {};
-		\node[draw,rectangle]  (hedgeF) at (10.5, 4) {NN};
-		\node[filter](outputF) at (10.5, 5) {};
-		\draw[->] (l1.north) -> (he2.south);
-		\draw[->] (h3.north) -> (he3.south);
-		\draw[->] (he2.north) -> (hedge.south);
-		\draw[->] (he3.north) -> (hedge.south);
-		\draw[->] (V0.south) -> (loss.north);
-	
-		\draw[->] (hedge.north) to node[left]{${\mathbf{c}}_{t_i}$} (output.south);
-		\draw[->] (hedge.north) to node[left]{${\mathbf{c}}_{t_i}$} (output.south);
 		
-		\draw[->] (hedge0.north) to node[left]{${\mathbf{c}}_{t_0}$} (output0.south);
-		\draw[->] (hedgeF.north) to node[left]{${\mathbf{c}}_{t_{N-1}}$} (outputF.south);
-	
-		\node[fit=(hedge) (hedge0) (hedgeF) (output0) (output) (outputF), draw, inner sep=0pt] (fit5) { };
-		\node[align=center, outer sep=0] (encoder) [right=of fit5] {Hedging\\ Decoder};
-		\node[rectangle]  (delta0) at (4.5, 6) {$\delta_{t_0}$};
-		\node[rectangle]  (deltaP) at (6, 6) {...};
-		\node[rectangle]  (delta) at (7.5, 6) {$\delta_{t_i}$};
-		\node[rectangle]  (deltaN) at (9, 6) {...};
-		\node[rectangle]  (deltaF) at (10.5, 6) {$\delta_{t_{N-1}}$};
-		\draw[->] (delta0.north) -> (loss.south);
-		\draw[->] (deltaP.north) -> (loss.south);
-		\draw[->] (delta.north) -> (loss.south);
-		\draw[->] (deltaN.north) -> (loss.south);
-		\draw[->] (deltaF.north) -> (loss.south);
+		\node[filter] (oe2) at (9, 4.5) {};
+		\node[filter] (oe3) at (6, 4.5) {};
+		\node [inner sep=0pt] (oe4) at (6, 6.5) {$\odot$};
+		\node [inner sep=0pt] (oe5) at (9, 6.5) {$\odot$};
+		\node [draw,circle,inner sep=0pt] (oe6) at (7.5, 7.5) {$+$};
+		\node (oe7) at (7.5, 8.5) {$\delta^M_{t,T,K}$};
+		\node  (bs) at (4.5, 6.5) {$\delta^{BS}_{t,T,K}$};
+		\draw[->] (oe3.north) to node[left]{$1-W_{\delta} $} (oe4.south);
+		\draw[->] (oe3.north) to node[above]{$W_{\delta}$} (oe5.west);
+		\draw[->] (oe2.north) to node[left]{$\widehat{\delta}^M_{t,T,K}$} (oe5.south);
+		\draw[->] (oe4.north) to node[left]{} (oe6.west);
+		\draw[->] (oe5.north) to node[left]{} (oe6.east);
+		\draw[->] (oe6.north) to node[left]{} (oe7.south);
+		\draw[->] (bs.east) to node[left]{} (oe4.west);
 		
-		\draw[->] (output0.north) -> (delta0.south);
-		\draw[->] (output.north) -> (delta.south);
-		\draw[->] (outputF.north) -> (deltaF.south);
 		
-		\draw [->]  (deltaP.east) to[out=0,in=180] (hedge.west);
-		\draw [->]  (delta0.east) to[out=0,in=180] (hedgePre.west);
-		\draw [->]  (delta.east) to[out=0,in=180] (hedgeNext.west);	
-		\draw [->]  (deltaN.east) to[out=0,in=180] (hedgeF.west);			
+		
+
+		
+		\node[inner sep=0pt]  (l1) at (6, 1) {$\delta^M_{t-\Delta t,T,K}$};
+		\draw[->] (1, 1) to node[above]{output from $t-\Delta t$} (l1.west);
+
+		
+		\node (he2) at (6, 3) {$\delta^M_{t-\Delta t,T,K}$};
+		\node (he3) at (9, 3) {$\widehat{\mathbf{h}}_E$};
+		\draw[->] (l1.north) to (he2.south);
+		\draw[->] (h3.north) to  (he3.south);
+		\draw[->] (he3.north) to  (oe2.south);
+		\draw[->] (he3.north) to  (oe3.south);
+		
+		\draw[->] (he2.north) to (oe2.south);
+		\draw[->] (he2.north) to (oe3.south);
+		
+		\node[fit=(oe2) (oe3) (oe5) (oe6)  (oe7)  (bs) (he2) (he3), draw, inner sep=0pt] (fit3) { };
+		\node[align=center, outer sep=0] (encoder) [left=of fit3] {Decoder};
+
+		\draw (oe7.north)  to (7.5,10) to (10.5,10) to node[right]{$\delta^M_{t,T,K}$} (10.5,1);
+		\draw[->] (10.5,1) to node[above]{input to $t+\Delta t$} (13.5,1);
+
 		\end{tikzpicture}
 	}
-	\caption{Planned Model}
-	\label{fig:RNNModel}
+	\caption{$\modelT$: GRU encode-decoder total hedging model. The encoder summarizes the time series $\mathbf{Y}_{t}^{T,K}=\left[\vy^{T,K}_{\tau_{1}},\dots,\vy^{T,K}_{\tau_{N+1}}\right]$ as a succinct  vector $\widehat{\mathbf{h}}_E$. The decoder outputs the hedging position based on the vector $\widehat{\mathbf{h}}_E$ and the previous hedging position $\delta^M_{t-\Delta t,T,K}$ observed at the hedging time $t$. More specifically, in the decoder, a candidate output $\widehat{\delta}^M_{t,T,K}$ is firstly produced. The final output $\delta^M_{t,T,K}$ is computed based on the linear combination of BS delta $\delta^{BS}_{t,T,K}$ and the candidate output  $\widehat{\delta}^M_{t,T,K}$. The combination weight is determined by  $W_{\delta}$. The feature weight $\omega^L$ is used to compute weighted sequential feature $\widehat{\vy}^{T,K}_{\tau}$. The weighting acts as a feature selection process.
+		Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input. The output $\delta^M_{t,T,K}$ at $t$ is used as the input for next step $t+\DT$.}
+	\label{fig:RNNModelTotal}
+\end{figure}
+\subsection{The Difference Between  $\model$ And $\modelT$}
+By comparing the $\model$ as in Figure \ref{fig:RNNModel} and the $\modelT$ as in Figure \ref{fig:RNNModelTotal}, one can notice that the model structure between $\model$ and $\modelT$ is similar to each other. Below we firstly list the differences between $\modelT$ and $\model$:
+\begin{itemize}
+	
+	\item The most significant difference between the $\modelT$ and the $\model$ is that $\model$ is built on minimizing discrete local risk as in section \ref{sec:DiscreteLocalRisk} while $\modelT$ is built based on minimizing the discrete total risk as in in section \ref{sec:DiscreteTotalRisk}. The details of  training objective and training procedure for $\modelT$ are in later section \ref{sec:TotalModelObj} and \ref{sec:TotalModelProcedure}.
+	\item In $\model$, we have a local features vector $\vx^{T,K}_{t} \in \Real^{d_l}$ which records local information at the hedging time $t$ for hedging the option with expiry $T$ and strike $K$.
+	\item In $\modelT$,we no longer retain the local features vector $\vx^{T,K}_{t} \in \Real^{d_l}$ as the input to the model $\modelT$. We only retain the sequential feature  $\mathbf{Y}_{t}^{T,K}$ which contains all the sequential information between two consecutive rebalancing time $t$ and $t-\DT$. This modification is inspired by the previous total risk minimization exploration \cite{coleman2007total,schweizer1995variance}. In \cite{coleman2007total, schweizer1995variance}, the authors demonstrated the importance of using the entire path of stock instead of the current stock in determining the hedging position. Furthermore, we feel that the inclusion of $\vx^{T,K}_{t} \in \Real^{d_l}$ is a redundant design since  the sequential feature  $\mathbf{Y}_{t}^{T,K}$ contains the local information at the hedging time $t$ for hedging the option with expiry $T$ and strike $K$
+	\item Since the analytical formula for the variance-optimal total risk hedging \cite{schweizer1995variance} and spline total risk minimization formulation \cite{coleman2007total} both  demonstrate the dependence of the current hedging position on the past hedging position, we include previous hedging position $\delta^{M}_{t-\Delta t,T,K}$ as the input to compute the current hedging position $\delta^{M}_{t,T,K}$. 
+	
+%	Additionally, we have conducted a set numerical comparisons under synthetic scenarios between $\modelT$,  the  spline total risk minimization formulation \cite{coleman2007total} and  variance-optimal total risk hedging formulation \cite{schweizer1995variance}. We demonstrate that $\modelT$ can produce equivalent hedging performance under Black-Scholes synthetic scenarios when comparing with the models in  \cite{coleman2007total} and \cite{schweizer1995variance}. More details on the comparison can be found in Appendix \ref{sec:SynCompara}.
+	 
+\end{itemize}
+Below we briefly illustrate the model structure of $\modelT$
+
+\subsubsection{Feature Selection via Embedded Feature Weighting}
+Similarly as in $\model$, for the sequential feature $\mathbf{y}_{\tau_i}^{T,K}$,  the $j^\text{th}$ component of the normalized weight vector is given by
+\[
+\frac{exp(\omega^S_j)}{\sum_{i=1}^{d_s} exp(\omega^S_i)}
+\]
+The weighted feature vector at time  $\tau_i$ is defined as
+\[
+\widehat{\vy}_{\tau_i}^{T,K} =\frac{exp(\omega^S)}{\sum_{j=1}^{d_s} exp(\omega^S_j)} \odot \mathbf{y}_{\tau_i}^{T,K}
+\]
+\subsubsection{GRU Encoder}
+At the  step $i$,  the encoder computes the value of the hidden state $\vh_{i}$ using a GRU cell. The input at the step $i$ of the encoder is $\widehat{\vy}^{T,K}_{\tau_{i}}$,  $i=1,\ldots,N+1$.
+The internal structure of the GRU cell is shown in Figure \ref{fig:RNN}.
+
+Let  $\vW_z,\vU_z,\vb_z,\vW_r,\vU_r, \vb_r,\vW_h,\vU_h,\vb_h$  denote
+parameters shared by all GRU cells. We compute the $\vh_i$ as:
+	\[
+	\begin{split}
+	\mathbf{z}_i&= sigmoid ( \vW_z \widehat{\vy}^{T,K}_{\tau_{i}} + \vU_z \vh_{i-1} +\vb_z)\\
+	\mathbf{r}_i&= sigmoid ( \vW_r \widehat{\vy}^{T,K}_{\tau_{i}} + \vU_r \vh_{i-1} +\vb_r)\\
+	\widehat{\vh}_i&=tanh( \vW_h \widehat{\vy}^{T,K}_{\tau_{i}}  + \vU_h (\mathbf{r}_i \odot \vh_{i-1}) +\vb_h)\\
+	\vh_i&=(1-\mathbf{z}_i) \odot \vh_{i-1} + \mathbf{z}_i \odot \widehat{\vh}_i
+	\end{split}
+	\]
+The hidden state at the last step $\vh_{N+1}$, corresponding to time ${\tau_{N+1}}={t}$, is supplied to
+the decoder as the fixed size vector $\mathbf{\widehat{h}}_E$, which  extracts relevant information in $\mathbf{Y}_{t}^{T,K}$.
+\subsubsection{Decoder for $\modelT$}
+ The decoder of $\modelT$ computes the candidate output  $\widehat{\delta}^M_{t,T,K}$ in the following way:
+\[
+\widehat{\delta}^M_{t,T,K}=sigmoid (\vv^T_{out} \ tanh( \vU_{out} \mathbf{\widehat{h}}_E + \vW_{out} \delta^M_{t-\DT,T,K}+ \vb_{out})).
+\]
+The the output gate value $W_{\delta}$ is given by:
+\[
+W_{\delta}=sigmoid (\vv^T_{Gate} \ tanh( \vU_{Gate} \mathbf{\widehat{h}}_E + \vW_{Gate} \delta^M_{t-\DT,T,K}+ \vb_{Gate})).
+\]
+For hedging a call option, the final output from $\model$ is :
+\[
+\delta^M_{t,T,K}=\widehat{\delta}^M_{t,T,K} \times W_{\delta} +\delta^{BS}_{t,T,K} \times (1-W_{\delta})
+\]
+For hedging a put option, the final output from the model is:
+\[
+\delta^M_{t,T,K}=-\widehat{\delta}^M_{t,T,K} \times W_{\delta} +\delta^{BS}_{t,T,K} \times (1-W_{\delta})
+\]
+where $\widehat{\delta}^M_{t,T,K}$ is the candidate output.
+
+
+\subsection{Training Objective For $\modelT$}
+\label{sec:TotalModelObj}
+Assume we have gathered hedging scenarios for a set of the unique combinations expiries $T$ and strike $K$.  
+The model $\modelT$ can be built by minimizing total hedging loss function such as MSE:
+\[
+MSE_{total}=\sum_{(t_0,T,K)} P_H(T,T,K)^2
+\]
+where $P_H(T,T,K)$ is defined as in equation \eqref{eq:FinalHValue}.
+A more appropriate criteria is the relative hedging error instead of the absolute total hedging error since we are mixing scenarios of different strikes together (i.e., the scenarios include near-money, in-the-money, and out-of-the money options. The absolute hedging error for in-the-money options tend to be much bigger than  near-the-money options and out-of-money options). Additionally, MSE is vulnerable to the existence of outliers. Furthermore, \citet{coleman2007total} demonstrated that the linear loss function can produce better hedging performance. Therefore, in training the $\modelT$, we use the following objective:
+\begin{equation}
+Obj_{total}=\sum_{(t_0,T,K)} \left|\frac{D(t_0,T)  P_H(T,T,K)}{\Vmkt_{t_0,T,K}}\right|
+\label{eq:totalObjLinear}
+\end{equation}
+Since we notice that $\model$ is built on top of pure market data while $\modelT$ is built on top of augmented market data, we will not compare the performance of  $\model$ and $\modelT$ directly. Besides, we are curious about the effect of the choice of objective functions. Therefore, we define a new comparing model $\modelL$. The model structure of $\modelL$ is exactly the same as  $\modelT$ which is as in Figure \ref{fig:RNNModelTotal}.  The major difference is $\modelT$ is built on minimizing objective \eqref{eq:totalObjLinear}. While the $\modelL$ is built on minimizing a local risk objective.
+
+More specifically, for a unique combination of $T$ and $K$,  at a rebalancing time $t_j$ ,we have
+
+\[
+\begin{split}
+\Delta V^{mkt}_{t_j,K,T}& =D(t_0,t_{j+1}) V^{mkt}_{t_{j+1},K,T}-D(t_0,t_{j})V^{mkt}_{t_j,K,T}\\
+\Delta \Smkt_{t_j} &=D(t_0,t_{j+1}) \Smkt_{t_{j+1}}-D(t_0,t_{j}) \Smkt_{t_{j}}\\
+&D(t,T)=e^{-r(T-t)}\\
+\end{split}
+\]
+\[
+t_j=t_0+j \Delta t;\; j=0,\dots,N_{rb}-1;\;\;t_0=T-N_{rb}\DT
+\] 
+If the option price $V^{mkt}_{t,K,T}$ is not directly observable from market, we will use the augmented prices as the replacement.
+The objective for the  $\modelL$  is therefore:
+\begin{equation}
+Obj_{Local}=\sum_{(t_j,T,K)} |\Delta V^{mkt}_{t_i,T,K}-\DS_{t_i} \delta^{M}_{t_i,T,K}|
+\label{eq:LocalObjNew}
+\end{equation}
+
+\subsection{Training Procedure For $\modelT$ and $\modelL$}
+\label{sec:TotalModelProcedure}
+The training procedures for $\modelT$ and $\modelL$ are similar to the training procedure for $\model$. More specifically, we  initialize the  parameters using the same procedure as in section \ref{sec:init} and we pretain the $\modelT$ and $\modelL$ similarly as in section \ref{sec:preT}. Early stopping is used as the regularization techniques.We reserve the validation set to determine when to stop the training. Again the validation set is a set of the unique combinations of  expiries $T$ and strike $K$. 
+We train $\modelT$ and $\modelL$ until trust region algorithms stops and select the best performing parameters based on the the total risk objective \eqref{eq:totalObjLinear} or local risk objective \eqref{eq:LocalObjNew}.
+\subsubsection{Model Building Procedure}
+For the experiments in the following section, We are hedging for a relatively long period (100 business days) until the expiry. Therefore, both $\modelT$ and $\modelL$ need to be updated as the market can drastically change during the hedging period. Therefore, we use the following model building procedure:
+\begin{enumerate}
+	\item We pick a  test expiry date $T_{test}$ and get the testing set  which is\footnote{ If we fixed the gap between two rebalancing time to be $\DT$ and we fix the number of times we rebalance the hedging portfolio to be $N_{rb}$, then given a expiry $T$, one can easily deduct the rebalance time $\{t_0,t_1, \dots, t_{N_{rb}-1}\}$ . Therefore, we can uniquely define a hedging scenario just by $T$ and $K$}:
+	\[
+	TestSet=\{(T,K)|,T=T_{test},K \in \mathbf{K}^{mkt}_{t_0,T_{test}}\}
+	\] where $\mathbf{K}^{mkt}_{t_0,T_{test}}$ is the grid of  strikes for expiry $T_{test}$ that can be observed directly from market on the initial date $t_0$ which is 100 business away from $\modelT$.
+	\item On the initial date $t_0$, we prepare the training set  and validation set to be 
+		\[TrainSet=\{(T,K)|T_{min} \leq T<t_0, K \in \mathbf{K}^{Aug}_{grid,T}\}\]
+			\[ValSet=\{(T,K)|T=t_0, K \in \mathbf{K}^{Aug}_{grid,T}\}\]
+		where $\mathbf{K}^{Aug}_{grid,T}$ is the augmented grid of strikes for the expiry $T$ similarly defined as  in \ref{sec:Augtrain} step 4. Note that for training and validation set, we do not require $T$ and $K$ to be observed directly from market. $T_{min}$ is the earliest expiry to be included in the training set. We train the model based on the training and validation sets. We get the hedging position from either $\modelT$ or $\modelL$ for $t_0$ only: $\delta^{M}_{t_0,T,K}$ where $(T,K) \in Test_{T,K}$
+		
+	\item Similarly, on any rebalancing date $t_j$, we prepare the training set  and validation set to be 
+	\[Train_{T,K}=\{(T,K)|T_{min} \leq T<t_j, K \in \mathbf{K}^{Aug}_{grid,T}\}\]
+	\[Val_{T,K}=\{(T,K)|T=t_j, K \in \mathbf{K}^{Aug}_{grid,T}\}\]
+ We retain the model from previous rebalancing date $t_{j-1}$ and we update the model based on the new training and validation sets.We get the hedging position from either $\modelT$ or $\modelL$ for $t_j$ only: $\delta^{M}_{t_j,T,K}$ where $(T,K) \in Test_{T,K}$
+\end{enumerate}
+Notice that in setp 3, we have included new data into the training and validation sets since the range for the allowed expiries in training set is extended from $T_{min} \leq T<t_{j-1}$ to be $T_{min} \leq T<t_{j}$.
+\section{Total Discrete Hedging Performance Comparison Using  S\&P 500 index Options}
+Using the S\&P 500  ({European})  index option market data from September 1, 1996 to August 31, 2015,
+we  compare the total hedging performance of different hedging strategies.
+We evaluate the total hedging performance using the following 5 criteria:
+\begin{enumerate}
+	\item The mean absolute value of the relative hedging error:
+	\[
+	Mean_{(t_0,T,K)}\left(\left|\frac{D(t_0,T)  P_H(T,T,K)}{\Vmkt_{t_0,T,K}}\right|\right)
+	\] for all the testing scenarios.
+	\item The 95\% Value-at-Risk (VaR) of the relative total hedging error $\frac{D(t_0,T) P_H(T,T,K)}{\Vmkt_{t_0,T,K}}$
+	\item The 95\% Conditional-Value-at-Risk (CVaR) of the relative total hedging error $\frac{D(t_0,T) P_H(T,T,K)}{\Vmkt_{t_0,T,K}}$
+	\item The 99\% Value-at-Risk (VaR) of the relative total hedging error $\frac{D(t_0,T) P_H(T,T,K)}{\Vmkt_{t_0,T,K}}$
+	\item The 99\% Conditional-Value-at-Risk (CVaR) of the relative total hedging error $\frac{D(t_0,T) P_H(T,T,K)}{\Vmkt_{t_0,T,K}}$
+\end{enumerate}
+
+We test on the real expiries and real strikes in market. We build the models following the model building procedure as in section \ref{sec:TotalModelProcedure}.  The combined testing set is defined as:
+\[
+AllTestSet=\{(T,K)|\text{2000-01-01}\leq T \leq \text{2015-08-31},K \in \mathbf{K}^{mkt}_{t_0,T}, T \text{ is a market observed expiry}\}
+\]
+Namely, we test on all the market observed combinations of $(T,K)$ where the expiry $T$ is between 2000-0-01 to 2015-08-31. Note that, we have included two crisis periods: the burst of dot-com bubble  period (2000 to 2002)and subprime mortgage crisis period (2007 to 2008).
+\subsection{Data and Experimental Setting}
+The sequential inputs to $\modelT$ and $\modelL$, $\mathbf{Y}_{t}^{T,K}$, at a rebalancing time $t$, at each hedging time $t$, are the historical time series recorded daily from previous rebalancing time $t-\DT$ to current rebalancing time $t$ for the following features:
+
+
+\begin{table}[htp!]
+	\centering
+	\begin{tabular}{|l|}
+		\hline
+		Option middle price\\ \hline
+		Black–Scholes implied volatility\\
+		\hline
+		Black–Scholes delta\\
+		\hline
+		Black–Scholes vega \\
+		\hline
+		Bartlett delta \\
+		\hline
+		Time to expiry \\\hline
+		S\&P500 index price\\\hline
+		VIX index price\\\hline
+		The moneyness $S/K$\\\hline
+		Minimum variance delta $\delta_{MV}$  \eqref{eq:HullWhite}\\\hline
+		Strike $K$ \\   \hline
+	\end{tabular}
+	\caption{Sequential features for $\modelT$ and $\modelL$ at time $t$ are the historical time series of features listed in this table.}
+\end{table}
+
+The number of hidden states, for the single-layer GRU encoder, the neural network outputting $\widehat{\delta}^M_{t,T,K}$, and the neural network outputting $W_{\delta}$  in Figure \ref{fig:RNNModelTotal}, are all set to be 5.  Specifically, we compare with the following methods,
+\begin{itemize}
+	\item $\modelT$: the model shown in Figure \ref{fig:RNNModelTotal} which is trained with the total risk objective \eqref{eq:totalObjLinear}.
+	\item $\modelL$: the model shown in Figure \ref{fig:RNNModelTotal} which is trained with the local risk objective \eqref{eq:LocalObjNew},
+	\item Bartlett: Barlett corrective  delta based on \eqref{eq:bartlett},
+	\item BS: Black–Scholes delta based on the implied volatility 
+\end{itemize}
+The hedging period is fixed to be 100 business days. We have two different hedging frequencies: weekly and monthly hedging. For weekly hedging, we rebalance every 5 business days so the number of rebalacing times is $N_{rb}=20$. For monthly hedging, we rebalance every 20 business days so the number of rebalacing times is $N_{rb}=5$.
+
+ 
+\subsection{Call Option Total Hedging Comparison}
+In this subsection, we present the results for call options. We show the hedging performance for Near-The-Money(NTM), In-The-Money(ITM), Out-of-The-Money(OTM) separately.  The NTM, OTM, and ITM scanerios are classified based on the Black-Scholes delta at the initial date $t_0$ where we set up the hedging portfolio: $\delta^{BS}_{t_0,T,K}$. For call option, the criteria is:
+\begin{itemize}
+	\item  Near-The-Money(NTM): $0.3 \leq \delta^{BS}_{t_0,T,K} <0.7$
+	\item  In-The-Money(ITM): $0.7 \leq \delta^{BS}_{t_0,T,K} <0.95$
+	\item  Out-of-The-Money(OTM):  $0.05 \leq \delta^{BS}_{t_0,T,K} <0.3$
+\end{itemize}
+We omit the testing scenarios for deep in-the-money and deep out-of-the money options due to the fact that they are highly illiquid in market and their market quotes are highly unreliable. Also, the deep in-the-money and deep out-of-the money options are deleted from training set and validation set.
+\begin{itemize}
+	\item  Deep In-The-Money(ITM): $0.95 \leq \delta^{BS}_{t_0,T,K} <1.0$
+	\item  Deep Out-of-The-Money(OTM):  $0.0 \leq \delta^{BS}_{t_0,T,K} <0.05$
+\end{itemize}
+
+\subsubsection{Call Option Weekly Hedging Comparison}
+In Table \ref{table:CallTotalW}, we demonstrate the results on weekly hedging call options. Furthermore, in Figure \ref{fig:CallTotalW1}, Figure \ref{fig:CallTotalW2}, and  Figure \ref{fig:CallTotalW3}, we compare the distribution of the relative hedging error of $\modelT$ with the distributions of the relative hedging error of $\modelL$, BS model, and Bartlett model respectively.
+\begin{table}[htp!]
+	\centering
+	\begin{tabular}{ll|l|l|l|}
+		\cline{3-5}
+		&          & Near-The-Money   & In-The-Money     & Out-of-The-Money \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{Mean Abs Error}} & $\modelT$    & \textbf{0.1927}  & 0.0571  & \textbf{0.7344}  \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & 0.2250           & 0.0866           & 0.8285           \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & 0.2347           & 0.0641           & 0.7383           \\  
+		\multicolumn{1}{|l|}{}                                & BS       & 0.2198           &\textbf{0.0531}           & 0.9706           \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & $\modelT$    & \textbf{-0.2827} & \textbf{-0.1121} & \textbf{-0.5298} \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -0.3622          & -0.1806          & -0.5753          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & -0.4836          & -0.1656          & -0.9841          \\  
+		\multicolumn{1}{|l|}{}                                & BS       & -0.4823          & -0.1523          & -0.8603          \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & $\modelT$    & \textbf{-0.4721} & \textbf{-0.1865} & \textbf{-1.0003} \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -0.5643          & -0.2081          & -1.1673          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & -0.7103          & -0.2192          & -1.4232          \\  
+		\multicolumn{1}{|l|}{}                                & BS       & -0.7009          & -0.2724          & -1.2299          \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & $\modelT$    & \textbf{-0.5301} & \textbf{-0.1976} & -1.5077          \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -0.6361          & -0.2168          & -1.3583          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & -0.778           & -0.2654          & -1.6152          \\  
+		\multicolumn{1}{|l|}{}                                & BS       & -0.7171          & -0.3653          & \textbf{-1.3363} \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (99\%)}}    & $\modelT$    & -0.8205          & -0.3261 & -1.6090          \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & \textbf{-0.7942} & \textbf{-0.2301}          & -2.1206          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & -1.0827          & -0.2883          & -2.1225          \\  
+		\multicolumn{1}{|l|}{}                                & BS       & -1.0040          & -0.4712          & \textbf{-1.6074} \\ \hline
+	\end{tabular}
+	\caption{Summary of weekly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.} \label{table:CallTotalW}
+\end{table}
+\begin{figure}[htp!]
+	\centering
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/WLocalVersusTotalCallNTM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/WLocalVersusTotalCallITM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/WLocalVersusTotalCallOTM.pdf}}
+	\caption{Comparing total model $\modelT$ and local model $\modelL$ on weekly hedging S\&P 500 call options in terms of the distribution of the  relative hedging portfolio value at the expiries Please note that the distribution in this figure assumes we are at the sell-side of the option trading.} \label{fig:CallTotalW1}
+	\centering
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/WBSVersusTotalCallNTM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/WBSVersusTotalCallITM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/WBSVersusTotalCallOTM.pdf}}
+	\caption{Comparing total model $\modelT$ and BS Model  on weekly hedging S\&P 500 call options in terms of the the distribution of the  relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.} 
+	\label{fig:CallTotalW2}
+	\centering
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/WBartlettVersusTotalCallNTM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/WBartlettVersusTotalCallITM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/WBartlettVersusTotalCallOTM.pdf}}
+	\caption{Comparing total model $\modelT$ and Bartlett model on weekly hedging S\&P 500 call options in terms of the distribution of the  relative hedging portfolio value at the expiries.  Please note that the distribution in this figure assumes we are at the sell-side of the option trading.} \label{fig:CallTotalW3}
+\end{figure}
+
+From Table \ref{table:CallTotalW}, we can see that, $\modelT$ performs better than the other three methods in terms of 
+mean absolute relative hedging error for NTM and OTM scenarios. Although BS model performs slightly better than   $\modelT$ for ITM scenarios. The difference between  $\modelT$  and BS model is small for ITM scenarios. Additionally, $\modelT$, in most of cases, are the besting performing model in terms of VaR and CVaR, indicating that $\modelT$ performs better in reducing tail risk on the loss.  The exceptions are as the following:
+\begin{itemize}
+	\item $\modelL$ performs best in terms of  CVaR(99\%) for NTM scenarios and ITM scenarios. From Figure \ref{fig:CallTotalW1} (a) and (b), we can see that, the extreme tail on the loss side from  $\modelT$ is worse than than $\modelL$
+	\item  BS model performs best in terms of  VaR(99\%) and  CVaR(99\%) for OTM scenarios. This is an interesting observation. From \ref{fig:CallTotalW2} (c), We also note that the extreme tail on the profit side from BS model on OTM scenarios is actually longer than the other three models, indicating a larger probability of getting big profit. 
+\end{itemize}
+
+Another interesting observation is that Bartlett delta actually performs worse than BS delta in most of the cases as shown in Table \ref{table:CallTotalW}. We suspect that this is due to the fact that SABR model was originally designed for modeling interest rate derivatives, the time to maturity for which is usually bigger than one-year, and it is less suitable to model option surface with extreme short time to maturity\cite{chen2011calibration}. For weekly hedging, we have used SABR model to produce Bartlett delta with extremely small time to maturity, e.g., 5/250 for the last rebalancing time.
+Notice that in chapter \ref{sec:LocalComparison} when we compare models on local risk criteria, options with time-to-expiry less than 14 days are removed from the data set. Therefore, we did not notice this phenomenon.
+
+\subsubsection{Call Option Monthly Hedging Comparison}
+In Table \ref{table:CallTotalM}, we demonstrate the results on monthly hedging call options. Furthermore, in Figure \ref{fig:CallTotalM1}, Figure \ref{fig:CallTotalM2}, and  Figure \ref{fig:CallTotalM3}, we compare the distribution of the relative hedging error of $\modelT$ with the distributions of the relative hedging error of $\modelL$, BS model, and Bartlett model respectively.
+
+From Table \ref{table:CallTotalM}, we can see that, $\modelT$ performs better than the other three methods in terms of 
+mean absolute relative hedging error for NTM and ITM scenarios. Bartlett method performs best in terms of 
+mean absolute relative hedging error for OTM scenarios. In terms of VaR and CVaR, by comparing Table \ref{table:CallTotalM} and Table \ref{table:CallTotalW}, $\modelT$ is less dominant  in monthly hedging call options than in weekly hedging call options. $\modelL$ produces the smallest VaR(95\%) for NTM, ITM and OTM scenarios. Bartlett delta produces best VaR(99\%) and CVaR(99\%) for NTM scenarios. However, from Table \ref{table:CallTotalM} we can also see, the performance of $\modelT$ is usually very close to best performance even if  $\modelT$ is not the dominant model in terms of certain criteria.
+
+
+On the other hand, from Figure \ref{fig:CallTotalM1} (c) and \ref{fig:CallTotalM2} (c), we can see that, for OTM scenarios, $\modelL$ and BS model produce longer tail on the profit side and  shorter tail on the loss side when comparing with $\modelT$. Besides, from \ref{fig:CallTotalM3} (c), we can see that, for OTM scenarios, Bartlett method has the shorter tail for both the loss side and profit side when comparing with $\modelT$. 
+\begin{table}[htp!]
+	\centering
+	\begin{tabular}{ll|l|l|l|}
+		\cline{3-5}
+		&          & Near-The-Money   & In-The-Money     & Out-of-The-Money \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{Mean Abs Error}} & $\modelT$    & \textbf{0.2643}  & \textbf{0.0633}  & 1.0479           \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & 0.2740           & 0.0642           & 1.2255           \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & 0.282            & 0.073            & \textbf{0.9674}  \\  
+		\multicolumn{1}{|l|}{}                                & BS       & 0.2865           & 0.0655           & 1.3248           \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & $\modelT$    & -0.4102          & -0.1472          & -1.0842          \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & \textbf{-0.3998} & \textbf{-0.1394} & \textbf{-0.9531} \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & -0.4775          & -0.1611          & -1.1936          \\  
+		\multicolumn{1}{|l|}{}                                & BS       & -0.5115          & -0.1554          & -1.3442          \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & $\modelT$    & \textbf{-0.6073} & \textbf{-0.3125} & \textbf{-1.6658} \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -0.6671          & -0.3144          & -1.6962          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & -0.6680          & -0.3372          & -2.0221          \\  
+		\multicolumn{1}{|l|}{}                                & BS       & -0.9735          & -0.4380          & -2.0016          \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & $\modelT$    & -0.7752          & \textbf{-0.4300} & \textbf{-1.7567} \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -0.8703          & -0.4329          & -1.9142          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & \textbf{-0.7201} & -0.4815          & -2.3799          \\  
+		\multicolumn{1}{|l|}{}                                & BS       & -1.2384          & -0.6058          & -2.8419          \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (99\%)}}    & $\modelT$    & -0.8692          & \textbf{-0.4627} & -2.7536          \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -1.0861          & -0.4670          & \textbf{-2.5194} \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & \textbf{-0.8090}  & -0.5725          & -2.8797          \\  
+		\multicolumn{1}{|l|}{}                                & BS       & -1.2864          & -0.7859          & -3.0839          \\ \hline
+	\end{tabular}
+	\caption{Summary of monthly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.} \label{table:CallTotalM}
+\end{table}
+\begin{figure}[htp!]
+	\centering
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/MLocalVersusTotalCallNTM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/MLocalVersusTotalCallITM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/MLocalVersusTotalCallOTM.pdf}}
+	\caption{Comparing total model $\modelT$ and local model $\modelL$ on monthly hedging S\&P 500 call options in terms of thethe distribution of the  relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.} \label{fig:CallTotalM1}
+		\centering
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/MBSVersusTotalCallNTM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/MBSVersusTotalCallITM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/MBSVersusTotalCallOTM.pdf}}
+	\caption{Comparing total model $\modelT$ and BS model  on monthly hedging S\&P 500 call options in terms of the distribution of the  relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.} 
+	\label{fig:CallTotalM2}
+		\centering
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/MBartlettVersusTotalCallNTM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/MBartlettVersusTotalCallITM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/MBartlettVersusTotalCallOTM.pdf}}
+	\caption{Comparing total model $\modelT$ and bartlett model on monthly hedging S\&P 500 call options in terms of the distribution of the  relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.} \label{fig:CallTotalM3}
 \end{figure}
 
 \newpage
-\section{Total Discrete Hedging Performance Comparison Using  S\&P 500 index Options}
-\subsection{Call Option}
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
-\begin{table}[htp!]
-	\centering
-    \begin{tabular}{ll|l|l|l|}
-    \cline{3-5}
-                                                          &          & Near-The-Money   & In-The-Money     & Out-of-The-Money \\ \hline
-    \multicolumn{1}{|l|}{\multirow{4}{*}{Mean abs Error}} & Total    & \textbf{0.1927}  & \textbf{0.0571}  & \textbf{0.7344}  \\  
-    \multicolumn{1}{|l|}{}                                & Local    & 0.2250           & 0.0866           & 0.8285           \\  
-    \multicolumn{1}{|l|}{}                                & Bartlett & 0.2347           & 0.0641           & 0.7383           \\  
-    \multicolumn{1}{|l|}{}                                & BS       & 0.2198           & 0.0531           & 0.9706           \\ \hline
-    \multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & Total    & \textbf{-0.2827} & \textbf{-0.1121} & \textbf{-0.5298} \\  
-    \multicolumn{1}{|l|}{}                                & Local    & -0.3622          & -0.1806          & -0.5753          \\  
-    \multicolumn{1}{|l|}{}                                & Bartlett & -0.4836          & -0.1656          & -0.9841          \\  
-    \multicolumn{1}{|l|}{}                                & BS       & -0.4823          & -0.1523          & -0.8603          \\ \hline
-    \multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & Total    & \textbf{-0.4721} & \textbf{-0.1865} & \textbf{-1.0003} \\  
-    \multicolumn{1}{|l|}{}                                & Local    & -0.5643          & -0.2081          & -1.1673          \\  
-    \multicolumn{1}{|l|}{}                                & Bartlett & -0.7103          & -0.2192          & -1.4232          \\  
-    \multicolumn{1}{|l|}{}                                & BS       & -0.7009          & -0.2724          & -1.2299          \\ \hline
-    \multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & Total    & \textbf{-0.5301} & \textbf{-0.1976} & -1.5077          \\  
-    \multicolumn{1}{|l|}{}                                & Local    & -0.6361          & -0.2168          & -1.3583          \\  
-    \multicolumn{1}{|l|}{}                                & Bartlett & -0.778           & -0.2654          & -1.6152          \\  
-    \multicolumn{1}{|l|}{}                                & BS       & -0.7171          & -0.3653          & \textbf{-1.3363} \\ \hline
-    \multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (99\%)}}    & Total    & -0.8205          & \textbf{-0.3261} & -1.6090          \\  
-    \multicolumn{1}{|l|}{}                                & Local    & \textbf{-0.7942} & -0.2301          & -2.1206          \\  
-    \multicolumn{1}{|l|}{}                                & Bartlett & -1.0827          & -0.2883          & -2.1225          \\  
-    \multicolumn{1}{|l|}{}                                & BS       & -1.0040          & -0.4712          & \textbf{-1.6074} \\ \hline
-    \end{tabular}
-	\caption{Summary of Weekly Hedging Call Options} \label{table:CallTotalW}
-    \end{table}
+\subsection{Put Option Total Hedging Comparison}
 
+In this subsection, we present the results for put options. We again show the hedging performance for Near-The-Money(NTM), In-The-Money(ITM), Out-of-The-Money(OTM) separately.  The NTM, OTM, and ITM scanerios are classified based on the Black-Scholes delta at the initial date $t_0$ where we set up the hedging portfolio: $\delta^{BS}_{t_0,T,K}$. For put option, the criteria is:
+\begin{itemize}
+	\item  Near-The-Money(NTM): $-0.3 \geq \delta^{BS}_{t_0,T,K} >-0.7$
+	\item  In-The-Money(ITM): $-0.7 \geq \delta^{BS}_{t_0,T,K} >-0.95$
+	\item  Out-of-The-Money(OTM): $-0.05 \geq \delta^{BS}_{t_0,T,K} >-0.3$
+\end{itemize}
+We omit the testing scenarios for deep in-the-money and deep out-of-the money options due to the fact that they are highly illiquid in market and their market quotes are highly unreliable. Also, the deep in-the-money and deep out-of-the money options are deleted from training set and validation set.
+\begin{itemize}
+	\item  Deep Out-of-The-Money(OTM): $0.0 \geq \delta^{BS}_{t_0,T,K} >-0.05$
+	\item  Deep In-The-Money(ITM): $-0.95 \geq \delta^{BS}_{t_0,T,K} >-1.0$
+\end{itemize}
+\subsubsection{Put Option Weekly Hedging Comparison}
+In Table \ref{table:putTotalW}, we demonstrate the results on monthly hedging put options. Furthermore, in Figure \ref{fig:putTotalW1}, Figure \ref{fig:putTotalW2}, and  Figure \ref{fig:putTotalW3}, we compare the distribution of the relative hedging error of $\modelT$ with the distributions of the relative hedging error of $\modelL$, BS model, and Bartlett model respectively.
 
-\begin{table}[htp!]
-	\centering
-    \begin{tabular}{ll|l|l|l|}
-    \cline{3-5}
-                                                          &          & Near-The-Money   & In-The-Money     & Out-of-The-Money \\ \hline
-    \multicolumn{1}{|l|}{\multirow{4}{*}{Mean abs Error}} & Total    & \textbf{0.2643}  & \textbf{0.0633}  & 1.0479           \\  
-    \multicolumn{1}{|l|}{}                                & Local    & 0.2740           & 0.0642           & 1.2255           \\  
-    \multicolumn{1}{|l|}{}                                & Bartlett & 0.282            & 0.073            & \textbf{0.9674}  \\  
-    \multicolumn{1}{|l|}{}                                & BS       & 0.2865           & 0.0655           & 1.3248           \\ \hline
-    \multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & Total    & -0.4102          & -0.1472          & -1.0842          \\  
-    \multicolumn{1}{|l|}{}                                & Local    & \textbf{-0.3998} & \textbf{-0.1394} & \textbf{-0.9531} \\  
-    \multicolumn{1}{|l|}{}                                & Bartlett & -0.4775          & -0.1611          & -1.1936          \\  
-    \multicolumn{1}{|l|}{}                                & BS       & -0.5115          & -0.1554          & -1.3442          \\ \hline
-    \multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & Total    & \textbf{-0.6073} & \textbf{-0.3125} & \textbf{-1.6658} \\  
-    \multicolumn{1}{|l|}{}                                & Local    & -0.6671          & -0.3144          & -1.6962          \\  
-    \multicolumn{1}{|l|}{}                                & Bartlett & -0.6680          & -0.3372          & -2.0221          \\  
-    \multicolumn{1}{|l|}{}                                & BS       & -0.9735          & -0.4380          & -2.0016          \\ \hline
-    \multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & Total    & -0.7752          & \textbf{-0.4300} & \textbf{-1.7567} \\  
-    \multicolumn{1}{|l|}{}                                & Local    & -0.8703          & -0.4329          & -1.9142          \\  
-    \multicolumn{1}{|l|}{}                                & Bartlett & \textbf{-0.7201} & -0.4815          & -2.3799          \\  
-    \multicolumn{1}{|l|}{}                                & BS       & -1.2384          & -0.6058          & -2.8419          \\ \hline
-    \multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (99\%)}}    & Total    & -0.8692          & \textbf{-0.4627} & -2.7536          \\  
-    \multicolumn{1}{|l|}{}                                & Local    & -1.0861          & -0.4670          & \textbf{-2.5194} \\  
-    \multicolumn{1}{|l|}{}                                & Bartlett & \textbf{-0.8090}  & -0.5725          & -2.8797          \\  
-    \multicolumn{1}{|l|}{}                                & BS       & -1.2864          & -0.7859          & -3.0839          \\ \hline
-    \end{tabular}
-	\caption{Summary of Monthly Hedging Call Options} \label{table:CallTotalM}
-    \end{table}
+From Table \ref{table:putTotalW}, we can see that, $\modelT$ is the dominant  methods for weekly hedging put options in terms of most of the criteria for NTM, ITM, and OTM scenarios.  There are only two  exception: $\modelL$ performs slightly better than $\modelT$ for NTM scenarios for mean absolute relative hedging error  and Bartlett delta performs performs slightly better than $\modelT$ for OTM scenarios for mean absolute relative hedging error. 
 
-
-
-\subsection{Put Option}
-This is section for Put option
-
-
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
+Another interesting observation is that, for put option, the loss tail of the relative hedging distribution is significantly longer than call option. We suspect this is due to the fact that selling put option during market crisis period can lead to significant loss as the original NTM or ITM option can become out-of-the money in a short period of time especially when we are getting closer to the expiry.
 \begin{table}[htp!]
 	\centering
 	\begin{tabular}{ll|l|l|l|}
-	\cline{3-5}
-														  &          & Near-The-Money   & In-The-Money     & Out-of-The-Money  \\ \hline
-	\multicolumn{1}{|l|}{\multirow{4}{*}{Mean abs Error}} & Total    & 0.2535           & \textbf{0.0965}  & \textbf{1.5356}   \\ 
-	\multicolumn{1}{|l|}{}                                & Local    & \textbf{0.2505}  & 0.1109           & 1.5424            \\ 
-	\multicolumn{1}{|l|}{}                                & Bartlett & 0.2516           & 0.1140           & 1.6042            \\ 
-	\multicolumn{1}{|l|}{}                                & BS       & 0.2763           & 0.1232           & 1.7074            \\ \hline
-	\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & Total    & -0.8124          & \textbf{-0.2364} & \textbf{-7.2478}  \\ 
-	\multicolumn{1}{|l|}{}                                & Local    & \textbf{-0.7888} & -0.2995          & -8.0562           \\ 
-	\multicolumn{1}{|l|}{}                                & Bartlett & -0.8229          & -0.3160          & -8.0506           \\  
-	\multicolumn{1}{|l|}{}                                & BS       & -0.8683          & -0.4262          & -8.7359           \\ \hline
-	\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & Total    & \textbf{-1.0475} & \textbf{-0.3452} & \textbf{-10.9438} \\ 
-	\multicolumn{1}{|l|}{}                                & Local    & -1.2335          & -0.5405          & -11.8778          \\  
-	\multicolumn{1}{|l|}{}                                & Bartlett & -1.2775          & -0.5981          & -13.2250          \\  
-	\multicolumn{1}{|l|}{}                                & BS       & -1.4724          & -0.7182          & -13.3229          \\ \hline
-	\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & Total    & \textbf{-1.1138} & \textbf{-0.3763} & \textbf{-11.7573} \\  
-	\multicolumn{1}{|l|}{}                                & Local    & -1.4584          & -0.6686          & -13.2533          \\ 
-	\multicolumn{1}{|l|}{}                                & Bartlett & -1.4361          & -0.7996          & -14.5369          \\  
-	\multicolumn{1}{|l|}{}                                & BS       & -1.7616          & -0.7969          & -19.0709          \\ \hline
-	\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR(99\%)}}     & Total    & \textbf{-1.3597} & \textbf{-0.4616} & \textbf{-15.1555} \\  
-	\multicolumn{1}{|l|}{}                                & Local    & -1.7104          & -0.8854          & -16.1956          \\ 
-	\multicolumn{1}{|l|}{}                                & Bartlett & -1.7732          & -0.9739          & -17.0642          \\ 
-	\multicolumn{1}{|l|}{}                                & BS       & -2.2754          & -1.1338          & -20.6381          \\ \hline
+		\cline{3-5}
+		&          & Near-The-Money   & In-The-Money     & Out-of-The-Money  \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{Mean Abs Error}} & $\modelT$    & 0.2535           & \textbf{0.0965}  & 1.5356   \\ 
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & \textbf{0.2516}  & 0.1140           & 1.6042             \\ 
+		\multicolumn{1}{|l|}{}                                & Bartlett     & 0.2993 			& 0.167  		   & \textbf{1.4815}       \\ 
+		\multicolumn{1}{|l|}{}                                & BS       	 & 0.2773 		    & 0.1227 		   & 1.7109            \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & $\modelT$    & \textbf{-0.8124} & \textbf{-0.2364} & \textbf{-7.2478}  \\ 
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -0.8229          & -0.3160          & -8.0506           \\ 
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 & -0.9374 			& -0.5133 		   &-8.5614           \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 & -0.8854 			& -0.4274 		   &-8.7374           \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & $\modelT$    & \textbf{-1.0475} & \textbf{-0.3452} & \textbf{-10.9438} \\ 
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -1.2335          & -0.5405          & -11.8778          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 & -1.4781  		&-0.8078 		   &-12.2226          \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 &  -1.4812  		&-0.7236 		   &-13.3299          \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & $\modelT$    & \textbf{-1.1138} & \textbf{-0.3763} & \textbf{-11.7573} \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -1.4361          & -0.7996          & -14.5369           \\ 
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 & -1.6118  		 &-0.99   		   &-12.2933         \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 & -1.7625  		&-0.7979 		   &-19.0822          \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR(99\%)}}     & $\modelT$    & \textbf{-1.3597} & \textbf{-0.4616} & \textbf{-15.1555} \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -1.7732          & -0.9739          & -17.0642         \\ 
+		\multicolumn{1}{|l|}{}                                & Bartlett     &-2.3355  			&-1.2264 		   &-17.4385          \\ 
+		\multicolumn{1}{|l|}{}                                & BS       	 & -2.2831  		&-1.1347 		   &-20.6413          \\ \hline
 	\end{tabular}
-	\caption{Summary of Weekly Hedging Put Options} \label{table:putTotalW}
-	\end{table}
-
-\newpage
+	\caption{Summary of weekly hedging S\&P 500 put options for 100 Business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.} \label{table:putTotalW}
+\end{table}
 \begin{figure}[htp!]
 	\centering
-
+	
 	\subfigure[]{
-	   \includegraphics[width=0.32\textwidth]{./figures/LocalVersusTotalNTM.pdf}}
+		\includegraphics[width=0.32\textwidth]{./figures/LocalVersusTotalNTM.pdf}}
 	\subfigure[]{
 		\includegraphics[width=0.32\textwidth]{./figures/LocalVersusTotalITM.pdf}}
 	\subfigure[]{
-	   \includegraphics[width=0.32\textwidth]{./figures/LocalVersusTotalOTM.pdf}}
-	\caption{Comparing Total Model and Local Model on Weekly Hedging Put Options} \label{fig:putTotalW1}
-	\end{figure}
-
-
-
-	\begin{figure}[htp!]
+		\includegraphics[width=0.32\textwidth]{./figures/LocalVersusTotalOTM.pdf}}
+	\caption{Comparing total model $\modelT$ and local model $\modelL$ on weekly hedging put options in terms of the distribution of the  relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.} \label{fig:putTotalW1}
+	\centering
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/BSVersusTotalNTM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/BSVersusTotalITM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/BSVersusTotalOTM.pdf}}
+	\caption{Comparing total model $\modelT$ and BS model on weekly hedging put options in terms of the distribution of the  relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.} \label{fig:putTotalW3}
 		\centering
-		\subfigure[]{
-		   \includegraphics[width=0.32\textwidth]{./figures/BartlettVersusTotalNTM.pdf}}
-		\subfigure[]{
-			\includegraphics[width=0.32\textwidth]{./figures/BartlettVersusTotalITM.pdf}}
-		\subfigure[]{
-				\includegraphics[width=0.32\textwidth]{./figures/BartlettVersusTotalOTM.pdf}}
-		\caption{Comparing Total Model and Bartlett Model on Weekly Hedging Put Options} \label{fig:putTotalW2}
-		\end{figure}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/BartlettVersusTotalNTM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/BartlettVersusTotalITM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/BartlettVersusTotalOTM.pdf}}
+	\caption{Comparing total model $\modelT$ and Bartlett model on weekly hedging put options in terms of the distribution of the  relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.} \label{fig:putTotalW2}
+\end{figure}
 
-		\begin{figure}[htp!]
-			\centering
-	
-			\subfigure[]{
-			   \includegraphics[width=0.32\textwidth]{./figures/BSVersusTotalNTM.pdf}}
-			\subfigure[]{
-				\includegraphics[width=0.32\textwidth]{./figures/BSVersusTotalITM.pdf}}
-				\subfigure[]{
-					\includegraphics[width=0.32\textwidth]{./figures/BSVersusTotalOTM.pdf}}
-			\caption{Comparing Total Model and Black–Scholes Model on Weekly Hedging Put Options} \label{fig:putTotalW3}
-			\end{figure}
+\newpage
+\subsubsection{Put Option Monthly Hedging Comparison}
+In Table \ref{table:putTotalM}, we demonstrate the results on monthly hedging put options. Furthermore, in Figure \ref{fig:putTotalM1}, Figure \ref{fig:putTotalM2}, and  Figure \ref{fig:putTotalM3}, we compare the distribution of the relative hedging error of $\modelT$ with the distributions of the relative hedging error of $\modelL$, BS model, and Bartlett model respectively.
 
-
-
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
+From Table \ref{table:putTotalM}, we can see that, $\modelT$ is still the dominant  method for monthly hedging put options in terms of most of the criteria for NTM, ITM, and OTM scenarios.  However, by comparing Table \ref{table:putTotalW} and Table \ref{table:putTotalM}, we can see $\modelT$ is less dominant in monthly hedging than in weekly hedging. In certain case, Bartlett methods can perform much better. For instance, for NTM scenarios, the CVaR (95\%) and CVaR (99\%) from Bartlett method is significantly better than the other three comparing methods.
 \begin{table}[htp!]
 	\centering
 	\begin{tabular}{ll|l|l|l|}
-	\cline{3-5}
-														  &          & Near-The-Money   & In-The-Money     & Out-of-The-Money  \\ \hline
-	\multicolumn{1}{|l|}{\multirow{4}{*}{Mean abs Error}} & Total    & \textbf{0.2986}  & \textbf{0.1240}  & 1.7639            \\  
-	\multicolumn{1}{|l|}{}                                & Local    & 0.3485           & 0.1394           & \textbf{1.6849}   \\  
-	\multicolumn{1}{|l|}{}                                & Bartlett & 0.3205           & 0.1583           & 1.7383            \\  
-	\multicolumn{1}{|l|}{}                                & BS       & 0.3224           & 0.1342           & 1.8482            \\ \hline
-	\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & Total    & \textbf{-0.7395} & \textbf{-0.2562} & -8.5602           \\  
-	\multicolumn{1}{|l|}{}                                & Local    & -0.7558          & -0.3268          & \textbf{-8.1812}  \\  
-	\multicolumn{1}{|l|}{}                                & Bartlett & -0.8370          & -0.3583          & -9.0303           \\  
-	\multicolumn{1}{|l|}{}                                & BS       & -0.7768          & -0.3088          & -9.7018           \\ \hline
-	\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & Total    & -1.7761          & \textbf{-0.3577} & \textbf{-13.3160} \\  
-	\multicolumn{1}{|l|}{}                                & Local    & -1.8144          & -0.4898          & -14.6857          \\  
-	\multicolumn{1}{|l|}{}                                & Bartlett & \textbf{-1.5710} & -0.6016          & -14.4425          \\  
-	\multicolumn{1}{|l|}{}                                & BS       & -1.8682          & -0.5401          & -16.1024          \\ \hline
-	\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & Total    & -2.1792          & \textbf{-0.4121} & -15.2323          \\  
-	\multicolumn{1}{|l|}{}                                & Local    & \textbf{-2.1577} & -0.6454          & -16.5192          \\  
-	\multicolumn{1}{|l|}{}                                & Bartlett & -2.9164          & -0.7728          & \textbf{-15.0144} \\  
-	\multicolumn{1}{|l|}{}                                & BS       & -2.5569          & -0.7583          & -15.8393          \\ \hline
-	\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (99\%)}}    & Total    & -3.4001          & \textbf{0.4509}  & \textbf{-20.6503} \\  
-	\multicolumn{1}{|l|}{}                                & Local    & -3.3717          & -0.6910          & -21.7928          \\  
-	\multicolumn{1}{|l|}{}                                & Bartlett & \textbf{-2.9164} & -0.8463          & -24.1757          \\  
-	\multicolumn{1}{|l|}{}                                & BS       & -3.5486          & -0.8109          & -26.4941          \\ \hline
+		\cline{3-5}
+		&          & Near-The-Money   & In-The-Money     & Out-of-The-Money  \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{Mean Abs Error}} & $\modelT$    & \textbf{0.2986}  & \textbf{0.1240}  & 1.7639            \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & 0.3485           & 0.1394           & \textbf{1.6849}   \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & 0.3205           & 0.1583           & 1.7383            \\  
+		\multicolumn{1}{|l|}{}                                & BS       & 0.3224           & 0.1342           & 1.8482            \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & $\modelT$    & \textbf{-0.7395} & \textbf{-0.2562} & -8.5602           \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -0.7558          & -0.3268          & \textbf{-8.1812}  \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & -0.8370          & -0.3583          & -9.0303           \\  
+		\multicolumn{1}{|l|}{}                                & BS       & -0.7768          & -0.3088          & -9.7018           \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & $\modelT$    & -1.7761          & \textbf{-0.3577} & \textbf{-13.3160} \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -1.8144          & -0.4898          & -14.6857          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & \textbf{-1.5710} & -0.6016          & -14.4425          \\  
+		\multicolumn{1}{|l|}{}                                & BS       & -1.8682          & -0.5401          & -16.1024          \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & $\modelT$    & -2.1792          & \textbf{-0.4121} & -15.2323          \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & \textbf{-2.1577} & -0.6454          & -16.5192          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & -2.9164          & -0.7728          & \textbf{-15.0144} \\  
+		\multicolumn{1}{|l|}{}                                & BS       & -2.5569          & -0.7583          & -15.8393          \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (99\%)}}    & $\modelT$    & -3.4001          & \textbf{-0.4509}  & \textbf{-20.6503} \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -3.3717          & -0.6910          & -21.7928          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & \textbf{-2.9164} & -0.8463          & -24.1757          \\  
+		\multicolumn{1}{|l|}{}                                & BS       & -3.5486          & -0.8109          & -26.4941          \\ \hline
 	\end{tabular}
-	\caption{Summary of Monthly Hedging Put Options}
+	\caption{Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}
 	\label{table:putTotalM}
-	\end{table}
-
-
+\end{table}
 \begin{figure}[htp!]
 	\centering
-
 	\subfigure[]{
-	   \includegraphics[width=0.32\textwidth]{./figures/MLocalVersusTotalNTM.pdf}}
+		\includegraphics[width=0.32\textwidth]{./figures/MLocalVersusTotalNTM.pdf}}
 	\subfigure[]{
 		\includegraphics[width=0.32\textwidth]{./figures/MLocalVersusTotalITM.pdf}}
 	\subfigure[]{
-	   \includegraphics[width=0.32\textwidth]{./figures/MLocalVersusTotalOTM.pdf}}
-	\caption{Comparing Total Model and Local Model on Monthly Hedging Put Options} \label{fig:putTotalM1}
-	\end{figure}
-
-
-
-	\begin{figure}[htp!]
-		\centering
+		\includegraphics[width=0.32\textwidth]{./figures/MLocalVersusTotalOTM.pdf}}
+	\caption{Comparing total model $\modelT$ and local model $\modelL$ on monthly hedging put options in terms of the distribution of the  relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.} \label{fig:putTotalM1}
+	\centering
+	\subfigure[]{
+	\includegraphics[width=0.32\textwidth]{./figures/MBSVersusTotalNTM.pdf}}
+\subfigure[]{
+	\includegraphics[width=0.32\textwidth]{./figures/MBSVersusTotalITM.pdf}}
+\subfigure[]{
+	\includegraphics[width=0.32\textwidth]{./figures/MBSVersusTotalOTM.pdf}}
+		\caption{Comparing total model $\modelT$ and BS model on monthly hedging put options in terms of the distribution of the  relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}  \label{fig:putTotalM2}
+	\centering
 		\subfigure[]{
-		   \includegraphics[width=0.32\textwidth]{./figures/MBartlettVersusTotalNTM.pdf}}
-		\subfigure[]{
-			\includegraphics[width=0.32\textwidth]{./figures/MBartlettVersusTotalITM.pdf}}
-		\subfigure[]{
-				\includegraphics[width=0.32\textwidth]{./figures/BartlettVersusTotalOTM.pdf}}
-		\caption{Comparing Total Model and Bartlett Model on Monthly Hedging Put Options} \label{fig:putTotalM2}
-		\end{figure}
+		\includegraphics[width=0.32\textwidth]{./figures/MBartlettVersusTotalNTM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/MBartlettVersusTotalITM.pdf}}
+	\subfigure[]{
+		\includegraphics[width=0.32\textwidth]{./figures/BartlettVersusTotalOTM.pdf}}
+		\caption{Comparing total model $\modelT$ and Bartlett model on monthly hedging put options in terms of the distribution of the  relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.} \label{fig:putTotalM3}
+\end{figure}
+Another interesting observation is that the $\modelT$ produces longer tail for NTM and OTM scenarios on the profit side while for ITM scenarios, $\modelT$  has a much shorter tail on the loss side.
 
-		\begin{figure}[htp!]
-			\centering
+
+\subsection{Sell-Side Risk Versus Buy-Side Risk}
+In previous section, we mainly evaluate the hedging performance assuming we are at the sell-side of the option trading. Namely, we assume that we are shorting an option. In this subsection, we look at the risk on the buy-side.  More specifically, assuming we are now at the buy-side of the option trading, we set up the hedging portfolio as:
+\begin{itemize}
+	\item A long position on option $\Vmkt(t,T,K)$
+	\item Short $-\delta^{M}_{t,T,K}$ (or long if $\delta^{M}_{t,T,K}<0$ ) shares of $\Smkt(t)$
+	\item An amount in a risk-free bank account $B(t)$
+\end{itemize}
+
+Let $P^{B}_H(T,T,H)$ be the hedging portfolio value of the buy-side at the expiry. One can easily verify that:
+$P^{B}_H(T,T,H)=-P_H(T,T,H)$, where $P_H(T,T,H)$ is the side-side  hedging portfolio value at the expiry given by equation \eqref{eq:FinalHValue}. The profit  on the sell-side  hedging portfolio ( $P_H(T,T,H)>0$) becomes the loss on the  buy-side hedging portfolio ( $P^B_H(T,T,H)<0$). In other words, if we notice that we have a long tail on the profit side of PnL (Profit and Loss) distribution at the sell-side, then we will have a long tail on the loss side of PnL distribution at the buy-side. We notice from the analysis of distribution of relative hedging error in previous section, with $\modelT$ and $\modelL$, the sell-side loss is reduced significantly. But we also noticed that this reduction of the sell-side loss sometimes comes with a increase of the loss on the buy-side. Meanwhile, we also notice this kind of trade-off also exists for BS model and Bartlett model.
+
+To complete our comparison, we evaluate the total hedging performance using the following 4 criteria for the buy-side hedging portfolio $P^{B}_H(T,T,H)$:
+\begin{enumerate}
+
+	\item The 95\% Value-at-Risk (VaR) of the relative total hedging error $\frac{D(t_0,T) P^B_H(T,T,K)}{\Vmkt_{t_0,T,K}}$
+	\item The 95\% Conditional-Value-at-Risk (CVaR) of the relative total hedging error $\frac{D(t_0,T) P^B_H(T,T,K)}{\Vmkt_{t_0,T,K}}$
+	\item The 99\% Value-at-Risk (VaR) of the relative total hedging error $\frac{D(t_0,T) P^B_H(T,T,K)}{\Vmkt_{t_0,T,K}}$
+	\item The 99\% Conditional-Value-at-Risk (CVaR) of the relative total hedging error $\frac{D(t_0,T) P^B_H(T,T,K)}{\Vmkt_{t_0,T,K}}$
+\end{enumerate}
+Please note that $P^B_H(T,T,K)=-P_H(T,T,H)$.
+
+\subsubsection{Comparing Sell-Side Risk with Buy-Side Risk on Call Option}
+In Table \ref{table:CallTotalWBuy} and  Table \ref{table:CallTotalMBuy},  we demonstrate the results on weekly and monthly hedging call options at buy-side.
+\begin{table}[htp!]
+	\centering
+	\begin{tabular}{ll|l|l|l|}
+		\cline{3-5}
+		&          & Near-The-Money   & In-The-Money     & Out-of-The-Money \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{Mean Abs Error}} & $\modelT$     & \textbf{0.1927}  & 0.0571           		 & \textbf{0.7344}   \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$     & 0.2250           & 0.0866          		 	 & 0.8285            \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett      & 0.2347           & 0.0641           		 & 0.7383            \\  
+		\multicolumn{1}{|l|}{}                                & BS            & 0.2198           & \textbf{0.0531}  		 & 0.9706            \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & $\modelT$     & -0.5189          & -0.1054 					 & -1.6139  \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$     & -0.5692          & -0.1763          		 & -1.9182           \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett      & \textbf{-0.4630} & -0.0880          		 & \textbf{-1.5149}           \\  
+		\multicolumn{1}{|l|}{}                                & BS            & -0.4931          & \textbf{-0.0696}          & -2.6341           \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & $\modelT$     & -0.6464 		 & -0.1509 					 & -2.3918  \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$     & -0.7062          & -0.2377          		 & -2.4369          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett      & \textbf{-0.5731} & -0.1632          		 & \textbf{-1.7694}          \\  
+		\multicolumn{1}{|l|}{}                                & BS            & -0.6833          & \textbf{-0.1157}          & -3.8273           \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & $\modelT$     & -0.7778 		 & -0.1861 					 & -2.5132           \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$     & -0.8034          & -0.2769          		 & -2.3604           \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett      & \textbf{-0.6284} & -0.2477          		 & \textbf{-1.7751}           \\  
+		\multicolumn{1}{|l|}{}                                & BS            & -0.7510          & \textbf{-0.1524}          & -3.2443 			\\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (99\%)}}    & $\modelT$     & -0.8180          & -0.2093                   & -3.8272           \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$     & -0.8837 		 & -0.2965  		         & -3.5071          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett      & \textbf{-0.7426} & -0.2617          		 & \textbf{-2.2728}           \\  
+		\multicolumn{1}{|l|}{}                                & BS            & -0.8699          & \textbf{-0.1173}          & -5.9191 			\\ 
+		\hline
+	\end{tabular}
+	\caption{Summary of weekly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading.} \label{table:CallTotalWBuy}
+\end{table}
+\begin{table}[htp!]
+	\centering
+	\begin{tabular}{ll|l|l|l|}
+		\cline{3-5}
+		&          & Near-The-Money   & In-The-Money     & Out-of-The-Money \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{Mean Abs Error}} & $\modelT$    & \textbf{0.2643}  & \textbf{0.0633}  & 1.0479           \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & 0.2740           & 0.0642           & 1.2255           \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 & 0.282            & 0.073            & \textbf{0.9674}  \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 & 0.2865           & 0.0655           & 1.3248           \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & $\modelT$    & -0.7194  		& -0.1313 		   			&-2.4261       \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & -0.6955			& -0.1365 		   			&-3.1978 \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 &\textbf{-0.6504} 	&-0.1238 		   			&\textbf{-2.1608}          \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 & -0.7312 			&\textbf{-0.1128} 		   & -3.5289        \\ 
+		\hline 
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & $\modelT$    &-0.9148 			&-0.2181 		   		  &-3.4331 \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    &-0.9315 			&-0.2191 		   		   &-3.9418         \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 &\textbf{-0.8779}  &-0.2345           		   &\textbf{-2.7161}          \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 &-1.0158 			&\textbf{-0.1907} 		   &-4.711          \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & $\modelT$    & -1.0753 			& -0.2751 		   			&-3.5691       \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    &-1.0929 			&-0.2768 		   			&-4.062         \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 &\textbf{-1.0468}  &-0.3147           			&\textbf{-2.9381}         \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 &-1.2136 			& \textbf{-0.2348} 		    & -4.8304         \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (99\%)}}    & $\modelT$    &-1.1926 			&-0.3272 		    & -4.2966          \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    &-1.2134 			&-0.3283 		    & -5.7881         \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 &\textbf{-1.1678}  &-0.3810            &\textbf{-3.1807}          \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 &-1.3321 			&\textbf{-0.2948}   & -6.651          \\ 
+		\hline
+	\end{tabular}
+	\caption{Summary of monthly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading.} \label{table:CallTotalMBuy}
+\end{table}
+By comparing Table \ref{table:CallTotalW} and Table \ref{table:CallTotalWBuy} and  comparing table \ref{table:CallTotalW} and Table \ref{table:CallTotalWBuy}, we have the  following observations:
+\begin{enumerate}
+	\item In terms of VaR and CVaR, Bartlett delta is the worst model on the sell-side for weekly  hedging NTM and OTM call options as shown in Table \ref{table:CallTotalW}. But when we  switch to buy-side, for weekly hedging NTM and OTM call options, Bartlett delta is the best performing  model in terms of VaR and CVaR as shown in Table \ref{table:CallTotalWBuy}.
 	
-			\subfigure[]{
-			   \includegraphics[width=0.32\textwidth]{./figures/MBSVersusTotalNTM.pdf}}
-			\subfigure[]{
-				\includegraphics[width=0.32\textwidth]{./figures/MBSVersusTotalITM.pdf}}
-				\subfigure[]{
-					\includegraphics[width=0.32\textwidth]{./figures/MBSVersusTotalOTM.pdf}}
-			\caption{Comparing Total Model and Black–Scholes Model on Monthly Hedging Put Options} \label{fig:putTotalM3}
-			\end{figure}
+	\item  When we  switch to buy-side, for monthly hedging NTM and OTM call options, Bartlett delta is the best performing  model in terms of VaR and CVaR as shown in Table \ref{table:CallTotalMBuy}. At the sell-side as shown in  Table \ref{table:CallTotalM}, for OTM Call options, Bartlett delta is the second worst performing model in terms of VaR and CVaR.
+	
+	\item In terms of VaR and CVaR, BS delta is the worst model on the sell-side for weekly  and monthly hedging ITM call option as shown in Table \ref{table:CallTotalW} and Table \ref{table:CallTotalM}. But when we switch to buy-side,   BS delta is the best performing  model in terms of VaR and CVaR as shown in table  Table \ref{table:CallTotalWBuy} and Table \ref{table:CallTotalMBuy}. Additionally, for weekly hedging OTM option, the BS delta produces the smallest VaR(99\%) and CVaR(99\%) on the sell-side but the largest VaR(99\%) and CVaR(99\%) on the buy-side.
+	\item At the buy-side, for weekly and monthly hedging call option, $\modelT$  is neither the worst performing model nor the best performing model in terms of VaR and CVaR. 
+	\item The $\modelT$ usually is the best or the second best model in terms of VaR and CVaR no matter we are at sell-side or buy-side for weekly and monthly hedging call option,  as shown in Table \ref{table:CallTotalW}, Table \ref{table:CallTotalWBuy} , Table \ref{table:CallTotalM} and Table \ref{table:CallTotalMBuy}.
+\end{enumerate}
+\subsubsection{Comparing Sell-Side Risk with Buy-Side Risk on Put Option}
+In Table \ref{table:putTotalWBuy} and  Table \ref{table:putTotalMBuy},  we demonstrate the results on weekly and monthly hedging put options at buy-side. We notice the following by comparing Table \ref{table:putTotalWBuy} and  Table \ref{table:putTotalW} comparing Table \ref{table:putTotalMBuy} and  Table \ref{table:putTotalM}:
+\begin{enumerate}
+	\item The $\modelT$ usually is the best or the second best model in terms of VaR and CVaR  at sell-side for weekly and monthly hedging put option,  as shown in Table \ref{table:putTotalW} and Table \ref{table:putTotalM}. As one can see the reduction at the loss tail from $\modelT$ at the sell-side is significant when compared with other models. When we switch to buy-side, the data-driven model $\modelT$ still performs reasonably well in terms of VaR and CVaR. $\modelT$ usually is the second best performing model at the buy-side for reducing the weekly hedging loss tail when compared with the BS model.
+	
+	However, when we switch to buy-side as shown in Table \ref{table:putTotalMBuy},  $\modelT$ does not perform well in terms of VaR and CVaR for monthly hedging OTM options. We suspect this is due to the fact that the distribution of relative hedging error for monthly hedging put options is very unbalanced as one can see in Figure \ref{fig:putTotalM1} to \ref{fig:putTotalM3}. The heavily unbalanced nature of the hedging error distribution potentially damaged the performance of the $\modelT$ at buy-side for monthly hedging OTM options.  We leave resolving this issue as the future work of our study.
+	
+\item	 In terms of VaR and CVaR, BS delta is the worst model or the second worst on the sell-side for weekly  and monthly hedging  put option as shown in Table \ref{table:putTotalW} and Table \ref{table:putTotalM}. But when we switch to buy-side,   BS delta is the best performing or the second best  model in terms of VaR and CVaR as shown in table  Table \ref{table:putTotalWBuy} and Table \ref{table:putTotalMBuy}. Additionally, for monthly hedging OTM option, the BS delta produces the smallest VaR(99\%) and CVaR(99\%) on the buy-side but the largest VaR(99\%) and CVaR(99\%) on the sell-side.
+\item	 At the sell-side,  $\modelL$ significantly reduces the loss tail when compared with BS delta on weekly and monthly hedging put options.
+ At the buy-side, the performance from $\modelL$ is very close to BS delta on monthly and weekly hedging OTM put options.  $\modelL$ either underperforms or outperforms BS delta slightly on weekly and monthly hedging put options at the buy-side.
+
+
+\end{enumerate}
+
+\begin{table}[htp!]
+	\centering
+	\begin{tabular}{ll|l|l|l|}
+		\cline{3-5}
+		&          & Near-The-Money   & In-The-Money     & Out-of-The-Money  \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{Mean Abs Error}} & $\modelT$    & 0.2535           & \textbf{0.0965}  & 1.5356   \\ 
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & \textbf{0.2516}  & 0.1140           & 1.6042             \\ 
+		\multicolumn{1}{|l|}{}                                & Bartlett     & 0.2993 			& 0.167  		   & \textbf{1.4815}       \\ 
+		\multicolumn{1}{|l|}{}                                & BS       	 & 0.2773 		    & 0.1227 		   & 1.7109            \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & $\modelT$    &-0.4113 &-0.1754 &-1.2127  \\ 
+		\multicolumn{1}{|l|}{}                                & $\modelL$    &-0.3063 &-0.1659 &\textbf{-0.5048}           \\ 
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 &-0.294  &-0.1614 &-0.6739           \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 &\textbf{-0.2692} &\textbf{-0.1398} &-0.6120           \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & $\modelT$    &-0.589  &-0.2041 &-1.9494 \\ 
+		\multicolumn{1}{|l|}{}                                & $\modelL$    &-0.5611 &-0.2055 &\textbf{-0.8351}         \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 &-0.4056 &-0.2046 &-1.2439          \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 &\textbf{-0.3515} &\textbf{-0.1594} &-0.8701          \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & $\modelT$    &-0.6983 &-0.2252 &-2.3629 \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    &-0.6925 &-0.2389 &-1.052           \\ 
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 &-0.4668 &-0.2222 &-1.5293         \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 &\textbf{-0.4108} &\textbf{-0.171}  &\textbf{-1.0188}          \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR(99\%)}}     & $\modelT$    &-0.7835 &-0.2476 &-3.2214 \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    &-0.9811 &-0.2498 &\textbf{-1.2042}         \\ 
+		\multicolumn{1}{|l|}{}                                & Bartlett     &-0.6232 &-0.2415 &-2.0532          \\ 
+		\multicolumn{1}{|l|}{}                                & BS       	 &\textbf{-0.4383} &\textbf{-0.1741} &-1.2597          \\ \hline
+	\end{tabular}
+	\caption{Summary of weekly hedging S\&P 500 put options for 100 Business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.} \label{table:putTotalWBuy}
+\end{table}
+
+\begin{table}[htp!]
+	\centering
+	\begin{tabular}{ll|l|l|l|}
+		\cline{3-5}
+		&          & Near-The-Money   & In-The-Money     & Out-of-The-Money  \\ \hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{Mean Abs Error}} & $\modelT$    & \textbf{0.2986}  & \textbf{0.1240}  & 1.7639            \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    & 0.3485           & 0.1394           & \textbf{1.6849}   \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett & 0.3205           & 0.1583           & 1.7383            \\  
+		\multicolumn{1}{|l|}{}                                & BS       & 0.3224           & 0.1342           & 1.8482            \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (95\%)}}     & $\modelT$    &\textbf{-0.504}  &-0.2428 &-2.519           \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    &-0.5766 &-0.2363 &-1.2493  \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 &-0.4788 &\textbf{-0.1968} &-1.2757           \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 &-0.518  &-0.2159 &\textbf{-0.9276}           \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (95\%)}}    & $\modelT$    &-0.7372 &-0.2905 &-4.2365 \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$    &-0.7496 &-0.2924 &-1.8623          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett 	 &-0.6301 &\textbf{-0.2556} &-2.4399          \\  
+		\multicolumn{1}{|l|}{}                                & BS       	 &\textbf{-0.6164} &-0.2816 &\textbf{-1.5589}          \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{VaR (99\%)}}     & $\modelT$   &-0.7195 &-0.3177 &-5.3271         \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$   &-0.8031 &-0.332  &-2.0655
+		                  \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett 	& -0.7157 &\textbf{-0.2898} &-3.0177\\  
+		\multicolumn{1}{|l|}{}                                & BS       	&\textbf{-0.6555} &-0.3227 &\textbf{-1.7745}         \\ 
+		\hline
+		\multicolumn{1}{|l|}{\multirow{4}{*}{CVaR (99\%)}}    & $\modelT$   &-1.1155 &-0.3448 &-6.6073 \\  
+		\multicolumn{1}{|l|}{}                                & $\modelL$   &-0.9367 &-0.3655 &-2.87          \\  
+		\multicolumn{1}{|l|}{}                                & Bartlett 	&-0.8404 &\textbf{-0.3353} &-4.1933          \\  
+		\multicolumn{1}{|l|}{}                                & BS       	&\textbf{-0.7283} &-0.3498 &\textbf{-2.4294}          \\ 
+		\hline
+	\end{tabular}
+	\caption{Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading.}
+	\label{table:putTotalMBuy}
+\end{table}
 \chapter{Conclusion and Future Work}
-
-
 \label{sec:Conclusion}
+
+In this thesis, we have proposed a direct kernel hedging model $\DKLs$ and a novel encoder-decoder  model, $\model$ , for discrete local risk option hedging. The $\DKLs$ is our preliminary exploration on computing a data-driven local hedging model without estimating a option pricing model. The $\model$ is our enhancement to data-driven local hedging model. $\model$ consists of an encoder, which generates a concise representation of the past market  information. The decoder uses the Black-Scholes delta as a pre-trained model and utilizes a gate to generate a predicative hedging model,  combining the pre-trained delta model and the outputs from the encoder. Feature selections are implemented through normalized weights embedded in the model training. In addition, a data instance adaptive Huber loss function is incorporated  for robustness, with the error from the pre-trained Black-Scholes delta model for each instance as the thresholding parameter. 
+
+Using the S\&P 500 index and the index option data,  from January 1, 2004, to  August 31st, 2015, we assess and compare hedging performance of the  $\model$ and $\DKLs$ with other hedging strategies in terms of local risk criteria.
+For weekly and monthly hedging, computational results demonstrate that performance of the proposed $\model$  significantly surpasses that of the MV model , SABR-Bartlett, regularized spline kernel model $\DKLs$ , all of which perform significantly better than the Black–Scholes model with implied volatility.
+In addition, the $\DKLs$ also outperforms MV model in terms of weekly and monthly hedging results.
+We further demonstrate that the encoder for the sequential features plays a significant role in $\model$, since removing the encoder deteriorates hedging performance.
+Lastly, by comparing the weekly and monthly hedging performance from $\textsc{GRU}_{c}$ and $\model$, we demonstrate that the output gate,  robust loss and training procedure, also play  significant roles in $\model$.
+
+We further demonstrate that the daily hedging performance of the proposed $\model$  also surpasses that of the MV hedging method , LVF and SABR corrective methods  (implemented in \cite{hulloptimal}), data-driven regularized spline kernel network model $\DKLs$ , and SABR-Bartlett. In addition, $\DKLs$ also outperforms MV hedging method , LVF and SABR corrective methods  (implemented in \cite{hulloptimal}).
+
+Besides, from the testing hedging performance, we assess feature importance in  $\model$  for the S\&P 500 index  option hedging. The monthly average feature weights identify the underlying as the most important local feature and the past implied volatility sequence as the most important sequential feature during normal market periods.
+
+To cope with total hedging scenarios, we derive a total risk model $\modelT$ from $\model$ to extend the data-driven model to multi-step total hedging scenarios.  To cope with the challenges of acquiring enough market option information for building data-driven hedging models,  we augment the market data using SABR model and local volatility model. Using the S\&P 500 index  option market data from January 2, 2000 to  August 31st, 2015, we compare  the weekly and monthly hedging performance of the proposed total hedging model $\modelT$  with the sequential data-driven local hedging model $\modelL$, which adopts the same model structure but is trained with a local risk training objective, and the SABR-Bartlett method \cite{bartlett2006hedging}. We measure the total hedging performance, which is evaluated on the expiries of the option. We demonstrate the effectiveness of the total hedging model $\modelT$ in reducing the sell-side loss tail risk for both put and call options. We also demonstrate that the  total hedging model $\modelT$ often leads to better hedging performance in terms of total hedging criteria when compared with $\modelL$,  SABR-Bartlett method, and Black-Scholes model.  Lastly, we demonstrate that the $\modelT$ still performs reasonably well when we switch to buy-side except for monthly hedging OTM put option at buy-side, where $\modelT$ performs the worst in terms of VaR and CVaR.  We  provide some potential explanations for the poor performance of $\modelT$ on monthly hedging OTM put option at buy-side and leave it as the future work of extending our study.
+
+
+The main objective of this research  is to assess hedging performance of strategies learned  directly from the  historical time series of the market option price and underlying price,  using machine learning methods. Hedging  performance comparisons between data-driven  models $\DKLs$, $\model$, $\modelT$,and  $\modelL$ and the  classical  option hedging based on parametric model calibration suggest that the data driven  learning hedging can be a viable alternative to the classical methods,  potentially leading to better hedging performance.  
+
+In terms of limitation of this research, we compare the data-driven models majorly with parametric models available in academic literature.  We understand that the actual industry practice may not apply the parametric models in the same way as we did in this thesis for hedging derivatives.
+While it would also  be interesting to compare hedging methods actually adopted in the financial industry,   limitation in accessing actual industry practice makes it difficult to conduct such a study and make its results publicly available.
+
+Additionally, comparing with the calibration of the traditional parametric pricing models, the learning process for the data-driven hedging model is less computationally efficient. Lastly, the learning process requires certain amount of historical data. For calibrating a parametric model, one usually needs much less data and  can  build the model based on market data observed on spot and compute the sensitivity as hedging position accordingly.  Therefore, our proposed data-driven models are not directly applicable to the illiquid derivative markets.  
+
+
+
+For extending our work, we note that there are several directions:
+\begin{itemize}
+	\item In this thesis, we rely on market data to gather the hedging scenarios.  The volatility surface is calibrated from market data and underlying price paths are extracted from market with overlapping period. Our models based on neural network approach contains less parameters compared with other applications of the deep learning techniques given the relative scarcity of available historical data. 
+	For future work, one can explore how we can use machine learning techniques to generate hedging scenarios so that we can combine artificial scenarios with real scenarios. This will enable us to build more complex model for hedging.
+	Indeed, for this direction, there are already several attempts. For example, \citet{bergeron2021variational} apply the variational autoencoders \cite{kingma2013auto} on generating synthetic volatility surface  that are indistinguishable from those observed historically. \citet{pardo2020mitigating} apply the  Generative Adversarial Networks (GANs) \cite{goodfellow2014generative} on learning  the underlying structure inherent to the dynamics of financial series and acquiring the capacity to generate scenarios that share many similarities to those seen in the historic  time series.  
+	\item In this thesis, we use S\&P 500 index options for experimental comparison. It is interesting to explore on the effectiveness of the data-driven models on more complex derivatives such as basket options where the dimensionality of the underlying is higher. 
+	\item In this thesis, we have not include transaction cost into our models. A more realistic model should include the effect of the transaction cost as in \cite{buehler2019deep}. 
+	\item  In this thesis, for total hedging  model, we assume we rebalance every 5 business days or 20 business days. In reality, we do not have to fix the time gap between two rebalancing time. We can extend the model so that the data-driven model determines when is the best time to rebalance the hedging portfolio. 
+\end{itemize}
+
+
 %----------------------------------------------------------------------
 % END MATERIAL
 %----------------------------------------------------------------------
@@ -3503,386 +4047,46 @@ This is section for Put option
 \nocite{*}
 
 % The \appendix statement indicates the beginning of the appendices.
-\appendix
+%\appendix
+%\addcontentsline{toc}{chapter}{APPENDICES}
 % Add a title page before the appendices and a line in the Table of Contents
-\chapter*{APPENDICES}
-
-\section{Proposed Model For Synthetic Experiments}
-In this section, we propose a model that is mainly used for synthetic cases. We assume that we are rebalance the hedging portfolio at discrete time periods.
-
-For a rebalance time steps, $t_i$, we assume the following features are available:
-\begin{itemize}
-  \item Local features: $\vy_{t_i}$ which records the information for current time steps. Typical features can the: the current underlying $S_{t_i}$. time to expiry $\tau$, and  moneyness $S_{t_i}$
-  \item Sequential features $\mathbf{X}_{t_i}=\{x^{t_i}_1,\dots,x^{t_i}_K \}$: which records information in between the two adjacent rebalancing time periods. For example, if we rebalance every 20 business days. Then the time difference between two adjacent rebalancing time periods is $\Delta t= t_i-t_{i-1}=20/250$. $\mathbf{X}_{t_i}=\{\vx^{t_i}_1,\dots,\vx^{t_i}_K \}$ will record the price changes of underlying of the 20 business days. In this case K=20. At the initial rebalance time step $t_0$, $X_{t_0}$ is the sequential feature set recording the past history before $t_0$.
-\end{itemize}
-We again have a encoder to encode the information contained in  $X_{t_i}$ as $\widehat{\mathbf{h}}_E^{t_i}$. The overall structure is similar to what we have for local hedging cases. However, the decoder now is a RNN network too. The hidden states from previous relancing time $c_{t_{i-1}}$ is passed to current relancing time. The initial option price is computed in the following ways:
-\begin{itemize}
-	\item  $V_{t_0}$ can be supplied as one the parameter and optimized together with the parameters in the hedging position function.
-	\item $V_{t_0}$ can be given by another NN or RNN model based on features we supplied. The option pricing function is optimized together with the the hedging position function.
-\end{itemize}
-
-\begin{figure}[htp!]
-	\centering
-	\resizebox{0.65\textwidth}{!}{
-		\begin{tikzpicture}[
-		prod/.style={circle, draw, inner sep=0pt},
-		ct/.style={circle, draw, inner sep=5pt, ultra thick, minimum width=10mm},
-		ft/.style={circle, draw, minimum width=8mm, inner sep=1pt},
-		filter/.style={circle, draw, minimum width=7mm, inner sep=1pt, path picture={\draw[thick, rounded corners] (path picture bounding box.center)--++(65:2mm)--++(0:1mm);
-				\draw[thick, rounded corners] (path picture bounding box.center)--++(245:2mm)--++(180:1mm);}},
-		mylabel/.style={font=\scriptsize\sffamily},
-		>=LaTeX
-		]
-\node[draw,rectangle]  (s1) at (4.5, -1) {softmax};
-		\node[draw,rectangle]  (s3) at (7.5, -1) {softmax};
-		\node [draw,circle,inner sep=0pt] (rp1) at (3*1, -1) {$\times$};
-		\node  (rp2) at (3*2, -1.5) {$\dots$};
-		\node [draw,circle,inner sep=0pt] (rp3) at (3*3, -1) {$\times$};
-		
-		\foreach \i [count=\step from 1] in {$\vx_1^{t_i}$,$\dots$,$\vx_K^{t_i}$}
-		\node (ri\step) at (3*\step, -2) {\i};
-		\node  (sw1) at (4.5, -2) {SW};
-		\node  (sw3) at (7.5, -2) {SW};
-		\draw[->] (s1.west) to node[below]{$\mathbf{\alpha}$} (rp1.east);
-		\draw[->] (s3.east) to node[below]{$\mathbf{\alpha}$} (rp3.west);
-		\draw[->] (ri1.north) to (rp1.south);
-		\draw[->] (ri3.north) to (rp3.south);
-		\draw[->] (sw1.north) to (s1.south);
-		\draw[->] (sw3.north) to (s3.south);
-		\node (h2) at (3*2, 0.0) {$\dots$};
-		\foreach \step in {1,3} {
-			\node[draw,rectangle] (h\step) at (3*\step, 0.0) {GRU};
-		}
-		\draw[->] (rp1.north) to node[left]{$\widehat{\vx}_1^{t_i}$} (h1.south);
-		\draw[->] (rp3.north) to node[left]{$\widehat{\vx}_K^{t_i}$} (h3.south);
-				
-		\foreach \step in {1,...,2} {
-			\pgfmathtruncatemacro{\next}{add(\step,1)}
-			\draw[->] (h\step.east) -> (h\next.west);
-		}
-		\node[fit=(ri1) (ri3) (s1) (s3) (h1) (h3), draw, inner sep=0pt] (fit4) { };
-        \node[align=center, outer sep=0] (encoder) [right=of fit4] {Hedging \\Encoder};
-		\node[draw,circle,inner sep=0pt]  (l1) at (6, 2) {$\times$};
-		\node[draw,rectangle]  (l3) at (6, 1) {softmax};
-		\node  (l2) at (4.5, 2) {$\vy_{t_i}$};
-		\node  (l4) at (4.5, 1) {$LW$};
-		\draw[->] (l4.east) to (l3.west);
-		\draw[->] (l2.east) to (l1.west);
-		\draw[->] (l3.north) to node[left]{$\omega$} (l1.south);
-		\node (he2) at (6, 3) {$\widehat{\vy}_{t_i}$};
-		\node (he3) at (9, 3) {$\widehat{\mathbf{h}}_E^{t_i}$};
-
-		\node[draw,rectangle]  (hedge) at (7.5, 4) {NN};
-        \node[filter](output) at (7.5, 5) {};
-        \node[draw,rectangle] (loss) at (7.5, 7) {Loss};
-        \node (V0) at (7.5, 8) {$V_{t_0}$};
-        \node  (outputPre) at (6, 5) {...};
-        \node  (outputNext) at (9, 5) {...};
-        \node  (hedgePre) at (6, 4) {...};
-        \node (hedgeNext) at (9, 4) {...};
-        \node[draw,rectangle]  (hedge0) at (4.5, 4) {NN};
-        \node[filter](output0) at (4.5, 5) {};
-        \node[draw,rectangle]  (hedgeF) at (10.5, 4) {NN};
-        \node[filter](outputF) at (10.5, 5) {};
-\draw[->] (l1.north) -> (he2.south);
-\draw[->] (h3.north) -> (he3.south);
-\draw[->] (he2.north) -> (hedge.south);
-\draw[->] (he3.north) -> (hedge.south);
-\draw[->] (V0.south) -> (loss.north);
-\draw[->] (hedge0.east) -> (hedgePre.west);
-\draw[->] (hedgeNext.east) -> (hedgeF.west);
-
-\draw[->] (hedge.north) to node[left]{${\mathbf{c}}_{t_i}$} (output.south);
-\draw[->] (hedge.north) to node[left]{${\mathbf{c}}_{t_i}$} (output.south);
-
-\draw[->] (hedge0.north) to node[left]{${\mathbf{c}}_{t_0}$} (output0.south);
-\draw[->] (hedgeF.north) to node[left]{${\mathbf{c}}_{t_{N-1}}$} (outputF.south);
-
-\draw[->] (hedgePre.east) to node[above]{${\mathbf{c}}_{t_{i-1}}$} (hedge.west);
-\draw[->] (hedge.east) to node[above]{${\mathbf{c}}_{t_{i+1}}$}(hedgeNext.west);
-
-\node[fit=(hedge) (hedge0) (hedgeF) (output0) (output) (outputF), draw, inner sep=0pt] (fit5) { };
-\node[align=center, outer sep=0] (encoder) [right=of fit5] {Hedging\\ Decoder};
- \node[rectangle]  (delta0) at (4.5, 6) {$\delta_{t_0}$};
- \node[rectangle]  (deltaP) at (6, 6) {...};
- \node[rectangle]  (delta) at (7.5, 6) {$\delta_{t_i}$};
- \node[rectangle]  (deltaN) at (9, 6) {...};
- \node[rectangle]  (deltaF) at (10.5, 6) {$\delta_{t_{N-1}}$};
-\draw[->] (delta0.north) -> (loss.south);
-\draw[->] (deltaP.north) -> (loss.south);
-\draw[->] (delta.north) -> (loss.south);
-\draw[->] (deltaN.north) -> (loss.south);
-\draw[->] (deltaF.north) -> (loss.south);
-
-\draw[->] (output0.north) -> (delta0.south);
-\draw[->] (output.north) -> (delta.south);
-\draw[->] (outputF.north) -> (deltaF.south);		
-\end{tikzpicture}
-	}
-\caption{Proposed Model For Synthetic Cases}
-	\label{fig:RNNModel}
-\end{figure}
-
-For synthetic data, we can fix the dynamic of the underlying and generate training and testing paths based on the same dynamic. We then train and test the total hedging performance of the model. We will compare the performance of the model with the performance of using analytical delta and BS delta with implied volatility. Furthermore, we will test the model with and without the hedging encoder.
-
-In \cite{coleman2007total}, the authors proposed that they can achieve better or similar hedging performance using quadratic or linear risk measures. At each rebalancing time, there is a separate function computing the hedging position based on the current asset price $S_{t_i}$ and past history $S^H_{t_i}=[S_{t_0},\dots,S_{t_{i-1}}]$ :
-\[
-\delta_{t_i}=f_{t_i}(S_{t_i},S^H_{t_i})
-\]
-The current proposed model is different from the model in \cite{coleman2007total} in the following ways:
-\begin{enumerate}
-  \item Hedging position not only depends on the asset price. The feature we includes can contain many other features
-  \item A single function is used for all hedging periods.
-  That is to say:
-  \[
-  \delta_{t_i}=f(\mathbf{X}_{t_j},\vy_{t_j})
-  \]
-  \item Note that, time to expire is also one of the features, so potentially, $f(\mathbf{X}_{t_j},\vy_{t_j})$ can replace the roles of $f_{t_i}(S_{t_i},S^H_{t_i})$.
-\end{enumerate}
-
-From \cite{coleman2007total}, we can already know the importance of using the entire path of stock instead of the current stock in determining the hedging position. Even the analytical formula for quadratic formulation clearly demonstrate the dependence of the current hedging position on the past information.
-Therefore, we want to demonstrate the following things:
-
-\begin{figure}[htp!]
-	\centering
-	\resizebox{0.90\textwidth}{!}{
-		\begin{tikzpicture}[
-		prod/.style={circle, draw, inner sep=0pt},
-		ct/.style={circle, draw, inner sep=5pt, ultra thick, minimum width=10mm},
-		ft/.style={circle, draw, minimum width=8mm, inner sep=1pt},
-		filter/.style={circle, draw, minimum width=7mm, inner sep=1pt, path picture={\draw[thick, rounded corners] (path picture bounding box.center)--++(65:2mm)--++(0:1mm);
-				\draw[thick, rounded corners] (path picture bounding box.center)--++(245:2mm)--++(180:1mm);}},
-		mylabel/.style={font=\scriptsize\sffamily},
-		>=LaTeX
-		]
-		\node[draw,rectangle]  (ps1) at (4.5-8, -1) {softmax};
-		\node[draw,rectangle]  (ps3) at (7.5-8, -1) {softmax};
-		\node [draw,circle,inner sep=0pt] (prp1) at (3*1-8, -1) {$\times$};
-		\node  (prp2) at (3*2-8, -1.5) {$\dots$};
-		\node [draw,circle,inner sep=0pt] (prp3) at (3*3-8, -1) {$\times$};
-		
-		\foreach \i [count=\step from 1] in {$\vx_1^P$,$\dots$,$\vx_O^P$}
-		\node (pri\step) at (3*\step-8, -2) {\i};
-		\node  (psw1) at (4.5-8, -2) {$SW_P$};
-		\node  (psw3) at (7.5-8, -2) {$SW_P$};
-		\draw[->] (ps1.west) to node[below]{$\mathbf{\beta}$} (prp1.east);
-		\draw[->] (ps3.east) to node[below]{$\mathbf{\beta}$} (prp3.west);
-		\draw[->] (pri1.north) to (prp1.south);
-		\draw[->] (pri3.north) to (prp3.south);
-		\draw[->] (psw1.north) to (ps1.south);
-		\draw[->] (psw3.north) to (ps3.south);
-		\node (ph2) at (3*2-8, 0.0) {$\dots$};
-		\foreach \step in {1,3} {
-			\node[draw,rectangle] (ph\step) at (3*\step-8, 0.0) {GRU};
-		}
-		\draw[->] (prp1.north) to node[left]{$\widehat{\vx}_1^P$} (ph1.south);
-		\draw[->] (prp3.north) to node[left]{$\widehat{\vx}_O^P$} (ph3.south);
-				
-		\foreach \step in {1,...,2} {
-			\pgfmathtruncatemacro{\next}{add(\step,1)}
-			\draw[->] (ph\step.east) -> (ph\next.west);
-		}
-		\node[fit=(pri1) (pri3) (ps1) (ps3) (ph1) (ph3), draw, inner sep=0pt] (fit1) { };
-		\node[align=center, outer sep=0] (encoder) [left=of fit1] {Pricing \\ Encoder};
-		
-		
-		
-		\node[filter] (poe2) at (9-8, 4.5) {};
-		\node[filter] (poe3) at (6-8, 4.5) {};
-		\node [draw,circle,inner sep=0pt] (poe4) at (6-8, 5.5) {$\times$};
-		\node [draw,circle,inner sep=0pt] (poe5) at (9-8, 5.5) {$\times$};
-		\node [draw,circle,inner sep=0pt] (poe6) at (7.5-8, 6) {$+$};
-		\node (poe7) at (7.5-8, 7) {$V^M_{t_0}$};
-		\node  (pbs) at (4.5-8, 5.5) {$V^{mkt}_{t_0}$};
-		\draw[->] (poe3.north) to node[left]{$1-o$} (poe4.south);
-		\draw[->] (poe3.north) to node[above]{$o$} (poe5.west);
-		\draw[->] (poe2.north) to node[left]{$\widehat{V}^M_{t_0}$} (poe5.south);
-		\draw[->] (poe4.north) to node[left]{} (poe6.west);
-		\draw[->] (poe5.north) to node[left]{} (poe6.east);
-		\draw[->] (poe6.north) to node[left]{} (poe7.south);
-		\draw[->] (pbs.east) to node[left]{} (poe4.west);
-		
-		
-	    \draw[->] (poe7.east) to node[left]{} (loss.west);
-
-		
-		\node[draw,circle,inner sep=0pt]  (pl1) at (6-8, 2) {$\times$};
-		\node[draw,rectangle]  (pl3) at (6-8, 1) {softmax};
-		\node  (pl2) at (4.5-8, 2) {$\vy_P$};
-		\node  (pl4) at (4.5-8, 1) {$LW_P$};
-		\draw[->] (pl4.east) to (pl3.west);
-		\draw[->] (pl2.east) to (pl1.west);
-		\draw[->] (pl3.north) to node[left]{$\eta$} (pl1.south);
-		
-		
-		\node (phe2) at (6-8, 3) {$\widehat{\vy}_P$};
-		\node (phe3) at (9-8, 3) {$\widehat{\mathbf{h}}_E^P$};
-		\draw[->] (pl1.north) to (phe2.south);
-		\draw[->] (ph3.north) to  (phe3.south);
-		\draw[->] (phe3.north) to  (poe2.south);
-		\draw[->] (phe3.north) to  (poe3.south);
-		
-		\draw[->] (phe2.north) to (poe2.south);
-		\draw[->] (phe2.north) to (poe3.south);
-		
-		\node[fit=(poe2) (poe3) (poe5) (poe6)  (pbs) (phe2) (phe3), draw, inner sep=0pt] (fit3) { };
-		\node[align=center, outer sep=0] (encoder) [left=of fit3] {Pricing \\ Decoder};
-
-
-
-
-
-
-		\node[draw,rectangle]  (s1) at (4.5, -1) {softmax};
-		\node[draw,rectangle]  (s3) at (7.5, -1) {softmax};
-		\node [draw,circle,inner sep=0pt] (rp1) at (3*1, -1) {$\times$};
-		\node  (rp2) at (3*2, -1.5) {$\dots$};
-		\node [draw,circle,inner sep=0pt] (rp3) at (3*3, -1) {$\times$};
-		
-		\foreach \i [count=\step from 1] in {$\vx_1^{t_i}$,$\dots$,$\vx_K^{t_i}$}
-		\node (ri\step) at (3*\step, -2) {\i};
-		\node  (sw1) at (4.5, -2) {SW};
-		\node  (sw3) at (7.5, -2) {SW};
-		\draw[->] (s1.west) to node[below]{$\mathbf{\alpha}$} (rp1.east);
-		\draw[->] (s3.east) to node[below]{$\mathbf{\alpha}$} (rp3.west);
-		\draw[->] (ri1.north) to (rp1.south);
-		\draw[->] (ri3.north) to (rp3.south);
-		\draw[->] (sw1.north) to (s1.south);
-		\draw[->] (sw3.north) to (s3.south);
-		\node (h2) at (3*2, 0.0) {$\dots$};
-		\foreach \step in {1,3} {
-			\node[draw,rectangle] (h\step) at (3*\step, 0.0) {GRU};
-		}
-		\draw[->] (rp1.north) to node[left]{$\widehat{\vx}_1^{t_i}$} (h1.south);
-		\draw[->] (rp3.north) to node[left]{$\widehat{\vx}_K^{t_i}$} (h3.south);
-				
-		\foreach \step in {1,...,2} {
-			\pgfmathtruncatemacro{\next}{add(\step,1)}
-			\draw[->] (h\step.east) -> (h\next.west);
-		}
-		\node[fit=(ri1) (ri3) (s1) (s3) (h1) (h3), draw, inner sep=0pt] (fit4) { };
-        \node[align=center, outer sep=0] (encoder) [right=of fit4] {Hedging \\Encoder};
-		\node[draw,circle,inner sep=0pt]  (l1) at (6, 2) {$\times$};
-		\node[draw,rectangle]  (l3) at (6, 1) {softmax};
-		\node  (l2) at (4.5, 2) {$\vy_{t_i}$};
-		\node  (l4) at (4.5, 1) {$LW$};
-		\draw[->] (l4.east) to (l3.west);
-		\draw[->] (l2.east) to (l1.west);
-		\draw[->] (l3.north) to node[left]{$\omega$} (l1.south);
-		\node (he2) at (6, 3) {$\widehat{\vy}_{t_i}$};
-		\node (he3) at (9, 3) {$\widehat{\mathbf{h}}_E^{t_i}$};
-
-		\node[draw,rectangle]  (hedge) at (7.5, 4) {GRU};
-        \node[filter](output) at (7.5, 5) {};
-        \node[draw,rectangle] (loss) at (7.5, 7) {Loss};
-%        \node (V0) at (7.5, 8) {$V_{t_0}$};
-        \node  (outputPre) at (6, 5) {...};
-        \node  (outputNext) at (9, 5) {...};
-        \node  (hedgePre) at (6, 4) {...};
-        \node (hedgeNext) at (9, 4) {...};
-
-
-
-
-        \node[draw,rectangle]  (hedge0) at (4.5, 4) {GRU};
-        \node[filter](output0) at (4.5, 5) {};
-        \node[draw,rectangle]  (hedgeF) at (10.5, 4) {GRU};
-        \node[filter](outputF) at (10.5, 5) {};
-\draw[->] (l1.north) -> (he2.south);
-\draw[->] (h3.north) -> (he3.south);
-\draw[->] (he2.north) -> (hedge.south);
-\draw[->] (he3.north) -> (hedge.south);
-%\draw[->] (V0.south) -> (loss.north);
-\draw[->] (hedge0.east) -> (hedgePre.west);
-\draw[->] (hedgeNext.east) -> (hedgeF.west);
-
-\draw[->] (hedge.north) to node[left]{${\mathbf{c}}_{t_i}$} (output.south);
-\draw[->] (hedge.north) to node[left]{${\mathbf{c}}_{t_i}$} (output.south);
-
-\draw[->] (hedge0.north) to node[left]{${\mathbf{c}}_{t_0}$} (output0.south);
-\draw[->] (hedgeF.north) to node[left]{${\mathbf{c}}_{t_{N-1}}$} (outputF.south);
-
-\draw[->] (hedgePre.east) to node[above]{${\mathbf{c}}_{t_{i-1}}$} (hedge.west);
-\draw[->] (hedge.east) to node[above]{${\mathbf{c}}_{t_{i+1}}$}(hedgeNext.west);
-
-\node[fit=(hedge) (hedge0) (hedgeF) (output0) (output) (outputF), draw, inner sep=0pt] (fit5) { };
-\node[align=center, outer sep=0] (encoder) [right=of fit5] {Hedging\\ Decoder};
- \node[rectangle]  (delta0) at (4.5, 6) {$\delta_{t_0}$};
- \node[rectangle]  (deltaP) at (6, 6) {...};
- \node[rectangle]  (delta) at (7.5, 6) {$\delta_{t_i}$};
- \node[rectangle]  (deltaN) at (9, 6) {...};
- \node[rectangle]  (deltaF) at (10.5, 6) {$\delta_{t_{N-1}}$};
-\draw[->] (delta0.north) -> (loss.south);
-\draw[->] (deltaP.north) -> (loss.south);
-\draw[->] (delta.north) -> (loss.south);
-\draw[->] (deltaN.north) -> (loss.south);
-\draw[->] (deltaF.north) -> (loss.south);
-\draw[->] (output0.north) -> (delta0.south);
-\draw[->] (output.north) -> (delta.south);
-\draw[->] (outputF.north) -> (deltaF.south);
-	\end{tikzpicture}
-	}
-\caption{Refined Model For Real Cases}
-	\label{fig:RNNModel}
-\end{figure}
-
-\section{Testing with Synthetic Data}
-
-We have conducted primitive experiments with the Black-Scholes Model, Heston Model, GARCH model.
-
-The input is $\vy_{t_i}=\{S_{t_i}/K,t,\delta_{BS}^{t_i}\}$. The previous output from the previous rebalancing time is also added as one of the input. In terms of performance, the performance of the model is also similar to the spline model proposed in \cite{coleman2007total} and the analytical solution of the total risk minimization. The model we proposed is the simple model in Figure 3.
-The model we proposed is the simple model in Figure 3.
-The evaluation criteria are same as in \cite{coleman2007total}:
-\begin{itemize}
-\item Total risk: Average of the absolute value of the final portfolio value:
-\[ \begin{split}
-|P_{t_N^-}|&=\left|e^{-r T}\left( e^{r \Delta t}B_{t_{N-1}}- V_{t_N}+ S_{t_N} \delta_{t_{N-1}} \right)\right| \\
-&=\left|e^{-r T}\left(\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} S_{t_{j+1}}-e^{r (N-j) \Delta t}S_{t_{j}}\right] \delta_{t_j} \right\}+e^{r N \Delta t} V_{t_0}-V_{t_N}\right)\right|
-\end{split}
-\]
-\item Total cost: Average of the total cost in rebalancing the portfolio:
-\[
-e^{-r T}\left(V_{t_N}-\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} S_{t_{j+1}}-e^{r (N-j) \Delta t}S_{t_{j}}\right] \delta_{t_j} \right\}\right)
-\]
-\end{itemize}
-
-\subsection{Black-Scholes Model}
-We adopt the same experimental setting as \cite{coleman2007total}. Specifically, we assume $S_0=100$,$K=100$, $T=1$, $\mu=0.15$,$r=0.04$, and $\sigma=0.2$.
-We have 600 time steps with $\Delta t=1/600$. We can hedge every 25,50,100,300 time steps.
-\begin{table}[htp!]
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-  \hline
-  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
-  method       &25 &50&100&300 \\
-  GRU          & 0.8448& 1.1845& 1.6518 & 2.7989 \\
-  GRU (Refined)& 0.8376& 1.1426& 1.6896 & 2.8038 \\
-  Spline       & 0.8563& 1.1789& 1.6518 & 2.7843 \\
-  Analytical   & 0.8295& 1.1636& 1.6479 & 2.7914 \\
-  Delta        & 0.9481&1.3385 & 1.9128 & 3.4582 \\
-  \hline
-\end{tabular}
-\caption{Total Risk}
-\end{table}
-
-
-\begin{table}[htp!]
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-  \hline
-  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
-  method &25 &50&100&300 \\
-  GRU          & 5.8943& 5.8812& 5.7378 & 5.2507 \\
-  GRU (Refined)& 5.9682& 5.8370& 5.8549 & 5.1759 \\
-  Spline    & 5.9118& 5.8445& 5.7119 & 5.2530 \\
-  Analytical& 5.9413& 5.8773& 5.7399 & 5.2565 \\
-  Delta     & 6.0483& 6.0897& 6.1734 & 6.5382 \\
-  \hline
-\end{tabular}
-\caption{Total Cost}
-\end{table}
-\addcontentsline{toc}{chapter}{APPENDICES}
-%======================================================================
+%\chapter{Total Hedging Comparison on Synthetic Scenarios}
+%\label{sec:SynCompara}
+%\section{Black-Scholes Model}
+%We adopt the same experimental setting as \cite{coleman2007total}. Specifically, we assume $S_0=100$,$K=100$, $T=1$, $\mu=0.15$,$r=0.04$, and $\sigma=0.2$.
+%We have 600 time steps with $\Delta t=1/600$. We can hedge every 25,50,100,300 time steps.
+%\begin{table}[htp!]
+%\centering
+%\begin{tabular}{|c|c|c|c|c|}
+%  \hline
+%  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+%  method       &25 &50&100&300 \\
+%  GRU          & 0.8448& 1.1845& 1.6518 & 2.7989 \\
+%  GRU (Refined)& 0.8376& 1.1426& 1.6896 & 2.8038 \\
+%  Spline       & 0.8563& 1.1789& 1.6518 & 2.7843 \\
+%  Analytical   & 0.8295& 1.1636& 1.6479 & 2.7914 \\
+%  Delta        & 0.9481&1.3385 & 1.9128 & 3.4582 \\
+%  \hline
+%\end{tabular}
+%\caption{Total Risk}
+%\end{table}
+%
+%
+%\begin{table}[htp!]
+%\centering
+%\begin{tabular}{|c|c|c|c|c|}
+%  \hline
+%  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+%  method &25 &50&100&300 \\
+%  GRU          & 5.8943& 5.8812& 5.7378 & 5.2507 \\
+%  GRU (Refined)& 5.9682& 5.8370& 5.8549 & 5.1759 \\
+%  Spline    & 5.9118& 5.8445& 5.7119 & 5.2530 \\
+%  Analytical& 5.9413& 5.8773& 5.7399 & 5.2565 \\
+%  Delta     & 6.0483& 6.0897& 6.1734 & 6.5382 \\
+%  \hline
+%\end{tabular}
+%\caption{Total Cost}
+%\end{table}
 
 
 \end{document}

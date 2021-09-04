@@ -1,4 +1,4 @@
-\begin{thebibliography}{165}
+\begin{thebibliography}{171}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -97,6 +97,13 @@ Julia Bennell and Charles Sutcliffe.
 \newblock \emph{Intelligent Systems in Accounting, Finance and Management},
   12\penalty0 (4):\penalty0 243--260, 2004.
 
+\bibitem[Bergeron et~al.(2021)Bergeron, Fung, Poulos, Hull, and
+  Veneris]{bergeron2021variational}
+Maxime Bergeron, Nicholas Fung, Zissis Poulos, John~C Hull, and Andreas
+  Veneris.
+\newblock Variational autoencoders: A hands-off approach to volatility.
+\newblock \emph{Available at SSRN 3827447}, 2021.
+
 \bibitem[Black(1976)]{black1976pricing}
 Fischer Black.
 \newblock The pricing of commodity contracts.
@@ -172,6 +179,13 @@ Peter Carr and Dilip~B Madan.
 \newblock A note on sufficient conditions for no arbitrage.
 \newblock \emph{Finance Research Letters}, 2\penalty0 (3):\penalty0 125--130,
   2005.
+
+\bibitem[Chen et~al.(2011)Chen, Grzelak, and Oosterlee]{chen2011calibration}
+Bin Chen, Lech~A Grzelak, and Cornelis~W Oosterlee.
+\newblock Calibration and monte carlo pricing of the sabr-hull-white model for
+  long-maturity equity derivatives.
+\newblock \emph{The Journal of Computational Finance (79--113) Volume}, 15,
+  2011.
 
 \bibitem[Chen(2007)]{chen2007large}
 Xiaohong Chen.
@@ -462,6 +476,13 @@ Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
 \newblock \emph{Deep learning}.
 \newblock MIT press, 2016{\natexlab{b}}.
 
+\bibitem[Goodfellow et~al.(2014)Goodfellow, Pouget-Abadie, Mirza, Xu,
+  Warde-Farley, Ozair, Courville, and Bengio]{goodfellow2014generative}
+Ian~J Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley,
+  Sherjil Ozair, Aaron Courville, and Yoshua Bengio.
+\newblock Generative adversarial networks.
+\newblock \emph{arXiv preprint arXiv:1406.2661}, 2014.
+
 \bibitem[Goutte et~al.(2013)Goutte, Oudjane, and Russo]{Goutte13}
 S.~Goutte, N.~Oudjane, and F.~Russo.
 \newblock Variance optimal hedging for discrete time processes with independent
@@ -621,6 +642,11 @@ Diederik~P Kingma and Jimmy Ba.
 \newblock Adam: A method for stochastic optimization.
 \newblock \emph{arXiv preprint arXiv:1412.6980}, 2014.
 
+\bibitem[Kingma and Welling(2013)]{kingma2013auto}
+Diederik~P Kingma and Max Welling.
+\newblock Auto-encoding variational bayes.
+\newblock \emph{arXiv preprint arXiv:1312.6114}, 2013.
+
 \bibitem[Kou(2002)]{kou2002jump}
 Steven~G Kou.
 \newblock A jump-diffusion model for option pricing.
@@ -778,6 +804,13 @@ Tapio Pahikkala, Jorma Boberg, and Tapio Salakoski.
   artificial intelligence (SCAI 2006)}, pages 83--90. Otamedia Oy, Espoo,
   Finland, 2006.
 
+\bibitem[Pardo and L{\'o}pez(2020)]{pardo2020mitigating}
+Fernando De~Meer Pardo and Rafael~Cobo L{\'o}pez.
+\newblock Mitigating overfitting on financial datasets with generative
+  adversarial networks.
+\newblock \emph{The Journal of Financial Data Science}, 2\penalty0
+  (1):\penalty0 76--85, 2020.
+
 \bibitem[Qian(1999)]{qian1999momentum}
 Ning Qian.
 \newblock On the momentum term in gradient descent learning algorithms.
@@ -834,10 +867,17 @@ M.~Sch\"{a}l.
 \newblock \emph{Mathematics of Operation Research}, 19\penalty0 (1):\penalty0
   121--131, 1994.
 
-\bibitem[Schweizer(1995)]{Schw95}
+\bibitem[Schweizer(1995{\natexlab{a}})]{Schw95}
 M.~Schweizer.
 \newblock Variance-optimal hedging in discrete time.
-\newblock \emph{Mathematics of Operation Research}, 20:\penalty0 1--32, 1995.
+\newblock \emph{Mathematics of Operation Research}, 20:\penalty0 1--32,
+  1995{\natexlab{a}}.
+
+\bibitem[Schweizer(1995{\natexlab{b}})]{schweizer1995variance}
+Martin Schweizer.
+\newblock Variance-optimal hedging in discrete time.
+\newblock \emph{Mathematics of Operations Research}, 20\penalty0 (1):\penalty0
+  1--32, 1995{\natexlab{b}}.
 
 \bibitem[Shreve(2004)]{shreve2004stochastic}
 Steven~E Shreve.
