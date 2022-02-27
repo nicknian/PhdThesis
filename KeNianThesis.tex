@@ -362,38 +362,31 @@ description={Random vector: a location in n-dimensional Cartesian space, where e
 % do not contain \documentclass or \begin{document} and \end{document} commands.
 %======================================================================
 \chapter{Introduction}
-Options hedging is a critical problem in financial risk management. The state-of-art approaches in financial derivative pricing and hedging rely heavily on parametric assumptions describing the dynamics of underlying asset .  The common practice is to calibrate an option pricing function based on the specific parametric model and compute various sensitivities to hedge the option risk. For example, the sensitivity of the option value function to the underlying price is used in delta hedging. Ideally, the value of an option written on the underlying asset can be perfectly replicated by a hedging portfolio consisting of the underlying asset and the  risk-free asset, when the market is complete \cite{shreve2004stochastic}.  In practice, such perfect scenarios does not exist and we have to rebalance the hedging portfolio discretely instead of continuously due to the existence of the transaction cost.  The practice of adjusting the hedging portfolio discretely is often referred to as discrete hedging.
+Options hedging is a critical problem in financial risk management. The traditional approach in financial derivative pricing and hedging relies heavily on parametric assumptions describing the dynamics of underlying asset.  The common practice is to calibrate an option pricing function based on the specific parametric model and compute various sensitivities to hedge option risk. For example, the sensitivity of the option value function to the underlying price is used in delta hedging. Under the assumption of a complete market \cite{shreve2004stochastic} where one can continuously rebalance the hedging portfolio, the value of an option written on the underlying asset can be perfectly replicated by a hedging portfolio consisting of the underlying asset and the  risk-free asset, .  In practice, we have to rebalance the hedging portfolio discretely instead of continuously due to the existence of the transaction cost.  The practice of adjusting the hedging portfolio discretely is often referred to as discrete hedging.
 
 There are many parametric models proposed to describe the dynamics of underlying asset.
 The original and most celebrated parametric  Black-Scholes (BS) model uses a constant volatility \citep{black1973pricing,merton1973theory}, which is  shown
- to produce inaccurate option prices for deeply out-of-the-money options and deeply in-the-money options \citep{genccay2003degree}.
+ to produce inaccurate option prices particularly for deeply out-of-the-money options and deeply in-the-money options \citep{genccay2003degree}.
 In addition,
-the BS model is unable to capture the non-zero correlation between the volatility and the underlying asset price \citep{french1987expected,bollerslev2006leverage}.
- The practitioner's BS delta hedging approach sets the constant volatility in the BS model to the implied volatility calibrated to the market price at the time of re-balancing.  Many alternative parametric models have been proposed to improve the BS model,  including  the Stochastic Volatility (SV) model \cite{hagan2002managing,heston1993closed,hull1987pricing,bakshi1997empirical},  the Local Volatility Function (LVF) model \citep{coleman2001,dumas1998implied,rubinstein1994implied,dupire1994pricing}, and the jump model \citep{He06,kou2002jump}. Unfortunately, all models have been shown to have their limitations in accurately modeling option market prices.
+the BS model is unable to capture the non-zero correlation between the volatility and the underlying asset price, e.g., \citep{french1987expected,bollerslev2006leverage}.
+ The practitioner's BS delta hedging approach sets the constant volatility in the BS model to the implied volatility calibrated to the market price at the time of re-balancing.  Many alternative parametric models have been proposed to improve the BS model,  including  the Stochastic Volatility (SV) model, e.g., \cite{hagan2002managing,heston1993closed,hull1987pricing,bakshi1997empirical},  the Local Volatility Function (LVF) model \citep{coleman2001,dumas1998implied,rubinstein1994implied,dupire1994pricing}, and the jump model, e.g., \citep{He06,kou2002jump}. Unfortunately, all models have been shown to have their limitations in accurately modeling option market prices.
 
-Errors in  the option value model have significant implications in hedging. Consider, for example, when the hedging position is computed from the sensitivity of the  option value function calibrated at the hedging time, the computed hedging position only depends on the assumed underlying price model and the current market option prices. Unless the assumed model for the underlying price is exact and all assumptions that results in the option pricing function are all valid, the option function calibrated at the hedging time cannot predict the future option market price.
+Errors in  the option value model have significant implications in hedging. Consider, for example, when the hedging position is computed from the sensitivity of the  option value function calibrated at the hedging time, the computed hedging position only depends on the assumed dynamics of underlying price  and the current market option prices. Unless the assumed dynamics for the underlying price is exact and all assumptions that results in the option pricing function are all valid, the option function calibrated at the hedging time cannot predict the future option market price.
 
-Specifically, assume that $V(S,t,T,K,r,q;\theta^*)$ is  the option value function and $\theta^*$ is the vector of model parameters of the assumed option pricing model and, at the hedging time $t$,
-option calibration ensures that
+Specifically, let $V(S,t,T,K,r,q;\theta^*)$ be  the option value function and $\theta^*$ be the vector of model parameters of the assumed option pricing model. At the hedging time $t$, assume that we  calibrate the model price to match the market option price so that
 \begin{equation} \label{eq:imp}
-V(S,t,T,K,r,q; \theta^*)=V^{mkt}_{t,T,K}
+V(S_t,t,T,K,r_t,q_t; \theta^*)=V^{mkt}_{t,T,K}
 \end{equation}
-where $\Vmkt$ denotes the actual market option price,  $t$ is the current trading time,  $K$  is  strike price,  $T$ is the expiry time, and $S$ is the underlying price input used in the option pricing function. We use $V^{mkt}_{t,T,K}$ to indicate it is the market price at time $t$ for  the expiry time $T$ and strike $K$.
-The option value function $V(S,t,T,K,r,q; \theta^*)$, calibrated at the hedging time $t$,  does not ensure that
- $
-\frac{d V}{d S}
-$
+where $\Vmkt_{t,T,K}$ denotes the actual market option price at time $t$  with  strike price  $K$ and the expiry date  $T$, $S_t$ denotes the underlying price at $t$, $r_t$ denotes the risk-free rate at $t$ and $q_t$ denotes the dividend yield at $t$.
+The option value function $V(S,t,T,K,r,q; \theta^*)$, calibrated to market price at time $t$,  does not ensure that the option delta from the pricing model $\frac{\partial V}{\partial S}$
 equals to
 $
 \frac{d \Vmkt}{d S},
 $
-which is indeed unknown.
-Furthermore, $
-\frac{d V}{d S}
-$ is difficult to be computed exactly due to the dependence of the calibrated model parameter on the underlying price \citep{knian2017,coleman2001,hulloptimal}. The missing sensitivity $
+which is indeed unknown, and requires the modelling  of the dependence of the calibrated model parameter on the underlying price \citep{knian2017,coleman2001,hulloptimal}. The missing sensitivity $
 \frac{\partial \theta^*}{\partial S},
 $ is difficult to account for and is often ignored, though
-for some models, corrections have been proposed to account for the dependence \citep{hulloptimal,hagan2017bartlett,bartlett2006hedging}.
+for some models, corrections have been proposed to capture the dependence \citep{hulloptimal,hagan2017bartlett,bartlett2006hedging}.
 %Given that it is unlikely that any parametric model can describe the underlying dynamics perfectly for option pricing, hedging positions computed by taking the derivative of the calibrated option value function inevitably suffer from the model parameter dependence issue.
 
 
@@ -403,20 +396,20 @@ While no assumption is explicitly made for the  dynamics of underlying asset, th
 Since there is no assurance that the  sensitivity of the learned option value function  with regards to underlying asset matches that the sensitivity of the market option price,
 the parameters of the model learned directly from data can similarly exhibit dependence on the underlying price. When the hedging position is computed from the partial derivative of the data-driven option value function, e.g.,  \citep{hutchinson}, this dependence cannot be accounted for and again is ignored. Hence, option hedging risk remains insufficiently minimized.
 
-Furthermore, using option delta $\frac{\partial V}{\partial S}$ as the hedging position becomes inadequate when discrete hedging is performed in practice, particularly when rebalancing becomes infrequent.  Instead, optimal discrete hedging strategy can be determined by determining hedging strategy directly using an appropriate objective in the discrete hedging context, e.g., minimizing the variance of the hedging error, needs to be chosen \citep{hulloptimal,Angelini10,Goutte13}.
+Furthermore, using option delta from pricing model $\frac{\partial V}{\partial S}$ as the hedging position becomes inadequate when discrete hedging is performed in practice, particularly when rebalancing becomes infrequent.  Instead, optimal discrete hedging strategy can be determined directly using an appropriate objective in the discrete hedging context, e.g., minimizing the variance of the hedging error, \citep{hulloptimal,Angelini10,Goutte13}.
 
-In hedging, the ultimate goal is to discover a hedging strategy  which minimizes the hedging error which is  measured by the market option and underlying prices. With the increasing availability of market option prices, a timely question arises: is it possible to learn optimal hedging positions directly from market option price and underlying price data?
+In hedging, the ultimate goal is to discover a hedging strategy  which minimizes the hedging error  measured by the market option and underlying prices. With the increasing availability of market option prices, a timely question arises: is it possible to learn optimal hedging positions directly from market option price and underlying price data?
 Up until now, research in learning the hedging position  directly from market data is scarce.
 Recently, a data-driven approach  \citep{hulloptimal} is proposed to learn a parametric model for the minimum variance delta hedging based on the analysis of the BS option greeks and underlying market prices. However, the proposed parametric model focuses on the instantaneous hedging error analysis in a parametric model framework.
 
 
-In this thesis, we study the discrete option hedging problem by  explicitly focusing on the issues arising from  model specification errors and model parameter dependence.
-We illustrate that the inability to minimize variance of the hedging error, when determining hedging position from option value function from a parametric model, is also shared by an option model estimated from a nonparametric method. Although a nonparametric modeling approach to option value can potentially lead to smaller mis-specification error, we illustrate that non-parametric model parameters can similarly depend on the underlying. Consequently the sensitivity of the optimally estimated option value function will not lead to minimization of option hedging risk.
+In this thesis, we study the discrete option hedging problem by  explicitly focusing on the issues arising from  model specification errors and calibrated model parameter dependence on underlying.
+We illustrate that the inability to minimize variance of the hedging error, when determining hedging position from option value function from a parametric model, is also shared by an option model estimated from a nonparametric method. Although a nonparametric modeling approach to option value can potentially lead to smaller mis-specification error, we illustrate that non-parametric model parameters can similarly depend on the underlying. Consequently the sensitivity of the estimated option value function will not lead to minimization of option hedging risk.
 Furthermore,  the estimated pricing function inevitably has errors, due to both model mis-specification, discretization, and numerical roundoff errors.
 The error in the value function can potentially be substantially magnified in computing partial derivatives as hedging positions.
 
-We explore several direct market data-driven approaches to bypass  challenges mentioned above to achieve effective hedging performance.
-We first propose a  data-driven kernel learning approach \cite{knian2017} to learn a local risk minimization hedging model directly from the market data observed at the hedging time $t$.  We learn a  hedging function from the market data by minimizing  the  empirical local hedging  risk with a suitable regularization. The local risk corresponds directly to the variance of the hedging error in the discrete rebalancing period. A novel encoder-decoder  RNN model $\model$ \cite{knian2019}, to extract both sequential and local features at hedging time $t$ from market prices, is later proposed to learn option hedging positions directly from the market. We include a feature weighting procedure to select the most relevant local features at hedging time $t$ and sequential features for the sequential data-driven model $\model$. Lastly, in order to deal with multi-steps discrete total hedging scenarios where we hedge until the expiry of the option \cite{knian2020}, we enhance our sequential local hedging model $\model$ to be $\modelT$. We compared our data-driven approaches with the parametric approaches and demonstrate the effectiveness of the data-driven hedging models in terms of both local hedging risk and total hedging risk.
+We explore several direct market data-driven approaches to bypass  the challenges mentioned above to achieve effective hedging performance.
+We first propose a  data-driven kernel learning approach \cite{knian2017} to learn a local risk minimization hedging model directly from the market data observed at the hedging time $t$.  We learn a  hedging function from the market data by minimizing  the  empirical local hedging  risk with a suitable regularization. The local risk corresponds directly to the variance of the hedging error in the discrete rebalancing period. A novel encoder-decoder  RNN model $\model$ \cite{knian2019}, to extract both sequential and local features at hedging time $t$ from market prices, is also proposed to learn option hedging positions directly from the market. We include a feature weighting procedure to select the most relevant local features at hedging time $t$ and sequential features for the sequential data-driven model $\model$. Lastly, in order to deal with multi-steps discrete total hedging scenarios where we hedge until the expiry of the option \cite{knian2020}, we extend our sequential local hedging model $\model$ to be $\modelT$. We compared our data-driven approaches with the parametric approaches and demonstrate the effectiveness of the data-driven hedging models in terms of both local hedging risk and total hedging risk.
 
 
 
@@ -427,9 +420,9 @@ We first propose a  data-driven kernel learning approach \cite{knian2017} to lea
 \section{Contribution}
 The contributions with respect to the data-driven kernel hedging model \cite{knian2017} are summarized below:
 \begin{itemize}
-\item We analyze and discuss implications from model mis-specification in the option value function for discrete option hedging. We illustrate challenges in accounting for the dependence of the calibrated model parameters on the underlying, which arises due to  model mis-specification.
+\item We analyze and discuss the implications from model mis-specification in the option value function for discrete option hedging. We illustrate challenges in accounting for the dependence of the calibrated model parameters on the underlying, which arises due to  model mis-specification.
 
-\item We analyze a regularized kernel network for option value estimation and illustrate that  the partial derivative of the estimated value function with respect to the underlying similarly does not minimize variance of the hedging risk in general, even infinitesimally.
+\item We analyze a regularized kernel network for option value estimation and illustrate that  the partial derivative of the estimated value function with respect to the underlying similarly does not minimize the variance of the local hedging risk in general, even not infinitesimally.
 
 \item We propose a data-driven approach to learn a hedging position function directly by minimizing the variance of the local hedging  risk.
     Specifically we implement a regularized spline kernel method $\DKLs$ to nonparametrically estimate the hedging function from the market data.
@@ -442,58 +435,233 @@ The contributions with respect to the data-driven kernel hedging model \cite{kni
 \item We also present weekly and monthly hedging results using the  S\&P 500 index option market data and demonstrate significant enhanced performance over the BS implied volatility hedging.
 \end{itemize}
 
-The contributions with respect to the data-driven sequential hedging model \cite{knian2019} are summarized below:
+The contributions with respect to the data-driven  hedging model with sequential features \cite{knian2019} are summarized below:
 \begin{itemize}
-	\item  We propose a novel encoder-decoder  RNN model, to extract both sequential and current features from market prices, to learn option hedging positions directly from the market. We include a feature weighting procedure to select the most relevant local features and sequential time series features for the data-driven model.
+	\item  We propose a novel encoder-decoder  RNN model, to extract both sequential and current features from market prices, and  to learn option hedging positions directly from the market. We include a feature weighting procedure to select the most relevant local features and sequential time series features for the data-driven model.
 	\item To ensure robust learning, we use the Huber loss function as the learning objective,  adaptively setting the error resolution parameter to the Black–Scholes hedging error, allowing it to varying from data instance to data instance. Furthermore,    the proposed $\model$ can be updated more frequently than the data-driven model in \cite{knian2017} to account for the market shifts.
 	\item Using the S\&P 500 index option market data from January 2, 2004 to  August 31st, 2015, we demonstrate that the weekly and monthly hedging performance of the proposed $\model$ significantly surpasses that
  of the data-driven minimum variance (MV) method in \citep{hulloptimal}, the regularized kernel data-driven model \citep{knian2017}, and the SABR-Bartlett method \cite{bartlett2006hedging}.
 	\item Using the S\&P 500 index option market data from January 2, 2004 to  August 31st, 2015, we demonstrate that
 	the daily hedging performance of the proposed $\model$ surpasses that of the minimum variance quadratic hedging method  proposed in \cite{hulloptimal}, the corrective methods
-	based on LVF and SABR implemented in \cite{hulloptimal},the SABR-Bartlett method \cite{bartlett2006hedging}, as well as the data-driven model in \cite{knian2017}.
+	based on LVF and SABR implemented in \cite{hulloptimal}, the SABR-Bartlett method \cite{bartlett2006hedging}, as well as the data-driven model in \cite{knian2017}.
 	\item To motivate the roles of each major component of the proposed $\model$, we demonstrate performance sensitivity through computational experiments. In addition, we illustrate and analyze the relative importance of selected features.
 \end{itemize}
 
 
 The contributions with respect to the data-driven total hedging model \cite{knian2020} are summarized below:
 \begin{itemize}
-	\item  We enhance the sequential data-driven local hedging model $\model$ \cite{knian2019} to cope with total hedging scenarios where we rebalance multiple times until the expiries of the options.
+	\item  We extend the data-driven local hedging model $\model$ \cite{knian2019} to cope with total risk hedging  where we rebalance multiple times until the expiries of the options.
 	\item  We augment the market data using SABR model and local volatility model to cope with the challenges of lacking market option data.
-	\item  Using the S\&P 500 index call option market data from January 1, 2000 to  August 31st, 2015, we demonstrate the effectiveness on  weekly and monthly hedging performance of the proposed total hedging model $\modelT$. We compare $\modelT$ with the sequential data-driven local hedging model $\modelL$, which adopts the same model structure but is trained with a different  objective functions, the BS delta hedging model and the SABR-Bartlett method \cite{bartlett2006hedging}. Ihe hedging performance is evaluated on the expiries of the option. Additionally, we compare different hedging strategies on the effectiveness in reducing loss tail risk at either sell-side or buy-side of the option trading.
+	\item  Using the S\&P 500 index call option market data from January 1, 2000 to  August 31st, 2015, we demonstrate the effectiveness on  weekly and monthly hedging performance of the proposed total hedging model $\modelT$. We compare $\modelT$ with the sequential data-driven local hedging model $\modelL$, which adopts the same model structure but is trained with a different  objective functions, the BS delta hedging model and the SABR-Bartlett method \cite{bartlett2006hedging}. The hedging performance is evaluated on the expiries of  options. Additionally, we compare different hedging strategies on the effectiveness in reducing  tail risk at either sell-side or buy-side of the option trading.
 
 \end{itemize}
 %----------------------------------------------------------------------
 \section{Outline}
 The remainder of the thesis is organized as follows.
-Chapter \ref{sec:Background}  reviews basic concept of derivative pricing models, discrete hedging problems, local and total hedging risk and various existing parametric approaches to hedge options.
+Chapter \ref{sec:Background}  reviews existing derivative pricing models, discrete hedging problems, local and total hedging risk and various existing parametric approaches to hedge options.
 Chapter \ref{sec:kernel}  discusses the kernel learning framework and introduces the data-driven kernel local hedging model $\DKLs$. 
 Chapter \ref{sec:RNNLocal} discusses the Recurrent Neural Network(RNN) framework and introduces the data-driven sequential local hedging model $\model$.
-Chapter \ref{sec:LocalComparison} discuss the  empirical results  from  the data-driven sequential local hedging model $\model$ and data-driven kernel local hedging model $\DKLs$.
+Chapter \ref{sec:LocalComparison} discusses the  empirical results  from  the data-driven sequential local hedging model $\model$ and data-driven kernel local hedging model $\DKLs$.
 
-Chapter \ref{sec:RNNTotal} introduces the data-driven sequential total hedging model $\modelT$ and presents the empirical comparisons between local hedging model $\modelL$ and total hedging model $\modelT$.
+Chapter \ref{sec:RNNTotal} introduces the data-driven  total hedging model $\modelT$ and presents the empirical comparisons between local hedging model $\modelL$ and total hedging model $\modelT$.
 Chapter \ref{sec:RNNTotal}  also discusses the challenges of using market data to build data-driven total hedging models and the data augmentation procedure to cope with the challenges.
 We conclude in Chapter \ref{sec:Conclusion}  with summary remarks and potential extensions.
 %======================================================================
-\chapter{Background}
+\chapter{Option Hedging: From Past to Present}
 \label{sec:Background} 
-In this chapter, we review the basic concept of option pricing models and discuss the problem of pricing model parameters dependence on underlying asset.  In addition, we specify the discrete hedging problem and define the total and local hedging risk. Most of the discussion in this chapter are drawn from \cite{shreve2004stochastic,heston1993closed,bartlett2006hedging,hagan2017bartlett,hagan2002managing}.
+In this chapter, we review the existing option pricing models and discuss the problem of pricing model parameters dependence on underlying asset.  In addition, we specify the discrete hedging problem and define the total and local hedging risk. Most of the discussion in this chapter are drawn from \cite{shreve2004stochastic,heston1993closed,bartlett2006hedging,hagan2017bartlett,hagan2002managing}. 
+
+
+
+
+\section{Discrete Hedging Problem}
+\label{sec:DiscreteHedgingCriteria}
+ A European style call or put option gives its buyer the right to buy the underlying asset on the option expiry with a strike price. Let the strike price be $K$ and  the $S_T$ be the underlying price at expiry $T$. The payoff of call options is:
+\[
+\max(S_T-K,0).
+\]
+The payoff of put options is:
+\[
+\max(K-S_T,0).
+\]
+When a market is complete, e.g., in the Black–Scholes framework, the option payoff can be perfectly replicated by continuously trading the underlying asset and a risk-free bank account. However, markets are incomplete in practice and
+the risk associated with options cannot be eliminated completely. On the other hand, reducing risk as much as possible remains the main goal of hedging.
+
+In an incomplete market, risk minimization is not completely defined until one specifies how to measure risk \cite{follmer1999quantile,follmer2000efficient,schweizerguided,el1995dynamic}. For European options, a pricing measure
+can be determined through quadratic risk minimization, see, e.g., \cite{schweizer1995variance,schweizerguided,coleman2007total}. In this framework risk is measured by the expected quadratic difference between the payoff of an option and the value of a self-financing hedging portfolio at expiry date. This is the key idea behind total risk minimization. However, this strategy may not always exist and may be difficult to compute, particularly under more complex asset price dynamics\cite{coleman2003discrete,coleman2007discrete}.
+
+An alternative to total risk minimization is local risk minimization. In contrast to total risk minimization, in local risk minimization the expected quadratic incremental cost is minimized.
+As can be seen for European options \cite{coleman2003discrete} and American options \cite{coleman2007discrete} , optimal local risk minimization hedging strategies typically lead to a small total risk. Moreover, it has been shown that the choice of measure for incremental cost is important when the market is highly incomplete, e.g., \cite{coleman2003discrete,coleman2007discrete}. 
+
+Literature in risk minimization pricing and hedging has focused on assuming a parametric form of the underlying asset dynamics. For example, in \cite{coleman2003discrete,coleman2007discrete}, the underlying asset price is assumed to follow  a geometric Brownian motion:
+\[
+dS_t=\mu S_t dt+\sigma S_t dW_t.
+\]
+and the derivation of the hedging position is based on a binomial model. The key distinction between our work and  the previous work on local and total risk minimization is that we have no assumption on the underlying asset price dynamics and therefore our models are not bound with a specific parametric form.
+
+In this thesis, we propose to learn discrete data-driven hedging position for standard european options, calls or puts, based on observations of the option market prices on the same underlying price at a set of trading times. The goal of the data-driven discrete option hedging in this thesis is to learn a hedging position $\delta$ in the underlying dynamically to minimize certain appropriate measurements of the hedging risk on the historical market data and then apply the model on the unobserved testing cases. We are interested in two different types of hedging risk:
+\begin{itemize}
+   \item  Discrete local hedging risk
+   \item  Discrete total hedging risk
+\end{itemize}
+Note that in this thesis, the  empirical performance of an option hedging method are measured by real market option and underlying prices.
+The definition of the discrete local hedging risk and discrete total hedging risk are explained in the following subsections. 
+% We use  $\Vmkt_{t,T,K}$ and $\Smkt_{t}$ to denote the time $t$ market price of the option with expiry $T$ and strike $K$ and the underlying price respectively.
+
+\subsection{Discrete Local Hedging Risk}
+\label{sec:DiscreteLocalRisk}
+ Let $\DT$ denote the fixed  time interval.
+Each observation of a market option price  $V^{mkt}_{t,T,K}$ is uniquely associated with a triplet $\{t,T,K\}$, where $t$ is the trading time of the option price,  $K$ is the strike, and expiry $T$.
+  Denote:
+\begin{equation}
+\begin{split}
+\Delta V^{mkt}_{t,T,K}& =\Vmkt_{t+\Delta t,T,K}-\Vmkt_{t,T,K}\\
+\Delta \Smkt_{t} &=\Smkt_{t+\DT}-\Smkt_{t}.
+\end{split}
+\label{eq:DVDS}
+\end{equation}
+The discrete local hedging risk in the rebalancing interval $\DT$ is:
+\begin{equation}
+	\text{Risk}^{local}_{t,T,K}=\Delta \Smkt_{t}\delta_{t,T,K} -\Delta V^{mkt}_{t,T,K}
+\label{eq:local}
+\end{equation}
+where $\delta_{t,T,K}$ is a hedging position for the corresponding option.
+
+The discrete local hedging risk can be understood as the following.
+We set up the following portfolio at time $t$:
+\begin{itemize}
+\item A short position on option $\Vmkt_{t,T,K}$
+\item Long $\delta_{t,T,K}$ shares of $\Smkt_{t}$
+\item An amount in risk-free bank account $B_t$
+\end{itemize}
+The bank account  at time $t$ is set to be: 
+\[
+    B_t=\Vmkt_{t,T,K}-\Smkt_{t} \delta_{t,T,K}.
+\]
+We use $P^{H}_{t,T,K}$ to denote the hedging portfolio value at $t$ for hedging options with expiry $T$ and strike $K$.
+The hedging portfolio value is set to be zero by choosing $B_t$:
+\[
+    P^{H}_{t,T,K}=-\Vmkt_{t,T,K}+\Smkt_{t} \delta_{t,T,K} +B_t=0.
+\]
+Let  $d\Vmkt_{t,T,K}$, $d\Smkt_{t}$, $d B_t$, and $d P^{H}_{t,T,K}$ denote the instantaneous change in the market option price, the underlying price,  bank account and the hedging portfolio value respectively, the instantaneous hedging risk at time $t$ is therefore:
+\begin{equation}
+    d P^{H}_{t,T,K}=\ d\Smkt_{t} \delta_{t,T,K}-d \Vmkt_{t,T,K}+ d B_t.
+\end{equation}
+Note that $d B_t$ is deterministic when we assume $r$ is a constant:
+\[
+    d B_t=r B_{t} dt
+\]
+Therefore, if we assume the risk-free interest rate is zero (or omit $d B_t$ since it is deterministic), we have:
+\begin{equation}\label{eq:HE}
+    d P^{H}_{t,T,K}=\ d\Smkt_{t} \delta_{t,T,K}-d \Vmkt_{t,T,K}.
+\end{equation}
+Under the assumption of a complete market where continuous hedging is feasible, the randomness in this instantaneous hedging risk can theoretically be eliminated by continuously trading the underlying asset and set $\delta_{t,T,K}=\frac{d \Vmkt_{t,T,K}}{d\Smkt_{t}}$. However in practice, market is incomplete, therefore hedging can only be done at discrete times.
+Besides additional risk, e.g., jump and volatility, cannot be eliminated by trading the underlying asset only \cite{heston1993closed,gatheral2011volatility}. 
+% Lastly, in practice, $\frac{d \Vmkt_{t,T,K}}{d\Smkt_{t}}$ is hard to be accurately computed due to the pricing model parameters dependence on underlying asset. The pricing model parameters dependence will be explained in more details in section \ref{sec：dependence}. 
+ Therefore, the hedging risk cannot be eliminated even instantaneously. 
+
+In practice, one actually care about the portfolio changes after a discrete time interval $\DT$.
+After the fixed interval $\DT$  and assuming the interest rate is zero,
+we have:
+\begin{equation}
+	\label{eq:localPL}
+    \Delta P^{H}_{t,T,K}=P^{H}_{t+\DT,T,K}-P^{H}_{t,T,K}=\Delta \Smkt_{t}\delta_{t,T,K} -\Delta V^{mkt}_{t,K,T}.
+\end{equation}
+The local hedging risk is therefore defined to be the one-step hedging error when we assume the risk-free interest risk is zero. The local discrete hedging risk \eqref{eq:local} measures  the changes in the hedging portfolio after a fixed time interval $\DT$ when the hedging position is set to be $\delta_{t,T,K}$.  
+ As $\DT \rightarrow 0$, we also have local hedging risk converge to instantaneous hedging risk. In other words,
+\[
+\Delta \Smkt_{t}\delta_{t,T,K} -\Delta V^{mkt}_{t,K,T} \rightarrow d\Smkt_{t}\delta_{t,T,K}-d \Vmkt_{t,T,K},\; \text{as }  \DT \rightarrow 0.
+\]
+
+\subsection{Discrete Total Hedging Risk}
+\label{sec:DiscreteTotalRisk}
+In reality, one usually want to hedge until the expiries of the options, which requires re-balancing the hedging portfolio multiple times. Again,
+consider a hedging portfolio $P^{H}_{t,T,K}$ which is composed of:
+\begin{itemize}
+	\item A short position on option $\Vmkt_{t,T,K}$
+	\item Long $\delta_{t,T,K}$ (hedging position) shares of $\Smkt_t$
+	\item An amount in a risk-free bank account $B_t$
+\end{itemize}
+For the notational simplicity since the $T$ and $K$ are fixed in following discussion, we drop them in the subscript:
+\[
+    \Vmkt_{t}=\Vmkt_{t,T,K}\;,\delta_{t}=\delta_{t,T,K},\; P^{H}_t=P^{H}_{t,T,K}.
+\]
+Assume we rebalance $N_{rb}$ times. The hedging portfolio is rebalanced at discrete times $\{t_0,t_1,\dots,t_{N_{rb}-1}\}$. 
+Initially at $t_0$, we have
+\[
+P^H_{t_0}=  -V_{t_0}^{mkt}+\delta_{t_0} S_{t_0}+ B_{t_0}=0
+\]
+And
+\[
+B_{t_0}=V_{t_0}^{mkt}-\delta_{t_0} S_{t_0}
+\]
+At each rebalancing time $t_j$, we update our hedging position by changing the share we hold from $\delta_{t_{j-1}}$ to $\delta_{t_j}$ at $t_j$, where any required cash is borrowed, and any excess cash is loaned. Assume $\Delta t=t_{j}-t_{j-1}$ is fixed and risk-free interest rate is zero.
+The bank account is updated by:
+\[
+B_{t_{j}}= B_{t_{j-1}}-S_{t_j}(\delta_{t_j}-\delta_{t_{j-1}})
+\]
+Let $t_j^+$ and $t_j^-$   be the time immediately after  and immediately before $t_j$. Assume that the performance is measured at the $t_{N_{rb}}^-$, where $t_{N_{rb}}=T$ is the expiry:
+\begin{equation}
+\begin{split}
+P_{t_{N_{rb}}^-}&=B_{t_{N_{rb}-1}}- V_{t_{N_{rb}}}^{mkt}+ S_{t_{N_{rb}}} \delta_{t_{N_{rb}-1}}  \\
+&=\sum_{j=0}^{N_{rb}-1}\left\{ \left(S_{t_{j+1}}-S_{t_{j}}\right) \delta_{t_j} \right\}+ V_{t_0}^{mkt}-V_{t_{N_{rb}}}^{mkt}\\
+&=\sum_{j=0}^{N_{rb}-1}\left\{ \left( S_{t_{j+1}}-S_{t_{j}}\right) \delta_{t_j} -(V_{t_{j+1}}^{mkt}-V_{t_j}^{mkt}) \right\}
+\end{split}
+\label{eq:TotalObj}
+\end{equation}
+Equation \eqref{eq:TotalObj} is defined as the {\em discrete total hedging risk}.
+If we always set $\delta_t=\frac{d V_t^{mkt}}{d S_t}$ and let $\Delta t \rightarrow 0$ (we continuously rebalance the portfolio), then $P_{t_{N_{rb}}^-}=0$. In reality, even if we can set the hedging position to be $\delta_t=\frac{d V_t^{mkt}}{d S_t}$,  we can only rebalance discretely due to the existence of transaction cost. Thus, $P_{t_{N_{rb}}^-}$ can take positive (profit) and negative value (loss).
+The  {\em discrete total hedging risk} measures the hedging portfolio profit and loss at the expiry $T$. 
+
+Equation \eqref{eq:TotalObj} can be written as:
+\[
+\begin{split}
+P^H_{t_{N_{rb}}^-}&=\sum_{j=0}^{N_{rb}-1}\left\{ \left( S_{t_{j+1}}-S_{t_{j}}\right) \delta_{t_j} -(V_{t_{j+1}}^{mkt}-V_{t_j}^{mkt}) \right\}\\
+&=\sum_{j=0}^{N_{rb}-1}\left\{ \DS_{t_j} \delta_{t_j} -\Delta V^{mkt}_{t_j} \right\}
+\end{split}
+\]
+with $\Delta V^{mkt}_{t_j}$and  $\DS_{t_j}$ given in \eqref{eq:DVDS}.
+
+
+Plugging in the $T$ and $K$ into the subscript, we denote the discrete total hedging risk as:
+\begin{equation}
+    \text{Risk}^{total}_{T,K}=\sum_{j=0}^{N_{rb}-1}\left\{ \Delta \Smkt_{t_j} \delta_{t_j,T,K} -\Delta \Vmkt_{t_j,T,K} \right\}=\sum_{j=0}^{N_{rb}-1}\text{Risk}^{local}_{t_j,T,K}
+    \label{eq:TotalObjV2}
+    \end{equation}
+which corresponding to the hedging portfolio value at the expiry $T$. 
+By comparing equation \eqref{eq:local} and \eqref{eq:TotalObjV2}, we can see that the {\em discrete total hedging risk} is the summation of the {\em discrete local hedging risk} evaluated at discrete rebalancing time $\{t_0,t_1,\dots,t_{N_{rb}-1}\}$. 
+\subsection{Interest Rate and Dividend}
+In the previous discussion, we assume zero interest rate  when we define the {\em discrete total hedging risk} and the {\em discrete local hedging risk}. The zero interest rate  was assumed when measuring the hedging performance under discrete local hedging risk framework. The results presented \cite{knian2017} and \cite{knian2019} were evaluated from 2007 to 2015 for local hedging risk framework. During  most of the time from 2007 and 2015, the interest rate is virtually zero. So the zero interest assumption is valid during most of the time.  For the experimental results for total hedging risk in \cite{knian2020}, such assumption is relaxed and we include the effect of interest rate since we expand the period of experiments to be from 2000 to 2015. We assume the interest rate is fixed as a constant during the life time of the hedging portfolio and denote it as $r$, the discrete total hedging risk is therefore:
+%\begin{equation}
+%    P_H(T,T,K)=\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} \Smkt_{t_{j+1}}-e^{r (N-j) \Delta t}\Smkt_{t_{j}}\right] \delta_{t_j,T,K} \right\}+e^{r N \Delta t} \Vmkt_{t_0,T,K}-\Vmkt_{T,T,K}
+%    \label{eq:TotalObjV3}
+%\end{equation}
+\begin{equation}
+	\text{Risk}^{total}_{T,K}=\sum_{j=0}^{N_{rb}-1}\left\{ \left[\frac{\Smkt_{t_{j+1}}}{D(t_{j+1},T)}-\frac{\Smkt_{t_{j}}}{D(t_{j},T)}\right] \delta^M_{t_j,T,K} \right\}+\frac{\Vmkt_{t_0,T,K}}{D(t_{0},T)}-\Vmkt_{T,T,K}
+ \label{eq:TotalObjV3}
+\end{equation}
+where
+\[D(t,T)=e^{-r(T-t)}\]
+
+% Now, consider at an arbitrary rebalancing time $t \in \{t_0,t_1, \dots, t_{N_{rb}-1}\}$ for an option with strike $K$, and expiry $T$. Assume we have computed the hedging position at previous rebalancing time $t-\Delta t$: $\delta_{t-\Delta t, T,K}$. 
+
+In this thesis, we focus on S\&P 500 index option. For S\&P 500 index, the closing index price of each day is already adjusted to capture corporate actions that affect market capitalization such as as additional share insurance, dividends and restructuring events such as mergers or spin-offs\cite{lassance2018comparison}. When we calibrating the  option pricing models such as the Black-Scholes model,   an estimate of the dividends to be paid up until the  expiration of the option are needed.  We assume that the the index pays dividends continuously, according to a continuously-compounded annual dividend yield $q$. Similarly, traditional option pricing models requires a continuously-compounded interest rate as input. This interest rate is calculated from a collection of continuously compounded zero-coupon interest rates at various maturities, collectively referred to as the zero curve. 
+
+In this thesis, we use the option market data from OptionMetric \cite{optionmetrics2008ivy} database. The OptionMetric \cite{optionmetrics2008ivy} database provides us market option quotes for each trading day from 1996-01 to 2015-08-31.  We also use the zero curves on each trading day provided by the OptionMetric \cite{optionmetrics2008ivy} database to extract the risk-free interest rate $r$. The zero curve used by the OptionMetric database is derived from ICE IBA USD LIBOR rates and settlement prices of CME Eurodollar futures. For a given option, the appropriate interest rate input $r$ for option pricing corresponds to the zero-coupon rate that has a maturity equal to the time to maturity of the option $T-t$, and is obtained by linearly interpolating between the two closest zero-coupon rates on the zero curve. In addition, OptionMetric \cite{optionmetrics2008ivy} database provides annual  dividend yield $q$ for the S\&P 500 index. The $q$ is recorded daily for the S\&P 500 index and supplied as the input for calibrating the option pricing models.  Details of how OptionMetric compute the zero curves and the annual dividend yield $q$  using market data can be found in \cite{optionmetrics2008ivy}.
+
+
+
+
+
 %======================================================================
 \section{Option Pricing Model}
 \label{sec:pricing}
 \subsection{Black-Scholes Model}
 \label{sec:bs}
-A European style call or put option gives its buyer the right to buy the underlying asset on the option expiry with a strike price. Let the strike price be $K$ and  the $S_T$ be the underlying price at expiry $T$. The payoff of call options is :
-\[
-\max(S_T-K,0)
-\]
-The payoff of put options is:
-\[
-\max(K-S_T,0)
-\]
 
-Black and Scholes \cite{black1973pricing} drive the famous closed-form pricing formula for European options. They show that one can construct a riskless portfolio consisting of one option and shares of the underlying asset. The riskless portfolio needs to be continuously adjusted so that the number of shares always equal to the partial derivative of the option pricing function with regards to the underlying asset. No-arbitrage condition implies that the the return of the riskless portfolio must be equal to the risk-free interest rate. This leads to the renowned Black-Scholes (BS) partial differential equation and the closed-form pricing formula.
 
-More specifically, under BS model, it is assumed that the underlying asset price follows a geometric Brownian motion:
+Black and Scholes \cite{black1973pricing} drive the famous closed-form pricing formula for European options. 
+Under Black-Black–Scholes (BS) model, it is assumed that the underlying asset price follows a geometric Brownian motion:
 \[
 dS_t=\mu S_t dt+\sigma S_t dW_t
 \]
@@ -501,6 +669,9 @@ where $W_t$ is a standard Brownian motion, $\mu$ is the constant drift rate of  
 \[
 S_t=S_0 e^{(\mu-\frac{\sigma^2}{2})t+\sigma W_t}
 \]
+They show that at any time $t$ one can construct a riskless portfolio consisting of one option and shares of the underlying asset. The riskless portfolio needs to be continuously adjusted so that the number of shares always equal to the partial derivative of the option pricing function with regards to the underlying asset. No-arbitrage condition implies that the the return of the riskless portfolio must be equal to the risk-free interest rate. This leads to the renowned Black-Scholes (BS) partial differential equation and the closed-form pricing formula.
+
+
 Let $C_{BS}$ be the option value function for call option which depends on $t$ and $S$. For notational simplicity, we have:
 \[
    \frac{\partial C_{BS}}{\partial t}=\frac{\partial C_{BS}}{\partial t}(t,S_t) \;\;,
@@ -792,156 +963,6 @@ V_{SABR}=V_B(F,t,T,K,r;\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho))
 
 The $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$ under SABR model depends on the forward $F$, the strike $K$, the time to expiry $T-t$, the initial SABR volatility $\alpha$, the power of forward $\beta$, the volatility of volatility $\nu$, and the correlation $\rho$.  Interested readers can refer to \cite{hagan2002managing} for the detailed derivation of the analytical approximation $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$.  We use $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ to denote the option pricing formula under SABR model regardless of the call and put nature in the latter discussion.
 
-
-
-\section{Discrete Hedging Problem}
-\label{sec:DiscreteHedgingCriteria}
-In this thesis, we are dealing with real market option and underlying prices.  We use  $\Vmkt(t,T,K)$ and $\Smkt(t)$ to denote the time $t$ market price of the option with expiry $T$ and strike $K$ and the underlying price respectively. We propose to learn discrete data-driven hedging position for standard options, calls or puts, based on observations of the option market prices on the same underlying price at a set of trading times.
-The goal of the data-driven discrete option hedging in this thesis is to compute a hedging position $\delta$ in the underlying dynamically to minimize certain appropriate measurements of the hedging risk. We are interested in two different types of hedging risk:
-\begin{itemize}
-   \item  Discrete local hedging risk
-   \item  Discrete total hedging risk
-\end{itemize}
-The definition of the discrete local hedging risk and discrete total hedging risk are explained in the following subsections.
-
-\subsection{Discrete Local Hedging Risk}
-\label{sec:DiscreteLocalRisk}
- Let $\DT$ denote the fixed  time interval.
-Each observation of a market option price  $V^{mkt}_{t,K,T}$ is uniquely associated with a triplet $\{t,T,K\}$, where $t$ is the trading time of the option price,  $K$ is the strike, and expiry $T$.
-  Denote:
-\begin{equation}
-\begin{split}
-\Delta V^{mkt}_{t,K,T}& =V_{mkt}(t+\Delta t,K,T)-V_{mkt}(t,K,T)\\
-\Delta \Smkt_{t} &=\Smkt(t+\DT)-\Smkt(t)
-\end{split}
-\label{eq:DVDS}
-\end{equation}
-The discrete local hedging risk in the rebalancing interval $\DT$ is:
-\begin{equation}
-\Delta \Smkt_{t}\delta_{t,T,K} -\Delta V^{mkt}_{t,K,T}
-\label{eq:local}
-\end{equation}
-where $\delta_{t,T,K}$ is a hedging position.
-
-The discrete local hedging risk can be understood as the following.
-We set up the following portfolio at time $t$:
-\begin{itemize}
-\item A short position on option $\Vmkt(t,T,K)$
-\item Long $\delta_{t,T,K}$ shares of $\Smkt(t)$
-\item An amount in risk-free bank account $B(t)$
-\end{itemize}
-The bank account  at time $t$ is set to be: 
-\[
-    B(t)=\Vmkt(t,T,K)-\Smkt(t) \delta_{t,T,K}
-\]
-We use $P_{H}(t,T,K)$ to denote the hedging portfolio value at $t$ for hedging options with expiry $T$ and strike $K$.
-The hedging portfolio value is:
-\[
-    P_{H}(t,T,K)=-\Vmkt(t,T,K)+\Smkt(t) \delta_{t,T,K} +B(t)=0
-\]
-Let  $d\Vmkt_{t,T,K}$, $d\Smkt_{t}$, $d B_t$, and $d P^{H}_{t,T,K}$ denote the instantaneous change in the market option price, the underlying price,  bank account and the hedging portfolio value respectively, the instantaneous hedging risk at time $t$ is therefore:
-\begin{equation}
-    d P^{H}_{t,T,K}=\ d\Smkt_{t} \delta_{t,T,K}-d \Vmkt_{t,T,K}+ d B_t
-\end{equation}
-Note that $d B_t$ is deterministic:
-\[
-    d B_t=r B(t) dt
-\]
-Therefore, if we assume the risk-free interest rate is zero (or omit $d B_t$ since it is deterministic), we have:
-\begin{equation}\label{eq:HE}
-    d P^{H}_{t}=\ d\Smkt_{t} \delta_{t,T,K}-d \Vmkt_{t,T,K}
-\end{equation}
-When the market is complete as what we assume in section \ref{sec:bs} for the derivation of Black–Scholes formula, the randomness in this instantaneous hedging risk can theoretically be eliminated by continuously trading the underlying asset and set $\delta=\frac{d \Vmkt_{t,T,K}}{d\Smkt_{t}}$. However in practice, option hedging needs to be implemented in an incomplete market, since hedging can only be done at discrete times.
-Besides additional risk, e.g., jump and volatility, cannot be eliminated by trading the underlying asset only \cite{heston1993closed,gatheral2011volatility}. Lastly, in practice, $\frac{d \Vmkt_{t,T,K}}{d\Smkt_{t}}$ is hard to be accurately computed due to the pricing model parameters dependence on underlying asset. The pricing model parameters dependence will be explained in more details in section \ref{sec：dependence}. 
- Therefore, the hedging risk cannot be eliminated even instantaneously. 
-
-In practice, one actually care about the portfolio changes after a discrete time interval $\DT$.
-After the fixed interval $\DT$  and assuming the interest rate is zero,
-we have:
-\begin{equation}
-	\label{eq:localPL}
-    \Delta P_{H}(t,T,K)=P_{H}(t+\DT,T,K)-P_{H}(t,T,K)=\Delta \Smkt_{t}\delta_{t,T,K} -\Delta V^{mkt}_{t,K,T}
-\end{equation}
-The local hedging risk is therefore defined to be the one-step hedging error when we assume the risk-free interest risk is zero. The local discrete hedging risk \eqref{eq:local} measures  the changes in the hedging portfolio after a fixed time interval $\DT$ when the hedging position is set to be $\delta_{t,T,K}$.  
- As $\DT \rightarrow 0$, we also have local hedging risk converge to instantaneous hedging risk: 
-\[
-\Delta \Smkt_{t}\delta_{t,T,K} -\Delta V^{mkt}_{t,K,T}  \rightarrow d\Smkt_{t}\delta_{t,T,K}-d \Vmkt_{t,T,K}
-\]
-
-\subsection{Discrete Total Hedging Risk}
-\label{sec:DiscreteTotalRisk}
-In reality, one usually want to hedge until the expiries of the options, which requires re-balancing the hedging portfolio multiple times. Again,
-consider a hedging portfolio $P_{H}(t,T,K)$ which is composed of:
-\begin{itemize}
-	\item A short position on option $\Vmkt(t,T,K)$
-	\item Long $\delta_{t,T,K}$ (hedging position) shares of $\Smkt(t)$
-	\item An amount in a risk-free bank account $B(t)$
-\end{itemize}
-For the notational simplicity since the $T$ and $K$ are fixed in following discussion, we denote:
-\[
-    \Vmkt_{t}=\Vmkt (t,T,K)\;,\Smkt_{t}=\Smkt(t)\;,\delta_{t}=\delta_{t,T,K},B_t=B(t)\;, P^{H}_t=P_H(t,T,K)
-\]
-Assume we rebalance $N_{rb}$ times. The hedging portfolio is rebalanced at discrete times $\{t_0,t_1,\dots,t_{N_{rb}-1}\}$. 
-Initially at $t_0$, we have
-\[
-P^H_{t_0}=  -V_{t_0}^{mkt}+\delta_{t_0} S_{t_0}+ B_{t_0}=0
-\]
-And
-\[
-B_{t_0}=V_{t_0}^{mkt}-\delta_{t_0} S_{t_0}
-\]
-At each rebalancing time $t_j$, we update our hedging position by changing the share we hold from $\delta_{t_{j-1}}$ to $\delta_{t_j}$ at $t_j$, where any required cash is borrowed, and any excess cash is loaned. Assume $\Delta t=t_{j}-t_{j-1}$ is fixed and risk-free interest rate is zero.
-The bank account is updated by:
-\[
-B_{t_{j}}= B_{t_{j-1}}-S_{t_j}(\delta_{t_j}-\delta_{t_{j-1}})
-\]
-Let $t_j^+$ and $t_j^-$   be the time immediately after  and immediately before $t_j$. Assume that the performance is measured at the $t_{N_{rb}}^-$, where $t_{N_{rb}}=T$ is the expiry:
-\begin{equation}
-\begin{split}
-P_{t_{N_{rb}}^-}&=B_{t_{N_{rb}-1}}- V_{t_{N_{rb}}}^{mkt}+ S_{t_{N_{rb}}} \delta_{t_{N_{rb}-1}}  \\
-&=\sum_{j=0}^{N_{rb}-1}\left\{ \left(S_{t_{j+1}}-S_{t_{j}}\right) \delta_{t_j} \right\}+ V_{t_0}^{mkt}-V_{t_{N_{rb}}}^{mkt}\\
-&=\sum_{j=0}^{N_{rb}-1}\left\{ \left( S_{t_{j+1}}-S_{t_{j}}\right) \delta_{t_j} -(V_{t_{j+1}}^{mkt}-V_{t_j}^{mkt}) \right\}
-\end{split}
-\label{eq:TotalObj}
-\end{equation}
-Equation \eqref{eq:TotalObj} is defined as the {\em discrete total hedging risk}.
-If we always set $\delta_t=\frac{d V_t^{mkt}}{d S_t}$ and let $\Delta t \rightarrow 0$ (we continuously rebalance the portfolio), then $P_{t_{N_{rb}}^-}=0$. In reality, even if we can set the hedging position to be the actual partial derivative of market option price with regards to underlying price $\delta_t=\frac{d V_t^{mkt}}{d S_t}$,  we can only rebalance discretely due to the transaction cost. Thus, $P_{t_{N_{rb}}^-}$ can take positive (profit) and negative value (loss).
-The  {\em discrete total hedging risk} measures the hedging portfolio profit and loss at the expiry $T$. 
-
-Equation \eqref{eq:TotalObj} can be written as:
-\[
-\begin{split}
-P^H_{t_{N_{rb}}^-}&=\sum_{j=0}^{N_{rb}-1}\left\{ \left( S_{t_{j+1}}-S_{t_{j}}\right) \delta_{t_j} -(V_{t_{j+1}}^{mkt}-V_{t_j}^{mkt}) \right\}\\
-&=\sum_{j=0}^{N_{rb}-1}\left\{ \DS_{t_j} \delta_{t_j} -\Delta V^{mkt}_{t_j} \right\}
-\end{split}
-\]
-with $\Delta V^{mkt}_{t_j}$and  $\DS_{t_j}$ given in \eqref{eq:DVDS}.
-Plug in the notation for $T$ and $K$, the discrete total hedging risk is:
-\begin{equation}
-    P_H(T,T,K)=\sum_{j=0}^{N_{rb}-1}\left\{ \Delta \Smkt_{t_j} \delta_{t_j,T,K} -\Delta \Vmkt_{t_j,T,K} \right\}
-    \label{eq:TotalObjV2}
-    \end{equation}
-By comparing equation \eqref{eq:local} and \eqref{eq:TotalObjV2}, we can see that the {\em discrete total hedging risk} is the summation of the {\em discrete local hedging risk} evaluated at discrete rebalancing time $\{t_0,t_1,\dots,t_{N_{rb}-1}\}$. 
-\subsection{Interest Rate and Dividend}
-In the previous discussion, we assume zero interest rate  when we define the {\em discrete total hedging risk} and the {\em discrete local hedging risk}. In the years of publication of the results presented in \cite{knian2017} and \cite{knian2019}, the zero interest rate  was assumed when measuring the hedging performance under discrete local hedging risk framework. The results presented \cite{knian2017} and \cite{knian2019} were evaluated from 2007 to 2015. During  most of the time from 2007 and 2015, the interest rate is virtually zero. So the zero interest assumption is valid during most of the time.  In \cite{knian2020}, such assumption is relaxed and we include the effect of interest rate when we evaluate the total hedging performance. We assume the interest rate is fixed as a constant during the life time of the hedging portfolio and denote it as $r$, the discrete total hedging risk is therefore:
-%\begin{equation}
-%    P_H(T,T,K)=\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} \Smkt_{t_{j+1}}-e^{r (N-j) \Delta t}\Smkt_{t_{j}}\right] \delta_{t_j,T,K} \right\}+e^{r N \Delta t} \Vmkt_{t_0,T,K}-\Vmkt_{T,T,K}
-%    \label{eq:TotalObjV3}
-%\end{equation}
-
-
-
-\begin{equation}
-P_H(T,T,K)=\sum_{j=0}^{N_{rb}-1}\left\{ \left[\frac{\Smkt_{t_{j+1}}}{D(t_{j+1},T)}-\frac{\Smkt_{t_{j}}}{D(t_{j},T)}\right] \delta^M_{t_j,T,K} \right\}+\frac{\Vmkt_{t_0,T,K}}{D(t_{0},T)}-\Vmkt_{T,T,K}
- \label{eq:TotalObjV3}
-\end{equation}
-where
-\[D(t,T)=e^{-r(T-t)}\]
-Now, consider at a arbitrary rebalancing time $t \in \{t_0,t_1, \dots, t_{N_{rb}-1}\}$, strike $K$, and expiry $T$. Assume we have computed the hedging position at previous rebalancing time $t-\Delta$: $\delta_{t-\Delta t, T,K}$. 
-In this thesis, we are dealing with S\&P 500 index option. For S\&P 500 index, the closing index price of each day is already adjusted to capture corporate actions that affect market capitalization such as as additional share insurance, dividends and restructuring events such as mergers or spin-offs\cite{lassance2018comparison}. When we calibrating the  option pricing models such as Black-Scholes model,   an estimate of the dividends to be paid up until the option’s expiration are needed. For dividend-paying indices, we assume that the security pays dividends continuously, according to a continuously-compounded annual dividend yield $q$. 
-
-For the calibration of different pricing models in this thesis, we use the option market data from OptionMetric \cite{optionmetrics2008ivy} database. The OptionMetric \cite{optionmetrics2008ivy} database provides us market option quotes for each trading day from 1996-01 to 2015-08-31. We use the zero curves on each trading day provided by the OptionMetric \cite{optionmetrics2008ivy} database to extract the risk-free interest rate $r$. The zero curve used by the OptionMetric database is derived from ICE
-IBA LIBOR rates and settlement prices of CME Eurodollar futures. For a given option, the appropriate interest rate input $r$ corresponds to the zero-coupon rate that has a maturity equal to the option’s expiration $T-t$, and is obtained by linearly interpolating between the two closest zero-coupon rates on the zero curve. In addition, OptionMetric \cite{optionmetrics2008ivy} database provides annual  dividend yield $q$ for S\&P 500 index. The $q$ is recorded daily for the S\&P 500 index and supplied as the input for calibrating the option pricing models.  Details of how OptionMetric compute the zero curves and the annual dividend yield $q$  using market data can be found in \cite{optionmetrics2008ivy}.
 
 
 \section{Option Hedging Using the Sensitivity from Pricing Model}
@@ -1664,13 +1685,13 @@ In the second feature set,  the Black–Scholes delta $\delta^{BS}_{t,T,K}$ usin
 Let the number of data instances to be evaluated be $m$.
 We have the profit and loss \eqref{eq:localPL} of the local hedging portfolio in section \ref{sec:DiscreteLocalRisk} over the fixed time interval $\DT$ for each data instance, which corresponds to a unique triplet $\{t,T,K\}$:
 \[
-	\Delta P_{H}(t,T,K)=\Delta \Smkt_{t} \delta_{t,T,K} -\Delta V^{mkt}_{t,K,T}
+	\Delta P^{H}_{t,T,K}=\Delta \Smkt_{t} \delta_{t,T,K} -\Delta V^{mkt}_{t,K,T}
 \]
 where $\delta_{t,T,K}$ is the hedging position from different approaches, e.g., Black–Scholes delta $\delta^{BS}_{t,T,K}$, Heston delta $\delta^{Heston}_{t,T,K}$, direct data-driven hedging position $\delta^{DKL}_{t,T,K}$, and  indirect data-driven hedging position$\delta^{IKL}_{t,T,K}$.
 We evaluate the performance in four different ways:
 \begin{enumerate}
 	\item Gain \eqref{eq:Gain} over Black-Scholes $\delta^{BS}_{t,T,K}$ as in \cite{hulloptimal}.
-	\item The mean absolute value of $\Delta P_{H}(t,T,K)$
+	\item The mean absolute value of $\Delta P^{H}_{t,T,K}$
 	\[
 		\MeanAbs=\frac{1}{m}\sum_{i=1}^m |\Delta P_{H}(t_i,T_i,K_i)|
 	\]
@@ -3196,7 +3217,7 @@ Figure \ref{fig:RNNModelTotal} depicts the proposed total discrete GRU  hedging 
 which is derived from the local hedging model $\model$ we proposed in chapter \ref{sec:RNNLocal}.
 This model uses the sequential features, which encode information in between two consecutive re-balancing time steps, and the hedging position from the previous re-balancing time as the input. The output hedging position is used as the input for the next re-balancing time.
 
-Following the discrete total risk definition in section \ref{sec:DiscreteTotalRisk}, consider a hedging portfolio $P_{H}(t,T,K)$ which is composed of:
+Following the discrete total risk definition in section \ref{sec:DiscreteTotalRisk}, consider a hedging portfolio $P^{H}_{t,T,K}$ which is composed of:
 \begin{itemize}
 	\item A short position on option $\Vmkt(t,T,K)$
 	\item Long $\delta^{M}_{t,T,K}$ (or short if $\delta^{M}_{t,T,K}<0$ ) shares of $\Smkt(t)$
@@ -3204,7 +3225,7 @@ Following the discrete total risk definition in section \ref{sec:DiscreteTotalRi
 \end{itemize}
 For the notational simplicity, we denote:
 \[
-\Vmkt_{t,T,K}=\Vmkt (t,T,K)\;,\Smkt_{t}=\Smkt(t)\;,B_t=B(t)\;, P^{H}_{t,T,K}=P_{H}(t,T,K)
+\Vmkt_{t,T,K}=\Vmkt (t,T,K)\;,\Smkt_{t}=\Smkt(t)\;,B_t=B(t)\;, P^{H}_{t,T,K}=P^{H}_{t,T,K}
 \]
 Also, if $\Vmkt_{t,T,K}$ is not directly observable from market, it is set to be the augmented option prices either from SABR model or LVF model as discussed in section \ref{sec:DataAugmentation}. 
 Initially at $t_0$, we have

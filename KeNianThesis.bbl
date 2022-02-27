@@ -1,4 +1,4 @@
-\begin{thebibliography}{171}
+\begin{thebibliography}{177}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -252,17 +252,32 @@ Thomas~F Coleman, Yohan Kim, Yuying Li, and Arun Verma.
 \newblock Dynamic hedging with a deterministic local volatility function model.
 \newblock \emph{The Journal of Risk}, 5\penalty0 (6):\penalty0 63--89, 2001.
 
-\bibitem[Coleman et~al.(2003)Coleman, Li, and Patron]{CLP02}
+\bibitem[Coleman et~al.(2003{\natexlab{a}})Coleman, Li, and Patron]{CLP02}
 Thomas~F. Coleman, Yuying Li, and M.~Patron.
 \newblock Discrete hedging under piecewise linear risk minimization.
-\newblock \emph{The Journal of Risk}, 5:\penalty0 39--65, 2003.
+\newblock \emph{The Journal of Risk}, 5:\penalty0 39--65, 2003{\natexlab{a}}.
 
-\bibitem[Coleman et~al.(2007{\natexlab{b}})Coleman, Li, and
+\bibitem[Coleman et~al.(2003{\natexlab{b}})Coleman, Li, and
+  Patron]{coleman2003discrete}
+Thomas~F Coleman, Yuying Li, and Maria-Cristina Patron.
+\newblock Discrete hedging under piecewise linear risk-minimization.
+\newblock \emph{Option Pricing, Interest Rates and Risk Management},
+  5:\penalty0 39--65, 2003{\natexlab{b}}.
+
+\bibitem[Coleman et~al.(2007{\natexlab{b}})Coleman, Levchenkov, and
+  Li]{coleman2007discrete}
+Thomas~F Coleman, Dmitriy Levchenkov, and Yuying Li.
+\newblock Discrete hedging of american-type options using local risk
+  minimization.
+\newblock \emph{Journal of Banking \& Finance}, 31\penalty0 (11):\penalty0
+  3398--3419, 2007{\natexlab{b}}.
+
+\bibitem[Coleman et~al.(2007{\natexlab{c}})Coleman, Li, and
   Patron]{coleman2007total}
 Thomas~F Coleman, Yuying Li, and Maria-Cristina Patron.
 \newblock Total risk minimization using monte carlo simulations.
 \newblock \emph{Handbooks in Operations Research and Management Science},
-  15:\penalty0 593--635, 2007{\natexlab{b}}.
+  15:\penalty0 593--635, 2007{\natexlab{c}}.
 
 \bibitem[Collobert et~al.(2006)Collobert, Sinz, Weston, and
   Bottou]{collobert2006trading}
@@ -361,6 +376,13 @@ Bruno Dupire et~al.
 \newblock Pricing with a smile.
 \newblock \emph{Risk}, 7\penalty0 (1):\penalty0 18--20, 1994.
 
+\bibitem[El~Karoui and Quenez(1995)]{el1995dynamic}
+Nicole El~Karoui and Marie-Claire Quenez.
+\newblock Dynamic programming and pricing of contingent claims in an incomplete
+  market.
+\newblock \emph{SIAM journal on Control and Optimization}, 33\penalty0
+  (1):\penalty0 29--66, 1995.
+
 \bibitem[Elman(1990)]{elman1990finding}
 Jeffrey~L Elman.
 \newblock Finding structure in time.
@@ -406,6 +428,18 @@ H.~F\"{o}llmer and M.~Schweizer.
 \newblock Hedging by sequential regression: An introduction to the mathematics
   of option trading.
 \newblock \emph{The ASTIN Bulletin}, 1:\penalty0 147--160, 1989.
+
+\bibitem[F{\"o}llmer and Leukert(1999)]{follmer1999quantile}
+Hans F{\"o}llmer and Peter Leukert.
+\newblock Quantile hedging.
+\newblock \emph{Finance and Stochastics}, 3\penalty0 (3):\penalty0 251--273,
+  1999.
+
+\bibitem[F{\"o}llmer and Leukert(2000)]{follmer2000efficient}
+Hans F{\"o}llmer and Peter Leukert.
+\newblock Efficient hedging: cost versus shortfall risk.
+\newblock \emph{Finance and Stochastics}, 4\penalty0 (2):\penalty0 117--146,
+  2000.
 
 \bibitem[French et~al.(1987)French, Schwert, and Stambaugh]{french1987expected}
 Kenneth~R French, G~William Schwert, and Robert~F Stambaugh.
@@ -872,6 +906,11 @@ M.~Schweizer.
 \newblock Variance-optimal hedging in discrete time.
 \newblock \emph{Mathematics of Operation Research}, 20:\penalty0 1--32,
   1995{\natexlab{a}}.
+
+\bibitem[Schweizer()]{schweizerguided}
+Martin Schweizer.
+\newblock A guided tour through quadratic hedging approaches.
+\newblock \emph{Option Pricing, Interest Rates and Risk Management}, page 538.
 
 \bibitem[Schweizer(1995{\natexlab{b}})]{schweizer1995variance}
 Martin Schweizer.
