@@ -1,4 +1,4 @@
-\begin{thebibliography}{177}
+\begin{thebibliography}{180}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -247,10 +247,20 @@ Thomas~F. Coleman, Yuying Li, and Arun Verma.
 \newblock \emph{The Journal of Computational Finance}, 2\penalty0 (3):\penalty0
   77--102, 1999.
 
-\bibitem[Coleman et~al.(2001)Coleman, Kim, Li, and Verma]{coleman2001}
+\bibitem[Coleman et~al.(2001{\natexlab{a}})Coleman, Kim, Li, and
+  Verma]{coleman2001}
 Thomas~F Coleman, Yohan Kim, Yuying Li, and Arun Verma.
 \newblock Dynamic hedging with a deterministic local volatility function model.
-\newblock \emph{The Journal of Risk}, 5\penalty0 (6):\penalty0 63--89, 2001.
+\newblock \emph{The Journal of Risk}, 5\penalty0 (6):\penalty0 63--89,
+  2001{\natexlab{a}}.
+
+\bibitem[Coleman et~al.(2001{\natexlab{b}})Coleman, Li, and
+  Verma]{coleman2001reconstructing}
+Thomas~F Coleman, Yuying Li, and Arun Verma.
+\newblock Reconstructing the unknown local volatility function.
+\newblock In \emph{Quantitative Analysis In Financial Markets: Collected Papers
+  of the New York University Mathematical Finance Seminar (Volume II)}, pages
+  192--215. World Scientific, 2001{\natexlab{b}}.
 
 \bibitem[Coleman et~al.(2003{\natexlab{a}})Coleman, Li, and Patron]{CLP02}
 Thomas~F. Coleman, Yuying Li, and M.~Patron.
@@ -316,6 +326,11 @@ S.~Cr$\acute{e}$pey.
 \newblock Delta-hedging vega risk.
 \newblock \emph{Quantitative Finance}, 4\penalty0 (October):\penalty0 559--579,
   2004.
+
+\bibitem[Cr{\'e}pey(2004)]{crepey2004delta}
+St{\'e}phane Cr{\'e}pey.
+\newblock Delta-hedging vega risk?
+\newblock \emph{Quantitative Finance}, 4\penalty0 (5):\penalty0 559--579, 2004.
 
 \bibitem[Daglish et~al.(2007)Daglish, Hull, and Suo]{daglish2007volatility}
 Toby Daglish, John Hull, and Wulin Suo.
@@ -646,6 +661,12 @@ James~M Hutchinson, Andrew~W Lo, and Tomaso Poggio.
   via learning networks.
 \newblock \emph{The Journal of Finance}, 49\penalty0 (3):\penalty0 851--889,
   1994.
+
+\bibitem[Itkin(2019)]{itkin2019deep}
+Andrey Itkin.
+\newblock Deep learning calibration of option pricing models: some pitfalls and
+  solutions.
+\newblock \emph{arXiv preprint arXiv:1906.03507}, 2019.
 
 \bibitem[Jackwerth and Rubinstein(1996)]{JackwerthRubenstein96}
 Jens Jackwerth and Mark Rubinstein.

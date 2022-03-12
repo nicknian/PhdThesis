@@ -215,7 +215,7 @@
 \newcommand{\vK}{\mathbb{K}}
 \newcommand{\vV}{\pmb{\breve{V}}}
 \newcommand{\e}{\mathbf{e}}
-\newcommand{\vol}{\upsilon}
+\newcommand{\vol}{\Upsilon}
 \newcommand{\vd}{\mathbf{d}}
 \newcommand{\vh}{\mathbf{h}}
 \newcommand{\vf}{\mathbf{f}}
@@ -499,7 +499,7 @@ dS_t=\mu S_t dt+\sigma S_t dW_t.
 \]
 and the derivation of the hedging position is based on a binomial model. The key distinction between our work and  the previous work on local and total risk minimization is that we have no assumption on the underlying asset price dynamics and therefore our models are not bound with a specific parametric form.
 
-In this thesis, we propose to learn discrete data-driven hedging position for standard european options, calls or puts, based on observations of the option market prices on the same underlying price at a set of trading times. The goal of the data-driven discrete option hedging in this thesis is to learn a hedging position $\delta$ in the underlying dynamically to minimize certain appropriate measurements of the hedging risk on the historical market data and then apply the model on the unobserved testing cases. We are interested in two different types of hedging risk:
+In this thesis, we propose to learn discrete data-driven hedging positions for standard european options, calls or puts, based on observations of the option market prices on the same underlying price at a set of trading times. The goal of the data-driven discrete option hedging in this thesis is to learn a hedging position $\delta$ in the underlying dynamically to minimize certain appropriate measurements of the hedging risk on the historical market data and then apply the model on the unobserved testing cases. We are interested in two different types of hedging risk:
 \begin{itemize}
    \item  Discrete local hedging risk
    \item  Discrete total hedging risk
@@ -631,7 +631,7 @@ Plugging in the $T$ and $K$ into the subscript, we denote the discrete total hed
 which corresponding to the hedging portfolio value at the expiry $T$. 
 By comparing equation \eqref{eq:local} and \eqref{eq:TotalObjV2}, we can see that the {\em discrete total hedging risk} is the summation of the {\em discrete local hedging risk} evaluated at discrete rebalancing time $\{t_0,t_1,\dots,t_{N_{rb}-1}\}$. 
 \subsection{Interest Rate and Dividend}
-In the previous discussion, we assume zero interest rate  when we define the {\em discrete total hedging risk} and the {\em discrete local hedging risk}. The zero interest rate  was assumed when measuring the hedging performance under discrete local hedging risk framework. The results presented \cite{knian2017} and \cite{knian2019} were evaluated from 2007 to 2015 for local hedging risk framework. During  most of the time from 2007 and 2015, the interest rate is virtually zero. So the zero interest assumption is valid during most of the time.  For the experimental results for total hedging risk in \cite{knian2020}, such assumption is relaxed and we include the effect of interest rate since we expand the period of experiments to be from 2000 to 2015. We assume the interest rate is fixed as a constant during the life time of the hedging portfolio and denote it as $r$, the discrete total hedging risk is therefore:
+In the previous discussion, we assume zero interest rate  when we define the {\em discrete total hedging risk} and the {\em discrete local hedging risk}. The zero interest rate  was assumed when measuring the hedging performance under discrete local hedging risk framework. The results presented in \cite{knian2017} and \cite{knian2019} were evaluated from 2007 to 2015 for local hedging risk framework. During  most of the time from 2007 and 2015, the interest rate is virtually zero. So the zero interest assumption is valid during most of the time.  For the experimental results for total hedging risk in \cite{knian2020}, such assumption is relaxed and we include the effect of interest rate since we expand the period of experiments to be from 2000 to 2015. We assume the interest rate is fixed as a constant during the life time of the hedging portfolio and denote it as $r$, the discrete total hedging risk is therefore:
 %\begin{equation}
 %    P_H(T,T,K)=\sum_{j=0}^{N-1}\left\{ \left[e^{r (N-j-1) \Delta t} \Smkt_{t_{j+1}}-e^{r (N-j) \Delta t}\Smkt_{t_{j}}\right] \delta_{t_j,T,K} \right\}+e^{r N \Delta t} \Vmkt_{t_0,T,K}-\Vmkt_{T,T,K}
 %    \label{eq:TotalObjV3}
@@ -645,7 +645,7 @@ where
 
 % Now, consider at an arbitrary rebalancing time $t \in \{t_0,t_1, \dots, t_{N_{rb}-1}\}$ for an option with strike $K$, and expiry $T$. Assume we have computed the hedging position at previous rebalancing time $t-\Delta t$: $\delta_{t-\Delta t, T,K}$. 
 
-In this thesis, we focus on S\&P 500 index option. For S\&P 500 index, the closing index price of each day is already adjusted to capture corporate actions that affect market capitalization such as as additional share insurance, dividends and restructuring events such as mergers or spin-offs\cite{lassance2018comparison}. When we calibrating the  option pricing models such as the Black-Scholes model,   an estimate of the dividends to be paid up until the  expiration of the option are needed.  We assume that the the index pays dividends continuously, according to a continuously-compounded annual dividend yield $q$. Similarly, traditional option pricing models requires a continuously-compounded interest rate as input. This interest rate is calculated from a collection of continuously compounded zero-coupon interest rates at various maturities, collectively referred to as the zero curve. 
+In this thesis, we focus on S\&P 500 index option. For S\&P 500 index, the closing index price of each day is already adjusted to capture corporate actions that affect market capitalization such as as additional share insurance, dividends and restructuring events such as mergers or spin-offs\cite{lassance2018comparison}. When we calibrating the  option pricing models such as the Black-Scholes model,   an estimate of the dividends to be paid up until the  expiration of the option is needed.  We assume that the the index pays dividends continuously, according to a continuously-compounded annual dividend yield $q$. Similarly, traditional option pricing models requires a continuously-compounded interest rate as input. This interest rate is calculated from a collection of continuously compounded zero-coupon interest rates at various maturities, collectively referred to as the zero curve. 
 
 In this thesis, we use the option market data from OptionMetric \cite{optionmetrics2008ivy} database. The OptionMetric \cite{optionmetrics2008ivy} database provides us market option quotes for each trading day from 1996-01 to 2015-08-31.  We also use the zero curves on each trading day provided by the OptionMetric \cite{optionmetrics2008ivy} database to extract the risk-free interest rate $r$. The zero curve used by the OptionMetric database is derived from ICE IBA USD LIBOR rates and settlement prices of CME Eurodollar futures. For a given option, the appropriate interest rate input $r$ for option pricing corresponds to the zero-coupon rate that has a maturity equal to the time to maturity of the option $T-t$, and is obtained by linearly interpolating between the two closest zero-coupon rates on the zero curve. In addition, OptionMetric \cite{optionmetrics2008ivy} database provides annual  dividend yield $q$ for the S\&P 500 index. The $q$ is recorded daily for the S\&P 500 index and supplied as the input for calibrating the option pricing models.  Details of how OptionMetric compute the zero curves and the annual dividend yield $q$  using market data can be found in \cite{optionmetrics2008ivy}.
 
@@ -669,7 +669,7 @@ where $W_t$ is a standard Brownian motion, $\mu$ is the constant drift rate of  
 \[
 S_t=S_0 e^{(\mu-\frac{\sigma^2}{2})t+\sigma W_t}
 \]
-They show that at any time $t$ one can construct a riskless portfolio consisting of one option and shares of the underlying asset. The riskless portfolio needs to be continuously adjusted so that the number of shares always equal to the partial derivative of the option pricing function with regards to the underlying asset. No-arbitrage condition implies that the the return of the riskless portfolio must be equal to the risk-free interest rate. This leads to the renowned Black-Scholes (BS) partial differential equation and the closed-form pricing formula.
+They show that at any time $t$ one can construct an instantaneously riskless portfolio consisting of one option and shares of the underlying asset. The riskless portfolio needs to be continuously adjusted so that the number of shares always equal to the partial derivative of the option pricing function with regards to the underlying asset. No-arbitrage condition implies that the the return of the riskless portfolio must be equal to the risk-free interest rate. This leads to the renowned Black-Scholes (BS) partial differential equation and the closed-form pricing formula.
 
 
 Let $C_{BS}$ be the option value function for call option which depends on $t$ and $S$. For notational simplicity, we have:
@@ -679,7 +679,7 @@ Let $C_{BS}$ be the option value function for call option which depends on $t$ a
    \frac{\partial^2 C_{BS}}{\partial S_t^2}=\frac{\partial^2 C_{BS}}{\partial S^2}(t,S_t) \;\;,
    C^{BS}_t=C_{BS}(t,S_t)
 \]
-Follows Ito's Lemma \cite{shreve2004stochastic},we have:
+With Ito's Lemma \cite{shreve2004stochastic}, we have:
 \[
 dC^{BS}_t=\left(\frac{\partial C_{BS}}{\partial t}+\mu S_t \frac{\partial C_{BS}}{\partial S_t}+\frac{1}{2} \sigma^2 S_t^2 \frac{\partial ^2 C_{BS}}{ \partial S_t^2}\right) dt+\sigma S_t \frac{\partial C_{BS}}{\partial S_t}dW_t
 \]
@@ -692,7 +692,7 @@ The instantaneous profit or loss is:
 \[
 dP^{\delta}_t=-\left(\frac{\partial C_{BS}}{ \partial t} +\frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 C_{BS}}{ \partial S_t^2 } \right) dt
 \]
-Assume there is a riskless asset with constant rate of return $r$, which is also known as risk-free interest rate. We can see that the delta-hedge portfolio $P_{\delta}$ is also riskless because the diffusion term associated with $dW_t$ is dropped. Under no-arbitrage condition, two riskless investment must earn the same rate of return so we must have:
+Assume there is a riskless asset with constant rate of return $r$, which is also known as the risk-free interest rate. We can see that the delta-hedge portfolio $P_{\delta}$ is also riskless because the diffusion term associated with $dW_t$ is dropped. Under no-arbitrage condition, two riskless investment must earn the same rate of return so we must have:
 \[
 dP^{\delta}_{t}=rP^{\delta}_tdt
 \]
@@ -703,7 +703,7 @@ This leads to the Black-Scholes partial differential equation:
 \end{equation}
 The solution with European call option  is the well-known Black-Scholes pricing formula:
 \begin{equation}
-Call=S  \mathcal{N}(d_1)-e^{-r(T-t)}  K  \mathcal{N}(d_2)
+C_{BS}(t,S)=S  \mathcal{N}(d_1)-e^{-r(T-t)}  K  \mathcal{N}(d_2)
 \label{eq:bs}
 \end{equation}
 where $\mathcal{N}$ is the cumulative density function of the standard normal distribution
@@ -712,7 +712,7 @@ d_1=\frac{\ln(S/K)+(r+\sigma^2/2)(T-t)}{\sigma \sqrt{T-t}}, \;\; d_2=d_1-\sigma 
 \]
 Similarly, we can derive the Black-Scholes pricing formula for  European put option to be:
 \begin{equation}
-Put=e^{-r(T-t)}  K   \mathcal{N}(-d_2)-S  \mathcal{N}(-d_1)
+P_{BS}(t,S)=e^{-r(T-t)}  K   \mathcal{N}(-d_2)-S  \mathcal{N}(-d_1)
 \label{eq:bsP}
 \end{equation}
 
@@ -735,22 +735,24 @@ B(t)=\frac{\partial C}{\partial S}(t,S_t) S_t-V_{BS}(t,S_t)
 Under Black–Scholes model, we can dynamically create an portfolio with risk-free asset and underlying asset to replicate the value of option at any time $t$.
 \fi
 
-Alternatively, we can derive the Black-Scholes formula under the risk-neutral pricing framework. As the name suggests, under a risk-neural measure $Q$, all agents in the economy are neutral to risk, so that they are indifferent between investments with different risk as long as these investments have the same expected return. Under a risk-neutral measure, all tradable assets should have the same expected rate of return as the risk-free asset, which earns the risk-free interest rate $r$. The derivative price can thus derived from the expected payoff, discounted back to the current time at the risk-free rate $r$. It can been shown that \cite{shreve2004stochastic}, following the Black-Scholes assumption, there is a unique risk-neutral probability measure $Q$ that is equivalent to the actual physical probability measure. Under risk-neutral pricing framework, we have:
+Alternatively, we can derive the Black-Scholes formula under the risk-neutral pricing framework. As the name suggests, under a risk-neural measure $Q$, all agents in the economy are neutral to risk, so that they are indifferent between investments with different risk as long as these investments have the same expected return. Under a risk-neutral measure, all tradable assets should have the same expected rate of return as the risk-free asset, which earns the risk-free interest rate $r$. The derivative price can thus derived from the expected payoff, discounted back to the current time at the risk-free rate $r$. 
+
+Under the Black-Scholes assumption, one can use the Girsanov's theorem \cite{{shreve2004stochastic}} to convert the geometric brownian motion in the actual physical probability measure to the geometric brownian motion in a unique risk-neutral probability measure $Q$.  The risk-neutral probability measure $Q$ is equivalent to the actual physical probability measure (i.e., they agree about what is possible and what is impossible.). Under risk-neutral pricing framework, we have:
 \begin{equation}
-Call=e^{-r(T-t)} E^Q[\max(S_T-K,0)]
+C_{BS}(t,S)=e^{-r(T-t)} E^Q[\max(S_T-K,0)]
 \label{eq:bs2}
 \end{equation}
 \begin{equation}
-Put=e^{-r(T-t)} E^Q[\max(K-S_T,0)]
+P_{BS}(t,S)=e^{-r(T-t)} E^Q[\max(K-S_T,0)]
 \label{eq:bs2P}
 \end{equation}
-where $E^Q[\cdot]$ is the expectation under the risk-neutral measure $Q$.
+where $E^Q[\cdot]$ is the conditional expectation under the risk-neutral measure $Q$.
 More specifically, define $\Theta_1$ to be the market price of risk:
 \begin{equation}
 \Theta_1=\frac{\mu-r}{\sigma}
 \label{eq:price-risk}
 \end{equation}
-We change the original Brownian motion $dW_t$ to $\hat{dW_t}$ with
+We change the original Brownian motion $dW_t$ in the actual physical probability measure to $\hat{dW_t}$ in the risk-neutral probability measure $Q$ with
 \begin{equation}
 \hat{dW_t}=dW_t+\Theta_1 dt
 \label{eq:riskS}
@@ -761,7 +763,7 @@ dS_t=r S_t dt+\sigma S_t \hat{dW_t}
 \]
 It can be shown that $\hat{dW_t}$ is the Brownian motion under the risk-neutral measure $Q$ defined through Radon-Nikodym derivative via Girsanov's theorem \cite{shreve2004stochastic}. Using the fact that the drift rate of underlying asset dynamic under risk-neutral measure $Q$ is $r$, following \eqref{eq:bs2} and \eqref{eq:bs2P}, we can arrive at the same pricing formula as \eqref{eq:bs} and \eqref{eq:bsP}. Interest reader can refer to \cite{shreve2004stochastic} for more details about risk-neutral pricing and change from physical measure to risk-neutral measure $Q$.
 
-Since actual drift $\mu$ is irrelevant in determining the option price under Black-Scholes framework, in this thesis, we assume we are dealing with risk-neutral measure $Q$ and the drift of underlying dynamic is always the risk-free interested $r$. 
+Since actual drift $\mu$ is irrelevant in determining the option price under Black-Scholes framework,  when pricing the option using parametric models such as Black-Scholes  model in this thesis, we assume we are dealing with risk-neutral measure $Q$ and the drift of underlying dynamic is the risk-free interested $r$. 
 Lastly, to include the effect of dividend, we can rewrite the $d_1$ and $d_2$ in the Black-Scholes pricing formula as:
 \[
 d_1=\frac{\ln(S/K)+((r-q)+\sigma^2/2)(T-t)}{\sigma \sqrt{T-t}}, \;\; d_2=d_1-\sigma  \sqrt{T-t}
@@ -770,58 +772,57 @@ where $q$ is the given annual dividend yield. In this thesis, we use $V_{BS}(S,t
 
 
 
-Although, Black-Scholes framework provides a nice close-form formula, the real markets are never as ideal as the assumption of Black-Scholes model. Empirical  evidence indicates markets often violate the assumption of   Black-Scholes model. The two major aspects that has been criticized about Black-Scholes model are:
+Although, Black-Scholes framework provides a  close-form formula, the Black-Scholes model is only a simple approximation to the market. Empirical  evidence indicates markets often violate the assumption of   Black-Scholes model. The two major aspects that has been criticized about Black-Scholes model are:
 \begin{enumerate}
 \item The constant volatility does not hold in real market. In practice, the implied volatility $\sigma^{imp}$, which equates the Black-Scholes option price $V_{BS}(S,t,T,K,r,q;\sigma)$ to market option price $V^{mkt}_{t,T,K}$, is often used to make sure that Black-Scholes price match the market observation. However, one can often find that the implied volatility $\sigma^{imp}$ tends to differ across different strikes and expiries. This breaks down the assumption of a constant volatility
-\item Transaction cost exists in real market. Due to the existence of transaction cost, continuously adjusting the shares of underlying can be prohibitively expensive. Therefore, the argument of the Black-Scholes theory falls apart.
+\item Transaction cost exists in a real market. Due to the existence of transaction cost, continuously adjusting the shares of underlying is not feasible and frequent hedging can be prohibitively expensive. Therefore, the argument of the Black-Scholes theory falls apart.
 \end{enumerate}
-The market deviations from the assumption of Black-Scholes model  motivates people to propose various approaches for relaxing the assumptions of Black and Scholes. These attempts include, but not limited to, local volatility models \citep{coleman2001,dumas1998implied,rubinstein1994implied,dupire1994pricing}, stochastic volatility models \cite{hagan2002managing,heston1993closed,hull1987pricing,bakshi1997empirical}, jump diffusion models \citep{He06,kou2002jump} and nonparametric pricing models based on regression \citep{yao2000option,bennell2004black,gradojevic2009option,garcia2000pricing,malliaris1993neural}. In the following section, we discuss two stochastic volatility models relevant to this thesis, Heston model and SABR model, which provide efficient closed-form solutions for the option price similar as Black-Scholes model.
+The market deviations from the assumption of Black-Scholes model  motivates people to propose various approaches for relaxing the assumptions of Black and Scholes. These attempts include, but not limited to, local volatility models \citep{coleman2001,dumas1998implied,rubinstein1994implied,dupire1994pricing}, stochastic volatility models \cite{hagan2002managing,heston1993closed,hull1987pricing,bakshi1997empirical}, jump diffusion models \citep{He06,kou2002jump} and nonparametric pricing models based on regression \citep{yao2000option,bennell2004black,gradojevic2009option,garcia2000pricing,malliaris1993neural}. Although nonparametric pricing models based on regression models can be a useful alternative, one usually ignores the no-arbitrage conditions in pricing when applying those regression approaches \citep{yao2000option,bennell2004black,gradojevic2009option,garcia2000pricing,malliaris1993neural}, which can be problematic in practice \cite{itkin2019deep}.
+In the following section, we discuss two stochastic volatility models relevant to this thesis, Heston model and SABR model, which provide efficient closed-form solutions for the option price similar as Black-Scholes model.
 \subsection{Heston Model}
 \label{sec:heston}
-Heston \cite{heston1993closed} proposed a version of the stochastic volatility model, which has become quite popular to model the volatility smiles.  The volatility smiles refer to the phenomenon that the options in real market whose strike prices differ substantially from the underlying asset price tend to have higher implied volatilities than options whose strike prices are close to the underlying asset price under Black–Scholes models. One of the key reason for its popularity is that European call and put option under Heston model have closed-form solution which makes the calibration of the model computationally efficient and accurate.
-The Heston model assumes that the underlying, $S_t$ follows a Black-Scholes type stochastic process, but with a stochastic variance $\upsilon_t$ that follows a Cox, Ingersoll, Ross (CIR) process \cite{cox2005theory}.
+Heston \cite{heston1993closed} proposed a stochastic volatility model, which has often been used to model a volatility smiles.  The volatility smiles refer to the phenomenon that the options in real market whose strike prices differ substantially from the current underlying asset price tend to have higher implied volatilities than options whose strike prices are close to the underlying asset price. One of the key reasons for its popularity is that European call and put option under Heston model have closed-form solution which makes the calibration of the model computationally efficient and accurate.
+The Heston model assumes that the underlying, $S_t$ follows a Black-Scholes type stochastic process, but with a stochastic variance $\Upsilon_t$ that follows a Cox, Ingersoll, Ross (CIR) process \cite{cox2005theory}.
 \[
 \begin{split}
-dS_t&=\mu S_t dt + \sqrt{\upsilon} S_t dW_t\\
-d\upsilon_t&=\kappa(\overline{\upsilon}-\upsilon_t)dt+\eta \sqrt{\upsilon_t}dZ_t\\
+dS_t&=\mu S_t dt + \sqrt{\Upsilon} S_t dW_t\\
+d\Upsilon_t&=\kappa(\overline{\Upsilon}-\Upsilon_t)dt+\eta \sqrt{\Upsilon_t}dZ_t\\
 E[dZ_tdW_t]&=\rho dt
 \end{split}
 \]
 These parameters are described as follows:
 \begin{itemize}
   \item $\mu$ is the drift coefficient of the underlying asset
-  \item $\overline{\upsilon}$ is the long term mean of variance
+  \item $\overline{\Upsilon}$ is the long term mean of variance
   \item $\kappa$ is the rate of mean reversion
   \item $\eta$ is the volatility of volatility
   \item $S_t$ is the underlying asset price
-  \item $\upsilon_t$ is the  instantaneous variance
+  \item $\Upsilon_t$ is the  instantaneous variance
   \item $W_t$ and $Z_t$ are correlated Wiener process with correlation coefficient $\rho$
 \end{itemize}
-Similarly, the Heston dynamics can be transformed to be under a risk-neutral measure $Q$.
-Heston \cite{heston1993closed} assumes that the market price of volatility risk is  proportional to the volatility $\sqrt{\upsilon_t}$:
+Similarly, the Heston dynamics can be described  under a risk-neutral measure $Q$.
+Heston \cite{heston1993closed} assumes that the market price of volatility risk is  proportional to the volatility $\sqrt{\Upsilon_t}$:
 \begin{equation}
-\Theta_{2}=\frac{\lambda}{\eta} \sqrt{\upsilon_t}
+\Theta_{2}=\frac{\lambda}{\eta} \sqrt{\Upsilon_t}
 \label{eq:price-vol-risk}
 \end{equation}
 $\lambda$ is a parameter used to generate the market price of volatility risk.
 Recall that market price of risk is:
 \[
-\Theta_1=\frac{\mu-r}{\sqrt{\upsilon_t}}
+\Theta_1=\frac{\mu-r}{\sqrt{\Upsilon_t}}
 \]
-It can be shown that a risk-neutral measure $Q$ can be defined through Radon-Nikodym derivative via Multi-dimensional Girsanov's theorem \cite{shreve2004stochastic} using the $\Theta_1$ and $\Theta_2$.
-
-Therefore, Heston model under a risk-neutral measure $Q$ is:
+It can be shown that a risk-neutral measure $Q$ can be defined through Radon-Nikodym derivative via multi-dimensional Girsanov's theorem \cite{shreve2004stochastic} using  $\Theta_1$ and $\Theta_2$. Heston model under a risk-neutral measure $Q$ is:
 \begin{equation}
 \begin{split}
-dS&=r S dt + \sqrt{\upsilon} S \hat{dW}\\
-d\upsilon&=\kappa^*(\overline{\upsilon}^*-\upsilon)dt+\eta \sqrt{\upsilon}\hat{dZ}\\
+dS&=r S dt + \sqrt{\Upsilon} S \hat{dW}\\
+d\Upsilon&=\kappa^*(\overline{\Upsilon}^*-\Upsilon)dt+\eta \sqrt{\Upsilon}\hat{dZ}\\
 E[\hat{dZ}\hat{dW}]&=\rho dt
 \end{split}
 \label{eq:hestonNeutral}
 \end{equation}
 where
 \[
-\kappa^*=\kappa+\lambda, \overline{\upsilon}^*=\frac{\kappa \overline{\upsilon}}{\kappa+\lambda}
+\kappa^*=\kappa+\lambda, \overline{\Upsilon}^*=\frac{\kappa \overline{\Upsilon}}{\kappa+\lambda}
 \]
 \[
 \hat{dW}=dW+\Theta_1 dt
@@ -829,69 +830,71 @@ where
 \[
 \hat{dZ}=dZ+\Theta_2 dt
 \]
-Similar to Black-Scholes model, Heston model have closed-form solutions. The closed formed solution for European call option under  the risk-neutral measure $Q$ is
+Similar to Black-Scholes model, Heston model has the closed-form solutions. The closed formed solution for European call option under  the risk-neutral measure $Q$ is
 \begin{equation}
 	\label{eq:hestonPrice}
-Call=S\; N_1-Ke^{-r(T-t)} \; N_2
+C_{Heston}(t,S)=S\; N_1-Ke^{-r(T-t)} \; N_2
 \end{equation}
 Let us define the imaginary unit $\mathcal{I}^2=-1$. Then the $N_1$ and $N_2$ are defined as:
 \[
-N_j=\frac{1}{2}+\frac{1}{\pi}\int_{0}^{\infty} Re \left[\frac{e^{-\mathcal{I} \varphi \ln{K}} f_j(S,\upsilon,t,T;\varphi)} {\mathcal{I}\varphi} \right] d\varphi;\;\;, j=1,2
+N_j=\frac{1}{2}+\frac{1}{\pi}\int_{0}^{\infty} Re \left[\frac{e^{-\mathcal{I} \varphi \ln{K}} f_j(S,\Upsilon,t,T;\varphi)} {\mathcal{I}\varphi} \right] d\varphi;\;\; j=1,2
 \] with $Re[\cdot]$ denoting the real part.
-The characteristic function $f_j(S,\upsilon,t,T;\varphi)$ is :
+The characteristic function $f_j(S,\Upsilon,t,T;\varphi)$ is :
 \[
-f_j(S,\upsilon,t,T;\varphi)=e^{A_j(t,T,\varphi)+B_j(t,T,\varphi)\upsilon+\mathcal{I} \varphi \ln{S}}\;, j=1,2
+f_j(S,\Upsilon,t,T;\varphi)=e^{A_j(t,T,\varphi)+B_j(t,T,\varphi)\Upsilon+\mathcal{I} \varphi \ln{S}}\;, j=1,2
 \]
 Where:
 \[
 \begin{split}
-A_j(t,T,\varphi)&=r \varphi (T-t)+ \frac{\kappa^* \overline{\upsilon}^*}{\eta^2}\left\{(b_j-\rho \eta \varphi \mathcal{I}+ d_j) (T-t)- 2\ln{\left[ \frac{1-g_je^d_j(T-t)}{1-g_j}\right]}     \right\}\\
+A_j(t,T,\varphi)&=r \varphi (T-t)+ \frac{\kappa^* \overline{\Upsilon}^*}{\eta^2}\left\{(b_j-\rho \eta \varphi \mathcal{I}+ d_j) (T-t)- 2\ln{\left[ \frac{1-g_je^d_j(T-t)}{1-g_j}\right]}     \right\}\\
 B_j(t,T,\varphi)&=g_j\left[ \frac{1-e^d_j(T-t)}{1-g_je^{d_j(T-t)}}\right] \\
 g_j&=\frac{b_j-\rho\varphi \mathcal{I}+d_j}{b_j-\rho\varphi \mathcal{I}-d_j}\\
 d_j&=\sqrt{(\rho \eta \varphi \mathcal{I}-b_j)^2-\eta^2(2 u_j \varphi- \varphi^2)}\\
-u_1&=0.5, u_2=-0.5, b_1=\kappa^*-\rho \upsilon, b_2=\kappa^*
+u_1&=0.5, u_2=-0.5, b_1=\kappa^*-\rho \Upsilon, b_2=\kappa^*
 \end{split}
 \]
 European put option price can be derived from the call-put parity:
 \[
-Put=Call-S+K e^{-r(T-t)}
+P_{Heston}(t,S)=C_{Heston}(t,S)-S+K e^{-r(T-t)}
 \]
-The parameters to be calibrated from the market option prices are $\{\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho\}$ where $\upsilon$ is the initial instantaneous variance, $\overline{\upsilon}^*$ is the long term mean of variance under risk-neutral measurement $Q$, $\kappa^*$ is the rate of mean reversion under risk-neutral measurement $Q$, $\eta$ is the volatility of volatility, and $\rho$ is correlation.
+The parameters to be calibrated from the market option prices are $\{\Upsilon_0,\kappa^*,\overline{\Upsilon}^*,\eta,\rho\}$ where $\Upsilon_0$ is the initial instantaneous variance, $\overline{\Upsilon}^*$ is the long term mean of variance under risk-neutral measurement $Q$, $\kappa^*$ is the rate of mean reversion under risk-neutral measurement $Q$, $\eta$ is the volatility of volatility, and $\rho$ is correlation.
 
-Under Black-Scholes model, an option is dependent on tradable asset $S_t$. The randomness in option value is solely determined by the randomness of the asset $S_t$. Such uncertainly can be hedged by continuously adjusting the shares of underlying asset as we have discussed in  section \ref{sec:bs}. This implies a complete market \cite{shreve2004stochastic}.
-Under a stochastic volatility model such as Heston model, the uncertainty of option value comes from both the underlying asset $S_t$ and the volatility (or variance $\upsilon_t$ as in Heston model). The volatility itself is not tradable which implies an incomplete market under stochastic volatility model. The incompleteness implies the risk-neutral measure is not unique. In other words, $\lambda$ is not unique. Different choices of $\lambda$ will lead to different risk-neutral measurements. However, one can assume a risk-neutral measure $Q$ exists and calibrate the Heston model to match the the market option prices directly using the dynamics in \eqref{eq:hestonNeutral} without specifying the $\lambda$. In this way, $\lambda$ has been implied and embedded into the calibrated model parameters $\kappa^*$ and $\overline{\upsilon}^*$. Interested reader can refer to \cite{heston1993closed,gatheral2011volatility} for more details of risk-neutral pricing under Heston model.
+Under Black-Scholes model, an option is dependent on tradable asset $S_t$. The randomness in option value is determined by the randomness of the asset $S_t$. Such uncertainly can be hedged by continuously adjusting the shares of underlying asset as we have discussed in  section \ref{sec:bs}. This implies a complete market \cite{shreve2004stochastic}.
+Under a stochastic volatility model such as Heston model, the uncertainty of option value comes from both the underlying asset $S_t$ and the volatility (or variance $\Upsilon_t$ as in Heston model). The volatility itself is not tradable which implies an incomplete market under stochastic volatility model. 
+% The incompleteness implies the risk-neutral measure is not unique. In other words, $\lambda$ is not unique. Different choices of $\lambda$ will lead to different risk-neutral measurements.
+One can assume a risk-neutral measure $Q$ exists and calibrate the Heston model to match the the market option prices directly using the dynamics in \eqref{eq:hestonNeutral} without specifying the $\lambda$. In this way, $\lambda$ has been implied and embedded into the calibrated model parameters $\kappa^*$ and $\overline{\Upsilon}^*$. Interested reader can refer to \cite{heston1993closed,gatheral2011volatility} for more details of risk-neutral pricing under the Heston model.
 
-Again, given the annual dividend yield $q$, the above heston pricing formula can be rewritten as:
-\[
-Call=S e^{-q(T-t)}\; N_1-Ke^{-r(T-t)} \; N_2
-\]
-\[
-N_j=\frac{1}{2}+\frac{1}{\pi}\int_{0}^{\infty} Re \left[\frac{e^{-\mathcal{I} \varphi \ln{K}} f_j(S,\upsilon,t,T;\varphi)} {\mathcal{I}\varphi} \right] d\varphi;\;\;, j=1,2
-\] with $Re[\cdot]$ denoting the real part.
-The characteristic function $f_j(S,\upsilon,t,T;\varphi)$ is :
-\[
-f_j(S,\upsilon,t,T;\varphi)=e^{A_j(t,T,\varphi)+B_j(t,T,\varphi)\upsilon+\mathcal{I} \varphi \ln{S}}\;, j=1,2
-\]
-Where:
-\[
-\begin{split}
-A_j(t,T,\varphi)&=(r-q) \varphi (T-t)+ \frac{\kappa^* \overline{\upsilon}^*}{\eta^2}\left\{(b_j-\rho \eta \varphi \mathcal{I}+ d_j) (T-t)- 2\ln{\left[ \frac{1-g_je^d_j(T-t)}{1-g_j}\right]}     \right\}\\
-B_j(t,T,\varphi)&=g_j\left[ \frac{1-e^d_j(T-t)}{1-g_je^{d_j(T-t)}}\right] \\
-g_j&=\frac{b_j-\rho\varphi \mathcal{I}+d_j}{b_j-\rho\varphi \mathcal{I}-d_j}\\
-d_j&=\sqrt{(\rho \eta \varphi \mathcal{I}-b_j)^2-\eta^2(2 u_j \varphi- \varphi^2)}\\
-u_1&=0.5, u_2=-0.5, b_1=\kappa^*-\rho \upsilon, b_2=\kappa^*
-\end{split}
-\]
-European put option price can be derived from the call-put parity:
-\[
-Put=Call-S e^{-q (T-t)}+K e^{-r(T-t)}
-\]
+% Again, given the annual dividend yield $q$, the above heston pricing formula can be rewritten as:
+% \[
+% Call=S e^{-q(T-t)}\; N_1-Ke^{-r(T-t)} \; N_2
+% \]
+% \[
+% N_j=\frac{1}{2}+\frac{1}{\pi}\int_{0}^{\infty} Re \left[\frac{e^{-\mathcal{I} \varphi \ln{K}} f_j(S,\Upsilon,t,T;\varphi)} {\mathcal{I}\varphi} \right] d\varphi;\;\;, j=1,2
+% \] with $Re[\cdot]$ denoting the real part.
+% The characteristic function $f_j(S,\Upsilon,t,T;\varphi)$ is :
+% \[
+% f_j(S,\Upsilon,t,T;\varphi)=e^{A_j(t,T,\varphi)+B_j(t,T,\varphi)\Upsilon+\mathcal{I} \varphi \ln{S}}\;, j=1,2
+% \]
+% Where:
+% \[
+% \begin{split}
+% A_j(t,T,\varphi)&=(r-q) \varphi (T-t)+ \frac{\kappa^* \overline{\Upsilon}^*}{\eta^2}\left\{(b_j-\rho \eta \varphi \mathcal{I}+ d_j) (T-t)- 2\ln{\left[ \frac{1-g_je^d_j(T-t)}{1-g_j}\right]}     \right\}\\
+% B_j(t,T,\varphi)&=g_j\left[ \frac{1-e^d_j(T-t)}{1-g_je^{d_j(T-t)}}\right] \\
+% g_j&=\frac{b_j-\rho\varphi \mathcal{I}+d_j}{b_j-\rho\varphi \mathcal{I}-d_j}\\
+% d_j&=\sqrt{(\rho \eta \varphi \mathcal{I}-b_j)^2-\eta^2(2 u_j \varphi- \varphi^2)}\\
+% u_1&=0.5, u_2=-0.5, b_1=\kappa^*-\rho \Upsilon, b_2=\kappa^*
+% \end{split}
+% \]
+% European put option price can be derived from the call-put parity:
+% \[
+% Put=Call-S e^{-q (T-t)}+K e^{-r(T-t)}
+% \]
 
-In this thesis, we deal with Heston model under the risk-neural measurement $Q$. For simplicity, in this thesis,  we use $V_{Heston}(S,t,T,K,r,q;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)$ to denote the European Heston pricing function regardless of the call or put nature.
+In this thesis, we deal with Heston model under the risk-neural measurement $Q$. For simplicity, in this thesis,  we use $V_{Heston}(S,t,T,K,r,q;\Upsilon_0,\kappa^*,\overline{\Upsilon}^*,\eta,\rho)$ to denote the European Heston pricing function regardless of the call or put nature.
 \subsection{SABR Model}
 \label{sec:SABR}
-The SABR model  \cite{hagan2002managing} is another stochastic volatility model, which attempts to capture the volatility smiles in derivatives markets. The name stands for "Stochastic Alpha, Beta, Rho", referring to the parameters of the model.  The SABR model is another popular stochastic volatility model widely used in financial risk management. Its popularity is due to the fact that it can reproduce comparatively well the market-observed volatility smile and that it provides a closed-form
-formula for the volatility. 
+The SABR model  \cite{hagan2002managing} is another stochastic volatility model, which attempts to capture the volatility smiles in derivatives markets. The name SABR stands for "Stochastic Alpha, Beta, Rho", referring to the parameters of the model.  The SABR model is another stochastic volatility model widely used in financial risk management. Its popularity is due to the fact that it can reproduce the market-observed volatility smile relatively accurate and that it provides a closed-form
+formula for the implied volatility under the Black model, which is a variant of the Black–Scholes model. 
 Given the risk-free interest rate $r$, the annual dividend yield $q$, and the forward $F_t$ with expiry $T$ is: 
 \[
 F_t=S_t e^{(r-q) (T-t)}
@@ -900,7 +903,7 @@ In the SABR stochastic volatility model, the  forward $F_t$ price follows the fo
 \[
 \begin{split}
 dF_t=\alpha_t (F_t)^{\beta}dW_t\\
-d\alpha_t=\nu \alpha_t dZ_t\\
+d\alpha_t=\mathbb{\nu} \alpha_t dZ_t\\
 E[dW_tdZ_t]=\rho dt
 \end{split}
 \]
@@ -917,18 +920,18 @@ dF_t=\sigma_B F_t dW_t\\
 \]
 where $\sigma_B$ is the volatility. We use $V_B(F,K,r,t,T;\sigma_{B})$ to denote the Black pricing function. For European call option:
 \[
-V_B(F,t,T,K,r;\sigma_{B})=e^{-r(T-t)}[F \mathcal{N} (d3)-K  \mathcal{N} (d4)]
+C_B(F,t,T,K,r;\sigma_{B})=e^{-r(T-t)}[F \mathcal{N} (d3)-K  \mathcal{N} (d4)]
 \]
 For European put option:
 \[
-V_B(F,t,T,K,r;\sigma_{B})=e^{-r(T-t)}[K  \mathcal{N} (-d4)-F  \mathcal{N} (-d3)]
+P_B(F,t,T,K,r;\sigma_{B})=e^{-r(T-t)}[K  \mathcal{N} (-d4)-F  \mathcal{N} (-d3)]
 \]
 where $\mathcal{N}$ is the cumulative density function of standard normal distribution
 \[
 d_3=\frac{\ln(F/K)+\sigma^2/2(T-t)}{\sigma \sqrt{T-t}}, \;\; d_4=d_3-\sigma  \sqrt{T-t}
 \]
 Consider an option on the forward $F$ with expiry $T$ and strike $K$ at time $t$.
-If we force the SABR model price of the option into the form of the Black model valuation formula. Then the SABR implied volatility, which is the value of the $\sigma_B$ in Black's model that forces it to match the SABR price, is approximately given by:
+If we force the SABR model price of the option into the form of the Black model valuation formula, then the SABR implied volatility, which is the value of the $\sigma_B$ in Black's model that forces it to match the SABR price, is approximately given by:
 
 \begin{eqnarray*}
 	\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho) &\approx&
@@ -958,7 +961,10 @@ this formula reduces to
 \]
 Therefore, the European option value under SABR model is given by:
 \[
-V_{SABR}=V_B(F,t,T,K,r;\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho))
+C_{SABR}=C_B(F,t,T,K;\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho))
+\]
+\[
+P_{SABR}=P_B(F,t,T,K;\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho))
 \]
 
 The $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$ under SABR model depends on the forward $F$, the strike $K$, the time to expiry $T-t$, the initial SABR volatility $\alpha$, the power of forward $\beta$, the volatility of volatility $\nu$, and the correlation $\rho$.  Interested readers can refer to \cite{hagan2002managing} for the detailed derivation of the analytical approximation $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$.  We use $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ to denote the option pricing formula under SABR model regardless of the call and put nature in the latter discussion.
@@ -966,35 +972,43 @@ The $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$ under SABR model depends on the 
 
 
 \section{Option Hedging Using the Sensitivity from Pricing Model}
-In this section, we discuss how we can compute the hedging position $\delta_{t,T,K}$ from the option pricing model, and the drawbacks of this approach. Specifically, we discuss the pricing model parameters dependence issue, which motivates our data-driven model,  and provide several existing ways for correcting the model parameter dependence. 
+ Ideally, we could compute the $\frac{d \Vmkt}{d S}$ as the instantaneous hedging position. In reality, $\frac{d \Vmkt}{d S}$ is unknown. Thus we often assume a specific underlying dynamics as what has been discussed in \ref{sec:pricing}. In order to obtain the pricing model parameters, we calibrate the model so that model option prices can match the market option prices. Then one can use the $\frac{\partial V}{\partial S}$ as the hedging position. This is know as the delta-hedging strategy.
+
+ In this section, we discuss how to compute the hedging position $\delta_{t,T,K}$ from the option pricing model under the delta-hedging strategy, as well as the drawbacks of this approach.  Specifically, we discuss the pricing model parameters dependence issue, which motivates our data-driven model. In addition, we provide several existing ways for correcting the model parameter dependence. 
+
+
 \subsection{Classical Hedging Position From Pricing Model}
 \label{sec:Classical}
-In section \ref{sec:pricing}, we have introduced several option pricing models with analytical pricing formula. 
-Let $V(S,t,T,K,r,q;\theta)$ denote the arbitrary option pricing model. For Black-Scholes Model,  $\theta$ is the volatility $\sigma$. For Heston model, $\theta=\{\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho \}$. For SABR model, $\theta=\{\alpha,\beta,\nu,\rho \}$. \footnote{Note that, Studies \cite{hulloptimal,hagan2002managing,hagan2017bartlett} shows that $\beta$ can often be fixed a priori. In this case, $\theta=\{\alpha,\nu,\rho \}$.}
+In section \ref{sec:pricing}, we have introduced several option pricing models with analytical pricing formula. In this section, we assume the risk-free interest rate and annual dividend yield are given as $r$ and $q$. Therefore, we denote  $V(S,t,T,K;\theta)$  as an option pricing model with $\theta$ as the model parameters to be calibrated. For Black-Scholes model,  $\theta$ is the volatility $\sigma$. For Heston model, $\theta=\{\Upsilon_0,\kappa^*,\overline{\Upsilon}^*,\eta,\rho \}$. For SABR model, $\theta=\{\alpha,\beta,\nu,\rho \}$. \footnote{Note that, Studies \cite{hulloptimal,hagan2002managing,hagan2017bartlett} shows that $\beta$ can often be fixed a priori. In this case, $\theta=\{\alpha,\nu,\rho \}$.}
 We want to calibrate the pricing model to match the market option quotes. 
 
-On each trading time $t$, we have observed market option prices for different strikes $\{K_1,\dots, K_{N_k}\}$ and different expiries $\{T_1,\dots, T_{N_T}\}$, where $N_k$ is the number of strikes and $N_T$ is the number of expiries. Further assume the risk-free interest rate and annual dividend yield are given as $r$ and $q$. The underlying asset price is $S_t$. The calibration can be done by:
+
+
+On each trading time $t$, we have observed market option prices for different strikes $\{K_1,\dots, K_{N_k(t)}\}$ and different expiries $\{T_1,\dots, T_{N_T(t)}\}$, where $N_k(t)$ is the number of strikes and $N_T(t)$ is the number of expiries.
+Please note we use  $N_k(t)$ and $N_T(t)$ to indicate the number of strikes and number of expiries observed from market are time-dependent.
+The underlying asset price is $S_t$. The calibration can be done by:
 \[
-\min_{\theta}   \sum_{i=1}^{N_T}  \sum_{j=1}^{N_K} \left(V(S_t,t,T_i,K_j,r,q;\theta)-\Vmkt(t,T_i,K_i)\right)^2
+\min_{\theta}   \sum_{i=1}^{N_T(t)}  \sum_{j=1}^{N_K(t)} \left(V(S_t,t,T_i,K_j;\theta)-\Vmkt_{t,T_i,K_i}\right)^2
 \]
 
-    For Black-Scholes model, there is only one parameter to be calibrated,
-so one can usually find that a constant volatility cannot match all market option quotes very well. Alternatively, one can match each market quotes exactly by:
+
+For the Black-Scholes model, there is only one parameter to be calibrated,
+so  one can match each market quotes exactly by:
 \[
-V_{BS}(S_t,t,T_i,K_j,r,q;\sigma^{imp}_{t,T_i,K_j})=\Vmkt(t,T_i,K_j)
+V_{BS}(S_t,t,T_i,K_j;\sigma^{imp}_{t,T_i,K_j})=\Vmkt_{t,T_i,K_i}
 \]
-The volatility $\sigma^{imp}_{t,T_i,K_j}$ that equals the Black–Scholes price with the market option price is called \textbf{Black-Scholes implied volatility}. (In section \ref{sec:SABR}, we have introduced a term called SABR implied volatility which equals the SABR model price with the Black model price. The SABR implied volatility and  Black-Scholes implied volatility are two different but related terminologies. )
+The volatility $\sigma^{imp}_{t,T_i,K_j}$ that equals the Black–Scholes price with the market option price is called \textbf{Black-Scholes implied volatility}. (In section \ref{sec:SABR}, we have introduced a term called SABR implied volatility which equals the SABR model price with the Black model price. The SABR implied volatility and  Black-Scholes implied volatility are two different but related concepts. )
 Note that in this way, for different options $\Vmkt(t,T_i,K_j)$, different models are calibrated.  One can often find that the implied volatility $\sigma^{imp}$ tends to differ across different strikes and expiries.
 
-Alternatively, for stochastic volatility models such as Heston and SABR, the calibration is usually done by matching the volatility smile instead of the entire volatility surface \cite{heston1993closed,hagan2002managing,hulloptimal}. In other words, for a fixed expiry $T_i$, we solve
+For stochastic volatility models, such as Heston and SABR, the calibration is usually done by matching the volatility smile instead of the entire volatility surface \cite{heston1993closed,hagan2002managing,hulloptimal}. In other words, for a fixed expiry $T_i$, we solve
 \[
-\min_{\theta} \sum_{j=1}^{N_K} \left(V(S_t,t,T_i,K_i,r,q;\theta)-\Vmkt(t,T_i,K_i)\right)^2
+\min_{\theta} \sum_{j=1}^{N_K(t)} \left(V(S_t,t,T_i,K_i;\theta)-\Vmkt_{t,T_i,K_i}\right)^2
 \]
 Note that in this way, pricing models are calibrated separately for different expiries $T_i$  on the same trading date $t$.
 
-Given the option pricing model $V(S,t,T,K,r,q;\theta^*)$ with the calibrated $\theta^*$, the hedging positive is commonly determined by:
+Given the option pricing model $V(S,t,T,K;\theta^*)$ with the calibrated $\theta^*$, the hedging position is commonly determined by:
 \[
-\delta_{t,T,K}=  \frac{\partial V(S,t,T,K,r,q;\theta^*)}{\partial S}
+\delta_{t,T,K}=  \frac{\partial V(S,t,T,K;\theta^*)}{\partial S}
 \]
 Although a more complex option pricing model such as stochastic volatility models can match the market quotes better and account for the volatility smiles better, it does not necessarily lead to better hedging strategy. 
 Several studies \cite{dumas1998implied,bakshi1997empirical,yung2003empirical, lassance2018comparison} detail the hedging performances of option pricing models and show that, while explicitly
@@ -1004,39 +1018,64 @@ performance compared to the simpler  Black-Scholes models. A recent empirical st
 
 \subsection{Parameter Dependence on Underlying Asset}
 \label{sec：dependence}
-We notice that determining the hedging position from the partial derivative:
+We demonstrate that determining the hedging position from the partial derivative:
 \[
-\delta_{t,T,K}=  \frac{\partial V(S,t,T,K,r,q;\theta^*)}{\partial S}
+\delta_{t,T,K}=  \frac{\partial V(S,t,T,K;\theta^*)}{\partial S}
 \] of the calibrated pricing function inevitably leads to incomplete elimination of the underlying sensitivity, even in the context of instantaneous hedging. 
 To see this,
-let us assume that a pricing model allows matching of the market price $\Vmkt$  at $t$ exactly, i.e., $\theta^*$ is determined so that for arbitrary observed $T$ and $K$ in market.
+let us assume that a pricing model matches the market price $\Vmkt_{t,T,K}$ with strike $K$ and expiry $T$  at $t$ exactly, i.e., $\theta^*$ is determined so that:
 \begin{equation} \label{eq:imp}
-     V(S,t,T,K,r,q;\theta^*)=\Vmkt(t,T,K)
+     V(S,t,T,K;\theta^*)=\Vmkt_{t,T,K}.
+\end{equation} 
+Let us further assume the risk-free interest rate and dividend yield $\{r,q\}$ do not depend on $S$. 
+% Unfortunately, the calibration process inevitably relates $S$ and $\theta^*$. 
+
+The derivative pricing theory yields the  risk neutral (or risk-adjusted) option value function $V(\cdot)$.
+The option hedging position is then determined by the model option function sensitivity $\frac{\partial V}{\partial S}$. However, using $\frac{\partial V}{\partial S}$ as the hedging position only ensures delta neutral with respect to the model option function $V$. Unfortunately this does not ensure delta neutral with respect to the market price $V^{mkt}$ .
+% We note that, using the option calibration approach,  the hedging position depends only on market option prices at hedging time $t$;  change in the (historical) {\em market} option price  and underlying price is irrelevant in the computed hedging position.
+%
+%The hedging position is computed by $\frac{\partial V}{\partial S}$,
+%As generalization to the original BS model which has a constant volatility parameter,  
+% More complex variants of the BS model have been proposed, including  Local Volatility Function (LVF),  Stochastic Volatility (SV) and GARCH model.
+% Unfortunately determining the hedging position from the partial derivative $\frac{\partial V}{\partial S}$ of the calibrated pricing function does not lead to elimination of the underlying sensitivity in the market option price, even in the context of instantaneous hedging.
+This is because that the calibration equation \eqref{eq:imp} does not imply that  the sensitivity $\frac{\partial V}{\partial S}$ matches $\frac{\partial \Vmkt}{\partial S}$, since the calibration equation contains no information on change in the market option price.
+This leads to dependence of the parameters of the calibrated model on the underlying price, i.e., $\frac{\partial \theta^*}{\partial S} \neq 0$.
+% This means that calibrating $V(S,t,T,K;\theta)$ at $t$ based on  \eqref{eq:imp} is unlikely to lead to $\frac{\partial V}{\partial S}=\frac{\partial \Vmkt}{\partial S}$. 
+This can be understood by
+hypothetically assuming that (\ref{eq:imp}) holds at any $S$, which implies
+\begin{equation} 
+\frac{\partial V}{\partial S} + \frac{\partial V}{\partial \theta^*}\frac{\partial \theta^*}{\partial S}=\frac{\partial \Vmkt}{\partial S}
 \end{equation}
-In general, $\{t,T,K\}$ do not depend on $S$. Let us further assume $\{r,q\}$ do not depend on $S$. 
-Unfortunately, the calibration process inevitably relates $S$ and $\theta^*$. Therefore, we have:
-\[
-  \frac{d V}  {d S}=\frac{\partial V}{\partial S} + \frac{\partial V}{\partial \theta^*}\frac{\partial \theta^*}{\partial S}
-\]
-Thus, unless one can ensure $\frac{\partial \theta^*}{\partial S} = 0$, we will have $dV- \frac{\partial V}{\partial S} \cdot dS \neq 0$.
-Several studies have demonstrate that pricing model parameters can be correlated with the underling asset price, so whenever $S$ changes, the pricing model parameters should change too. As an example, negative correlation between Black-Scholes implied volatility and underlying asset price  has been observed  in \cite{french1987expected,bollerslev2006leverage}.
-Besides, the calibration equation \eqref{eq:imp} says little about how the sensitivity $\frac{d V}{d S}$ matches $\frac{d \Vmkt}{d S}$. Thus, even if we can compute the sensitivity $\frac{d V}  {d S}$ exactly, we generally have:
-\[
-    d\Vmkt- \frac{d V}{d S} \cdot dS \neq 0
-\]
-Even with the perfect case where we can have a pricing model matching all observed market prices, which is often not achievable due to the calibration error, and the unrealistic assumption:
+ Since calibration  \eqref{eq:imp} only ensures matching in the option values, not matching the change in the market option price, it is likely that $\frac{\partial V}{\partial S}-\frac{\partial \Vmkt}{\partial S} \neq 0$.  
+ Although this parameter dependence issue has been noted,  see, e.g., \citep{coleman2001,hulloptimal}, correcting for this risk exposure is not straightforward.
+
+
+
+
+
+% Therefore, we have:
+% \[
+%   \frac{d V}  {d S}=\frac{\partial V}{\partial S} + \frac{\partial V}{\partial \theta^*}\frac{\partial \theta^*}{\partial S}
+% \]
+% Thus, unless one can ensure $\frac{\partial \theta^*}{\partial S} = 0$, we will have $dV- \frac{\partial V}{\partial S} \cdot dS \neq 0$.
+% Several studies have demonstrate that pricing model parameters can be correlated with the underling asset price, so whenever $S$ changes, the pricing model parameters should change too. As an example, negative correlation between Black-Scholes implied volatility and underlying asset price  has been observed  in \cite{french1987expected,bollerslev2006leverage}.
+% Besides, the calibration equation \eqref{eq:imp} says little about how the sensitivity $\frac{d V}{d S}$ matches $\frac{d \Vmkt}{d S}$. Thus, even if we can compute the sensitivity $\frac{d V}  {d S}$ exactly, we generally have:
+% \[
+%     d\Vmkt- \frac{d V}{d S} \cdot dS \neq 0
+% \]
+Even with the perfect case where we can have a pricing model matching all observed market prices, which is often not achievable due to the calibration error, following the equation:
 \begin{equation} \label{mkt:d}
-    \frac{d \Vmkt}{d S}=\frac{d V}{d S}=\frac{\partial V}{\partial S} + \frac{\partial V}{\partial \theta^*}\frac{\partial \theta^*}{\partial S}
+    \frac{\partial \Vmkt}{d S}=\frac{\partial V}{\partial S} + \frac{\partial V}{\partial \theta^*}\frac{\partial \theta^*}{\partial S},
 \end{equation}
-We still have  the pricing model parameters dependence issue to be addressed. Since it is difficult to account for parameter dependence $\frac{\partial \theta^*}{\partial S}$,  $\frac{d \Vmkt}{d S} $ can be hard to be captured accurately. The classical approach of using $\frac{\partial V}{\partial S}$ as the hedging position does not eliminate the instantaneous hedging risk.
+we still have  the pricing model parameters dependence issue to be addressed. Since it is difficult to account for parameter dependence $\frac{\partial \theta^*}{\partial S}$,  $\frac{\partial \Vmkt}{\partial S} $ can be hard to be captured accurately. Therefore, it is difficult for the classical delta-hedging approach of using $\frac{\partial V}{\partial S}$ as the hedging position to  eliminate the instantaneous hedging risk.
 
-A more complex model usually has more pricing model parameters to be calibrated. The more parameters there are, the more severe the parameters dependence issue possibly is. That may be one of the reason why many studies observe poorer hedging performance from more complex pricing model than simple Black-Scholes model in real market. Even with the simple Black-Scholes model, the Black–Scholes implied volatility still depends on the underlying asset. In the following section, we introduce several corrections under Black-Scholes framework for the parameter dependence. In addition, complex models like Heston model usually can not match the observed market option prices exactly. The calibration error can also potentially increase the hedging errors when the partial derivative is used as the hedging position.  
+A more complex model usually has more pricing model parameters to be calibrated. Therefore, the parameter dependence likely becomes harder to be addressed. That may be one of the reason why many studies observe poorer hedging performance from more complex pricing model than simple Black-Scholes model in the real market. Even with the simple Black-Scholes model, the Black–Scholes implied volatility still depends on the underlying asset. In the following section, we introduce several corrections under the Black-Scholes framework for the parameter dependence. In addition, complex models like Heston model usually can not match the observed market option prices exactly. The calibration error can also potentially increase the hedging errors when the partial derivative is used as the hedging position.  
 
 
 
-\subsection{Corrections Under Black-Scholes Framework}
+\subsection{Corrections Under the Black-Scholes Framework}
 Although the issue of pricing model parameters dependence on underlying asset has been noted, e.g., in \citep{coleman2001,hulloptimal}, correcting for this risk exposure is not straightforward.
-Methods have been proposed to compensate for this missing exposure.  Typically methods are based on analysis of some parametric models, e.g., LVF and SV; these methods minimize the variance of the hedging error \citep{hulloptimal,alexander09,Angelini09,Angelini10,Goutte13}. In this section, we present several correction methods under Black-Scholes Framework. The discussion below are majorly drawn from \cite{hulloptimal,hagan2017bartlett,bartlett2006hedging}.
+Methods have been proposed to compensate for this missing exposure.  Typically methods are based on analysis of some parametric models, e.g., LVF and SV; these methods attempt to minimize the variance of the hedging error \citep{hulloptimal,alexander09,Angelini09,Angelini10,Goutte13}. In this section, we present several correction methods under Black-ScholesF framework. The discussion below is majorly drawn from \cite{hulloptimal,hagan2017bartlett,bartlett2006hedging}.
 \subsubsection{A Data-Driven Correction For The Black–Scholes Delta Hedging}
 
 
@@ -1045,7 +1084,7 @@ Methods have been proposed to compensate for this missing exposure.  Typically m
 Equation \eqref{mkt:d} implies that the sensitivity of the option value function $\frac{\partial V}{\partial S}$ calibrated at the rebalancing time to
 satisfy the calibration equation \eqref{eq:imp} cannot completely hedge  
 the sensitivity of the market option price to the underlying price since $\frac{\partial \theta^*}{\partial S}$ is not accounted for.
-If the hedging risk in each rebalancing period is the performance criteria, the information in the option market price change needs to be explicitly incorporated to determine a better hedging method which minimizes the hedge risk as measured by
+If the hedging risk in each rebalancing period is the performance criteria, the information in the option market price change needs to be explicitly incorporated to determine a better hedging method which minimizes the hedge risk as measured by the
 market option price change instead of the model option price change.
 
 
@@ -1056,23 +1095,24 @@ model based hedging methods.
 To the best of our knowledge, the study
 \cite{hulloptimal} is the first to determine the hedging strategy based on historical observations of the market option prices and 
 underlying prices.  
-This particularly form \eqref{eq:HullWhite} is derived based on the following analysis using the Black–Scholes model. 
-More specifically, assume we have calibrate the implied volatilities $\sigma^{imp}$ to match all the market option quotes as what we have discussed in section \ref{sec:Classical}.
-Let us again assume we  are computing  the hedging position  with a fixed $T$ and $K$ at a specific trading time $t$, so for notational simplicity in the following discussion, we drop ${t,T,K}$ in the subscript. Following \eqref{mkt:d}, to determine the  sensitivity  $\frac{d V_{BS}}{d S} $ accurately, one needs to compute 
+
+\citet{hulloptimal} proposed a correction form  based on the following analysis using the Black–Scholes model. 
+More specifically, assume we have calibrated the implied volatilities $\sigma^{imp}$ to match all the market option quotes as what we have discussed in section \ref{sec:Classical}.
+Let us again assume we  are computing  the hedging position  with a fixed $T$ and $K$ at a specific trading time $t$, so for notational simplicity in the following discussion, we drop ${t,T,K}$ in the subscript. Following \eqref{mkt:d}, to determine the  sensitivity accurately, one needs to compute 
 \begin{equation} \label{eq:Chain}
 \frac{\partial V_\BS}{\partial S} + \frac{\partial V_\BS}{\partial \sigma^{imp}}
 \frac{\partial \sigma^{imp}}{\partial S}
 \end{equation}
 $
 \frac{\partial V_\BS}{\partial S}
-$ is the Black–Scholes delta with implied volatility and $\frac{\partial V_\BS}{\partial \sigma^{imp}}$ Black–Scholes vega with implied volatility. Both can be computed analytical. The undetermined part is $\frac{\partial \sigma^{imp}}{\partial S}$.
+$ is the Black–Scholes delta with the implied volatility and $\frac{\partial V_\BS}{\partial \sigma^{imp}}$ Black–Scholes vega with the implied volatility. Both can be computed analytical. The undetermined part is $\frac{\partial \sigma^{imp}}{\partial S}$.
 %\citet{hulloptimal} computes the delta $\delta_{\MV}$, to correct the implied volatility risk exposure as
 In \cite{hulloptimal}, the authors choose  
 $$
 \frac{\partial \sigma^{imp}}{\partial S} =
 \frac{a+b \cdot\frac{\partial V_\BS}{\partial S}+c \cdot (\frac{\partial V_\BS}{\partial S})^2}{S \sqrt{T-t}}
 $$
-where $a, b \text{ and  } c$ are the parameters to be fitted using  market option data. Therefore, plug in the notation for $t,T,K$,
+where $a, b \text{ and  } c$ are the parameters to be fitted using  market option data. Therefore, plugging in the notation for $t,T,K$,
 the minimum variance delta is therefore:
 \begin{equation}
 \delta^{MV}_{t,T,K}=\delta^{BS}_{t,T,K}+\text{vega}^{BS}_{t,T,K} \frac{a+b \cdot \delta^{BS}_{t,T,K} +c \cdot (\delta^{BS}_{t,T,K})^2}{S_t\sqrt{T-t}},
@@ -1101,10 +1141,16 @@ A linear regression is performed to determine the model parameters $a,b,c$.
  \begin{equation}\label{LVF}
 \frac{dS_t}{S_t} = (r-q) dt + \sigma(S_t,t)   dW_t
 \end{equation}
- has been considered, see e.g., \citep{Dupire94,DermanKani94,DermanKani96},
-  and LVF and its extensions remain widely popular in practice. Many methods have been proposed to calibrate a local volatility function $\sigma(S,t)$ from the traded market option prices, see e.g., \citep{JackwerthRubenstein96,Andersen-etal98,CLV98}. In addition, \citet{coleman2001} discuss a relationship between the partial derivatives of  calls and puts in the context of the LVF model, under which a call and put symmetry relation holds, see,  e.g., \citep{Carr94,Carr98}. This relationship is found useful in correcting the dependence of the implied volatility on the underlying for Black–Scholes delta hedging.
+ has also been considered, see e.g., \citep{Dupire94,DermanKani94,DermanKani96}.
+  LVF and its extensions remain widely popular in practice \cite{coleman2001reconstructing,crepey2004delta}. Many methods have been proposed to calibrate a local volatility function $\sigma(S,t)$ from the traded market option prices, see e.g., \citep{JackwerthRubenstein96,Andersen-etal98,CLV98}. In addition, \citet{coleman2001} discuss a relationship between the partial derivatives of  calls and puts in the context of the LVF model, under which a call and put symmetry relation holds, see,  e.g., \citep{Carr94,Carr98}. This relationship is found useful in correcting the dependence of the implied volatility on the underlying for Black–Scholes delta hedging.
 
-In Theorem \ref{pc:symmetry} below, we formalize this relation \citep{coleman2001} to any call and put functions satisfying the call-put-symmetry. We note that, for this relationship to be useful in correcting for MV hedging in practice, hence the relevant price functions  correspond to the market option prices, not model option values.
+In Theorem \ref{pc:symmetry} below, we formalize this relation \citep{coleman2001} to any call and put functions satisfying the call-put-symmetry.
+Let $Call(S,t,T,K,r,q)$  be the call option price with underlying price $S$, strike $K$, expiry $T$, time $t$, interest rate $r$ and dividend yield $q$. We then use $Put(K,t,T,S,q,r)$ to denote  the put price with underlying price $K$, strike $S$, expiry $T$, time $t$ , risk free rate  $q$ and dividend yield $r$.  When the underlying price satisfies the stochastic equation \eqref{LVF}, the European put and call prices are related through the reversal of $K$ and $S$, and $q$ and $r$ via the following call-put symmetry.
+\begin{equation}
+	Call(S, t,T,K,r, q)=Put(K, t,T,S , q, r).
+	\label{eq:callputsymmetry}
+\end{equation}
+One can easily show that at expiry date $T$, the call-put symmetry \eqref{eq:callputsymmetry} holds. Then with the help of no-arbitrage theory, one can show  the \eqref{eq:callputsymmetry} holds at any time $t$. We note that, for this relationship to be useful in correcting for MV hedging in practice, the relevant price functions  correspond to the market option prices, not model option values.
 
 \begin{thm}\label{pc:symmetry}
 Let $Call(S,t,T,K,r,q)$ and $Put(S,t,T,K,r,q)$ be the call option price and put option price with underlying price $S$, strike $K$, expiry $T$, time $t$, interest rate $r$ and dividend yield $q$.
@@ -1126,7 +1172,7 @@ Let $C_{\BS}(\cdot)$ and $P_{\BS}(\cdot)$  denote the BS model option value func
 C_{\BS}(S,t,T,K, r, q;\sigma )=P_{\BS}(K,t,T,S, q, r;\sigma),
 \end{equation}
 where $\sigma$ is any constant volatility.
-Let $\impsigma_c(S, t,T,K, r, q)$ and $\impsigma_p(K, t,T,S , q, r)$ be the Black–Scholes implied volatilities calibrated to $Call(S,t,T,K, r, q)$ and $Put(K,t,T,S, q, r)$
+Let $\impsigma_c(S, t,T,K, r, q)$ and $\impsigma_p(K, t,T,S , q, r)$ be the Black–Scholes implied volatilities calibrated to $Call(S,t,T,K, r, q)$ and $Put(K,t,T,S, q, r)$.
 Then
 \begin{equation}
 \begin{array}{l}
@@ -1140,7 +1186,7 @@ From \eqref{BSLVF} and above, it follows
 \end{equation}
 Using \eqref{BSdual} with $\impsigma_c(\cdot)$,
 $$
-C_{\BS}(S,t,T,K, r, q;\impsigma_c(S, t,T,K, r, q) )=P_{\BS}(K, S, T, q, r;\impsigma_c(S, t,T,K, r, q))
+C_{\BS}(S,t,T,K, r, q;\impsigma_c(S, t,T,K, r, q) )=P_{\BS}(K, t, S, T, q, r;\impsigma_c(S, t,T,K, r, q))
 $$
 From above and \eqref{eq:imp_cp}, it follows
 $$
@@ -1179,7 +1225,7 @@ where  $\frac{\partial \sigma^{imp}}{\partial K}$ can be estimated from the  a q
 
 
 \subsubsection{Correction With SABR model for the the Black–Scholes Delta Hedging}
-Recall that the SABR implied volatility, which is the value of the $\sigma_B$ in Black's model that forces it to match the SABR price, is given in section \ref{sec:SABR}.
+Recall that the SABR implied volatility, which is the value of the $\sigma_B$ in Black's model that forces the Black's model price to match the SABR model price, is given in section \ref{sec:SABR}.
 Based on SARR model, a correction formula for Black delta hedging is thus given by:
 \begin{equation}
 \frac{\partial V_{B}}{\partial F} + \frac{\partial V_{B}}{\partial \sigma_B}
@@ -1187,33 +1233,32 @@ Based on SARR model, a correction formula for Black delta hedging is thus given 
 \label{eq:sabr}
 \end{equation}
 Note that, Black delta can be converted to Black–Scholes delta.
-One can rewrite the formula to compute the sensitivity with regards to underlying asset price $S$ instead of forward $F$ by:
+One can rewrite the formula \eqref{eq:sabr} to compute the sensitivity with regards to underlying asset price $S$ instead of forward $F$ by:
 \begin{equation}
 \left(\frac{\partial V_{B}}{\partial F} + \frac{\partial V_{B}}{\partial \sigma_B}
     \frac{\partial \sigma_B}{\partial F}\right)\frac{d F}{d S}
     \label{eq:sabrV2}
     \end{equation}
- Given the risk-free interest rate $r$, the annual dividend yield $q$, and the forward $F_t$ at time $t$ with expiry $T$ is: 
+ Given the risk-free interest rate $r$, the annual dividend yield $q$, the forward $F_t$ at time $t$ with expiry $T$ is: 
 \[
         F_t=S_t e^{(r-q) (T-t)}
  \]
-Plug in the notation for $t,T,K$ as what we did in previous sections, we  have:
+Adding the dependence for $t,T,K$ as what we did in previous sections, we  have:
 \begin{equation}
     \delta^{SABR}_{t,T,K}=\left( \delta^{B}_{t,T,K}+\text{vega}^{B}_{t,T,K} \frac{\partial \sigma_B}{\partial F} \right)e^{(r-q) (T-t)}
     \label{eq:sabrV3}
 \end{equation}
-
 where 
-$\delta^{B}_{t,T,K}$ is the Black delta $\frac{\partial V_{B}}{\partial F}$ at time $t$ for option with strike $K$ and expiry $T$. 
-$\text{vega}^{B}_{t,T,K}$ is the Black vega $\frac{\partial V_{B}}{\partial \sigma_{B}}$ at time $t$ for option with strike $K$ and expiry $T$. 
+$\delta^{B}_{t,T,K}$ is the Black delta $\frac{\partial V_{B}}{\partial F}$ at time $t$ for option with strike $K$ and expiry $T$. Here
+$\text{vega}^{B}_{t,T,K}$ is the Black vega $\frac{\partial V_{B}}{\partial \sigma_{B}}$ at time $t$ for the option with strike $K$ and expiry $T$, and 
 $\frac{\partial \sigma_B}{\partial F}$ is the shortened form  of $\frac{\partial\sigma_{B}(F_t,t,T,K;\alpha,\beta,\nu,\rho)}{\partial F}$.
 
 %Note that, \eqref{eq:sabrV3} is similar to \eqref{eq:HullWhite}. The major difference lies in the how we compute the sensitivity of implied volatility with regards to the underlying ( or forward) price. 
 
-Although, SABR model can be used to correct the dependence of implied volatility on the forward price, the formula \eqref{eq:sabrV3} omits the fact the initial SABR volatility $\alpha$ is correlated with the forward $F$. So whenever the forward $F$ changes,  the initial SABR volatility $\alpha$ changes.  There is still unaccounted parameter dependence  in  equation \eqref{eq:sabrV3}.
+Although, SABR model can be used to correct for the dependence of implied volatility on the forward price, the formula \eqref{eq:sabrV3} omits the fact the initial SABR volatility $\alpha$ is correlated with the forward $F$. Here whenever the forward $F$ changes,  the initial SABR volatility $\alpha$ changes.  There is still unaccounted parameter dependence  in  equation \eqref{eq:sabrV3}.
 
-Therefore, Bartlett correction \cite{hagan2017bartlett,bartlett2006hedging} was proposed to account for the dependence of $\alpha$ on $F$.
-The Bartlett correction is based on the following analysis. Recall that, in SABR model we assume:
+Bartlett correction \cite{hagan2017bartlett,bartlett2006hedging} was proposed to account for the dependence of $\alpha$ on $F$.
+The Bartlett correction is based on the following analysis. Recall that, in the SABR model, we assume:
 \[
 \begin{split}
 dF_t=\alpha_t (F_t)^{\beta}dW_t\\
@@ -1225,9 +1270,10 @@ which can be rewritten as:
 \[
 \begin{split}
 dF_t&=\alpha_t (F_t)^{\beta}dW_t\\
-d\alpha_t&=\nu \alpha_t \left(\rho dW_t +\sqrt{1-\rho^2} dZ_t\right)=\frac{\rho \nu }{(F_t)^{\beta}}dF_t+\nu \alpha_t \sqrt{1-\rho^2} dZ_t\\
+d\alpha_t&=\nu \alpha_t \left(\rho dW_t +\sqrt{1-\rho^2} d\hat{Z}_t\right)=\frac{\rho \nu }{(F_t)^{\beta}}dF_t+\nu \alpha_t \sqrt{1-\rho^2} d\hat{Z}_t\\
 \end{split}
 \]
+where  $\hat{Z}_t$ and $W_t$ are independent random variables.
 Therefore, one can readily find that:
 \[
    E\left[ \frac{d\alpha_t}{dF_t}\right] =\frac{\rho \nu }{(F_t)^{\beta}}
@@ -1244,13 +1290,13 @@ with $\frac{\partial \sigma_B}{\partial \alpha}$ being the shortened form for
 $\frac{\partial \sigma_B (F_t,t,T,K;\alpha,\beta,\nu,\rho)}{\partial \alpha}$.
 The Bartlett correction improves over the SABR delta in two different aspects:
 \begin{itemize}
-    \item Empirically, the Bartlett correction is less sensitive to the choice of $\beta$ parameter. In practice, the $\beta$ is often fixed instead of being calibrated together with $\alpha,\nu,\rho$ in SABR model. Different choices of $\beta$ can often all fit the market prices but different choices of $\beta$ can often lead to different SABR delta $\delta^{SABR}_{t,T,K}$ position. On the other hand, the $\delta^{Bartlett}_{t,T,K}$ is consistent with different choices of $\beta$. This phenomenon is shown in Figure \ref{fig:Bartlett}. We calibrate a SABR model for S\&P 500 index option with trading time $t$ being 2012-01-04 and expiry being 2012-12-31. We compute and compare delta position and we can see that for SABR delta, different choice of $\beta$ can lead to  significantly different hedging position while the Bartlett delta position is consistent.
+    \item Empirically, the Bartlett correction is less sensitive to the choice of $\beta$ parameter. In practice,  $\beta$ is often fixed instead of being calibrated together with $\alpha,\nu,\rho$ in SABR model. Different choices of $\beta$ can often all fit the market prices but different choices of $\beta$ can often lead to different SABR delta $\delta^{SABR}_{t,T,K}$ position. On the other hand,  $\delta^{Bartlett}_{t,T,K}$ is consistent with different choices of $\beta$. This phenomenon is shown in Figure \ref{fig:Bartlett}. We calibrate the SABR model for S\&P 500 index options  on  2012-01-04 and expiry being 2012-12-31. We compute and compare delta position and we can see that for SABR delta, different choice of $\beta$ can lead to  significantly different hedging position while the Bartlett delta position is consistent.
     \begin{figure}[htp!]
         \includegraphics[width=\textwidth]{./figures/Bartlett}
         \caption{Comparing the original SABR delta $\delta^{SABR}_{t,T,K}$ and Bartlett delta  $\delta^{Bartlett}_{t,T,K}$ from SABR models calibrated with $\beta=0,\; 0.5, \;1.0$ on 2012-01-04 for S\&P500 index option. The computation of Bartlett delta  $\delta^{Bartlett}_{t,T,K}$ is more robust to the choice of $\beta$.}
         \label{fig:Bartlett}
     \end{figure}
-    \item  Empirically, the Bartlett correction provides better hedging strategy. As an example, one can observe significant  hedging performance difference between $\delta^{Bartlett}_{t,T,K}$ and  $\delta^{SABR}_{t,T,K}$  on S\&P 500 index options. More specifically, we calibrate SABR model on each trading date from Jan 1st 2007 to August 31st 2015 as what we have discussed in section \ref{sec:pricing} with $\beta=1$. And we compare the local hedging performance for all the traded options from Jan 1st 2007 to August 31st 2015.
+    \item  Empirically, the Bartlett correction provides better hedging strategy. As an example, one can observe significant  hedging performance difference between $\delta^{Bartlett}_{t,T,K}$ and  $\delta^{SABR}_{t,T,K}$  on S\&P 500 index options. More specifically, we calibrate the SABR models on each trading date from Jan 1st 2007 to August 31st 2015 as discussed in section \ref{sec:pricing} with $\beta=1$ and note that here we calibrate SABR models separately for each expiry. And we compare the local hedging performance for all the traded options from Jan 1st 2007 to August 31st 2015.
     Following \cite{hulloptimal},  we use the Gain ratio below as the evaluating criteria of the hedging performance measure:
     \begin{equation}
     \textsc{Gain}=1-\frac{\sum_{i=1}^m \bigg(\Delta V^{mkt}_{t_i,T_i,K_i}-\delta_{t_i,T_i,K_i} ~ \Delta S_{t_i} \bigg)^2}{\sum_{i=1}^m \bigg(\Delta V^{mkt}_{t_i,T_i,K_i}-\delta^{BS}_{t_i,T_i,K_i} ~ \Delta S_{t_i} \bigg)^2}.
@@ -1283,8 +1329,11 @@ Lastly, we introduce the corrective formula for minimum variance hedging  based 
 	\label{eq:HullWhiteSabr}
 \end{equation}
 with $V_B$ be the Black pricing formula and $\sigma_B$ be the SABR implied volatility formula discussed in section \ref{sec:SABR}. 
+\section{Option Hedging With Discrete Risk Minimization}
 
-\section{Overview of the Data-Driven Hedging Models}
+
+
+\section{Motivation For Direct Nonparametric Data-Driven Hedging Models}
 In the previous sections, we discuss the issue of parameter dependence and present several correction methods under Black–Scholes framework. Although the corrective formula   \eqref{eq:HullWhite}, \eqref{eq:HullWhiteLVF}, \eqref{eq:sabrV3}, and \eqref{eq:bartlett} adopt similar forms, the data-driven MV delta \eqref{eq:HullWhite} is significantly different from other corrective formula for the fact that it is based on historical data while \eqref{eq:HullWhiteLVF} ,\eqref{eq:sabrV3}, and \eqref{eq:bartlett} are based on pricing model calibrated to the spot options and underlying prices. \citet{hulloptimal} indicate that MV delta $\delta^{MV}_{t,T,K}$ estimated based on historical data performs better than $\delta^{LVF}_{t,T,K}$ and $\delta^{SV}_{t,T,K}$ estimated based on spot data. 
 
 Our exploration on the data-driven models for hedging start roughly the same years as the work of \cite{hulloptimal} and we adopt the similar methodology as the MV delta where we learn a hedging position function from historical data. However, our explorations are motivated differently:
@@ -1622,8 +1671,8 @@ Specifically, using the generated synthetic data, we compare here hedging perfor
 Training data consists of simulated daily underlying price $S_t$ for two years\footnote{We assume that there are 252 trading days in a year.}, $t=1,\cdots, 2\times 252$, assuming a  risk-neutral Heston model below:
 \[
 	\begin{split}
-	dS&=(r-q) S dt + \sqrt{\upsilon} S \hat{dW}\\
-	d\upsilon&=\kappa^*(\overline{\upsilon}^*-\upsilon)dt+\eta \sqrt{\upsilon}\hat{dZ}\\
+	dS&=(r-q) S dt + \sqrt{\Upsilon} S \hat{dW}\\
+	d\Upsilon&=\kappa^*(\overline{\Upsilon}^*-\Upsilon)dt+\eta \sqrt{\Upsilon}\hat{dZ}\\
 	E[\hat{dZ}\hat{dW}]&=\rho dt
 	\end{split}
 \]
@@ -1632,12 +1681,12 @@ In addition,  a vector of simulated (traded)  market call option prices  are  ge
  formula \eqref{eq:hestonPrice} under the Heston model \citep{heston1993closed} in section \ref{sec:heston} ,
  using the the parameters  from \citep{bakshi1997empirical}, which are given in Table \ref{para}. In other words, we assume in this section:
  \[
-\Vmkt(t,T,K)=V_{Heston}(S_t,t,T,K,r,q;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)
+\Vmkt(t,T,K)=V_{Heston}(S_t,t,T,K,r,q;\Upsilon,\kappa^*,\overline{\Upsilon}^*,\eta,\rho)
  \]
 
  Please note that the heston delta position under this synthetic scenarios does not have the parameter dependence issue, since for the synthetic case all heston parameter is fixed, and can be used as the benchmark.
  \[
-	 \delta^{Heston}_{t,T,K}=\frac{ \partial V_{Heston}(S_t,t,T,K,r,q;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)}{\partial S}=\frac{d \Vmkt}{d S}
+	 \delta^{Heston}_{t,T,K}=\frac{ \partial V_{Heston}(S_t,t,T,K,r,q;\Upsilon,\kappa^*,\overline{\Upsilon}^*,\eta,\rho)}{\partial S}=\frac{d \Vmkt}{d S}
  \] 
  The Black-Scholes delta position from implied volatility still has the the issue of implied volatility depending on underlying asset:
  \[
@@ -1645,14 +1694,14 @@ In addition,  a vector of simulated (traded)  market call option prices  are  ge
  \] 
  where $\sigma^{imp}_{t,T,K}$ is the volatility that equals Black–Scholes price and Heston price
  \[
-	 V_{BS}(S_t,t,T,K,r,q;\sigma^{imp}_{t,T,K})=V_{Heston}(S_t,t,T,K,r,q;\upsilon,\kappa^*,\overline{\upsilon}^*,\eta,\rho)
+	 V_{BS}(S_t,t,T,K,r,q;\sigma^{imp}_{t,T,K})=V_{Heston}(S_t,t,T,K,r,q;\Upsilon,\kappa^*,\overline{\Upsilon}^*,\eta,\rho)
  \]
 
  \begin{table}[htp!]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
- $r$ &$q$& $\overline{\upsilon}^*$  & $\kappa^*$ & $\eta$ & $\rho$ & $S_0$ & $\upsilon_0$  \\ \hline
+ $r$ &$q$& $\overline{\Upsilon}^*$  & $\kappa^*$ & $\eta$ & $\rho$ & $S_0$ & $\Upsilon_0$  \\ \hline
  0.02&0.0&0.04                  & 1.15   & 0.39  & -0.64 & 100 &0.04 \\    \hline
 \end{tabular}
 \end{center}
