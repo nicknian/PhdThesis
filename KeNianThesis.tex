@@ -977,7 +977,7 @@ The $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$ under SABR model depends on the 
  In this section, we discuss how to compute the hedging position $\delta_{t,T,K}$ from the option pricing model under the delta-hedging strategy, as well as the drawbacks of this approach.  Specifically, we discuss the pricing model parameters dependence issue, which motivates our data-driven model. In addition, we provide several existing ways for correcting the model parameter dependence. 
 
 
-\subsection{Classical Hedging Position From Pricing Model}
+\subsection{Classical Hedging Position from Pricing Model}
 \label{sec:Classical}
 In section \ref{sec:pricing}, we have introduced several option pricing models with analytical pricing formula. In this section, we assume the risk-free interest rate and annual dividend yield are given as $r$ and $q$. Therefore, we denote  $V(S,t,T,K;\theta)$  as an option pricing model with $\theta$ as the model parameters to be calibrated. For Black-Scholes model,  $\theta$ is the volatility $\sigma$. For Heston model, $\theta=\{\Upsilon_0,\kappa^*,\overline{\Upsilon}^*,\eta,\rho \}$. For SABR model, $\theta=\{\alpha,\beta,\nu,\rho \}$. \footnote{Note that, Studies \cite{hulloptimal,hagan2002managing,hagan2017bartlett} shows that $\beta$ can often be fixed a priori. In this case, $\theta=\{\alpha,\nu,\rho \}$.}
 We want to calibrate the pricing model to match the market option quotes. 
@@ -1073,10 +1073,10 @@ A more complex model usually has more pricing model parameters to be calibrated.
 
 
 
-\subsection{Corrections Under the Black-Scholes Framework}
+\subsection{Corrections under the Black-Scholes Framework}
 Although the issue of pricing model parameters dependence on underlying asset has been noted, e.g., in \citep{coleman2001,hulloptimal}, correcting for this risk exposure is not straightforward.
-Methods have been proposed to compensate for this missing exposure.  Typically methods are based on analysis of some parametric models, e.g., LVF and SV; these methods attempt to minimize the variance of the hedging error \citep{hulloptimal,alexander09,Angelini09,Angelini10,Goutte13}. In this section, we present several correction methods under Black-ScholesF framework. The discussion below is majorly drawn from \cite{hulloptimal,hagan2017bartlett,bartlett2006hedging}.
-\subsubsection{A Data-Driven Correction For The Black–Scholes Delta Hedging}
+Methods have been proposed to compensate for this missing exposure.  Typically methods are based on analysis of some parametric models, e.g., LVF and SV; these methods attempt to minimize the variance of the hedging error \citep{hulloptimal,alexander09,Angelini09,Angelini10,Goutte13}. In this section, we present several correction methods under Black-Scholes  framework. The discussion below is majorly drawn from \cite{hulloptimal,hagan2017bartlett,bartlett2006hedging}.
+\subsubsection{A Data-Driven Correction for the Black–Scholes Delta Hedging}
 
 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.5.4)  11 MAR 2022 11:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.5.4)  15 MAR 2022 11:55
 entering extended mode
 **c:/Users/nfswx/Documents/GitHub/PhdThesis/KeNianThesis.tex
 (c:/Users/nfswx/Documents/GitHub/PhdThesis/KeNianThesis.tex
@@ -2045,7 +2045,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 4162.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4162.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4162.
 Package rerunfilecheck Info: File `KeNianThesis.out' has not changed.
-(rerunfilecheck)             Checksum: 3A2A33BA7608FF385366C81C049AB593;5188.
+(rerunfilecheck)             Checksum: A497DA7B25BAFBBCDA57E1DA0B9CF34E;5188.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -2077,7 +2077,7 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 {C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/rsfs/rsfs10.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on KeNianThesis.pdf (137 pages, 2586537 bytes).
+Output written on KeNianThesis.pdf (137 pages, 2586528 bytes).
 PDF statistics:
  3893 PDF objects out of 4296 (max. 8388607)
  644 named destinations out of 1000 (max. 500000)

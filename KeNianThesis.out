@@ -13,9 +13,9 @@
 \BOOKMARK [2][-]{subsection.2.2.2}{Heston Model}{section.2.2}% 13
 \BOOKMARK [2][-]{subsection.2.2.3}{SABR Model}{section.2.2}% 14
 \BOOKMARK [1][-]{section.2.3}{Option Hedging Using the Sensitivity from Pricing Model}{chapter.2}% 15
-\BOOKMARK [2][-]{subsection.2.3.1}{Classical Hedging Position From Pricing Model}{section.2.3}% 16
+\BOOKMARK [2][-]{subsection.2.3.1}{Classical Hedging Position from Pricing Model}{section.2.3}% 16
 \BOOKMARK [2][-]{subsection.2.3.2}{Parameter Dependence on Underlying Asset}{section.2.3}% 17
-\BOOKMARK [2][-]{subsection.2.3.3}{Corrections Under the Black-Scholes Framework}{section.2.3}% 18
+\BOOKMARK [2][-]{subsection.2.3.3}{Corrections under the Black-Scholes Framework}{section.2.3}% 18
 \BOOKMARK [1][-]{section.2.4}{Option Hedging With Discrete Risk Minimization}{chapter.2}% 19
 \BOOKMARK [1][-]{section.2.5}{Motivation For Direct Nonparametric Data-Driven Hedging Models}{chapter.2}% 20
 \BOOKMARK [0][-]{chapter.3}{Data-Driven Kernel Learning Framework for Local Hedging Risk}{}% 21
