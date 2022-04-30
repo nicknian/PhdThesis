@@ -1,4 +1,4 @@
-\begin{thebibliography}{180}
+\begin{thebibliography}{182}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -134,6 +134,11 @@ Matthew Brand.
 \newblock In \emph{Proceedings of the 2003 SIAM International Conference on
   Data Mining}, pages 37--46. SIAM, 2003.
 
+\bibitem[Breeden and Litzenberger(1978)]{breeden1978prices}
+Douglas~T Breeden and Robert~H Litzenberger.
+\newblock Prices of state-contingent claims implicit in option prices.
+\newblock \emph{Journal of business}, pages 621--651, 1978.
+
 \bibitem[Broadie et~al.(2000{\natexlab{a}})Broadie, Detemple, Ghysels, and
   Torr{\'e}s]{broadie2000american}
 Mark Broadie, J{\'e}r{\^o}me Detemple, Eric Ghysels, and Olivier Torr{\'e}s.
@@ -149,6 +154,13 @@ Mark Broadie, J{\'e}r{\^o}me Detemple, Eric Ghysels, and Olivier Torr{\`e}s.
   call prices.
 \newblock \emph{Journal of Economic Dynamics and Control}, 24\penalty0
   (11):\penalty0 1829--1857, 2000{\natexlab{b}}.
+
+\bibitem[Brunner and Hafner(2003)]{brunner2003arbitrage}
+Bernhard Brunner and Reinhold Hafner.
+\newblock Arbitrage-free estimation of the risk-neutral density from the
+  implied volatility smile.
+\newblock \emph{Journal of Computational Finance}, 7\penalty0 (1):\penalty0
+  75--106, 2003.
 
 \bibitem[Buehler et~al.(2019)Buehler, Gonon, Wood, Teichmann, Mohan, and
   Kochems]{buehler2019deep}

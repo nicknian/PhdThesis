@@ -1,0 +1,1214 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{../../../qs}
+\usepackage{../../../frtb}
+%\usepackage[demo]{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+%****************************************************
+\newcommand{\vol}[1]{\sigma_\textsf{#1}}
+\newcommand{\ret}[1]{\Delta_\textsf{#1}}
+%****************************************************
+\setcounter{secnumdepth}{5} 
+\setcounter{tocdepth}{5}
+%****************************************************
+\graphicspath{{../../../}{./figures/}}
+
+
+%****************************************************
+\begin{document}
+%\shortform[]{}
+\date{October, 2020}
+\version{1.0}
+\docversion{1.0.0}
+\title{Arbitrage Free Risk Scenarios For Equity Volatility Surfaces in XTV}
+\shorttitle{Arbitrage Free Risk Scenarios}
+\from{Capital Markets Risk Management, Quantitative Risk}
+\preparedby{Quantitative Risk}
+\reviewedby{Hany Farag}
+\submission{}
+\maketitlepage
+%****************************************************
+%\printhelp
+\PurposeOfModel[purpose=e][priority=m][]{arg1}{arg2}{arg3}{arg4}
+\ProductDescription[y]{arg1}{arg2}{arg3}
+\ModelUsers{arg1}{arg2}
+\ModelUsageGuidelines[limit=y, exception=y]{arg1}{arg2}{arg3}{arg4}
+\ModelInfrastructure[spreadsheet=y, attestation=y, inhouse=n, vendor=y, ootb=n, customized=y]{arg1}{arg2}{arg3}{arg4}
+\ModelAssumptions[]{arg1}{arg2}{arg3}{arg4}
+\ModelInputData[]{arg1}{arg2}{arg3}{arg4}{arg5}{arg6}{arg7}{arg8}
+\ModelApproach{arg1}{arg2}
+\ModelMonitoring[mo=y, risk=y]{arg1}
+\ModelTesting[devtest=n, boundary=y, stress=na, backtest=y, sensitivity=na, oos=n, accuracy=n]{arg1}{arg2}{arg3}{arg4}{arg5}{arg6}{arg7}{arg8}
+\FutureEnhancements[y]{arg1} 
+%\makeshortsummary
+%****************************************************
+\section{Model Development Documentation Report}
+%****************************************************
+\subsection{Introduction}
+
+In this document, we introduce an algorithm to correct the shocks that are sent to XTV for equity names so that the surface that is produced, post-shock, is free of arbitrage. The approach that is presented is based on Stochastic Volatility Inspired (SVI) parameterizations of volatility surfaces, and allows us to send shocks to XTV that are  guaranteed to result in arbitrage-free volatility surfaces. The new methodology allows us to turn off Exotica's High Tolerance setting and return to Normal Tolerance, allowing CMRM to have full oversight over the shocks we send, while also reducing our dependency on the DGV Fallback. 
+
+
+
+%----------------------------------------------------
+\subsubsection{Background}
+
+In the current state of XTV \cite{xtv}, implied volatility risk factors are shocked relatively based on the movements of at-the-money (ATM) volatilities and re-anchored based on spot movements, with no consideration of whether the resulting surface allows for arbitrage opportunities. Surfaces that result in arbitrage are unrealistic from a financial perspective and also result in valuation failures within Exotica. In particular, for -FD or LVMC- models a local volatility component is included in the underlying's SDE,
+\[
+dS_t = \mu(t,S_t) dt + \sigma(t,S_t) dW_t 
+\]
+and this component must first be calibrated in order to value the derivative via finite differences or Monte-Carlo \cite{gqa_localvol}.\footnote{In this equation we omit the presence of discrete dividends to simplify the notation} If the underlying surface possesses static arbitrage, this calibration fails resulting in a Valuation Failure. 
+
+When calibrating $\sigma(t,S)$ to a volatility surface using standard algorithms such as \cite{dupire1994pricing}, the presence of arbitrage results in abnormal values for $\sigma(t,S)$ and introduces numerical instability, resulting in the aforementioned failures. To remedy the situation, GQA has developed a setting within Exotica known as High Tolerance Mode \cite{gqa_localvol} which places upper and lower bounds on $\sigma(t,S)$ to prevent blow-ups and other unrealistic values, resulting in a different local volatiliy function $\widetilde{\sigma}(t,S)$. Beyond resolving numerical instability, this approach also removes arbitrage from the volatility surface, as can be seen from revaluing European options using the modified local volatility model
+\[
+dS_t = \mu(t,S_t) dt + \widetilde{\sigma}(t,S_t) dW_t
+\]
+with finite difference valuation, and backing out the resulting implied volatility surface under $\widetilde{\sigma}$. While calibrating under High Tolerance Mode may still fail to prevent valuation failures for scenarios that produce arbitrageable surfaces, CMRM has also implemented a DGV-fallback as outlined in \cite{xtv} as a last resort to obtain PnLs for scenarios that result in Valuation Failures.  
+
+While High Tolerance has the benefit of preventing valuation failures and removing arbitrage from the surface, there is little transparency in how the surface is corrected, and it is unclear if the meaning of the original historical scenarios is retained. The lack of transparency is due to the highly nonlinear nature of the alterations made to the SDE. As well, since High Tolerance does not always succeed in mitigating valuation failures, the fact that the DGV fallback may still be triggered for heavily traded non-linear products is undesirable as it is known to result in misspecified risks for large shocks. With these observations, we are led to develop a more transparent, fail-safe approach to remove arbitrage from our shocked volatility surfaces. The method we develop alters the shocks that are sent, so that the resulting surface is free of arbitrage before Exotica's -FD/LVMC- valuation functions are used. 
+
+The method we propose to obtain arbitrage-free shocks is based on Stochastic Volatility Inspired (SVI) parameterizations of volatility surfaces, and these parameterizations are employed due to the ease of checking whether arbitrage exists/ease of preventing arbitrage while fitting to implied volatility data. The basic idea behind our shock valuation algorithm is as follows:
+\begin{enumerate}
+\item Shock a volatility surface using which ever method is used in XTV production, described in \cite{xtv}, \cite{rmsr_xtv}.
+\item Given the shocked volatility surface, check if it has arbitrage.
+\item If the surface is free of arbitrage, send the shocks for PnL calculations.
+\item If the surface has arbitrage, using an SVI approach, we find a surface that is as close as possible to the original surface but is arbitrage-free. 
+\item We find the new, implied shocks, from the original volatility surface to the corrected surface, and send these shocks for PnL calculations.
+\end{enumerate}
+The remainder of this document will provide the details, both from a theoretical and implementation perspective, on how the above strategy may be used. 
+
+
+
+%----------------------------------------------------
+\subsubsection{Purpose of Modeling}
+%----------------------------------------------------
+\subsubsection{Product/Portfolio Description}
+%----------------------------------------------------
+\subsubsection{Related Models/Products}
+%****************************************************
+\subsection{Model Description and Key Assumptions}
+%----------------------------------------------------
+\subsubsection{Change Logs}
+See Appendix~\ref{app:log}. 
+%----------------------------------------------------
+\subsubsection{Model Theory, Assumptions and Algorithm}
+
+We describe an algorithm which corrects historical shocks sent to a volatility surface so that the resulting surface is arbitrage free. Given a volatility surface that is shocked according to an historical scenario, the algorithm checks if the surface has arbitrage\footnote{We correct for what is known as \textit{static arbitrage} which is the presence of calendar and butterfly arbitrage.}. If arbitrage is detected, the algorithm searches for the minimal correction in the shocks to produce an arbitrage free surface; these modified shocks are then sent to XTV, in place of the original shocks, for valuation. 
+
+\subsubsubsection{Static arbitrage}
+\label{sss:arb}
+Following \cite{gatheral2014arbitrage}, we say that an implied volatility surface is free of \textit{static arbitrage} if and only if it is free of both \textit{calendar arbitrage} and \textit{butterfly arbitrage}, which we describe below. We assume we have a collection of European call option quotes $\{C^{Mkt}(K,T)\}_{K,T}$ for a range of strikes, $K$, and maturities, $T$, from which we associate its Black-Scholes implied volatility surface $\{ \sigma^{Mkt}(K,T)\}_{K,T}$ (assuming the appropriate choice of a hedge curve for $S$, $r_S(t)$ ). We also suppose that interest rates are deterministic with the expressions $D(0;T), P(0;T)$ for discount factors and zero-coupon bond prices, where $D(0;T) = P(0;T)$. 
+
+\begin{enumerate}
+\item  \label{item:butterfly}\underline{Butterfly Arbitrage}: Given a collection of call option prices $\{C(K,T)\}_{K,T}$, using Dupire's method or equivalent approaches \cite{dupire1994pricing}, \cite{andersen2000jump} one can (at least formally) find expressions for implied probability ``densities" $\{ p(\cdot;T,S_0) \}_{T}$ such that 
+\[
+C(K,T) = P(0;T) \int_{(0,\infty)} (S - K)_+ p(S;T,S_0) dS.
+\]
+We say that the surface $\{ \sigma(K,T) \}_{K,T}$ is free of Butterfly Arbitrage if its implied probability densities $\{p(\cdot ; T,S_0)\}_{T}$ are valid densities, i.e., $p(S;T,S_0) \geq 0$ for all $S > 0$ and $\int_{(0,\infty)} p(S;T,S_0) dS = 1$. Equivalently, we say that the surface is free of Butterfly Arbitrage if $\partial_{KK}C(K,T) > 0$ for all $K > 0$. 
+
+While the above definition is a proper theoretical starting point for working with butterfly arbitrage, one can also characterize the presence of butterfly arbitrage in terms of the observed volatility surface. Given a surface $\sigma(K,T)$, we consider the corresponding total variance (TV) surface defined by 
+\[
+w(k,T) = \sigma(k,T)^2 T
+\]
+where now $k$ is parameterized by log-moneyness, i.e. $k := \log(K/F(0;T))$ and $F(0;T)$ is the at-the-money forward (ATMF) for $S_t$. With this definition of $w$, we may now express $p(k;T)$ as
+\[
+p(k;T) =  \frac{g(k;T)}{ 2 \pi w(k;T) } \exp{ \left( \frac{-d_{-}(k;T)^2 }{2} \right)  }
+\]
+where 
+\begin{equation}
+g(k;T_i) := \left(1 - \frac{k \partial_k w(k;T)}{2 w(k;T_i)} \right)^2 - \frac{ \left( \partial_kw(k;T_i)\right)^2}{4}\left( \frac{1}{w(k;T)} + \frac{1}{4}  \right) + \frac{\partial_{kk}w(k;T_i)}{2} 
+\label{eqn:gfun}
+\end{equation}
+and $d_{\pm}(k)$ is as in the Black-Scholes formula. To classify butterfly arbitrage based on the TV surface, there is no butterfly arbitrage when
+\begin{enumerate}
+\item 
+ $g(k) > 0$ for all $k \in \mathbb{R}$ and 
+\item  
+ $\lim_{k \to \infty}d_+(k) = -\infty$,
+\end{enumerate}
+the above listed conditions being the natural analogue of the density being non-negative and integrating to 1. 
+
+
+\item \label{item:calendar} \underline{Calendar Arbitrage}: We say that the surface $\{ \sigma(K_i,T_j) \}_{K,T}$ is free of Calendar Arbitrage 
+\begin{itemize}
+\item if $\partial_T w(k,T) \geq 0 $ for all $k \in \mathbb{R}, T > 0$ for continuous time data
+\item if $w(k,T_1) \leq w(k,T_2)$ for all $k \in \mathbb{R},  T_1 \leq T_2$ for discrete time data 
+\end{itemize}
+\end{enumerate}
+
+
+\paragraph{Continuous parameterizations and detecting arbitrage}
+
+Given volatility surface market data as a discrete set of points $\{ \sigma^{Mkt}(K_i,T_j) \}_{i,j}$, a natural question is whether static arbitrage exists. In most cases, one must 
+\begin{enumerate}
+\item Fit a parameterization to the points $\{ \sigma^{Mkt}(K,T) \}_{K,T}$, typically by time-slice, obtaining a parameterization $\{ \widetilde{\sigma}(K,T_i)   \}_{T_i} $
+\item Compute $\{ \widetilde{w}(k,T_i) \}_{i=1}^N$ on a fine grid of $k$ using the expression $\widetilde{w}(k,T_i) := \widetilde{\sigma}(k,T_i)^2 T_i$   
+\item Check for the properties listed above defining, \ref{item:butterfly} butterfly arbitrage or  \ref{item:calendar} calendar arbitrage/.
+\end{enumerate}
+To obtain such mappings, one typically fits a stochastic volatility model like SABR or Heston to slices of $\{\sigma^{mkt}(K,T)\}_{K,T}$ or considers a generalized model such as Stochastic Volatility Inspired (SVI) parameterizations. 
+
+\subparagraph{Arbitrage-free parameterizations} 
+
+As seen in \cite{gatheral2004parsimonious}, \cite{gatheral2014arbitrage}, \cite{hendriks2017extended}, \cite{corbetta2019robust}, and others, many parameterizations of implied volatility or total variance are equipped with a mode where the calibrated surface is also arbitrage-free. If the input market data used for calibration contains arbitrage, the calibrated surface can typically be viewed as the surface that is as close as possible to the original market data, while staying arbitrage-free. 
+
+This leads us to make the distinction between the two parameterization types for given discrete market data $\{ \sigma(K_i,T_j) \}_{i,j}$ or $\{ w(k_i,T_j) \}_{i,j}$  
+\begin{enumerate}
+\item \underline{Raw calibration}: a parameterization is fit for each time slice $T_i$ yielding an expression $\{ \sigma(K,T_j) \}_{j}$ or $\{ w(k,T_j) \}_{j}$ aimed at fitting the raw market data as closely as possible. 
+\item \underline{Arbitrage-free calibration}: a parameterization is fit for each time slice $T_i$ yielding an expression $\{ \sigma(K,T_j) \}_{j}$ or $\{ w(k,T_j) \}_{j}$ aimed at fitting the raw market data as closely as possible \textit{while staying arbitrage-free}. 
+\end{enumerate}
+
+
+
+%If the parameterization of $\{ \sigma^{Mkt}(K_i,T_j) \}_{i,j}$ indicates arbitrage is present in the market data, some calibration approaches $\{ \widetilde{\sigma}(K,T_i) \}_i, \{\widetilde{w}(k,T_i)\}_{i}$ also provide an alternate mode of calibration where the resulting parameterization is \textit{arbitrage-free} as in 
+%
+%the final surface is the closest calibration to $\{\sigma(K_i,T_j)\}_{i,j}$ that is also arbitrage-free. An example of such 
+
+
+\subsubsubsection{Proposed Approach: SVI Parameterization}
+\label{sss:SVI}
+
+Following the work of \cite{corbetta2019robust}, we introduce the following Stochastic Volatility Inspired (SVI) parameterization for a surface's TV, $w(k,T)$ as
+\begin{equation}
+w(k,t) = \frac{1}{2}\left(\theta_t  + \rho_t \psi_t k + \sqrt{ \left(\psi_t k + \rho_t \theta_t \right)^2 + \left(1 - \rho_t^2 \right)\theta_t^2 } \right)
+\label{eqn:w}
+\end{equation}
+In this parameterization we have that 
+\begin{itemize}
+\item $\theta_t$ is the ATMF TV, read directly from the surface
+\[
+\theta_t = w(0,t) = \sigma(K_{ATMF},t)^2 \cdot t
+\]
+\item $\rho_t$ controls the slope of the skew 
+\item $\psi_t$ controls the curvature. 
+\end{itemize}
+
+An important feature of this parameterization is that it provides easy to impose sufficient conditions on the parameters so that there is no butterfly arbitrage for a given slice, and no calendar arbitrage between two time slices. These conditions are listed below
+
+\subparagraph{Arbitrage Conditions}
+\begin{itemize}
+\item \underline{Butterfly Arbitrage}: The surface is free of Butterfly Arbitrage if for each time-slice
+\begin{equation}
+0 < \psi < \min\left( \sqrt{\frac{4\theta}{1 + |\rho|}  }, \frac{4}{1+|\rho|}   \right)
+\label{eqn:butterfly}
+\end{equation}
+for $\theta > 0 , \rho \in (-1,1)$.
+\item \underline{Calendar Arbitrage}: The surface is free of Calendar Arbitrage under the following set up: Given $T_1 \leq T_2$, we let $\theta_1 := \theta_{T_1}, \theta_2 := \theta_{T_2}$, $\psi_1 := \psi_{T_1}, \psi_2 := \psi_{T_2}$. To be free of calendar arbitrage it is necessary that 
+\begin{equation}
+\theta \geq 1 \ \text{and} \ \psi_2 > \max\left( \frac{\psi_1 + \rho_1 \psi_1}{1 + \rho_2} , \frac{\psi_1 - \psi_1\rho_1}{1 - \rho_2}  \right)
+\label{eqn:calendar1}
+\end{equation}
+If the above necessary condition holds, it is further sufficient that
+\begin{equation}
+\psi \leq \theta \ \text{or} \ (\rho_1 - \psi \rho_2)^2 \theta \leq ( \theta -1)( \psi^2 - \theta).
+\label{eqn:calendar2}
+\end{equation}
+in order to preclude calendar arbitrage.
+\end{itemize}
+
+\paragraph{Introduction to calibration types and the Cross-Section Method}
+
+In this section we outline our procedure for calibrating the dd-eSSVI model to data $\{ \sigma(K_i,T_j) \}_{i,j}$ using both a raw calibration and an arbitrage-free fitting approach. As mentioned before, we will outline a calibration routine dd-eSSVI that is free of initial guesses and relies only on simple one-dimensional minimization (after deriving some expressions regarding calibration regions). 
+
+In each case one begins by re-parameterizing the data into TV and log-moneyness, $\{ w(k_i,T_j) \}_{i,j}$ and also fixing a grid for minimizing over $\rho$, denoted as $\pmb{\rho}_N$ which divides $[-1 + 1/N,1 - 1/N]$ into $N$ equally spaced points \footnote{The choice of this interval instead of $[-1,1]$ is made to avoid certain numerical issues at the end points $-1$ and $1$ which arise later in the algorithms we present.}. 
+
+
+\subparagraph{Raw Calibration} In the raw-calibration scheme, the dd-eSSVI is fit to market data, slice-by-slice, where the parameters from various slices are independent of each other. Given its simplicity, we describe the steps here. For each maturity $T_i$:
+\begin{enumerate}
+\item For each $\rho_n \in \pmb{\rho}_N$ we construct the objective function\footnote{This choice of relative error objective function seems to work the best in our back-tests compared to other examples include sum-of-squares or absolute error minimization.} 
+\[
+F_{\rho_n}(\psi) = \sum_{i=1}^M  \frac{  | w(k_i,T; \psi, \rho ) - w^{mkt}(k_i,T)|  }{ w^{mkt}(k_t,T) }
+\]
+\item We calculate $ \psi_n :=  \arg\min_{\psi \in [\psi_l,\psi_u]} F_{\rho_n}(\psi) $ using a numerical minimization scheme such as Brent search. A typical choice for $\psi_l, \psi_u$ are $\psi_l = 0$, $\psi_u = 2.5$. \label{item:psiregion} 
+\item We set $(\rho_{T_i}, \psi_{T_i}) = \arg\min_{ \rho_n,\psi_n } \{ \  F_{\rho_n}(\psi_n) \  \}_{n=1}^N $
+\end{enumerate}
+
+The above approach where, for a given time-slice $i$, we fix each $\rho_{i,j}$ in $\pmb{\rho}_N$, calibrate a value $\psi_{i,j}$, and minimize over all $j$ to obtain our estimate $(\rho_i,\psi_i)$ will henceforth be referred to as the Cross-Sectional Method (CSM). The availability of the CSM is what makes calibrating the dd-eSSVI robust and separates it from other SVI-type approaches. 
+
+\subparagraph{Detecting arbitrage} To check if a raw calibration fitting \ref{eqn:w} to market data contains arbitrage, as described in Section \ref{sss:arb}, we must check the outlined conditions for butterfly and calendar arbitrage. That is, we must show that $p(k;T)$ is a valid density and $w(k;T_1) \leq w(k;T_2)$ for all $T_1 \leq T_2$. 
+
+Since our market data will always be taken from xTrader's databases and Exotica has a delta-cutoff scheme that ensures $p(k;T)$ is asymptotically valid, we resort to only checking that $p(k;T) > 0$ for all $k$ within a certain range. 
+
+
+\begin{align*}
+\partial_k w(k;t) &= \frac{1}{2}\rho_t \psi_t +  \frac{1}{2}\frac{ \left(\psi_t k + \rho_t \theta_t \right)\psi_t  }{ \sqrt{ \left(\psi_t k + \rho_t \theta_t \right)^2 + \left(1-\rho^2_t\right)\theta^2_t  } } \\
+\partial_{kk} w(k;t) &= \frac{1}{2}\frac{1}{ \sqrt{ (\psi_t k + \rho_t \theta_t)^2 + (1-\rho_t^2)\theta_t^2 }   } \left(  \psi_t^2 - \frac{ \psi_t^2 (\psi_tk+ \rho_t \theta_t)^2 }{(\psi_t k + \rho_t \theta_t)^2 + (1-\rho_t^2)\theta_t^2  }    \right) 
+\end{align*}
+
+
+\subparagraph{Introduction to Arbitrage-Free Calibration} We now describe the elements of the dd-eSSVI's arbitrage-free calibration scheme which applies the CSM within the confines of the constraints listed in equations (\ref{eqn:calendar1}) to (\ref{eqn:butterfly}). 
+
+Before calibrating, from condition (\ref{eqn:calendar1}), we see that for any $T_1 \leq T_2$ we must have $\theta_{1} \leq \theta_{2}$. Given that SSVI type models take $\{\theta_{i}\}_{i}$ where $\theta_{i} := w(0,T_i)$\footnote{We use notation $\theta_i, \theta_{T_i}, \theta(T_i), \theta(t_i)$, similar to $w(k,t)$ interchangeably based on the context. } as an input, and keep their value fixed, our forward selection process must first correct $\{w^{mkt}(k_i,T_k)\}_{i,j}$ so that the monotonicity condition on $\{\theta_{i}\}_i$ holds. We essentially first correct any calendar arbitrage along the dimension $\{w^{mkt}(0,T_i)\}_{i}$ before proceeding to fit the remainder of the surface in an arbitrage-free manner. Methods to address this issue will be described in Section \ref{sss:ATMCorr}. 
+
+Once the term structure $\{ \theta_{i} \}_i$ is corrected, the algorithm then fits the surface by imposing no-arbitrage in the other regions. The approach taken to avoid arbitrage is a ``forward'' or ``bottom-up'' where we first calibrate the skew at the earliest maturity, using the cross-sectional approach, and move forward in time. In order to move forward in time, Conditions (\ref{eqn:calendar1}) to (\ref{eqn:butterfly}) must be re-expressed so that $\psi_{2}$, $\rho_{2}$, are a function of $\rho_{1}$, $\psi_{1}$. Furthermore, applying the CSM to calibrate $\psi_2$ and $\rho_2$, we will fix $\rho_2 \in \pmb{\rho}_N $ and minimize $\psi_2$ in terms of $\rho_2, \rho_1, \psi_1$. The required relations will be derived in Section \ref{sss:FwdParam}. 
+
+
+\paragraph{Arbitrage Free Calibration}
+
+In this section we give the complete details for calibrating the dd-eSSVI with no-arbitrage constraints maintained. We begin by describing various elements required for the calibration, afterwards we bring everything together and state the final calibration algorithm. 
+
+\subparagraph{Correcting $\theta_t$ and the level of $w(k,t)$}
+\label{sss:ATMCorr}
+As seen in constraint (\ref{eqn:calendar1}), and also directly from the definition of calendar arbitrage, in order for an SSVI parameterization to be free of calendar arbitrage it must hold that $\theta_{T_2} \geq \theta_{T_1}$ for all $T_2 \geq T_1$. As well, $\{\theta_{T_i}\}_i$ is a fixed input, read from the surface, for any SSVI parameterization, including dd-eSSVI. As a result, when calibrating dd-eSSVI, one must first check if $(\ref{eqn:calendar1})$ holds, and if it does not, it must be corrected in some way in order to be monotonic. Denoting the corrected ATMF TV term structure as $\widetilde{\theta}_t$ we apply a level-adjustment to the TV surface data as follows
+\begin{equation}
+\widetilde{w}(k,t) := w(k,t) + (\widetilde{\theta}(t) - \theta(t) )
+\label{eqn:atmadjust}
+\end{equation}
+so that $\widetilde{w}(0,t) = \widetilde{\theta}(t)$, which is now monotonic by construction as desired. 
+
+We now outline an approach for correcting $\theta(t)$ that aims to correct the term structure in a minimal manner that is also consistent with our correction of each slice's skew. Our algorithm is as follows given TV surfaces $\{ w(k_i,T_j) \}_{j=1}^N$ and ATMF TV term structure $\{ \theta(T_i) \}_{i=1}^N$ with $\theta(T_i) = w(0,T_i)$, we detail how to construct $\tilde{\theta}(T_i)$. 
+
+\begin{enumerate}
+\item We begin by setting $\tilde{\theta}(T_1) := \theta(T_1)$ so that $\tilde{w}(k_i,T_1) = w(k_i,T_1)$. 
+\item For the slice corresponding to $T_2$
+\begin{enumerate}
+\item If  $\theta(T_2) < \theta(T_1)$ we set $\tilde{\theta}(T_2) = \theta(T_1) + c $, where $c$ is a small constant typically set to $\texttt{5e-5}$. 
+\item Otherwise we set $\tilde{\theta}(T_2) = \theta(T_2)$. 
+\end{enumerate}
+we then adjust $\tilde{w}$ as in (\ref{eqn:atmadjust})
+\item Next, for the slice corresponding to $T_k$ with $k \geq 3$ 
+\begin{enumerate}
+\item If  $\theta(T_{k}) < \theta(T_{k-1})$ we set $\tilde{\theta}(T_{k} ) = \theta(T_{k-1}) + c $, where $c$ is as before. 
+\item Otherwise we set $\tilde{\theta}(T_k) = \theta(T_k)$. 
+\end{enumerate}
+we then adjust $\tilde{w}$ as in (\ref{eqn:atmadjust})
+\item The above procedure is then repeated for all maturities $\{ T_k \}_{k=1}^N$.
+\end{enumerate}
+From the above procedure, we see that the adjusted surface $\{\tilde{w}(k_i,T_j)\}$ is guaranteed to have a monotonic increasing ATMF term structure, and the adjustment is minimal given the size of the adjustment parameter, $c$. Examples of this adjustment will be shown in Section \ref{parag:NumEx} where its effect will be shown to be in line with the dd-eSSVI's adjustments. 
+
+
+
+\subparagraph{Expressing $\psi_2$ in terms of $\rho_2$, $\psi_1$, $\rho_1$ }
+\label{sss:FwdParam}
+We see that Conditions (\ref{eqn:calendar1}) and (\ref{eqn:butterfly}) already state $\psi_2$ in terms of $\psi_1, \rho_1, \rho_2$ and need not be re-expressed to apply them in our  forward selection algorithm. To deal with condition (\ref{eqn:calendar2}) we note
+\[
+\psi \leq \theta \iff \psi_2 \leq \psi_1 \frac{ \theta_2}{\theta_1}
+\]
+which takes care of the first part. For the latter inequality we have
+\begin{align*}
+& (\rho_1 - \psi \rho_2)^2 \theta  \leq (\theta - 1)(\psi^2 - \theta) \\ 
+ \iff & (\rho_1 - \frac{\psi_2}{\psi_1} \rho_2)^2 \theta  \leq ( \frac{\theta_2}{\theta_1} - 1)( \frac{\psi_2^2}{\psi_1^2} -  \frac{\theta_2}{\theta_1}  ) \\
+ \iff & \left(\rho_1^2 - 2 \frac{\psi_2}{\psi_1} \rho_1\rho_2 + \frac{ \psi_2^2}{\psi_1^2} \rho_2^2 \right) \frac{\theta_2}{\theta_1}  \leq \frac{\theta_2}{\theta_1} \frac{\psi_2^2}{\psi_1^2} - \frac{ \theta_2^2 }{ \theta^2_1 } - \frac{\psi_2^2}{\psi^2_1} + \frac{\theta_2}{\theta_1} \\
+ \iff & \left(  \frac{\theta_2}{\theta_1}\frac{1}{\psi_1^2} - \frac{\rho_2^2 }{\psi_1^2}\frac{\theta_2}{\theta_1} - \frac{1}{\psi_1^2} \right) \psi_2^2 +  \rho_1\rho_2 \frac{2}{\psi_1} \frac{\theta_2}{\theta_1} \psi_2 +  \left( \frac{\theta_2}{\theta_1} - \frac{\theta_2^2}{\theta_1^2} - \rho_1^2 \frac{\theta_2}{\theta_1} \right)  \geq 0 \ 
+\end{align*}
+thus we see that we may express the constraint as a quadratic in the variable $\psi_2$
+\begin{equation}
+Q_{\rho_2}(\psi) :=  a(\rho_2)\psi_2^2 + b(\rho_2)\psi_2 + c(\rho_2) \geq 0 
+\label{eqn:Qcond}
+\end{equation}
+where the functions $a(\cdot)$, $b(\cdot)$, $c(\cdot)$ depend on all of $\rho_2, \psi_1, \psi_2$, however, we emphasize the dependence on $\rho_2$ in their argument given the nature of the CSM and the fact that $\psi_1, \rho_1$ are fixed in our forward method (also $ \theta_1, \theta_2$ always remained fixed). Hence we see that for constraint (\ref{eqn:calendar2}) to hold, using the CSM, for a given $\rho \in \pmb{\rho}_N$ we must minimize over $\psi$ in the region where $Q_{\rho}(\psi) \geq 0 $. 
+
+\subparagraph{Regions for calibrating $\psi$} In this section we combine the constraints in (\ref{eqn:calendar1}) to (\ref{eqn:butterfly}) with the CSM and forward selection process. That is, assuming we have calibrated parameters from a previous slice $\rho_1, \psi_1$ we show how, given $\rho_2 \in \pmb{\rho}$, we can find the regions to minimize over to find $\psi_2$, (similar to Step \ref{item:psiregion}, in the Raw Calibration). We first consider the constraints provided on $\psi_2,\rho_2$ from Conditions (\ref{eqn:butterfly}), (\ref{eqn:calendar1}). To impose (\ref{eqn:butterfly}), denoting
+\[
+\psi^*(\rho_2) := \min\left( \sqrt{\frac{4\theta_2}{1 + |\rho_2|}  }, \frac{4}{1+|\rho_2|}   \right)
+\]
+we must always impose that $\psi_2 \leq \psi^*(\rho_2)$. To impose $(\ref{eqn:calendar1})$, denoting
+\[
+\psi_* (\rho_2) = \max\left(  \frac{\psi_1 + \rho_1 \psi_1}{1 + \rho_2}, \frac{\psi_1 - \rho_1 \psi_1}{1 - \rho_2} , 0   \right)  
+\]
+we must always impose that $\psi_2 \geq \psi_*(\rho_2)$. 
+Thus, given $\rho_2 \in \pmb{\rho}_N$, to enforce constraints (\ref{eqn:butterfly}) and (\ref{eqn:calendar1}), we must search for $\psi_2$ within the range $[\psi_*(\rho_2),\psi^*(\rho_2)]$. To enforce constraint (\ref{eqn:calendar2}) we must impose further restrictions on the minimization interval, essentially searching over a subset of $[\psi_*(\rho_2),\psi^*(\rho_2)]$. The ``or" condition in (\ref{eqn:calendar2}) and the fact that (\ref{eqn:Qcond}) may have up to two positive regions implies that we must minimize over multiple regions to find the corresponding value of $\psi_2$ for a given $\rho_2 \in \pmb{\rho}_N$. As a result, based on constraint (\ref{eqn:calendar2}), for a given $\rho_2 \in \pmb{\rho}_N$ we now consider the different subdivisions of the interval $[\psi_*(\rho_2),\psi^*(\rho_2)]$ that must be considered for minimization. This process results in our final minimization regions, $R_k(\rho_2)$, for $k = 0,\ldots, 7$. In what follows, if our minimization interval is of the form $R_k(\rho) = [a(\rho),b(\rho)]$ where $b(\rho) < a(\rho)$ for a choice of $\rho$ then we set $R_k(\rho) = \emptyset$. Also, given $Q_{\rho}(\psi)$, using the quadratic formula we may compute roots $r_1(\rho), r_2(\rho)$, which may be real or complex. If both roots are real, we assume they are ordered so that $r_1(\rho) \leq r_2(\rho)$.
+
+We note that if we are given a single time slice of data $\{w(k_i,T)\}_{i=1}^M$ and wish to fit a smile that is free of butterfly arbitrage, given $\rho \in \pmb{\rho}_N$ we must only impose Condition (\ref{eqn:butterfly}). Hence we define 
+\[
+R_b(\rho) = [0,\psi^*(\rho)].
+\]
+Now we turn to both calendar and butterfly arbitrage in conjunction. The first part of Condition (\ref{eqn:calendar2}) shows $\psi_2 \leq \psi_1 \frac{\theta_2}{\theta_1}$. Hence we obtain 
+\[
+R_0(\rho_2) = [\psi_*(\rho_2), \min(\rho^*(\psi_2), \psi_1 \frac{\theta_2}{\theta_1} )].
+\]
+Next we focus on the second part of Condition (\ref{eqn:calendar2}) involving the quadratic polynomial. This condition opens a number of cases for possible sub-regions \footnote{We note that we omit the cases where the quadratic $Q_{\rho_2}(\psi_2)$ is degenerate as this should occur with a probability that is essentially 0.} $R_k, k = 1,\ldots,6$ 
+\begin{enumerate}
+\item $Q_{\rho_2}(\psi_2)$ has no real roots.
+\begin{itemize}
+\item
+$a(\rho_2) > 0 $: In this case $Q_{\rho_2}(\psi_2) > 0$ for all $\psi_2$ hence 
+\[
+R_1(\rho_2) = [\psi_*(\rho_2),\psi^*(\rho_2)]
+\]
+\item $a(\rho_2) < 0 $: In this case $Q_{\rho_2}(\psi_2) < 0$ for all $\psi_2$ hence
+\[
+R_2(\rho_2) = \emptyset
+\]
+\end{itemize}
+\item $Q_{\rho_2}(\psi_2)$ has one real root.
+\begin{itemize} 
+\item $a(\rho_2) > 0$: In this case $Q_{\rho_2}(\psi_2) \geq 0$ for all $\psi_2$ hence 
+\[
+R_3(\rho_2) = [\psi_*(\rho_2),\psi^*(\rho_2)]
+\]
+\item $a(\rho_2) < 0$: In this case $Q_{\rho_2}(\psi_2) \leq 0$ for all $\psi_2$ and $r_1(\rho_2) = r_2(\rho_2) =: r(\rho_2)$ with  $Q_{\rho_2}(r(\rho_2)) = 0$. Hence if $r(\rho_2) \in [\psi_*(\rho_2),\psi^*(\rho_2)]$ then 
+\[
+R_4(\rho_2) = \{ r(\rho_2)  \}
+\]
+otherwise
+\[
+R_4(\rho_2) = \emptyset
+\]
+\end{itemize}
+\item $Q_{\rho_2}(\psi_2)$ has two real roots. 
+\begin{itemize}
+\item $a(\rho_2) > 0$: In this case $Q_{\rho_2}(\psi_2) \geq 0$ for all $\psi_2 < r_1(\rho_2)$ and $Q_{\rho_2}(\psi_2) \geq 0$ for all $\psi_2 > r_2(\rho_2)$. Hence we let $I_1(\rho_2)$ be the set of $\psi_2$ such that $\psi_2 < r_l(\rho_2)$ and $I_2(\rho_2)$ be the set of $\psi_2$ such that $\psi_2 > r_h(\rho_2)$. We then set
+\[
+R_5(\rho_2) = [\psi_*(\rho_2),\psi^*(\rho_2)] \cap \left( I_1(\rho_2)  \cup I_2(\rho_2)   \right) 
+\]
+\item $a(\rho_2) <  0$: In this case $Q_{\rho_2}(\psi_2) \geq 0$ for all $\psi_2$ such that $r_1(\rho_2) \leq \psi_2 \leq r_h(\rho_2)$. Hence we let $I(\rho_2) = [r_1(\rho_2),r_2(\rho_2)]$. We then set 
+\[
+R_6(\rho_2) =  [\psi_*(\rho_2),\psi^*(\rho_2)] \cap I(\rho_2) 
+\] 
+\end{itemize}
+\end{enumerate}
+
+
+\subparagraph{Algorithm for arbitrage free calibration} We are now in a position to describe our forward selection algorithm that applies CSM on the various regions $\{R_k\}$. Before beginning, at maturity $T_j$, given market data $\{w^{mkt}(k_i,T_j)\}_{i,j}$ for each $\rho \in \pmb{\rho}_N$ we consider the objective function given by
+\[
+F^j_{\rho}(\psi) = \sum_{i=1}^M  \frac{  | w(k_i,T_j; \psi, \rho ) - w^{mkt}(k_i,T_j)|  }{ w^{mkt}(k_i,T_j) }.
+\]
+As one may expect, in applying the CSM, we fix $\rho \in \pmb{\rho}_N$ and instead of calibrating $\psi$ over a wide range interval as in the raw calibration, we instead search for $\psi$ within certain valid regions $R_0,\ldots,R_6$. Afterwards, we select the value of $\psi$ which attains the overall lowest value. From there, we select the pair $(\rho,\psi)$ that minimizes across $\pmb{\rho}_N$. 
+
+ 
+Given our maturities $\{T_i\}_{i=1}^M$ we take the following steps
+\begin{enumerate}
+\item We first apply the level correction scheme to ensure that $\{\theta_i\}$ is a valid total variance curve
+\item At maturity $T_1$ 
+\begin{enumerate}
+\item For each $\rho_{n,1} \in \pmb{\rho}_N$ we construct the objective function $ F^1_{\rho_{n,1}}(\psi)$ and compute 
+\[
+\psi_{n,1} = \arg\min_{\psi \in R_b(\rho_{n,1}) } F^1(\rho_{n,1})(\psi)
+\]
+using a numerical minimization scheme such as Brent search.\footnote{We search over only $R_b(\rho_{n,1})$ as we only seek to preclude butterfly arbitrage on the first time slice.} 
+\item Finally, we set $(\rho_1,\psi_1) = \arg\min_{ (\rho_{n,1},\psi_{n,1} )} \{ F^1_{\rho_{n,1}}(\psi_{n,1})\}$ 
+\end{enumerate}
+\item At maturity $T_i$ where $i > 1$ 
+\begin{enumerate}
+\item For each $\rho_n \in \pmb{\rho}_N$ we construct the objective function $F^i_{\rho_{n,i}}(\psi)$. 
+\begin{enumerate}
+\item Given $\rho_n \in \pmb{\rho}_N$, for each $k = 0,\ldots, 6$ we calculate 
+\[
+\psi_{n,i,k} = \arg\min_{\psi \in R_k(\rho_{n,i}) } F^i_{\rho_{n,i}}(\psi)
+\]
+again using a numerical scheme such as Brent search.
+\item We then set $\psi_{n,i} = \arg\min_{ \psi_{n,i,k} } \{ F^i_{\rho_{n,i}}(\psi_{n,i,k})\}$ and obtain the pair $(\rho_{n,i},\psi_{n,i})$.
+\end{enumerate} 
+\item Finally, we set $(\rho_i,\psi_i) = \arg\min_{(\rho_{n,i},\psi_{n,i})} \{ F^{i}_{\rho_n,i}(\psi_{n,i}) \}$
+\end{enumerate}
+
+\end{enumerate}
+
+\paragraph{Geometric interpretation of the parameters}
+As described before, for each slice of TV surface, the dd-eSSVI parameterization estimates two parameters $\psi, \rho$ which correspond to the curvature and skew of the slice, and reads off $\theta$ which corresponds to the ATMF TV and controls the overall level of the slice. To demonstrate this with an example, we consider the following three plots which take the calibrated parameters $\{\theta, \psi, \rho  \}$ from a $T = 1 yr$ slice and alter one of the parameters while keeping the other two fixed. These plots can be shown in Figure \ref{fig:ParameterBumps}.
+
+
+%\begin{figure}[htp]
+%
+%\centering
+%\includegraphics[width=.4\textwidth]{ThetaBumped.png}\hfill
+%\includegraphics[width=.4\textwidth]{PsiBumped.png}\hfill
+%\includegraphics[width=.4\textwidth]{RhoBumped.png}
+%
+%\caption{Effect of altering one parameter of the triple $(\theta, \psi, \rho)$ while keeping the other two fixed. The base value for the triple is $(\theta, \psi, \rho) = ( 0.13,  0.33, -0.91 )$ and is the result of calibration to the 1 year slice of a .SPX base surface.  }
+%\label{fig:ParameterBumps}
+%\end{figure}
+
+
+\paragraph{Calibration results for Base Surfaces}
+A natural question to ask is just how flexible the dd-eSSVI paramterizations are in fitting implied volatility market data. We consider as market data the xTrader SABR surfaces that Exotica builds, as opposed to options quotes observed in say Bloomberg. To demonstrate the flexibility of dd-eSSVI, below in Figure \ref{fig:rawfits}, we show typical calibration results for an .SPX base surface under the no arbitrage constraints. Similar results are found for base surfaces when calibrating the dd-eSSVI with no arbitrage constraints as market data is always arbitrage free. In Figures \ref{fig:Hist1dto3m} to \ref{fig:Hist7yto10y} we also show the average error of the dd-eSSVI when calibrating to .SPX base surfaces from 01-01-2020 to 06-01-2020. The strikes used in the calibration for each expiry corresponds to 50 equally spaced call deltas ranging from $10\%$ to $90\%$ with the strike corresponding to $50\%$ replaced with the ATMF value for that given maturity. We see that for such a wide range of strikes, the dd-eSSVI is able to match Exotica's SABR calibrations with an acceptable level of error for the purpose of risk calculations. We note that our calibration period includes the highly volatile 2020 pandemic period. The flexibility and quality of the fit indicates that we may use dd-eSSVI parameterization for diagnosing whether a given surface has butterfly or calendar arbitrage. This will be discussed in Section \ref{parag:NumEx}. 
+
+
+
+%
+%\begin{figure*}
+%        \centering
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{1dto3w.png}
+%            \caption[Plot of maturities 1 day to 3 weeks. Average relative errors for each slice are 0.063$\%$ , 0.32$\%$, 0.12$\%$, 0.15$\%$  ]%
+%            {{\small Plot of maturities 1 day to 3 weeks. Average relative errors for each slice are 0.063$\%$ , 0.32$\%$, 0.12$\%$, 0.15$\%$ }}    
+%            \label{fig:maturities1}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{1mto9m.png}
+%            \caption[Plot of maturities 1 month to 9 months]%
+%            {{\small Plot of maturities 1 month to 9 months. Average relative errors for each slice are 0.16$\%$, 0.40 $\%$, 0.57 $\%$, 0.54$\%$}}    
+%            \label{fig:maturities2}
+%        \end{subfigure}
+%        \vskip\baselineskip
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{1yto5y.png}
+%            \caption[Plot of maturities 1 year to 5 years]%
+%            {{\small Plot of maturities 1 year to 5 years. Average relative errors for each slice are 0.32$\%$ , 0.075$\%$, 0.21 $\%$ , 0.35 $\%$ }}    
+%            \label{fig:maturities3}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{7yto10y.png}
+%            \caption[Plot of maturities 7 years to 10 years]%
+%            {{\small Plot of maturities 7 years to 10 years. Average relative errors for each slice are 0.39 $\%$ , 0.35 $\%$ }}    
+%            \label{fig:maturities4}
+%        \end{subfigure}
+%        \caption[]
+%        {\small Results of calibrating to market data on March 20, 2020. Fitted strikes range from $5\%$ to $90\%$ deltas with $50\%$ delta replaced with ATMF strike. } 
+%        \label{fig:rawfits}
+%    \end{figure*}
+%
+%
+%\begin{figure*}
+%        \centering
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{Error Hist 1d.png}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{Error Hist 1w.png}
+%        \end{subfigure}
+%        \vskip\baselineskip
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{Error Hist 2w.png}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{Error Hist 3w.png}
+%        \end{subfigure}
+%                \vskip\baselineskip
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{Error Hist 1m.png}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{Error Hist 3m.png}
+%        \end{subfigure}
+%        \caption[]{\small Average calibration error from calibrating to .SPX market data from January 1, 2020 to June 1, 2020 using the raw calibration. Slices of 1 day to 3 months are shown. Fitted strikes range from $5\%$ to $90\%$ deltas with $50\%$ delta replaced with ATMF strike.  } 
+%        \label{fig:Hist1dto3m}
+%    \end{figure*}
+%
+%
+%
+%\begin{figure*}
+%        \centering
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{Error Hist 6m.png}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{Error Hist 9m.png}
+%        \end{subfigure}
+%        \vskip\baselineskip
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{Error Hist 1y.png}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{Error Hist 2y.png}
+%        \end{subfigure}
+%                \vskip\baselineskip
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{Error Hist 3y.png}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{Error Hist 5y.png}
+%        \end{subfigure}
+%        \caption[]{\small Average calibration error from calibrating to .SPX market data from January 1, 2020 to June 1, 2020 using the raw calibration. Slices of 6 months to 5 years are shown. Fitted strikes range from $5\%$ to $90\%$ deltas with $50\%$ delta replaced with ATMF strike.  } 
+%        \label{fig:Hist6mto5y}
+%    \end{figure*}
+%
+%
+%\begin{figure*}
+%        \centering
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{Error Hist 7y.png}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{Error Hist 10y.png}
+%        \end{subfigure}
+%        \caption[]{\small Average calibration error from calibrating to .SPX market data from January 1, 2020 to June 1, 2020 using the raw calibration. Slices of 7 years to 10 years are shown. Fitted strikes range from $5\%$ to $90\%$ deltas with $50\%$ delta replaced with ATMF strike.  } 
+%        \label{fig:Hist7yto10y}
+%    \end{figure*}
+
+
+
+\newpage
+
+\subsubsubsection{Correcting shocked surfaces with arbitrage in XTV}
+
+
+\paragraph{An overview of volatility surface shocks in XTV} 
+For a given name's volatility surface, an historical shock is applied to the surface via an Exotica modifier function. In the current state of XTV (\cite{xtv}, \cite{rmsr_xtv}), depending on the risk measure in question one or both of the following modifications are applied to all tenors that are shocked and every strike 
+\begin{enumerate}
+\item A parallel ATM shock is applied using the Exotica modifier ParallelVol. The volatility surface is perturbed via
+\[
+\sigma_{s}(K,T) = \sigma_b(K,T) + \left( \frac{ \sigma_{d_2}(K_{ATM},T)}{\sigma_{d_1}(K_{ATM},T)} -1\right) \sigma_{b}(K_{ATM},T)
+\]
+where $\sigma_s(K,T), \sigma_{b}(K,T), \frac{ \sigma_{d_2}(K,T)}{\sigma_{d_1}(K,T)} $ denote the shocked surface, base surface, and return in ATM volatility over a scenario ranging from dates $d_1$ to $d_2$. 
+\item A re-anchoring of the surface is applied using the Exotica modifier Anchor. The volatility surface is perturbed via
+\[
+\sigma_{anch.}(K,T) = \sigma_b(T,\frac{K}{1 + \epsilon})
+\]
+where $\sigma_{anch.}(K,T)$ is the re-anchored surface, $\sigma_b(T,K)$ is the base surface, $\epsilon = \left( \frac{S_{d_2}}{S_{d_1}} - 1\right)$, and $\frac{S_{d_2}}{S_{d_1}}$ denotes the return of $S_t$ over a scenario ranging from dates $d_1$ to $d_2$. 
+\end{enumerate}
+Shocking a surface according to the above procedure may easily introduce calendar arbitrage and we describe now how we propose to detect and correct them. We note that in the current state of XTV, we only shock using the ATM component of the historical shock, and the skew component of the shock is sent to the Skew Risk Add-On Engine. Thus, all shocks sent to volatility surfaces are parallel. 
+
+\paragraph{Detecting static arbitrage and Arbitrage-Free Calibration}
+In order to check if a shocked volatility surface has static arbitrage, one must first move beyond a risk representation of a volatility surface in terms of a finite number of strikes $\{ \sigma(K_i,T_j)\}_{i=1}^{M_T}$ per time slice and consider a full parameterization $\sigma(K,T_j)$ for a range of strikes, typically within Exotica's delta cut-offs. This parameterization is required to check if $p(K,T)$ goes negative for any $K$ or if $w(k,T_1) \leq w(k,T_2)$ for any $k$ where $T_1 \leq T_2$, as described in Section \ref{sss:arbfreeparam}. To avoid valuation failures, the natural parameterization would be to use Exotica's SABR parameterization for each slice, however, for ease of implementation, we use raw calibration of the dd-eSSVI. This choice is made due to the availability of closed-form expressions for $w(k,t), \partial_kw(k,t), \partial_{kk}w(k,t)$, and its flexibility that was demonstrated in Figure \ref{fig:rawfits} makes this a harmless approximation. In order to calibrate to our shocked volatility surface data, we must query the shocked implied volatility surface at a collection of strikes for each maturity bucket. We do this as follows
+
+\subparagraph{Defining strikes and raw calibration} To obtain the strikes that are queried, we begin with the base surface $\sigma_b(K,T)$, stored as an object in Exotica, and query them at strikes corresponding to call deltas such as
+\[
+\{90\%, 85 \%, \ldots, 55 \%, 45 \%, \ldots, 15 \% , 10 \% \}
+\]
+along with ATMF strikes producing a grid of strikes, $\underline{K}^{T_i}$\footnote{We note that these strikes are very different from our moneyness risk factors shocked in XTV \cite{xtv}. This is in no way a change of risk factors, but rather a tool to construct the parameterizations we require. }. Finally, we scale this grid as $\underline{K}^{T_i}_{s} = (1 + \epsilon) \cdot \underline{K}^{T_i}$ and use this as the set of defining strikes to study our shocked volatility surface. 
+
+We then query the shocked volatility surface object in Exotica and convert to a log-moneyness $\underline{k}^{T_i} = \underline{K}^{T_i}_s/F(0;T_i)$ for each shocked tenor $T_i$. With our data in log-moneyness format we then proceed with the raw calibration algorithm defined above. This leads calibrated dd-eSSVI parameters $\{(\theta_i,\psi_i,\rho_i)\}_{i=1}^N$ for the raw calibration. Finally we consider an $N_k$ point discretization of the interval $[\min(\underline{k}^{T_i}), \max(\underline{k}^{T_i})   ]$ denoted as $\underline{k}^{T_i}_N$ where typically $N_k = 500$. We do not consider static arbitrage in the tails of $w(k,T_i)$, i.e. for values of $k <  \min(\underline{k}^{T_i})$ or $k > \max(\underline{k}^{T_i})$, due to the fact that when we build a SABR surface corresponding to our corrected surface, Exotica will generate its own volatility values outside of its delta cutoffs. The delta cutoffs for a given name, $\delta_{low}, \delta_{high}$ typically satisfy $\delta_{low} < 5\%$ and $\delta_{high} > 95\%$. 
+
+\subparagraph{Detecting butterfly arbitrage} 
+Given our raw calibration, for each maturity $T_i$, we consider the expression (\ref{eqn:gfun}) repeated here
+\[
+g(k;T_i) := \left(1 - \frac{k \partial_k w(k;T)}{2 w(k;T_i)} \right)^2 - \frac{ \left( \partial_kw(k;T_i)\right)^2}{4}\left( \frac{1}{w(k;T)} + \frac{1}{4}  \right) + \frac{\partial_{kk}w(k;T_i)}{2} 
+\]
+and check if it goes negative for $k \in \underline{k}^{T_i}_N$. If $g(k;T_i) < 0$ for any such $k$ we detect butterfly arbitrage. In the case of the dd-eSSVI parameterization we can easily find from (\ref{eqn:w}) the following expressions for $\partial_k w(k,t), \partial_{kk} w(k,t)$:
+
+\begin{align*}
+\partial_k w(k;t) &= \frac{1}{2}\rho_t \psi_t +  \frac{1}{2}\frac{ \left(\psi_t k + \rho_t \theta_t \right)\psi_t  }{ \sqrt{ \left(\psi_t k + \rho_t \theta_t \right)^2 + \left(1-\rho^2_t\right)\theta^2_t  } } \\
+\partial_{kk} w(k;t) &= \frac{1}{2}\frac{1}{ \sqrt{ (\psi_t k + \rho_t \theta_t)^2 + (1-\rho_t^2)\theta_t^2 }   } \left(  \psi_t^2 - \frac{ \psi_t^2 (\psi_tk+ \rho_t \theta_t)^2 }{(\psi_t k + \rho_t \theta_t)^2 + (1-\rho_t^2)\theta_t^2  }    \right) 
+\end{align*}
+
+
+\subparagraph{Detecting calendar arbitrage}
+Given our raw calibration, for each maturity $T_i$, we again check if $w(k,T_i) > w(k,T_{i+1})$ for $k \in \underline{k}^{T_i}_N$. If this holds for any such $k$ we detect calendar arbitrage.
+
+
+\subparagraph{Arbitrage-free calibration}
+If arbitrage has been detected, the following steps are taken 
+
+\begin{enumerate}
+\item Using the log-moneyness grid $\underline{k}^{T_i}$ we calibrate a dd-eSSVI parameterization to the shocked volatility surface, using arbitrage-free constraints and obtain $\{(\psi_{T_i},\rho_{T_i},\theta_{T_i} )\}_{i=1}^N$
+\item Given the new TV surface $\{ w(k,T_i) \}_{i=1}^N$ we compute 
+\[
+\sigma(k,T_i) = \sqrt{ w(k,T_i)/T_i }
+\]
+where we are also able to convert to other strike conventions such as absolute strike. 
+\end{enumerate}
+The result is an arbitrage-free parameterization to the data on strike grid $\underline{K}$ where $\{(\psi_{T_i},\rho_{T_i},\theta_{T_i} )\}_{i=1}^N$ satisfies the no arbitrage constraints (\ref{eqn:calendar1}) to (\ref{eqn:butterfly}) and typically providing a minimal modification to the original arbitrageable shocked surface. 
+
+\subparagraph{Obtaining arbitrage-free shocks to obtain the corrected surface in Exotica} 
+
+As discussed before, the final step in our algorithm is to back out implied shocks from the original surface to the new surface, the original historical shocks, and result in the arbitrage-free surface that we have constructed via the dd-eSSVI parameterization. As will be seen in the numerical results sections, to construct the corrected surface prescribed by dd-eSSVI in the presence of arbitrage, $\sigma_{corr}(K,T)$, one must apply a modifier to $\sigma_{b}(K,T)$ which alters its skew to produce $\sigma_{corr}(K,T)$, moreover the implied shocks backed out will not be constant across the strike space. At the time of writing, a modifier within Exotica does not exist, however, it will be produced by GQA in the near future and will arrive at $\sigma_{corr}(K,T) $ from $\sigma_b(K,T)$ via backed-out shocks in delta space. 
+
+For the purpose of this document, in order to demonstrate the effectiveness of our dd-eSSVI parameterization in terms of preventing valuation failures, we directly fit a SABR surface in Exotica to our arbitrage-free surface using the Exotica functions \texttt{CalibrateSABRInOg} and \texttt{BuildSABRSurfaceInOg}. The strikes used in fitting the SABR are queried from the dd-eSSVI surface at $\underline{K}^{T_i}$. In terms of other settings used we have
+\begin{enumerate}
+\item First guess for SABR parameters: the SABR parameters from $\sigma_b(K,T)$ stored in xTrader for each $T_i$. 
+\item Upper and lower bounds for \texttt{ATMVol, Smile, Skew, Beta} are 
+\begin{itemize}
+\item $\texttt{UpperBounds} = (5,5,0.99,15)$
+\item $\texttt{LowerBounds} = (0,0,-0.99,-10)$
+\end{itemize}
+\item $\texttt{DeltaCutoff} = (0.05,0.05)$
+\item \texttt{Anchor} = $(1+\epsilon)\cdot S_0$
+\end{enumerate}
+While the surface defined by the SABR fit will not be identical to what is anticipated to be produced by future modifiers, it should be a very close approximation, and sufficient for our demonstrations.
+
+\paragraph{Numerical Examples }
+\label{parag:NumEx}
+
+\subparagraph{Base Surface for Tests}
+
+In this section we show the results of our arbitrage detection and correction algorithm. We consider shocks to xTrader's TD.TO volatility surface as of February 14, 2020. The base surface is shown below, plotted in TV against log-moneyness for the first few slices. 
+
+%\begin{figure}[h!]
+%\centering
+%\begin{subfigure}{.5\textwidth}
+%  \centering
+%  \includegraphics[width=.75\linewidth]{BaseTVSurface from 1w to 1m.png}
+%  \caption{Plot for maturities one week to one month. }
+%  %\label{fig:sub1}
+%\end{subfigure}%
+%\begin{subfigure}{.5\textwidth}
+%  \centering
+%  \includegraphics[width=.75\linewidth]{BaseTVSurface from 2m to 1y.png}
+%  \caption{Plot three months to one year.}
+%  %\label{fig:sub2}
+%\end{subfigure}
+%\caption{Plot for xTrader's TD.TO TV surface on base date February 14, 2020.  }
+%\label{fig:BaseSurface}
+%\end{figure}
+
+
+\subparagraph{Arbitrage Detection Results}
+
+Given our base surface as shown in Figure \ref{fig:BaseSurface}, we consider 10-day shocks over the horizon January 1st, 2019 to September 21, 2020. Our scenarios first shock the skew in parallel, followed by re-anchoring as above and the scenarios used were generated using xTrader data. For each resulting shocked surface, we apply the detection algorithm and note whether butterfly or calendar arbitrage is detected for a given slice. This results in a total of 243 scenarios. In these examples, our expiries were 
+\begin{center}
+$\{1w, 2w, 3w, 1m, 2m, 3m, 4m, 6m, 9m, 1y, 18m, 2y, 3y, 4y, 5y, 6y, 7y, 8y, 9y, 10y\}$
+\end{center}
+with the following results.
+
+\begin{center}
+\textbf{Butterfly arbitrage results}: We find that there are 0 cases of butterfly arbitrage owing to the nature of our shocks.
+\end{center}
+
+\begin{center}
+\textbf{Calendar arbitrage results}: We find that there were 30 scenarios in which the $2w$ slice crossed the $3w$ slice, and 12 scenarios in which the $3w$ slice crossed the $1m$ slice. 
+\end{center}
+
+
+
+\subparagraph{Single Numerical Examples}
+
+In this section we give an in-depth analysis of various situations where static arbitrage may occur and show graphically how the dd-eSSVI corrects the surface. 
+
+The shocks we consider are from the following simulation horizons 
+\begin{enumerate}[leftmargin=7.5em]
+\item[Scenario 1:] 2020-06-25 to 2020-07-10 
+\item[Scenario 2:] 2020-07-02 to 2020-07-16 
+\item[Scenario 3:] 2020-07-03 to 2020-07-17 
+\item[Scenario 4:] 2020-07-29 to 2020-07-30 
+\item[Scenario 5:] 2020-08-04 to 2020-08-18
+\item[Scenario 6:] 2020-08-05 to 2020-08-19
+\item[Scenario 7:] 2020-08-06 to 2020-08-20
+\end{enumerate}
+and these represent cases where there is calendar arbitrage. For simplicity, we only consider parallel shocks to the volatility and do not include re-anchoring resulting from spot movements, i.e. we have $\epsilon = 0$. 
+In each case we 
+\begin{itemize}
+\item Display the resulting shocked total variance surface indicating static arbitrage 
+\item Show the result of the dd-eSSVI's correction along with SABR fitting to the total variance surface
+\begin{itemize}
+\item This may be done in two steps: the first showing the level correction if there is calender arbitrage in the ATMF term structure, followed by the fitting of dd-eSSVI. 
+\end{itemize}
+\item Value a collection of call options using the Exotica model \texttt{EqVanillaFDInOg} using 150 time steps with maturity buckets the same as our XTV risk factors, i.e. 
+\begin{center}
+$\{1w, 2w, 3w, 1m, \ldots, 7y , 10y \}$
+\end{center}
+and strike grids $\underline{K}^{T_i}$. This valuation is done under
+\begin{enumerate}
+\item The shocked surface with calendar arbitrage.
+\item The shocked surface with the dd-eSSVI correction.
+\item The shocked surface with the High Tolerance correction.
+\end{enumerate}
+\end{itemize}
+In the latter tests we simply report if there is an error due to valuation failures. Our plots focus on regions where arbitrage occurs, and slices where there is no arbitrage are omitted. As expected, there are only errors in the case of the shocked surface with calendar arbitrage. The results are shown below in Figures \ref{fig:Scen1} to \ref{fig:Scen7}. 
+
+\subparagraph{Discussion of Results}
+
+The plots in Figures \ref{fig:Scen1} to \ref{fig:Scen7} we see the results of shocks for the seven case study scenarios. As indicated in our historical study all instances of static arbitrage are in the form of calendar arbitrage. In Figures \ref{fig:Scen3}, \ref{fig:Scen4}, \ref{fig:Scen7} we see that there is calendar arbitrage in the ATMF curve $\theta$ and our level adjustment is made; the rest of the plots did not have any level adjustment due to calendar arbitrage in the ATMF. We can also see the effect of Exotica's HighTolerance mode when correcting the volatility surface. The surfaces produced from the High Tolerance correction are not very different from our final dd-eSSVI corrected surface, however, in our approach we understand how our post correction is surface is produced and have oversight over exactly what surface is sent for valuation. In the case of High Tolerance it is difficult to predict the surface post correction, and it is only clear what surface is used for valuation after backing it out with \texttt{EqVanillaFDInOg}.
+
+
+Beyond producing arbitrage-free surfaces post-correction, it is of great importance to note that our corrected surfaces do not result in valuation failures when valued over a wide range of strikes and maturities under local volatility. \footnote{One may still have valuation failures resulting from negative forward variances around futures dates where cash dividends are paid out. This is also true of xTrader's surfaces used for base valuation. The negative forward variances arise from the volatility correction described in \cite{gqa_localvol}, and is manifests itself when the number of steps is on the order of 1000s.} This mitigation of valuation failures was also carried out by making minimal modifications to the surface; only the slices which had calendar (or butterfly) arbitrage were modified, the rest were left unchanged. 
+
+Finally, we note that when arbitrage is present, the corrections by dd-eSSVI and High Tolerance both alter the skew of the shocked surface, and this skew is of course different from the base surface. This shows that there is currently an inconsistency between XTV and the Skew Risk Add-On whenever an arbitrageable scenario emerges; it also shows that the dd-eSSVI correction maintains this inconsistency, although it does not increase its prevalence. In later phases of XTV development, CMRM will consider decommissioning the Skew Risk Add-On and will include the skew component of historical scenarios in XTV. 
+
+
+
+\newpage
+
+
+%\begin{figure}
+%        \centering
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{TV 2020-06-25 to 2020-07-10.png}  
+%            \caption{Surface post shock before dd-eSSVI or HighTolerance  } 
+%            \label{fig:scen1TV}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV ATM corr 2020-06-25 to 2020-07-10.png}  
+%            \caption{Surface post shock with ATMF level correction, without dd-eSSVI skew correction }   
+%            \label{fig:scen1ATMcorr}
+%        \end{subfigure}
+%      \vskip\baselineskip
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV ATM SSVI corr 2020-06-25 to 2020-07-10.png}  
+%            \label{fig:scen1ddeSSVIcorr}
+%            \caption{Surface post shock with full dd-eSSVI skew correction } 
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV HT 2020-06-25 to 2020-07-10.png}   
+%            \label{fig:scen1HTcorr}
+%            \caption{Surface post shock with High Tolerance skew correction } 
+%        \end{subfigure}
+%        \caption{Results for Scenario 1: 2020-06-25 to 2020-07-10. In Subfigure \ref{fig:scen1TV} calendar arbitrage may be seen between the $2w$ and $3w$ maturities.    } 	        \label{fig:Scen1}
+%\end{figure}
+
+
+\begin{center}
+Error report from Exotica without dd-eSSVI or HighTolerance correction. No errors resulted under the dd-eSSVI or High Tolerance corrections.
+
+\texttt{Fail:  vol grid TD.TO has not been calibrated: Local variance calibration failed between time steps 137 (time 0.0726 = 26.49 days) and 138 (time 0.0731 = 26.68 days). MinVariance computed is -50.997079, MaxVariance computed is 0.000001 : EqVanillaFDInOg}
+\end{center}
+
+\newpage
+
+
+%\begin{figure}
+%        \centering
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{TV 2020-07-02 to 2020-07-16.png}  
+%            \caption{Surface post shock before dd-eSSVI or HighTolerance  } 
+%            \label{fig:scen2TV}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV ATM corr 2020-07-02 to 2020-07-16.png}  
+%            \caption{Surface post shock with ATMF level correction, without dd-eSSVI skew correction } 
+%            \label{fig:scen2ATMcorr}
+%        \end{subfigure}
+%        \vskip\baselineskip
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV ATM SSVI corr 2020-07-02 to 2020-07-16.png}  
+%            \caption{Surface post shock with full dd-eSSVI skew correction }
+%            \label{fig:scen2ddeSSVIcorr}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV HT 2020-07-02 to 2020-07-16.png}    
+%            \caption{Surface post shock with High Tolerance skew correction } 
+%            \label{fig:scen2HTcorr}
+%        \end{subfigure}
+%\caption{Results for Scenario 2: 2020-07-02 to 2020-07-16. In Subfigure \ref{fig:scen2TV} calendar arbitrage may be seen between the $2w$ and $3w$ maturities. } 
+%\label{fig:Scen2}
+%\end{figure}
+
+\begin{center}
+Error report from Exotica without dd-eSSVI or HighTolerance correction. No errors resulted under the dd-eSSVI or High Tolerance corrections.
+
+\texttt{Fail: vol grid TD.TO has not been calibrated: Local variance calibration failed between time steps 146 (time 0.0560 = 20.44 days) and 147 (time 0.0564 = 20.58 days). MinVariance computed is -18.479311, MaxVariance computed is 0.000001 : EqVanillaFDInOg}
+\end{center}
+
+
+
+\newpage
+
+%
+%\begin{figure}
+%        \centering
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{TV 2020-07-03 to 2020-07-17.png}  
+%            \caption{Surface post shock before dd-eSSVI or HighTolerance  } 
+%            \label{fig:scen3TV}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV ATM corr 2020-07-03 to 2020-07-17.png}  
+%            \caption{Surface post shock with ATMF level correction, without dd-eSSVI skew correction } 
+%            \label{fig:scen3ATMcorr}
+%        \end{subfigure}
+%        \vskip\baselineskip
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV ATM SSVI corr 2020-07-03 to 2020-07-17.png}  
+%            \caption{Surface post shock with full dd-eSSVI skew correction } 
+%            \label{fig:scen3ddeSSVIcorr}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV HT 2020-07-03 to 2020-07-17.png}   
+%            \caption{Surface post shock with High Tolerance skew correction } 
+%            \label{fig:scen3HTcorr}
+%        \end{subfigure}
+%\caption{Results for Scenario 3: 2020-07-03 to 2020-07-17. In Subfigure \ref{fig:scen2TV} calendar arbitrage may be seen between the $2w$ and $3w$ maturities. } 
+%\label{fig:Scen3}
+%\end{figure}
+
+\begin{center}
+Error report from Exotica without dd-eSSVI or HighTolerance correction. No errors resulted under the dd-eSSVI or High Tolerance corrections.
+
+\texttt{Fail: vol grid TD.TO has not been calibrated: Local variance calibration failed between time steps 24 (time 0.0395 = 14.40 days) and 25 (time 0.0411 = 15.00 days). MinVariance computed is -390.953880, MaxVariance computed is 0.000001 : EqVanillaFDInOg}
+\end{center}
+
+
+
+
+%\newpage
+%
+%%\begin{figure}
+%%        \centering
+%%        \begin{subfigure}[b]{0.475\textwidth}
+%%            \centering
+%%            \includegraphics[width=0.75\textwidth]{TV 2020-07-29 to 2020-08-13.png}  
+%%            \caption{Surface post shock before dd-eSSVI or HighTolerance  } 
+%%            \label{fig:scen4TV}
+%%        \end{subfigure}
+%%        \hfill
+%%        \begin{subfigure}[b]{0.475\textwidth}  
+%%            \centering 
+%%            \includegraphics[width=0.75\textwidth]{TV ATM corr 2020-07-29 to 2020-08-13.png}  
+%%            \caption{Surface post shock with ATMF level correction, without dd-eSSVI skew correction } 
+%%            \label{fig:scen4ATMcorr}
+%%        \end{subfigure}
+%%        \vskip\baselineskip
+%%        \begin{subfigure}[b]{0.475\textwidth}   
+%%            \centering 
+%%            \includegraphics[width=0.75\textwidth]{TV ATM SSVI corr 2020-07-29 to 2020-08-13.png}  
+%%            \caption{Surface post shock with full dd-eSSVI skew correction } 
+%%            \label{fig:scen4ddeSSVIcorr}
+%%        \end{subfigure}
+%%        \hfill
+%%        \begin{subfigure}[b]{0.475\textwidth}   
+%%            \centering 
+%%            \includegraphics[width=0.75\textwidth]{TV HT 2020-07-29 to 2020-08-13.png}   
+%%            \caption{Surface post shock with High Tolerance skew correction } 
+%%            \label{fig:scen4HTcorr}
+%%        \end{subfigure}
+%%\caption{Results for Scenario 4: 2020-07-29 to 2020-08-13. In Subfigure \ref{fig:scen4TV} calendar arbitrage may be seen between the $3w$ and $1m$ maturities. } 
+%%\label{fig:Scen4}
+%%\end{figure}
+%
+%
+%\begin{center}
+%Error report from Exotica without dd-eSSVI or HighTolerance correction. No errors resulted under the dd-eSSVI or High Tolerance corrections.
+%
+%\texttt{Fail: vol grid TD.TO has not been calibrated: Local variance calibration failed between time steps 137 (time 0.0726 = 26.49 days) and 138 (time 0.0731 = 26.68 days). MinVariance computed is -0.026855, MaxVariance computed is -0.000505 : EqVanillaFDInOg}
+%\end{center}
+%
+%
+%
+%\newpage
+%
+%
+%\begin{figure}
+%        \centering
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{TV 2020-08-04 to 2020-08-18.png}  
+%            \caption{Surface post shock before dd-eSSVI or HighTolerance  } 
+%            \label{fig:scen5TV}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV ATM corr 2020-08-04 to 2020-08-18.png}  
+%            \caption{Surface post shock with ATMF level correction, without dd-eSSVI skew correction } 
+%            \label{fig:scen5ATMcorr}
+%        \end{subfigure}
+%        \vskip\baselineskip
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV ATM SSVI corr 2020-08-04 to 2020-08-18.png}  
+%            \caption{Surface post shock with full dd-eSSVI skew correction } 
+%            \label{fig:scen5ddeSSVIcorr}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV HT 2020-08-04 to 2020-08-18.png}   
+%            \caption{Surface post shock with High Tolerance skew correction } 
+%            \label{fig:scen5HTcorr}
+%        \end{subfigure}
+%\caption{Results for Scenario 5: 2020-08-04 to 2020-08-18. In Subfigure \ref{fig:scen5TV} calendar arbitrage may be seen between the $2w$ and $3w$, $3w$ and $1m$ maturities. } 
+%\label{fig:Scen5}
+%\end{figure}
+
+\begin{center}
+Error report from Exotica without dd-eSSVI or HighTolerance correction. No errors resulted under the dd-eSSVI or High Tolerance corrections.
+
+\texttt{Fail: vol grid TD.TO has not been calibrated: Local variance calibration failed between time steps 111 (time 0.0588 = 21.46 days) and 112 (time 0.0593 = 21.65 days). MinVariance computed is -28.365928, MaxVariance computed is 0.000001 : EqVanillaFDInOg }
+\end{center}
+
+
+
+\newpage
+
+
+%\begin{figure}
+%        \centering
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{TV 2020-08-05 to 2020-08-19.png}  
+%            \caption{Surface post shock before dd-eSSVI or HighTolerance  } 
+%            \label{fig:scen6TV}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV ATM corr 2020-08-05 to 2020-08-19.png}  
+%            \caption{Surface post shock with ATMF level correction, without dd-eSSVI skew correction } 
+%            \label{fig:scen6ATMcorr}
+%        \end{subfigure}
+%        \vskip\baselineskip
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV ATM SSVI corr 2020-08-05 to 2020-08-19.png}  
+%            \caption{Surface post shock with full dd-eSSVI skew correction } 
+%            \label{fig:scen6ddeSSVIcorr}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV HT 2020-08-05 to 2020-08-19.png}   
+%            \caption{Surface post shock with High Tolerance skew correction } 
+%            \label{fig:scen6HTcorr}
+%        \end{subfigure}
+%\caption{Results for Scenario 6: 2020-08-05 to 2020-08-19. In Subfigure \ref{fig:scen6TV} calendar arbitrage may be seen between the $2w$ and $3w$, $2w$ and $1m$, $3w$ and $1m$ maturities. } 
+%\label{fig:Scen6}
+%\end{figure}
+
+\begin{center}
+Error report from Exotica without dd-eSSVI or HighTolerance correction. No errors resulted under the dd-eSSVI or High Tolerance corrections.
+
+\texttt{Fail: vol grid TD.TO has not been calibrated: Local variance calibration failed between time steps 100 (time 0.0530 = 19.33 days) and 101 (time 0.0535 = 19.53 days). MinVariance computed is -154.225395, MaxVariance computed is 0.000001 : EqVanillaFDInOg }
+\end{center}
+
+
+
+
+%\newpage
+%
+%\begin{figure}
+%        \centering
+%        \begin{subfigure}[b]{0.475\textwidth}
+%            \centering
+%            \includegraphics[width=0.75\textwidth]{TV 2020-08-06 to 2020-08-20.png}  
+%            \caption{Surface post shock before dd-eSSVI or HighTolerance  } 
+%            \label{fig:scen7TV}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}  
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV ATM corr 2020-08-06 to 2020-08-20.png}  
+%            \caption{Surface post shock with ATMF level correction, without dd-eSSVI skew correction } 
+%            \label{fig:scen7ATMcorr}
+%        \end{subfigure}
+%        \vskip\baselineskip
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV ATM SSVI corr 2020-08-06 to 2020-08-20.png}  
+%            \caption{Surface post shock with full dd-eSSVI skew correction } 
+%            \label{fig:scen7ddeSSVIcorr}
+%        \end{subfigure}
+%        \hfill
+%        \begin{subfigure}[b]{0.475\textwidth}   
+%            \centering 
+%            \includegraphics[width=0.75\textwidth]{TV HT 2020-08-06 to 2020-08-20.png}   
+%            \caption{Surface post shock with High Tolerance skew correction } 
+%            \label{fig:scen7HTcorr}
+%        \end{subfigure}
+%\caption{Results for Scenario 7: 2020-08-06 to 2020-08-20. In Subfigure \ref{fig:scen7TV} calendar arbitrage may be seen between the $2w$ and $3w$, $2w$ and $1m$ maturities. } 
+%\label{fig:Scen7}
+%\end{figure}
+
+\begin{center}
+Error report from Exotica without dd-eSSVI or HighTolerance correction. No errors resulted under the dd-eSSVI or High Tolerance corrections.
+
+\texttt{Fail: vol grid TD.TO has not been calibrated: Local variance calibration failed between time steps 103 (time 0.0395 = 14.42 days) and 104 (time 0.0399 = 14.56 days). MinVariance computed is -0.027289, MaxVariance computed is -0.000293 : EqVanillaFDInOg }
+\end{center}
+
+
+\newpage
+
+
+
+
+
+%----------------------------------------------------
+%\subsubsection{Model Input Variables/Parameters and Possible Range}
+%----------------------------------------------------
+%\subsubsection{Model Approximation}
+%----------------------------------------------------
+%\subsubsection{Model Limitations}
+%****************************************************
+%\subsection{Model Development}
+%----------------------------------------------------
+%\subsubsection{Model Infrastructure (Systems and Dataflow Chart)}
+%----------------------------------------------------
+%\subsubsection{Model Input and Data Requirements} \label{sec:requirements}
+%----------------------------------------------------
+%\subsubsection{Model Input Data and Parameter Estimation} \label{sec:model-inputs}
+%----------------------------------------------------
+%\subsubsection{Data Verification and Control}
+%----------------------------------------------------
+%\subsubsection{Model Output and Reports}
+%----------------------------------------------------
+%\subsubsection{Model Performance Measurement}
+%----------------------------------------------------
+%\subsubsection{Model Exception/Error Handling}
+%****************************************************
+\subsection{Modeling Approach Review}
+%----------------------------------------------------
+\subsubsection{General Summary of Modeling Review} \label{sec:model-summary}
+%----------------------------------------------------
+\subsubsection{Alternative Modeling Approaches}
+
+\subsubsubsection{SVI Parameterizations in General}
+Stochastic Volatility Inspired (SVI) surfaces are parametizations of total variance surfaces that are based on expressions for the asymptotic (in time) total variance of popular stochastic volatility models, like the Heston model \cite{heston1994closed}. That is, an SVI parameterization of TV is typically of the form
+\[
+w^{\text{SVI}}(k;T, \chi_{\text{SVI}} ) = \lim_{T\to\infty} w^{\text{Heston}}(k;T,\chi_{\text{Heston}} )
+\]
+where $\chi_{i}$ is a list of parameters for each model. SVI are popular modelling choices as they
+\begin{itemize}
+\item often provide simple conditions between the parameters that allow one to check if arbitrage is present, 
+\item each parameter typically has a clear geometric meaning, and
+\item the parameterization satisfies certain theoretically established stylized facts regarding implied volatility surface (such as being linear at the tails)
+\end{itemize}
+While calibrating SVI surfaces to market data, imposing that these no-arbitrage conditions are satisfied allows one to obtain a surface that is arbitrage-free. 
+
+\paragraph{Original SVI}
+The original SVI surface was introduced by \cite{gatheral2014arbitrage}, \cite{gatheral2004parsimonious} and takes the following form for each time-slice
+\[
+w(k;T, \chi) = a + b (\rho (k - m) + \sqrt{(k-m)^2 + \sigma^2  } )
+\]
+where the parameters $\chi= \{a,b,\rho,m,\sigma\}$ have the following interpretation 
+\begin{itemize}
+\item $a$ translates the smile vertically
+\item $b$ increases or decreases the slope of the call and put wings
+\item increasing $\rho$ increases the slope of the left wing, rotating the smile counter-clockwise
+\item $m$ translates the smile horizontally
+\item $\sigma$ alters the at-the-money (ATM) curvature of the smile.
+\end{itemize}
+In terms of imposing no-arbitrage, \cite{gatheral2014arbitrage} provide conditions to preclude calendar arbitrage between two time-slices. This condition involves ensuring a certain quartic polynomial $p_{T_i,T_j}(k) = a_4k^4 + a_3k^3 + a_2k^2 + a_1k + a_0$ does not have any roots, where the coefficients $a_i$ depend on $a,b, \rho, m,\sigma$. This parameterization is also highly flexible in terms of fitting volatility surfaces given that a set of different 5 parameters are calibrated for each time-slice $T_i$. In terms of drawbacks we have the following
+
+\subparagraph{Limitations}
+\begin{enumerate}
+\item  Intractibility for imposing no arbitrage:  No known simple relations exist between the parameters to ensure butterfly arbitrage\label{item:NoButterfly}. One requires numerical methods to impose (density condition) while calibrating to market data. 
+\item Complexity: The condition for calendar arbitrage can be implemented numerically, however, it is still somewhat complex 
+\item Unidentifiability: Some of the parameters play a similar role
+\item Lack of robustness: Due to the large number of parameters, one requires black-box optimization to calibrate the model which may not be robust  
+\end{enumerate} 
+ 
+
+\paragraph{Surface SVI (SSVI)}
+Limitation \ref{item:NoButterfly} was viewed as a serious drawback and led to further extensions of the original SVI approach, most notably Surface SVI (SSVI) parameterizations \cite{gatheral2014arbitrage}. In an SSVI parameterization, one considers the following subset of SVI parameterizations with the following form
+\[
+w(k,\theta_t; \chi) = \frac{\theta_t}{2} \left( 1 + \rho \varphi(\theta_t; \chi') k + \sqrt{ (\varphi(\theta_t;\chi')k + \rho)^2 + (1 - \rho^2)^2   }        \right) 
+\]
+where $\theta_t = \sigma(0,t)^2 t$, i.e. the ATMF TV, and $\phi(\cdot; \chi')$ is a user-selected function which sets the curvature of ATMF volatility at each time $T$ as a function of $\theta_T$, $\chi = \{\rho\} \cup \chi'$. This functional form $\phi(\cdot; \chi')$ also typically contains its own set of tunable parameters, examples of such functions are the Heston form $\phi(\theta; \chi') = \frac{1}{\lambda \theta} \left( 1 - \frac{1 - e^{-\lambda \theta} }{\lambda \theta }  \right)$ where $\chi' = \{\lambda\}$ and power-law form $\phi(\theta; \chi') = \eta \theta^{-\gamma}$ where $\chi' = \{\eta,\gamma\}$. We note that now the parameters within SSVI are global and not estimated slice-by-slice, as well the ATMF TV is taken as an input, read directly from the surface. As alluded to, SSVI approaches yield conditions to preclude both butterfly and calendar arbitrage that are relatively easy to check. Unlike the other SVI variations we consider, SSVI's conditions are also provided in continuous time. They are as follows:
+\subparagraph{Arbitrage Conditions}
+\begin{itemize}
+\item \underline{Calendar Arbitrage}: The surface is free of Calendar Arbitrage if 
+\begin{enumerate}
+\item $\partial_t \theta_t \geq 0$ for all $t \geq 0$
+\item $0 \leq \partial_{\theta}( \theta \varphi(\theta) ) \leq \frac{1}{\rho^2} \left(  1 + \sqrt{1 - \rho^2 } \right)  $
+\end{enumerate}
+\item \underline{Butterfly Arbitrage}: The surface is free of Butterfly Arbitrage if 
+\begin{enumerate}
+\item $\theta \varphi(\theta) ( 1 + |\rho| ) < 4 $ and
+\item $\theta \varphi(\theta)^2 (1 + |\rho| ) \leq 4 $
+\end{enumerate}
+\end{itemize}
+While SSVI approaches are appealing in terms of tractability in avoiding arbitrage, there are the following limitations
+\subparagraph{Limitations}
+\begin{enumerate}
+\item Lack of flexibility: The global nature of the parameters listed above $\chi = \{\rho, \lambda\}$ or $\chi = \{\rho, \eta, \gamma  \} $ , and choice of functional form for $\varphi(\cdot; \cdot )$ is restrictive in terms of fitting real world data.
+\item Lack of robustness: A black-box minimizer is required to estimate the parameters $\chi$, and is often not stable with respect to their initial guess. 
+\end{enumerate}
+
+\paragraph{Extended SSVI (eSSVI)}
+To address the issues with regards to SSVI modelling, further improvements were made in \cite{hendriks2017extended}. In \cite{hendriks2017extended} they describe another parameterization termed Extended SSVI (eSSVI) which improves the flexibility of the surface by allowing the correlation parameter $\rho$ to vary over time similar to the ATMF curvature, i.e., they consider a modification where now $\rho_t := \rho(\theta_t; \chi'')$, $\chi''$ is a collection of parameters for $\rho(\cdot;\cdot)$ and consider various parametric forms for $\rho(\cdot; \chi'')$ and arrive at the parameterization
+\[
+w(k,\theta_t;\chi) = \frac{\theta}{2}\left( 1 + \rho(\theta_t;\chi'') \varphi(\theta_t;\chi')k + \sqrt{ (\varphi(\theta_t;\chi') k + \rho(\theta_t;\chi''))^2 + (1 - \rho(\theta_t;\chi'')^2 )   }     \right)
+\]
+where $\chi = \chi' \cup \chi'' $ and the parameters $\chi$ must all be estimated from the entire surface. An example of $\rho(\cdot; \chi'')$ would be $\rho(\theta;\chi'') = \rho_0 + (\rho_m - \rho_0) \left(\frac{\theta}{\theta_{max}} \right)^a$ and others may be found in \cite{hendriks2017extended}. Under this approach, \cite{hendriks2017extended} derive conditions for eSSVI surfaces to preclude static arbitrage, similar to that of SSVI, except they formulate theirs in terms of two time-slices, i.e. they are discrete. They list the  following conditions
+\subparagraph{Arbitrage Conditions}
+\begin{itemize}
+\item \underline{Calendar Arbitrage}: The surface is free of Calendar Arbitrage under the following set up: Given $T_1 \leq T_2$, we let $\theta_1 := \theta_{T_1}, \theta_2 := \theta_{T_2}$, $\rho_1 := \rho(\theta_{1} ), \rho_2 := \rho(\theta_{2} )$, $\varphi_1 := \varphi(\theta_1), \varphi_2 := \varphi(\theta_2)$ and set $\theta = \theta_2/\theta_1$, $\varphi = \varphi_2/\varphi_1$. To be free of calendar arbitrage it is necessary that 
+\[
+\theta\geq 1  , \  \theta \varphi > \max\left( \frac{1 + \rho_1}{1 + \rho_2} , \frac{1 - \rho_1}{1 - \rho_2} \right).
+\]
+If the above necessary condition holds, it is further sufficient that
+\begin{equation}
+\varphi \leq 1 \ \text{or} \ (\rho_1 - \theta \varphi  \rho_2)^2 \leq ( \theta -1)(\theta \varphi^2 - 1) 
+\label{eqn:eSSVIcalendar}
+\end{equation}
+in order to preclude calendar arbitrage. 
+\item \underline{Butterfly Arbitrage}: The surface is free of Butterfly Arbitrage if 
+\begin{enumerate}
+\item $\theta \varphi(\theta) ( 1 + |\rho(\theta)| ) < 4 $ and
+\item $\theta \varphi(\theta)^2 (1 + |\rho(\theta) | ) \leq 4 $
+\end{enumerate}
+where $\theta > 0$ 
+\end{itemize}
+we note that the condition above for Butterfly Arbitrage is the same as for SSVI. In terms of limitations, the issue of flexibility is mostly dealt with due to the time-dependent correlation, however, we still have 
+\subparagraph{Limitation}
+\begin{enumerate}
+\item Lack of flexibility: There is still the question of functional choice for $\varphi(\cdot;\cdot), \rho(\cdot;\cdot)$ which may hinder calibration flexibility. 
+\item Lack of robustness: There is still the issue of estimating the multitude of parameters stored in $\chi = \chi' \cup \chi''$, and the need for black-box minimizers and initial guesses. 
+\end{enumerate}
+The approach we have developed in Section [add label] is a form of SVI that addresses the Limitations described for each approach. Our approach may be seen as a natural evolution of the previous approaches and may be referred to as Data-Driven eSSVI (dd-eSSVI), and is obtained from eSSVI by defining a variable $\psi = \varphi \cdot \theta$. The main advantage of our parameterization is that one can avoid user prescribed functional forms and instead incorporate the level, curvature, and skew of the smile directly from the smile, for each time-slice separately, allowing for a relatively flexible parameterization. Another major advantage of our approach is that since we are only calibrating two parameters per smile, $\psi_t$, $\rho_t$, this lends itself to a highly robust calibration scheme which avoids initial guesses and black-box minimizers and only relies on one-dimensional root finding algorithms; this is referred to as our Cross-Section Method. Also, the fitting of these smiles, while imposing no-arbitrage, may also be handled in semi-closed form after some calculations that we show in Section \ref{ss:ddeSSVIcal}. 
+
+
+%To further address the issues of SSVI and eSSVI regarding flexibility and robustness, a further extension referred to as Data-Driven eSSVI (dd-eSSVI) was developed in \cite{corbetta2019robust}. Defining a new parameter $\psi = \theta \cdot \varphi$ we re-write the SSVI expression for $w$ in terms of $\psi, \theta, \rho$ as follows
+%\begin{equation}
+%w(k,t) = \frac{1}{2}\left(\theta_t  + \rho_t \psi_t k + \sqrt{ \left(\psi_t k + \rho_t \theta_t \right)^2 + \left(1 - \rho_t^2 \right)\theta_t^2 } \right)
+%\label{eqn:w}
+%\end{equation}
+%with the key difference being that, now, $\rho_t, \psi_t$ are to be estimated directly from time-slice of $t$ as opposed to arising from some functional form $\rho_t = \rho(\theta_t; \chi'')$, $\psi_t = \psi(\theta_t;\chi')$. In this parameterization, we have again that $\theta_t$ is again the ATMF TV read from the surface, $\rho_t$ describes the skew, and $\psi_t$ is closely related to the ATMF curvature.
+
+
+%****************************************************
+%\subsection{Model Development Testing}
+%----------------------------------------------------
+%\subsubsection{Model Development Testing}
+%----------------------------------------------------
+%\subsubsection{Boundary Condition Testing}
+%----------------------------------------------------
+%\subsubsection{Stress Testing}
+%----------------------------------------------------
+%\subsubsection{Back Testing}
+%----------------------------------------------------
+%\subsubsection{Sensitivity Analysis}
+%----------------------------------------------------
+%\subsubsection{Out of Sample/Out of Time Testing}
+%----------------------------------------------------
+%\subsubsection{Accuracy Testing}
+%----------------------------------------------------
+%\subsubsection{Error Handling and Convergence Testing}
+%****************************************************
+%\subsection{Conclusions}
+%****************************************************
+%\subsection{Change Control Management and Training}
+%****************************************************
+%\subsection{Future Enhancement}
+%****************************************************
+%\documentchecklist
+\appendices
+
+\subsection{Model Change Log} \label{app:log}
+%====================================================
+\begin{table}[h!]
+	\centering
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{|c|l|l|l|}
+	\hline
+	\textbf{Version} & \textbf{Author} & \textbf{Date} & \textbf{Changes}\\ \hline
+	1.0.0 & David Farahany, Mahdi Ramezani & September 2020 & First draft\\ \hline
+	\hline
+	\end{tabular}
+\end{table}
+%====================================================
+%----------------------------------------------------
+%\newpage
+%\subsection{B}
+
+%****************************************************
+\newpage
+\bibliographystyle{IEEETran}
+\bibliography{../../../references}
+%****************************************************
+\end{document}

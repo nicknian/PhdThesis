@@ -151,6 +151,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2.3}SABR Model}{17}{subsection.2.2.3}\protected@file@percent }
 \newlabel{sec:SABR}{{2.2.3}{17}{SABR Model}{subsection.2.2.3}{}}
 \citation{hagan2002managing}
+\newlabel{eq:SABRExpansion}{{2.2.11}{18}{SABR Model}{equation.2.2.11}{}}
 \citation{hulloptimal,hagan2002managing,hagan2017bartlett}
 \@writefile{toc}{\contentsline {section}{\numberline {2.3}Option Hedging Using the Sensitivity from Pricing Model}{19}{section.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Classical Hedging Position from Pricing Model}{19}{subsection.2.3.1}\protected@file@percent }
@@ -448,149 +449,161 @@
 \newlabel{sec:RNNTotal}{{6}{70}{Data-Driven Sequential Learning Framework for Total Hedging Risk}{chapter.6}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {6.1}Data Augmentation for Market Option Data}{70}{section.6.1}\protected@file@percent }
 \newlabel{sec:DataAugmentation}{{6.1}{70}{Data Augmentation for Market Option Data}{section.6.1}{}}
+\citation{gatheral2014arbitrage}
+\citation{dupire1994pricing}
+\citation{breeden1978prices}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}No-Arbitrage Price Surface}{72}{subsection.6.1.1}\protected@file@percent }
 \newlabel{sec:NoArb}{{6.1.1}{72}{No-Arbitrage Price Surface}{subsection.6.1.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{SABR Interpolation and Extrapolation Between Strikes}{72}{section*.13}\protected@file@percent }
+\newlabel{item:butterfly}{{1}{72}{No-Arbitrage Price Surface}{Item.20}{}}
+\newlabel{item:calendar}{{2}{72}{No-Arbitrage Price Surface}{Item.21}{}}
 \citation{carr2005note}
+\@writefile{toc}{\contentsline {subsubsection}{Volatility Interpolation and Extrapolation Over Strikes}{73}{section*.13}\protected@file@percent }
+\citation{brunner2003arbitrage}
+\citation{brunner2003arbitrage}
+\newlabel{eq:RND1}{{6.1.1}{75}{Volatility Interpolation and Extrapolation Over Strikes}{equation.6.1.1}{}}
+\newlabel{eq:RND2}{{6.1.2}{75}{Volatility Interpolation and Extrapolation Over Strikes}{equation.6.1.2}{}}
+\newlabel{eq:RND3}{{6.1.3}{75}{Volatility Interpolation and Extrapolation Over Strikes}{equation.6.1.3}{}}
+\newlabel{eq:RND4}{{6.1.4}{75}{Volatility Interpolation and Extrapolation Over Strikes}{equation.6.1.4}{}}
 \citation{andreasen2010volatility}
 \citation{dupire1994pricing}
 \citation{andreasen2010volatility}
-\@writefile{toc}{\contentsline {subsubsection}{Volatility Interpolation Between Expiries}{74}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Volatility Interpolation Between Expiries}{77}{section*.14}\protected@file@percent }
+\newlabel{eq:LVFInt}{{6.1.6}{78}{Volatility Interpolation Between Expiries}{equation.6.1.6}{}}
+\newlabel{eq:LVFCal}{{6.1.7}{78}{Volatility Interpolation Between Expiries}{equation.6.1.7}{}}
 \citation{andreasen2010volatility}
-\newlabel{eq:LVFCal}{{6.1.1}{76}{Volatility Interpolation Between Expiries}{equation.6.1.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Data Augmentation for Training Scenarios}{79}{subsection.6.1.2}\protected@file@percent }
+\newlabel{sec:Augtrain}{{6.1.2}{79}{Data Augmentation for Training Scenarios}{subsection.6.1.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces The price surface and implied volatility surface calibrated for SP500 index Call Options on 2012-01-04.}}{80}{figure.6.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Implied Volatility Surface}}}{80}{figure.6.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Price Surface}}}{80}{figure.6.1}\protected@file@percent }
+\newlabel{fig:CaliExp}{{6.1}{80}{The price surface and implied volatility surface calibrated for SP500 index Call Options on 2012-01-04}{figure.6.1}{}}
 \citation{hull2006options}
 \citation{andreasen2010volatility}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Data Augmentation for Training Scenarios}{77}{subsection.6.1.2}\protected@file@percent }
-\newlabel{sec:Augtrain}{{6.1.2}{77}{Data Augmentation for Training Scenarios}{subsection.6.1.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces The price surface and implied volatility surface calibrated for SP500 index Call Options on 2012-01-04.}}{78}{figure.6.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Implied Volatility Surface}}}{78}{figure.6.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Price Surface}}}{78}{figure.6.1}\protected@file@percent }
-\newlabel{fig:CaliExp}{{6.1}{78}{The price surface and implied volatility surface calibrated for SP500 index Call Options on 2012-01-04}{figure.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.3}Data Augmentation for Testing Scenarios}{81}{subsection.6.1.3}\protected@file@percent }
 \citation{andreasen2010volatility}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.3}Data Augmentation for Testing Scenarios}{79}{subsection.6.1.3}\protected@file@percent }
 \citation{gatheral2004parsimonious}
 \citation{gatheral2014arbitrage}
 \citation{hendriks2017extended}
 \citation{corbetta2019robust}
 \citation{gatheral2014arbitrage}
 \citation{hendriks2017extended,corbetta2019robust}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.4}Alternative Methods for Calibrating Arbitrage-Free Surface}{80}{subsection.6.1.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Total Hedging Model}{80}{section.6.2}\protected@file@percent }
-\newlabel{eq:FinalHValue}{{6.2.1}{81}{Total Hedging Model}{equation.6.2.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.4}Alternative Methods for Calibrating Arbitrage-Free Surface}{82}{subsection.6.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Total Hedging Model}{83}{section.6.2}\protected@file@percent }
+\newlabel{eq:FinalHValue}{{6.2.1}{84}{Total Hedging Model}{equation.6.2.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}The Difference Between $\textsc  {GRU}_\delta $ And $\textsc  {GRU}_{\textsc  {total}}$}{84}{subsection.6.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces $\textsc  {GRU}_{\textsc  {total}}$: GRU encode-decoder total hedging model. The encoder summarizes the time series $\mathbf  {Y}_{t}^{T,K}=\left [\mathbf  {y}^{T,K}_{\tau _{1}},\dots  ,\mathbf  {y}^{T,K}_{\tau _{N+1}}\right ]$ as a succinct vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf  {h}$}\mathaccent "0362{\mathbf  {h}}_E$. The decoder outputs the hedging position based on the vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf  {h}$}\mathaccent "0362{\mathbf  {h}}_E$ and the previous hedging position $\delta ^M_{t-\Delta t,T,K}$ observed at the hedging time $t$. More specifically, in the decoder, a candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$ is firstly produced. The final output $\delta ^M_{t,T,K}$ is computed based on the linear combination of BS delta $\delta ^{BS}_{t,T,K}$ and the candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$. The combination weight is determined by $W_{\delta }$. The feature weight $\omega ^L$ is used to compute weighted sequential feature $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf  {y}$}\mathaccent "0362{\mathbf  {y}}^{T,K}_{\tau }$. The weighting acts as a feature selection process. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input. The output $\delta ^M_{t,T,K}$ at $t$ is used as the input for next step $t+\Delta t$.}}{85}{figure.6.2}\protected@file@percent }
+\newlabel{fig:RNNModelTotal}{{6.2}{85}{$\modelT $: GRU encode-decoder total hedging model. The encoder summarizes the time series $\mathbf {Y}_{t}^{T,K}=\left [\vy ^{T,K}_{\tau _{1}},\dots ,\vy ^{T,K}_{\tau _{N+1}}\right ]$ as a succinct vector $\widehat {\mathbf {h}}_E$. The decoder outputs the hedging position based on the vector $\widehat {\mathbf {h}}_E$ and the previous hedging position $\delta ^M_{t-\Delta t,T,K}$ observed at the hedging time $t$. More specifically, in the decoder, a candidate output $\widehat {\delta }^M_{t,T,K}$ is firstly produced. The final output $\delta ^M_{t,T,K}$ is computed based on the linear combination of BS delta $\delta ^{BS}_{t,T,K}$ and the candidate output $\widehat {\delta }^M_{t,T,K}$. The combination weight is determined by $W_{\delta }$. The feature weight $\omega ^L$ is used to compute weighted sequential feature $\widehat {\vy }^{T,K}_{\tau }$. The weighting acts as a feature selection process. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input. The output $\delta ^M_{t,T,K}$ at $t$ is used as the input for next step $t+\DT $}{figure.6.2}{}}
 \citation{coleman2007total,schweizer1995variance}
 \citation{coleman2007total,schweizer1995variance}
 \citation{schweizer1995variance}
 \citation{coleman2007total}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}The Difference Between $\textsc  {GRU}_\delta $ And $\textsc  {GRU}_{\textsc  {total}}$}{82}{subsection.6.2.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces $\textsc  {GRU}_{\textsc  {total}}$: GRU encode-decoder total hedging model. The encoder summarizes the time series $\mathbf  {Y}_{t}^{T,K}=\left [\mathbf  {y}^{T,K}_{\tau _{1}},\dots  ,\mathbf  {y}^{T,K}_{\tau _{N+1}}\right ]$ as a succinct vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf  {h}$}\mathaccent "0362{\mathbf  {h}}_E$. The decoder outputs the hedging position based on the vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf  {h}$}\mathaccent "0362{\mathbf  {h}}_E$ and the previous hedging position $\delta ^M_{t-\Delta t,T,K}$ observed at the hedging time $t$. More specifically, in the decoder, a candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$ is firstly produced. The final output $\delta ^M_{t,T,K}$ is computed based on the linear combination of BS delta $\delta ^{BS}_{t,T,K}$ and the candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$. The combination weight is determined by $W_{\delta }$. The feature weight $\omega ^L$ is used to compute weighted sequential feature $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf  {y}$}\mathaccent "0362{\mathbf  {y}}^{T,K}_{\tau }$. The weighting acts as a feature selection process. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input. The output $\delta ^M_{t,T,K}$ at $t$ is used as the input for next step $t+\Delta t$.}}{83}{figure.6.2}\protected@file@percent }
-\newlabel{fig:RNNModelTotal}{{6.2}{83}{$\modelT $: GRU encode-decoder total hedging model. The encoder summarizes the time series $\mathbf {Y}_{t}^{T,K}=\left [\vy ^{T,K}_{\tau _{1}},\dots ,\vy ^{T,K}_{\tau _{N+1}}\right ]$ as a succinct vector $\widehat {\mathbf {h}}_E$. The decoder outputs the hedging position based on the vector $\widehat {\mathbf {h}}_E$ and the previous hedging position $\delta ^M_{t-\Delta t,T,K}$ observed at the hedging time $t$. More specifically, in the decoder, a candidate output $\widehat {\delta }^M_{t,T,K}$ is firstly produced. The final output $\delta ^M_{t,T,K}$ is computed based on the linear combination of BS delta $\delta ^{BS}_{t,T,K}$ and the candidate output $\widehat {\delta }^M_{t,T,K}$. The combination weight is determined by $W_{\delta }$. The feature weight $\omega ^L$ is used to compute weighted sequential feature $\widehat {\vy }^{T,K}_{\tau }$. The weighting acts as a feature selection process. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input. The output $\delta ^M_{t,T,K}$ at $t$ is used as the input for next step $t+\DT $}{figure.6.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Feature Selection via Embedded Feature Weighting}{84}{section*.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{GRU Encoder}{84}{section*.16}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Decoder for $\textsc  {GRU}_{\textsc  {total}}$}{84}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Feature Selection via Embedded Feature Weighting}{86}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{GRU Encoder}{86}{section*.16}\protected@file@percent }
 \citation{coleman2007total}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Training Objective For $\textsc  {GRU}_{\textsc  {total}}$}{85}{subsection.6.2.2}\protected@file@percent }
-\newlabel{sec:TotalModelObj}{{6.2.2}{85}{Training Objective For $\modelT $}{subsection.6.2.2}{}}
-\newlabel{eq:totalObjLinear}{{6.2.2}{85}{Training Objective For $\modelT $}{equation.6.2.2}{}}
-\newlabel{eq:LocalObjNew}{{6.2.3}{86}{Training Objective For $\modelT $}{equation.6.2.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Training Procedure For $\textsc  {GRU}_{\textsc  {total}}$ and $\textsc  {GRU}_{\textsc  {local}}$}{86}{subsection.6.2.3}\protected@file@percent }
-\newlabel{sec:TotalModelProcedure}{{6.2.3}{86}{Training Procedure For $\modelT $ and $\modelL $}{subsection.6.2.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Model Building Procedure}{86}{section*.18}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Total Discrete Hedging Performance Comparison Using S\&P 500 index Options}{87}{section.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Data and Experimental Setting}{88}{subsection.6.3.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Sequential features for $\textsc  {GRU}_{\textsc  {total}}$ and $\textsc  {GRU}_{\textsc  {local}}$ at time $t$ are the historical time series of features listed in this table.}}{88}{table.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Decoder for $\textsc  {GRU}_{\textsc  {total}}$}{87}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Training Objective For $\textsc  {GRU}_{\textsc  {total}}$}{87}{subsection.6.2.2}\protected@file@percent }
+\newlabel{sec:TotalModelObj}{{6.2.2}{87}{Training Objective For $\modelT $}{subsection.6.2.2}{}}
+\newlabel{eq:totalObjLinear}{{6.2.2}{88}{Training Objective For $\modelT $}{equation.6.2.2}{}}
+\newlabel{eq:LocalObjNew}{{6.2.3}{88}{Training Objective For $\modelT $}{equation.6.2.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Training Procedure For $\textsc  {GRU}_{\textsc  {total}}$ and $\textsc  {GRU}_{\textsc  {local}}$}{88}{subsection.6.2.3}\protected@file@percent }
+\newlabel{sec:TotalModelProcedure}{{6.2.3}{88}{Training Procedure For $\modelT $ and $\modelL $}{subsection.6.2.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Model Building Procedure}{89}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Total Discrete Hedging Performance Comparison Using S\&P 500 index Options}{90}{section.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Data and Experimental Setting}{90}{subsection.6.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Sequential features for $\textsc  {GRU}_{\textsc  {total}}$ and $\textsc  {GRU}_{\textsc  {local}}$ at time $t$ are the historical time series of features listed in this table.}}{91}{table.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Call Option Total Hedging Comparison}{91}{subsection.6.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Call Option Weekly Hedging Comparison}{92}{section*.19}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Summary of weekly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{92}{table.6.2}\protected@file@percent }
+\newlabel{table:CallTotalW}{{6.2}{92}{Summary of weekly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading}{table.6.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and local model $\textsc  {GRU}_{\textsc  {local}}$ on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{93}{figure.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{93}{figure.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{93}{figure.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{93}{figure.6.3}\protected@file@percent }
+\newlabel{fig:CallTotalW1}{{6.3}{93}{Comparing total model $\modelT $ and local model $\modelL $ on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and BS Model on weekly hedging S\&P 500 call options in terms of the the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{93}{figure.6.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{93}{figure.6.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{93}{figure.6.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{93}{figure.6.4}\protected@file@percent }
+\newlabel{fig:CallTotalW2}{{6.4}{93}{Comparing total model $\modelT $ and BS Model on weekly hedging S\&P 500 call options in terms of the the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and Bartlett model on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{93}{figure.6.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{93}{figure.6.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{93}{figure.6.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{93}{figure.6.5}\protected@file@percent }
+\newlabel{fig:CallTotalW3}{{6.5}{93}{Comparing total model $\modelT $ and Bartlett model on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.5}{}}
 \citation{chen2011calibration}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Call Option Total Hedging Comparison}{89}{subsection.6.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Call Option Weekly Hedging Comparison}{89}{section*.19}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Summary of weekly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{90}{table.6.2}\protected@file@percent }
-\newlabel{table:CallTotalW}{{6.2}{90}{Summary of weekly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading}{table.6.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and local model $\textsc  {GRU}_{\textsc  {local}}$ on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{91}{figure.6.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{91}{figure.6.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{91}{figure.6.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{91}{figure.6.3}\protected@file@percent }
-\newlabel{fig:CallTotalW1}{{6.3}{91}{Comparing total model $\modelT $ and local model $\modelL $ on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and BS Model on weekly hedging S\&P 500 call options in terms of the the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{91}{figure.6.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{91}{figure.6.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{91}{figure.6.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{91}{figure.6.4}\protected@file@percent }
-\newlabel{fig:CallTotalW2}{{6.4}{91}{Comparing total model $\modelT $ and BS Model on weekly hedging S\&P 500 call options in terms of the the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and Bartlett model on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{91}{figure.6.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{91}{figure.6.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{91}{figure.6.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{91}{figure.6.5}\protected@file@percent }
-\newlabel{fig:CallTotalW3}{{6.5}{91}{Comparing total model $\modelT $ and Bartlett model on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Call Option Monthly Hedging Comparison}{92}{section*.20}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces Summary of monthly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{93}{table.6.3}\protected@file@percent }
-\newlabel{table:CallTotalM}{{6.3}{93}{Summary of monthly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading}{table.6.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and local model $\textsc  {GRU}_{\textsc  {local}}$ on monthly hedging S\&P 500 call options in terms of thethe distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{94}{figure.6.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{94}{figure.6.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{94}{figure.6.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{94}{figure.6.6}\protected@file@percent }
-\newlabel{fig:CallTotalM1}{{6.6}{94}{Comparing total model $\modelT $ and local model $\modelL $ on monthly hedging S\&P 500 call options in terms of thethe distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and BS model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{94}{figure.6.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{94}{figure.6.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{94}{figure.6.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{94}{figure.6.7}\protected@file@percent }
-\newlabel{fig:CallTotalM2}{{6.7}{94}{Comparing total model $\modelT $ and BS model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and bartlett model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{94}{figure.6.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{94}{figure.6.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{94}{figure.6.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{94}{figure.6.8}\protected@file@percent }
-\newlabel{fig:CallTotalM3}{{6.8}{94}{Comparing total model $\modelT $ and bartlett model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.3}Put Option Total Hedging Comparison}{95}{subsection.6.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Put Option Weekly Hedging Comparison}{95}{section*.21}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces Summary of weekly hedging S\&P 500 put options for 100 Business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{96}{table.6.4}\protected@file@percent }
-\newlabel{table:putTotalW}{{6.4}{96}{Summary of weekly hedging S\&P 500 put options for 100 Business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading}{table.6.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.9}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and local model $\textsc  {GRU}_{\textsc  {local}}$ on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{97}{figure.6.9}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{97}{figure.6.9}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{97}{figure.6.9}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{97}{figure.6.9}\protected@file@percent }
-\newlabel{fig:putTotalW1}{{6.9}{97}{Comparing total model $\modelT $ and local model $\modelL $ on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.10}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and BS model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{97}{figure.6.10}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{97}{figure.6.10}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{97}{figure.6.10}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{97}{figure.6.10}\protected@file@percent }
-\newlabel{fig:putTotalW3}{{6.10}{97}{Comparing total model $\modelT $ and BS model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.11}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and Bartlett model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{97}{figure.6.11}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{97}{figure.6.11}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{97}{figure.6.11}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{97}{figure.6.11}\protected@file@percent }
-\newlabel{fig:putTotalW2}{{6.11}{97}{Comparing total model $\modelT $ and Bartlett model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.11}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Put Option Monthly Hedging Comparison}{98}{section*.22}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.5}{\ignorespaces Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{98}{table.6.5}\protected@file@percent }
-\newlabel{table:putTotalM}{{6.5}{98}{Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading}{table.6.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.12}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and local model $\textsc  {GRU}_{\textsc  {local}}$ on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{99}{figure.6.12}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{99}{figure.6.12}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{99}{figure.6.12}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{99}{figure.6.12}\protected@file@percent }
-\newlabel{fig:putTotalM1}{{6.12}{99}{Comparing total model $\modelT $ and local model $\modelL $ on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.13}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and BS model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{99}{figure.6.13}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{99}{figure.6.13}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{99}{figure.6.13}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{99}{figure.6.13}\protected@file@percent }
-\newlabel{fig:putTotalM2}{{6.13}{99}{Comparing total model $\modelT $ and BS model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.14}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and Bartlett model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{99}{figure.6.14}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{99}{figure.6.14}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{99}{figure.6.14}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{99}{figure.6.14}\protected@file@percent }
-\newlabel{fig:putTotalM3}{{6.14}{99}{Comparing total model $\modelT $ and Bartlett model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.14}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.4}Sell-Side Risk Versus Buy-Side Risk}{100}{subsection.6.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Comparing Sell-Side Risk with Buy-Side Risk on Call Option}{100}{section*.23}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.6}{\ignorespaces Summary of weekly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading.}}{101}{table.6.6}\protected@file@percent }
-\newlabel{table:CallTotalWBuy}{{6.6}{101}{Summary of weekly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading}{table.6.6}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.7}{\ignorespaces Summary of monthly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading.}}{102}{table.6.7}\protected@file@percent }
-\newlabel{table:CallTotalMBuy}{{6.7}{102}{Summary of monthly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading}{table.6.7}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Comparing Sell-Side Risk with Buy-Side Risk on Put Option}{103}{section*.24}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.8}{\ignorespaces Summary of weekly hedging S\&P 500 put options for 100 Business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{104}{table.6.8}\protected@file@percent }
-\newlabel{table:putTotalWBuy}{{6.8}{104}{Summary of weekly hedging S\&P 500 put options for 100 Business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading}{table.6.8}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.9}{\ignorespaces Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading.}}{105}{table.6.9}\protected@file@percent }
-\newlabel{table:putTotalMBuy}{{6.9}{105}{Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading}{table.6.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Call Option Monthly Hedging Comparison}{94}{section*.20}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces Summary of monthly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{95}{table.6.3}\protected@file@percent }
+\newlabel{table:CallTotalM}{{6.3}{95}{Summary of monthly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading}{table.6.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and local model $\textsc  {GRU}_{\textsc  {local}}$ on monthly hedging S\&P 500 call options in terms of thethe distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{96}{figure.6.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{96}{figure.6.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{96}{figure.6.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{96}{figure.6.6}\protected@file@percent }
+\newlabel{fig:CallTotalM1}{{6.6}{96}{Comparing total model $\modelT $ and local model $\modelL $ on monthly hedging S\&P 500 call options in terms of thethe distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and BS model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{96}{figure.6.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{96}{figure.6.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{96}{figure.6.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{96}{figure.6.7}\protected@file@percent }
+\newlabel{fig:CallTotalM2}{{6.7}{96}{Comparing total model $\modelT $ and BS model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and bartlett model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{96}{figure.6.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{96}{figure.6.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{96}{figure.6.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{96}{figure.6.8}\protected@file@percent }
+\newlabel{fig:CallTotalM3}{{6.8}{96}{Comparing total model $\modelT $ and bartlett model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.3}Put Option Total Hedging Comparison}{97}{subsection.6.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Put Option Weekly Hedging Comparison}{97}{section*.21}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces Summary of weekly hedging S\&P 500 put options for 100 Business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{98}{table.6.4}\protected@file@percent }
+\newlabel{table:putTotalW}{{6.4}{98}{Summary of weekly hedging S\&P 500 put options for 100 Business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading}{table.6.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.9}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and local model $\textsc  {GRU}_{\textsc  {local}}$ on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{99}{figure.6.9}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{99}{figure.6.9}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{99}{figure.6.9}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{99}{figure.6.9}\protected@file@percent }
+\newlabel{fig:putTotalW1}{{6.9}{99}{Comparing total model $\modelT $ and local model $\modelL $ on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.10}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and BS model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{99}{figure.6.10}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{99}{figure.6.10}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{99}{figure.6.10}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{99}{figure.6.10}\protected@file@percent }
+\newlabel{fig:putTotalW3}{{6.10}{99}{Comparing total model $\modelT $ and BS model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.11}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and Bartlett model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{99}{figure.6.11}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{99}{figure.6.11}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{99}{figure.6.11}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{99}{figure.6.11}\protected@file@percent }
+\newlabel{fig:putTotalW2}{{6.11}{99}{Comparing total model $\modelT $ and Bartlett model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Put Option Monthly Hedging Comparison}{100}{section*.22}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.5}{\ignorespaces Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{100}{table.6.5}\protected@file@percent }
+\newlabel{table:putTotalM}{{6.5}{100}{Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading}{table.6.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.12}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and local model $\textsc  {GRU}_{\textsc  {local}}$ on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{101}{figure.6.12}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{101}{figure.6.12}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{101}{figure.6.12}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{101}{figure.6.12}\protected@file@percent }
+\newlabel{fig:putTotalM1}{{6.12}{101}{Comparing total model $\modelT $ and local model $\modelL $ on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.13}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and BS model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{101}{figure.6.13}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{101}{figure.6.13}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{101}{figure.6.13}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{101}{figure.6.13}\protected@file@percent }
+\newlabel{fig:putTotalM2}{{6.13}{101}{Comparing total model $\modelT $ and BS model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.14}{\ignorespaces Comparing total model $\textsc  {GRU}_{\textsc  {total}}$ and Bartlett model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{101}{figure.6.14}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{101}{figure.6.14}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{101}{figure.6.14}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{101}{figure.6.14}\protected@file@percent }
+\newlabel{fig:putTotalM3}{{6.14}{101}{Comparing total model $\modelT $ and Bartlett model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.14}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.4}Sell-Side Risk Versus Buy-Side Risk}{102}{subsection.6.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Comparing Sell-Side Risk with Buy-Side Risk on Call Option}{102}{section*.23}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.6}{\ignorespaces Summary of weekly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading.}}{103}{table.6.6}\protected@file@percent }
+\newlabel{table:CallTotalWBuy}{{6.6}{103}{Summary of weekly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading}{table.6.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.7}{\ignorespaces Summary of monthly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading.}}{104}{table.6.7}\protected@file@percent }
+\newlabel{table:CallTotalMBuy}{{6.7}{104}{Summary of monthly hedging S\&P 500 call options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading}{table.6.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Comparing Sell-Side Risk with Buy-Side Risk on Put Option}{105}{section*.24}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.8}{\ignorespaces Summary of weekly hedging S\&P 500 put options for 100 Business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{106}{table.6.8}\protected@file@percent }
+\newlabel{table:putTotalWBuy}{{6.8}{106}{Summary of weekly hedging S\&P 500 put options for 100 Business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading}{table.6.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.9}{\ignorespaces Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading.}}{107}{table.6.9}\protected@file@percent }
+\newlabel{table:putTotalMBuy}{{6.9}{107}{Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria. Please note that the total hedging evaluation in this table assumes we are at the buy-side of the option trading}{table.6.9}{}}
 \citation{hulloptimal}
 \citation{hulloptimal}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{106}{chapter.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{108}{chapter.7}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{sec:Conclusion}{{7}{106}{Conclusion and Future Work}{chapter.7}{}}
+\newlabel{sec:Conclusion}{{7}{108}{Conclusion and Future Work}{chapter.7}{}}
 \citation{bartlett2006hedging}
 \citation{bergeron2021variational}
 \citation{kingma2013auto}
@@ -612,7 +625,7 @@
 \bibcite{alexnader2007}{{11}{1997{}}{{Bakshi et~al.}}{{Bakshi, Cao, and Chen}}}
 \bibcite{bakshi1997empirical}{{12}{1997{}}{{Bakshi et~al.}}{{Bakshi, Cao, and Chen}}}
 \bibcite{bakshi2000}{{13}{1997{}}{{Bakshi et~al.}}{{Bakshi, Cao, and Chen}}}
-\@writefile{toc}{\contentsline {chapter}{\textbf  {References}}{109}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\textbf  {References}}{111}{section*.25}\protected@file@percent }
 \bibcite{barlett2006}{{14}{1997{}}{{Bakshi et~al.}}{{Bakshi, Cao, and Chen}}}
 \bibcite{bartlett2006hedging}{{15}{2006}{{Bartlett}}{{}}}
 \bibcite{bennell2004black}{{16}{2004}{{Bennell and Sutcliffe}}{{}}}
@@ -622,162 +635,164 @@
 \bibcite{bollerslev1986generalized}{{20}{1986}{{Bollerslev}}{{}}}
 \bibcite{bollerslev2006leverage}{{21}{2006}{{Bollerslev et~al.}}{{Bollerslev, Litvinova, and Tauchen}}}
 \bibcite{brand2003fast}{{22}{2003}{{Brand}}{{}}}
-\bibcite{broadie2000american}{{23}{2000{}}{{Broadie et~al.}}{{Broadie, Detemple, Ghysels, and Torr{\'e}s}}}
-\bibcite{broadie2000nonparametric}{{24}{2000{}}{{Broadie et~al.}}{{Broadie, Detemple, Ghysels, and Torr{\`e}s}}}
-\bibcite{buehler2019deep}{{25}{2019}{{Buehler et~al.}}{{Buehler, Gonon, Wood, Teichmann, Mohan, and Kochems}}}
-\bibcite{byrd1987trust}{{26}{1987}{{Byrd et~al.}}{{Byrd, Schnabel, and Shultz}}}
-\bibcite{Carr94}{{27}{1994}{{Carr}}{{}}}
-\bibcite{Carr98}{{28}{1998}{{Carr et~al.}}{{Carr, Ellis, and Gupta}}}
-\bibcite{carr2005note}{{29}{2005}{{Carr and Madan}}{{}}}
-\bibcite{chen2011calibration}{{30}{2011}{{Chen et~al.}}{{Chen, Grzelak, and Oosterlee}}}
-\bibcite{chen2007large}{{31}{2007}{{Chen}}{{}}}
-\bibcite{chen2001semiparametric}{{32}{2001}{{Chen et~al.}}{{Chen, Racine, and Swanson}}}
-\bibcite{chen2014lwi}{{33}{2014}{{Chen and Candan}}{{}}}
-\bibcite{cheng2012using}{{34}{2012}{{Cheng and Pecht}}{{}}}
-\bibcite{cho2014learning}{{35}{2014}{{Cho et~al.}}{{Cho, Van~Merri{\"e}nboer, Gulcehre, Bahdanau, Bougares, Schwenk, and Bengio}}}
-\bibcite{cho2015describing}{{36}{2015}{{Cho et~al.}}{{Cho, Courville, and Bengio}}}
-\bibcite{chung2014empirical}{{37}{2014}{{Chung et~al.}}{{Chung, Gulcehre, Cho, and Bengio}}}
-\bibcite{CLP07}{{38}{2007{}}{{Coleman et~al.}}{{Coleman, Li, and Patron}}}
-\bibcite{CLV98}{{39}{1999}{{Coleman et~al.}}{{Coleman, Li, and Verma}}}
-\bibcite{coleman2001}{{40}{2001{}}{{Coleman et~al.}}{{Coleman, Kim, Li, and Verma}}}
-\bibcite{coleman2001reconstructing}{{41}{2001{}}{{Coleman et~al.}}{{Coleman, Li, and Verma}}}
-\bibcite{CLP02}{{42}{2003{}}{{Coleman et~al.}}{{Coleman, Li, and Patron}}}
-\bibcite{coleman2003discrete}{{43}{2003{}}{{Coleman et~al.}}{{Coleman, Li, and Patron}}}
-\bibcite{coleman2007discrete}{{44}{2007{}}{{Coleman et~al.}}{{Coleman, Levchenkov, and Li}}}
-\bibcite{coleman2007total}{{45}{2007{}}{{Coleman et~al.}}{{Coleman, Li, and Patron}}}
-\bibcite{collobert2006trading}{{46}{2006}{{Collobert et~al.}}{{Collobert, Sinz, Weston, and Bottou}}}
-\bibcite{cooijmans2016recurrent}{{47}{2016}{{Cooijmans et~al.}}{{Cooijmans, Ballas, Laurent, G{\"u}l{\c {c}}ehre, and Courville}}}
-\bibcite{corbetta2019robust}{{48}{2019}{{Corbetta et~al.}}{{Corbetta, Cohort, Laachir, and Martini}}}
-\bibcite{cortes1995support}{{49}{1995}{{Cortes and Vapnik}}{{}}}
-\bibcite{cox2005theory}{{50}{2005}{{Cox et~al.}}{{Cox, Ingersoll~Jr, and Ross}}}
-\bibcite{crepey2004}{{51}{2004}{{Cr$\acute  {e}$pey}}{{}}}
-\bibcite{crepey2004delta}{{52}{2004}{{Cr{\'e}pey}}{{}}}
-\bibcite{daglish2007volatility}{{53}{2007}{{Daglish et~al.}}{{Daglish, Hull, and Suo}}}
-\bibcite{DermanKani94}{{54}{1994}{{Derman and Kani}}{{}}}
-\bibcite{DermanKani96}{{55}{1996}{{Derman et~al.}}{{Derman, Kani, and Zou}}}
-\bibcite{duan2006approximating}{{56}{2006}{{Duan et~al.}}{{Duan, Gauthier, Simonato, and Sasseville}}}
-\bibcite{duan1995garch}{{57}{1995}{{Duan}}{{}}}
-\bibcite{duan1997analytical}{{58}{1997}{{Duan et~al.}}{{Duan, Gauthier, and Simonato}}}
-\bibcite{duchi2011adaptive}{{59}{2011}{{Duchi et~al.}}{{Duchi, Hazan, and Singer}}}
-\bibcite{dumas1998implied}{{60}{1998}{{Dumas et~al.}}{{Dumas, Fleming, and Whaley}}}
-\bibcite{Dupire94}{{61}{1994}{{Dupire}}{{}}}
-\bibcite{dupire1994pricing}{{62}{1994}{{Dupire et~al.}}{{}}}
-\bibcite{el1995dynamic}{{63}{1995}{{El~Karoui and Quenez}}{{}}}
-\bibcite{elman1990finding}{{64}{1990}{{Elman}}{{}}}
-\bibcite{engle1982autoregressive}{{65}{1982}{{Engle}}{{}}}
-\bibcite{espinoza2006fixed}{{66}{2006}{{Espinoza et~al.}}{{Espinoza, Suykens, and De~Moor}}}
-\bibcite{evgeniou2000regularization}{{67}{2000}{{Evgeniou et~al.}}{{Evgeniou, Pontil, and Poggio}}}
-\bibcite{feng2016robust}{{68}{2016}{{Feng et~al.}}{{Feng, Yang, Huang, Mehrkanoon, and Suykens}}}
-\bibcite{fletcher2013practical}{{69}{2013}{{Fletcher}}{{}}}
-\bibcite{Schw89}{{70}{1989}{{F\"{o}llmer and Schweizer}}{{}}}
-\bibcite{follmer1999quantile}{{71}{1999}{{F{\"o}llmer and Leukert}}{{}}}
-\bibcite{follmer2000efficient}{{72}{2000}{{F{\"o}llmer and Leukert}}{{}}}
-\bibcite{french1987expected}{{73}{1987}{{French et~al.}}{{French, Schwert, and Stambaugh}}}
-\bibcite{friedman2001elements}{{74}{2001}{{Friedman et~al.}}{{Friedman, Hastie, and Tibshirani}}}
-\bibcite{garcia2000pricing}{{75}{2000}{{Garcia and Gen{\c {c}}ay}}{{}}}
-\bibcite{gatheral2004parsimonious}{{76}{2004}{{Gatheral}}{{}}}
-\bibcite{gatheral2011volatility}{{77}{2011}{{Gatheral}}{{}}}
-\bibcite{gatheral2014arbitrage}{{78}{2014}{{Gatheral and Jacquier}}{{}}}
-\bibcite{genccay2001pricing}{{79}{2001}{{Gen{\c {c}}ay and Qi}}{{}}}
-\bibcite{genccay2003degree}{{80}{2003}{{Gen{\c {c}}ay et~al.}}{{Gen{\c {c}}ay, Salih, et~al.}}}
-\bibcite{girosi1995regularization}{{81}{1995}{{Girosi et~al.}}{{Girosi, Jones, and Poggio}}}
-\bibcite{Goodfellow-et-al-2016}{{82}{2016{}}{{Goodfellow et~al.}}{{Goodfellow, Bengio, and Courville}}}
-\bibcite{goodfellow2016deep}{{83}{2016{}}{{Goodfellow et~al.}}{{Goodfellow, Bengio, and Courville}}}
-\bibcite{goodfellow2014generative}{{84}{2014}{{Goodfellow et~al.}}{{Goodfellow, Pouget-Abadie, Mirza, Xu, Warde-Farley, Ozair, Courville, and Bengio}}}
-\bibcite{Goutte13}{{85}{2013}{{Goutte et~al.}}{{Goutte, Oudjane, and Russo}}}
-\bibcite{gradojevic2009option}{{86}{2009}{{Gradojevic et~al.}}{{Gradojevic, Gen{\c {c}}ay, and Kukolj}}}
-\bibcite{gu1994stable}{{87}{1994}{{Gu and Eisenstat}}{{}}}
-\bibcite{guyon2003introduction}{{88}{2003}{{Guyon and Elisseeff}}{{}}}
-\bibcite{guyon2002gene}{{89}{2002}{{Guyon et~al.}}{{Guyon, Weston, Barnhill, and Vapnik}}}
-\bibcite{hagan2017bartlett}{{90}{2017}{{Hagan and Lesniewski}}{{}}}
-\bibcite{hagan2002managing}{{91}{2002}{{Hagan et~al.}}{{Hagan, Kumar, Lesniewski, and Woodward}}}
-\bibcite{He06}{{92}{2006}{{He et~al.}}{{He, Kennedy, Coleman, Forsyth, Li, and Vetzal}}}
-\bibcite{Hea01b}{{93}{2001b}{{Heath et~al.}}{{Heath, Platen, and Schweizer}}}
-\bibcite{hendriks2017extended}{{94}{2017}{{Hendriks and Martini}}{{}}}
-\bibcite{heston1993closed}{{95}{1993}{{Heston}}{{}}}
-\bibcite{heston2000closed}{{96}{2000}{{Heston and Nandi}}{{}}}
-\bibcite{hirsch1989convergent}{{97}{1989}{{Hirsch}}{{}}}
-\bibcite{hochreiter1997long}{{98}{1997}{{Hochreiter and Schmidhuber}}{{}}}
-\bibcite{hochreiter2001gradient}{{99}{2001}{{Hochreiter et~al.}}{{Hochreiter, Bengio, Frasconi, Schmidhuber, et~al.}}}
-\bibcite{hopfield1982neural}{{100}{1982}{{Hopfield}}{{}}}
-\bibcite{Hor91}{{101}{1991}{{Hornik}}{{}}}
-\bibcite{Huber1964robust}{{102}{1964}{{Huber et~al.}}{{}}}
-\bibcite{hull1987pricing}{{103}{1987}{{Hull and White}}{{}}}
-\bibcite{hulloptimal}{{104}{2017}{{Hull and White}}{{}}}
-\bibcite{hull2006options}{{105}{2006}{{Hull}}{{}}}
-\bibcite{hutchinson}{{106}{1994}{{Hutchinson et~al.}}{{Hutchinson, Lo, and Poggio}}}
-\bibcite{itkin2019deep}{{107}{2019}{{Itkin}}{{}}}
-\bibcite{JackwerthRubenstein96}{{108}{1996}{{Jackwerth and Rubinstein}}{{}}}
-\bibcite{jian2011design}{{109}{2011}{{Jian et~al.}}{{Jian, Xia, Liang, and Gao}}}
-\bibcite{jiao2007fast}{{110}{2007}{{Jiao et~al.}}{{Jiao, Bo, and Wang}}}
-\bibcite{jordan1986serial}{{111}{1986}{{Jordan}}{{}}}
-\bibcite{kingma2014adam}{{112}{2014}{{Kingma and Ba}}{{}}}
-\bibcite{kingma2013auto}{{113}{2013}{{Kingma and Welling}}{{}}}
-\bibcite{kou2002jump}{{114}{2002}{{Kou}}{{}}}
-\bibcite{lassance2018comparison}{{115}{2018}{{Lassance and Vrins}}{{}}}
-\bibcite{le2015simple}{{116}{2015}{{Le et~al.}}{{Le, Jaitly, and Hinton}}}
-\bibcite{lenders2018trlib}{{117}{2018}{{Lenders et~al.}}{{Lenders, Kirches, and Potschka}}}
-\bibcite{lipton2015critical}{{118}{2015}{{Lipton et~al.}}{{Lipton, Berkowitz, and Elkan}}}
-\bibcite{long2010random}{{119}{2010}{{Long and Servedio}}{{}}}
-\bibcite{maas2012recurrent}{{120}{2012}{{Maas et~al.}}{{Maas, Le, O'Neil, Vinyals, Nguyen, and Ng}}}
-\bibcite{maas2013rectifier}{{121}{2013}{{Maas et~al.}}{{Maas, Hannun, and Ng}}}
-\bibcite{malliaris1993neural}{{122}{1993}{{Malliaris and Salchenberger}}{{}}}
-\bibcite{mandelbrot1963variation}{{123}{1963}{{Mandelbrot}}{{}}}
-\bibcite{marchiori2005feature}{{124}{2005}{{Marchiori et~al.}}{{Marchiori, Heegaard, West-Nielsen, and Jimenez}}}
-\bibcite{martens2010deep}{{125}{2010}{{Martens}}{{}}}
-\bibcite{martens2011learning}{{126}{2011}{{Martens and Sutskever}}{{}}}
-\bibcite{mccloskey1989catastrophic}{{127}{1989}{{McCloskey and Cohen}}{{}}}
-\bibcite{mercer1909functions}{{128}{1909}{{Mercer}}{{}}}
-\bibcite{Merton73}{{129}{1973{}}{{Merton}}{{}}}
-\bibcite{merton1973theory}{{130}{1973{}}{{Merton}}{{}}}
-\bibcite{mishkin2015all}{{131}{2015}{{Mishkin and Matas}}{{}}}
-\bibcite{mozer1989focused}{{132}{1989}{{Mozer}}{{}}}
-\bibcite{nesterov1983method}{{133}{1983}{{Nesterov}}{{}}}
-\bibcite{knian2017}{{134}{2018}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
-\bibcite{knian2019}{{135}{2019{}}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
-\bibcite{knian2020}{{136}{2019{}}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
-\bibcite{olah2015understanding}{{137}{2015}{{Olah}}{{}}}
-\bibcite{optionmetrics2008ivy}{{138}{2008}{{OptionMetrics}}{{}}}
-\bibcite{pahikkala2006fast}{{139}{2006}{{Pahikkala et~al.}}{{Pahikkala, Boberg, and Salakoski}}}
-\bibcite{pardo2020mitigating}{{140}{2020}{{Pardo and L{\'o}pez}}{{}}}
-\bibcite{qian1999momentum}{{141}{1999}{{Qian}}{{}}}
-\bibcite{poulsen2009}{{142}{2009}{{R. et~al.}}{{R., Schenk-Hopp$\acute  {e}$, and Ewald}}}
-\bibcite{raskutti2014early}{{143}{2014}{{Raskutti et~al.}}{{Raskutti, Wainwright, and Yu}}}
-\bibcite{reddi2018convergence}{{144}{2018}{{Reddi et~al.}}{{Reddi, Kale, and Kumar}}}
-\bibcite{reddi2019convergence}{{145}{2019}{{Reddi et~al.}}{{Reddi, Kale, and Kumar}}}
-\bibcite{robnik2003theoretical}{{146}{2003}{{Robnik-{\v {S}}ikonja and Kononenko}}{{}}}
-\bibcite{rubinstein1994implied}{{147}{1994}{{Rubinstein}}{{}}}
-\bibcite{ruder2016overview}{{148}{2016}{{Ruder}}{{}}}
-\bibcite{saxe2013exact}{{149}{2013}{{Saxe et~al.}}{{Saxe, McClelland, and Ganguli}}}
-\bibcite{Sch94}{{150}{1994}{{Sch\"{a}l}}{{}}}
-\bibcite{Schw95}{{151}{1995{}}{{Schweizer}}{{}}}
-\bibcite{schweizerguided}{{152}{}{{Schweizer}}{{}}}
-\bibcite{schweizer1995variance}{{153}{1995{}}{{Schweizer}}{{}}}
-\bibcite{shreve2004stochastic}{{154}{2004}{{Shreve}}{{}}}
-\bibcite{smola2000sparse}{{155}{2000}{{Smola and Sch{\"o}kopf}}{{}}}
-\bibcite{sutskever2013importance}{{156}{2013}{{Sutskever et~al.}}{{Sutskever, Martens, Dahl, and Hinton}}}
-\bibcite{sutskever2014sequence}{{157}{2014}{{Sutskever et~al.}}{{Sutskever, Vinyals, and Le}}}
-\bibcite{sutton1986two}{{158}{1986}{{Sutton}}{{}}}
-\bibcite{suykens2002least}{{159}{2002}{{Suykens et~al.}}{{Suykens, Van~Gestel, and De~Brabanter}}}
-\bibcite{tan2010learning}{{160}{2010}{{Tan et~al.}}{{Tan, Wang, and Tsang}}}
-\bibcite{tayal2014primal}{{161}{2014}{{Tayal et~al.}}{{Tayal, Coleman, and Li}}}
-\bibcite{tieleman2012lecture}{{162}{2012}{{Tieleman and Hinton}}{{}}}
-\bibcite{vapnik1998statistical}{{163}{1998}{{Vapnik}}{{}}}
-\bibcite{varma2009more}{{164}{2009}{{Varma and Babu}}{{}}}
-\bibcite{wahba1990spline}{{165}{1990}{{Wahba}}{{}}}
-\bibcite{wang2014robust}{{166}{2014}{{Wang and Zhong}}{{}}}
-\bibcite{werbos1988generalization}{{167}{1988}{{Werbos}}{{}}}
-\bibcite{williams2001using}{{168}{2001}{{Williams and Seeger}}{{}}}
-\bibcite{wu2007robust}{{169}{2007}{{Wu and Liu}}{{}}}
-\bibcite{xu2006robust}{{170}{2006}{{Xu et~al.}}{{Xu, Crammer, and Schuurmans}}}
-\bibcite{xu2017second}{{171}{2017}{{Xu et~al.}}{{Xu, Roosta-Khorasan, and Mahoney}}}
-\bibcite{yang2014robust}{{172}{2014}{{Yang et~al.}}{{Yang, Tan, and He}}}
-\bibcite{yao2000option}{{173}{2000}{{Yao et~al.}}{{Yao, Li, and Tan}}}
-\bibcite{yao2018inexact}{{174}{2018}{{Yao et~al.}}{{Yao, Xu, Roosta-Khorasani, and Mahoney}}}
-\bibcite{yatchew2006nonparametric}{{175}{2006}{{Yatchew and H{\"a}rdle}}{{}}}
-\bibcite{yin2017comparative}{{176}{2017}{{Yin et~al.}}{{Yin, Kann, Yu, and Sch{\"u}tze}}}
-\bibcite{yu2012polynomial}{{177}{2012}{{Yu et~al.}}{{Yu, Aslan, and Schuurmans}}}
-\bibcite{yu2015minimizing}{{178}{2015}{{Yu et~al.}}{{Yu, Zheng, Marchetti-Bowick, and Xing}}}
-\bibcite{yung2003empirical}{{179}{2003}{{Yung and Zhang}}{{}}}
-\bibcite{zeiler2012adadelta}{{180}{2012}{{Zeiler}}{{}}}
+\bibcite{breeden1978prices}{{23}{1978}{{Breeden and Litzenberger}}{{}}}
+\bibcite{broadie2000american}{{24}{2000{}}{{Broadie et~al.}}{{Broadie, Detemple, Ghysels, and Torr{\'e}s}}}
+\bibcite{broadie2000nonparametric}{{25}{2000{}}{{Broadie et~al.}}{{Broadie, Detemple, Ghysels, and Torr{\`e}s}}}
+\bibcite{brunner2003arbitrage}{{26}{2003}{{Brunner and Hafner}}{{}}}
+\bibcite{buehler2019deep}{{27}{2019}{{Buehler et~al.}}{{Buehler, Gonon, Wood, Teichmann, Mohan, and Kochems}}}
+\bibcite{byrd1987trust}{{28}{1987}{{Byrd et~al.}}{{Byrd, Schnabel, and Shultz}}}
+\bibcite{Carr94}{{29}{1994}{{Carr}}{{}}}
+\bibcite{Carr98}{{30}{1998}{{Carr et~al.}}{{Carr, Ellis, and Gupta}}}
+\bibcite{carr2005note}{{31}{2005}{{Carr and Madan}}{{}}}
+\bibcite{chen2011calibration}{{32}{2011}{{Chen et~al.}}{{Chen, Grzelak, and Oosterlee}}}
+\bibcite{chen2007large}{{33}{2007}{{Chen}}{{}}}
+\bibcite{chen2001semiparametric}{{34}{2001}{{Chen et~al.}}{{Chen, Racine, and Swanson}}}
+\bibcite{chen2014lwi}{{35}{2014}{{Chen and Candan}}{{}}}
+\bibcite{cheng2012using}{{36}{2012}{{Cheng and Pecht}}{{}}}
+\bibcite{cho2014learning}{{37}{2014}{{Cho et~al.}}{{Cho, Van~Merri{\"e}nboer, Gulcehre, Bahdanau, Bougares, Schwenk, and Bengio}}}
+\bibcite{cho2015describing}{{38}{2015}{{Cho et~al.}}{{Cho, Courville, and Bengio}}}
+\bibcite{chung2014empirical}{{39}{2014}{{Chung et~al.}}{{Chung, Gulcehre, Cho, and Bengio}}}
+\bibcite{CLP07}{{40}{2007{}}{{Coleman et~al.}}{{Coleman, Li, and Patron}}}
+\bibcite{CLV98}{{41}{1999}{{Coleman et~al.}}{{Coleman, Li, and Verma}}}
+\bibcite{coleman2001}{{42}{2001{}}{{Coleman et~al.}}{{Coleman, Kim, Li, and Verma}}}
+\bibcite{coleman2001reconstructing}{{43}{2001{}}{{Coleman et~al.}}{{Coleman, Li, and Verma}}}
+\bibcite{CLP02}{{44}{2003{}}{{Coleman et~al.}}{{Coleman, Li, and Patron}}}
+\bibcite{coleman2003discrete}{{45}{2003{}}{{Coleman et~al.}}{{Coleman, Li, and Patron}}}
+\bibcite{coleman2007discrete}{{46}{2007{}}{{Coleman et~al.}}{{Coleman, Levchenkov, and Li}}}
+\bibcite{coleman2007total}{{47}{2007{}}{{Coleman et~al.}}{{Coleman, Li, and Patron}}}
+\bibcite{collobert2006trading}{{48}{2006}{{Collobert et~al.}}{{Collobert, Sinz, Weston, and Bottou}}}
+\bibcite{cooijmans2016recurrent}{{49}{2016}{{Cooijmans et~al.}}{{Cooijmans, Ballas, Laurent, G{\"u}l{\c {c}}ehre, and Courville}}}
+\bibcite{corbetta2019robust}{{50}{2019}{{Corbetta et~al.}}{{Corbetta, Cohort, Laachir, and Martini}}}
+\bibcite{cortes1995support}{{51}{1995}{{Cortes and Vapnik}}{{}}}
+\bibcite{cox2005theory}{{52}{2005}{{Cox et~al.}}{{Cox, Ingersoll~Jr, and Ross}}}
+\bibcite{crepey2004}{{53}{2004}{{Cr$\acute  {e}$pey}}{{}}}
+\bibcite{crepey2004delta}{{54}{2004}{{Cr{\'e}pey}}{{}}}
+\bibcite{daglish2007volatility}{{55}{2007}{{Daglish et~al.}}{{Daglish, Hull, and Suo}}}
+\bibcite{DermanKani94}{{56}{1994}{{Derman and Kani}}{{}}}
+\bibcite{DermanKani96}{{57}{1996}{{Derman et~al.}}{{Derman, Kani, and Zou}}}
+\bibcite{duan2006approximating}{{58}{2006}{{Duan et~al.}}{{Duan, Gauthier, Simonato, and Sasseville}}}
+\bibcite{duan1995garch}{{59}{1995}{{Duan}}{{}}}
+\bibcite{duan1997analytical}{{60}{1997}{{Duan et~al.}}{{Duan, Gauthier, and Simonato}}}
+\bibcite{duchi2011adaptive}{{61}{2011}{{Duchi et~al.}}{{Duchi, Hazan, and Singer}}}
+\bibcite{dumas1998implied}{{62}{1998}{{Dumas et~al.}}{{Dumas, Fleming, and Whaley}}}
+\bibcite{Dupire94}{{63}{1994}{{Dupire}}{{}}}
+\bibcite{dupire1994pricing}{{64}{1994}{{Dupire et~al.}}{{}}}
+\bibcite{el1995dynamic}{{65}{1995}{{El~Karoui and Quenez}}{{}}}
+\bibcite{elman1990finding}{{66}{1990}{{Elman}}{{}}}
+\bibcite{engle1982autoregressive}{{67}{1982}{{Engle}}{{}}}
+\bibcite{espinoza2006fixed}{{68}{2006}{{Espinoza et~al.}}{{Espinoza, Suykens, and De~Moor}}}
+\bibcite{evgeniou2000regularization}{{69}{2000}{{Evgeniou et~al.}}{{Evgeniou, Pontil, and Poggio}}}
+\bibcite{feng2016robust}{{70}{2016}{{Feng et~al.}}{{Feng, Yang, Huang, Mehrkanoon, and Suykens}}}
+\bibcite{fletcher2013practical}{{71}{2013}{{Fletcher}}{{}}}
+\bibcite{Schw89}{{72}{1989}{{F\"{o}llmer and Schweizer}}{{}}}
+\bibcite{follmer1999quantile}{{73}{1999}{{F{\"o}llmer and Leukert}}{{}}}
+\bibcite{follmer2000efficient}{{74}{2000}{{F{\"o}llmer and Leukert}}{{}}}
+\bibcite{french1987expected}{{75}{1987}{{French et~al.}}{{French, Schwert, and Stambaugh}}}
+\bibcite{friedman2001elements}{{76}{2001}{{Friedman et~al.}}{{Friedman, Hastie, and Tibshirani}}}
+\bibcite{garcia2000pricing}{{77}{2000}{{Garcia and Gen{\c {c}}ay}}{{}}}
+\bibcite{gatheral2004parsimonious}{{78}{2004}{{Gatheral}}{{}}}
+\bibcite{gatheral2011volatility}{{79}{2011}{{Gatheral}}{{}}}
+\bibcite{gatheral2014arbitrage}{{80}{2014}{{Gatheral and Jacquier}}{{}}}
+\bibcite{genccay2001pricing}{{81}{2001}{{Gen{\c {c}}ay and Qi}}{{}}}
+\bibcite{genccay2003degree}{{82}{2003}{{Gen{\c {c}}ay et~al.}}{{Gen{\c {c}}ay, Salih, et~al.}}}
+\bibcite{girosi1995regularization}{{83}{1995}{{Girosi et~al.}}{{Girosi, Jones, and Poggio}}}
+\bibcite{Goodfellow-et-al-2016}{{84}{2016{}}{{Goodfellow et~al.}}{{Goodfellow, Bengio, and Courville}}}
+\bibcite{goodfellow2016deep}{{85}{2016{}}{{Goodfellow et~al.}}{{Goodfellow, Bengio, and Courville}}}
+\bibcite{goodfellow2014generative}{{86}{2014}{{Goodfellow et~al.}}{{Goodfellow, Pouget-Abadie, Mirza, Xu, Warde-Farley, Ozair, Courville, and Bengio}}}
+\bibcite{Goutte13}{{87}{2013}{{Goutte et~al.}}{{Goutte, Oudjane, and Russo}}}
+\bibcite{gradojevic2009option}{{88}{2009}{{Gradojevic et~al.}}{{Gradojevic, Gen{\c {c}}ay, and Kukolj}}}
+\bibcite{gu1994stable}{{89}{1994}{{Gu and Eisenstat}}{{}}}
+\bibcite{guyon2003introduction}{{90}{2003}{{Guyon and Elisseeff}}{{}}}
+\bibcite{guyon2002gene}{{91}{2002}{{Guyon et~al.}}{{Guyon, Weston, Barnhill, and Vapnik}}}
+\bibcite{hagan2017bartlett}{{92}{2017}{{Hagan and Lesniewski}}{{}}}
+\bibcite{hagan2002managing}{{93}{2002}{{Hagan et~al.}}{{Hagan, Kumar, Lesniewski, and Woodward}}}
+\bibcite{He06}{{94}{2006}{{He et~al.}}{{He, Kennedy, Coleman, Forsyth, Li, and Vetzal}}}
+\bibcite{Hea01b}{{95}{2001b}{{Heath et~al.}}{{Heath, Platen, and Schweizer}}}
+\bibcite{hendriks2017extended}{{96}{2017}{{Hendriks and Martini}}{{}}}
+\bibcite{heston1993closed}{{97}{1993}{{Heston}}{{}}}
+\bibcite{heston2000closed}{{98}{2000}{{Heston and Nandi}}{{}}}
+\bibcite{hirsch1989convergent}{{99}{1989}{{Hirsch}}{{}}}
+\bibcite{hochreiter1997long}{{100}{1997}{{Hochreiter and Schmidhuber}}{{}}}
+\bibcite{hochreiter2001gradient}{{101}{2001}{{Hochreiter et~al.}}{{Hochreiter, Bengio, Frasconi, Schmidhuber, et~al.}}}
+\bibcite{hopfield1982neural}{{102}{1982}{{Hopfield}}{{}}}
+\bibcite{Hor91}{{103}{1991}{{Hornik}}{{}}}
+\bibcite{Huber1964robust}{{104}{1964}{{Huber et~al.}}{{}}}
+\bibcite{hull1987pricing}{{105}{1987}{{Hull and White}}{{}}}
+\bibcite{hulloptimal}{{106}{2017}{{Hull and White}}{{}}}
+\bibcite{hull2006options}{{107}{2006}{{Hull}}{{}}}
+\bibcite{hutchinson}{{108}{1994}{{Hutchinson et~al.}}{{Hutchinson, Lo, and Poggio}}}
+\bibcite{itkin2019deep}{{109}{2019}{{Itkin}}{{}}}
+\bibcite{JackwerthRubenstein96}{{110}{1996}{{Jackwerth and Rubinstein}}{{}}}
+\bibcite{jian2011design}{{111}{2011}{{Jian et~al.}}{{Jian, Xia, Liang, and Gao}}}
+\bibcite{jiao2007fast}{{112}{2007}{{Jiao et~al.}}{{Jiao, Bo, and Wang}}}
+\bibcite{jordan1986serial}{{113}{1986}{{Jordan}}{{}}}
+\bibcite{kingma2014adam}{{114}{2014}{{Kingma and Ba}}{{}}}
+\bibcite{kingma2013auto}{{115}{2013}{{Kingma and Welling}}{{}}}
+\bibcite{kou2002jump}{{116}{2002}{{Kou}}{{}}}
+\bibcite{lassance2018comparison}{{117}{2018}{{Lassance and Vrins}}{{}}}
+\bibcite{le2015simple}{{118}{2015}{{Le et~al.}}{{Le, Jaitly, and Hinton}}}
+\bibcite{lenders2018trlib}{{119}{2018}{{Lenders et~al.}}{{Lenders, Kirches, and Potschka}}}
+\bibcite{lipton2015critical}{{120}{2015}{{Lipton et~al.}}{{Lipton, Berkowitz, and Elkan}}}
+\bibcite{long2010random}{{121}{2010}{{Long and Servedio}}{{}}}
+\bibcite{maas2012recurrent}{{122}{2012}{{Maas et~al.}}{{Maas, Le, O'Neil, Vinyals, Nguyen, and Ng}}}
+\bibcite{maas2013rectifier}{{123}{2013}{{Maas et~al.}}{{Maas, Hannun, and Ng}}}
+\bibcite{malliaris1993neural}{{124}{1993}{{Malliaris and Salchenberger}}{{}}}
+\bibcite{mandelbrot1963variation}{{125}{1963}{{Mandelbrot}}{{}}}
+\bibcite{marchiori2005feature}{{126}{2005}{{Marchiori et~al.}}{{Marchiori, Heegaard, West-Nielsen, and Jimenez}}}
+\bibcite{martens2010deep}{{127}{2010}{{Martens}}{{}}}
+\bibcite{martens2011learning}{{128}{2011}{{Martens and Sutskever}}{{}}}
+\bibcite{mccloskey1989catastrophic}{{129}{1989}{{McCloskey and Cohen}}{{}}}
+\bibcite{mercer1909functions}{{130}{1909}{{Mercer}}{{}}}
+\bibcite{Merton73}{{131}{1973{}}{{Merton}}{{}}}
+\bibcite{merton1973theory}{{132}{1973{}}{{Merton}}{{}}}
+\bibcite{mishkin2015all}{{133}{2015}{{Mishkin and Matas}}{{}}}
+\bibcite{mozer1989focused}{{134}{1989}{{Mozer}}{{}}}
+\bibcite{nesterov1983method}{{135}{1983}{{Nesterov}}{{}}}
+\bibcite{knian2017}{{136}{2018}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
+\bibcite{knian2019}{{137}{2019{}}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
+\bibcite{knian2020}{{138}{2019{}}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
+\bibcite{olah2015understanding}{{139}{2015}{{Olah}}{{}}}
+\bibcite{optionmetrics2008ivy}{{140}{2008}{{OptionMetrics}}{{}}}
+\bibcite{pahikkala2006fast}{{141}{2006}{{Pahikkala et~al.}}{{Pahikkala, Boberg, and Salakoski}}}
+\bibcite{pardo2020mitigating}{{142}{2020}{{Pardo and L{\'o}pez}}{{}}}
+\bibcite{qian1999momentum}{{143}{1999}{{Qian}}{{}}}
+\bibcite{poulsen2009}{{144}{2009}{{R. et~al.}}{{R., Schenk-Hopp$\acute  {e}$, and Ewald}}}
+\bibcite{raskutti2014early}{{145}{2014}{{Raskutti et~al.}}{{Raskutti, Wainwright, and Yu}}}
+\bibcite{reddi2018convergence}{{146}{2018}{{Reddi et~al.}}{{Reddi, Kale, and Kumar}}}
+\bibcite{reddi2019convergence}{{147}{2019}{{Reddi et~al.}}{{Reddi, Kale, and Kumar}}}
+\bibcite{robnik2003theoretical}{{148}{2003}{{Robnik-{\v {S}}ikonja and Kononenko}}{{}}}
+\bibcite{rubinstein1994implied}{{149}{1994}{{Rubinstein}}{{}}}
+\bibcite{ruder2016overview}{{150}{2016}{{Ruder}}{{}}}
+\bibcite{saxe2013exact}{{151}{2013}{{Saxe et~al.}}{{Saxe, McClelland, and Ganguli}}}
+\bibcite{Sch94}{{152}{1994}{{Sch\"{a}l}}{{}}}
+\bibcite{Schw95}{{153}{1995{}}{{Schweizer}}{{}}}
+\bibcite{schweizerguided}{{154}{}{{Schweizer}}{{}}}
+\bibcite{schweizer1995variance}{{155}{1995{}}{{Schweizer}}{{}}}
+\bibcite{shreve2004stochastic}{{156}{2004}{{Shreve}}{{}}}
+\bibcite{smola2000sparse}{{157}{2000}{{Smola and Sch{\"o}kopf}}{{}}}
+\bibcite{sutskever2013importance}{{158}{2013}{{Sutskever et~al.}}{{Sutskever, Martens, Dahl, and Hinton}}}
+\bibcite{sutskever2014sequence}{{159}{2014}{{Sutskever et~al.}}{{Sutskever, Vinyals, and Le}}}
+\bibcite{sutton1986two}{{160}{1986}{{Sutton}}{{}}}
+\bibcite{suykens2002least}{{161}{2002}{{Suykens et~al.}}{{Suykens, Van~Gestel, and De~Brabanter}}}
+\bibcite{tan2010learning}{{162}{2010}{{Tan et~al.}}{{Tan, Wang, and Tsang}}}
+\bibcite{tayal2014primal}{{163}{2014}{{Tayal et~al.}}{{Tayal, Coleman, and Li}}}
+\bibcite{tieleman2012lecture}{{164}{2012}{{Tieleman and Hinton}}{{}}}
+\bibcite{vapnik1998statistical}{{165}{1998}{{Vapnik}}{{}}}
+\bibcite{varma2009more}{{166}{2009}{{Varma and Babu}}{{}}}
+\bibcite{wahba1990spline}{{167}{1990}{{Wahba}}{{}}}
+\bibcite{wang2014robust}{{168}{2014}{{Wang and Zhong}}{{}}}
+\bibcite{werbos1988generalization}{{169}{1988}{{Werbos}}{{}}}
+\bibcite{williams2001using}{{170}{2001}{{Williams and Seeger}}{{}}}
+\bibcite{wu2007robust}{{171}{2007}{{Wu and Liu}}{{}}}
+\bibcite{xu2006robust}{{172}{2006}{{Xu et~al.}}{{Xu, Crammer, and Schuurmans}}}
+\bibcite{xu2017second}{{173}{2017}{{Xu et~al.}}{{Xu, Roosta-Khorasan, and Mahoney}}}
+\bibcite{yang2014robust}{{174}{2014}{{Yang et~al.}}{{Yang, Tan, and He}}}
+\bibcite{yao2000option}{{175}{2000}{{Yao et~al.}}{{Yao, Li, and Tan}}}
+\bibcite{yao2018inexact}{{176}{2018}{{Yao et~al.}}{{Yao, Xu, Roosta-Khorasani, and Mahoney}}}
+\bibcite{yatchew2006nonparametric}{{177}{2006}{{Yatchew and H{\"a}rdle}}{{}}}
+\bibcite{yin2017comparative}{{178}{2017}{{Yin et~al.}}{{Yin, Kann, Yu, and Sch{\"u}tze}}}
+\bibcite{yu2012polynomial}{{179}{2012}{{Yu et~al.}}{{Yu, Aslan, and Schuurmans}}}
+\bibcite{yu2015minimizing}{{180}{2015}{{Yu et~al.}}{{Yu, Zheng, Marchetti-Bowick, and Xing}}}
+\bibcite{yung2003empirical}{{181}{2003}{{Yung and Zhang}}{{}}}
+\bibcite{zeiler2012adadelta}{{182}{2012}{{Zeiler}}{{}}}
 \citation{*}

@@ -932,16 +932,19 @@ d_3=\frac{\ln(F/K)+\sigma^2/2(T-t)}{\sigma \sqrt{T-t}}, \;\; d_4=d_3-\sigma  \sq
 \]
 Consider an option on the forward $F$ with expiry $T$ and strike $K$ at time $t$.
 If we force the SABR model price of the option into the form of the Black model valuation formula, then the SABR implied volatility, which is the value of the $\sigma_B$ in Black's model that forces it to match the SABR price, is approximately given by:
-
-\begin{eqnarray*}
-	\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho) &\approx&
+\begin{equation}
+\begin{split}
+	\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho) \approx&
 	\frac{\alpha}{(FK)^{(1-\beta)/2}\left[1+\frac{(1-\beta)^2}{24}\log^2(F/K)
 		+ \frac{(1-\beta)^4}{1920}\log^4(F/K) + \cdots\right]} \cdot
 	\frac{z}{x(z)}  \\
-	& & \cdot \left\{1+\left[\frac{(1-\beta)^2}{24}\frac{\alpha^2}{(FK)^{1-\beta}}
+	&  \cdot \left\{1+\left[\frac{(1-\beta)^2}{24}\frac{\alpha^2}{(FK)^{1-\beta}}
 	+ \frac{1}{4} \frac{\rho\beta\nu\alpha}{(FK)^{(1-\beta)/2}} +
 	\frac{2-3\rho^2}{24}\nu^2 \right](T-t)+\cdots\right\}
-\end{eqnarray*}
+\end{split}
+\label{eq:SABRExpansion}
+\end{equation}
+
 where
 \[
 z = \frac{\nu}{\alpha}(FK)^{(1-\beta)/2}\log (F/K),\; x(z) =
@@ -2991,30 +2994,81 @@ Therefore, we can greatly increase the number of training scenarios, since now t
 
 \subsection{No-Arbitrage Price Surface}
 \label{sec:NoArb}
-In this section, we describe how to calibrate an arbitrage-free price surface on each business day. We want to create a price surface that is \textbf{arbitrage-free}. In addition, we want to be able to \textbf{extrapolate} for  in-money options and out-of-money options. 
-Let  $Surf_{t}(T,K)$ be the option price surface function at time $t$. We want to make sure that the price surface satisfies the following no-arbitrage conditions:
+In this section, we describe how to calibrate an arbitrage-free price surface on each business day. We want to create a price surface that is \textbf{arbitrage-free}. In addition, we want to be able to \textbf{extrapolate} for  in-money options and out-of-money options. In the following subsection, we will discuss the steps of calibration of the arbitrage-free surface with.
+
+
+Following \cite{gatheral2014arbitrage}, we say that an implied volatility surface is free of \textit{static arbitrage} if and only if it is free of \textit{call spread arbitrage}, \textit{calendar arbitrage}, and \textit{butterfly arbitrage}, which we describe below. We assume we have a collection of European call option prices $\{C(T,K)\}_{K,T}$ for a range of strikes, $K$, and maturities, $T$, from which we associate its Black-Scholes implied volatility surface $\{ \sigma^{imp}(T,K)\}_{K,T}$. We also suppose that interest rates are deterministic with the expressions $D(t;T)=e^{-r(T-t)}$ for discount factors, $t$ be trading date and $T$ be the maturity date.
+
+
 \begin{enumerate}
-		\item No call spread arbitrage or put spread arbitrage:
-		\[
-		-1 \leq \frac{\partial Surf_{t}(T,K)}{ \partial K} \leq 0
-		\; \text{ (Call) }
-		\]
-		or
-		\[
-			0 \leq \frac{\partial Surf_{t}(T,K)}{ \partial K} \leq 1
-			\; \text{ (Put) }
-		\]
-		\item  No butterfly spread arbitrage:
-		\[
-		\frac{\partial^2 Surf_{t}(T,K)}{ \partial K^2} \geq 0
-		\]
-		\item  No calendar spread arbitrage:
-		\[
-		\frac{\partial Surf_{t}(T,K)}{ \partial T} \geq 0
-		\]
+\item  \label{item:butterfly}\underline{Butterfly Arbitrage}: Given a collection of call option prices $\{C(T,K)\}_{K,T}$, using Dupire's method or equivalent approaches \cite{dupire1994pricing} one can (at least formally) find expressions for implied probability densities $\{ p(\cdot;T,S_0) \}_{T}$ such that 
+\[
+C(T,K) = D(t;T) \int_{(0,\infty)} (S - K)_+ p(S;T,S_t) dS.
+\]
+We say that the surface $\{ \sigma(T,K) \}_{K,T}$, where $\sigma(T,K)$ is the black-scholes implied volatility, is free of Butterfly Arbitrage if its implied probability densities $\{p(\cdot ; T,S_0)\}_{T}$ are valid densities, i.e., $p(S;T,S_t) \geq 0$ for all $S > 0$ and $\int_{0}^{\infty} p(S;T,S_t) dS = 1$. 
+Additionally, the condition $p(S;T,S_t) \geq 0$ for all $S > 0$ is equivalent to require $\frac{\partial^2 C(T,K)}{\partial K^2} > 0$ for all $K > 0$ since 
+\citet{breeden1978prices} show that:
+\[
+	\left. \frac{\partial^2 C(T,K)}{\partial K^2} \right\vert_{K=x}=D(t;T)	p(x;T,S_t)
+\]
+
+
+%With this definition of $w$, we may now express $p(k;T)$ as
+% \[
+% p(k;T) =  \frac{g(k;T)}{ 2 \pi w(k;T) } \exp{ \left( \frac{-d_{-}(k;T)^2 }{2} \right)  }
+% \]
+% where 
+% \begin{equation}
+% g(k;T_i) := \left(1 - \frac{k \partial_k w(k;T)}{2 w(k;T_i)} \right)^2 - \frac{ \left( \partial_kw(k;T_i)\right)^2}{4}\left( \frac{1}{w(k;T)} + \frac{1}{4}  \right) + \frac{\partial_{kk}w(k;T_i)}{2} 
+% \label{eqn:gfun}
+% \end{equation}
+% and $d_{\pm}(k)$ is as in the Black-Scholes formula. To classify butterfly arbitrage based on the TV surface, there is no butterfly arbitrage when
+% \begin{enumerate}
+% \item 
+%  $g(k) > 0$ for all $k \in \mathbb{R}$ and 
+% \item  
+%  $\lim_{k \to \infty}d_+(k) = -\infty$,
+% \end{enumerate}
+% the above listed conditions being the natural analogue of the density being non-negative and integrating to 1. 
+\item \label{item:calendar} \underline{Calendar Arbitrage}:
+While the above definition is a proper theoretical starting point for working with butterfly arbitrage, one can also characterize the presence of butterfly arbitrage in terms of the observed volatility surface. Given a surface $\sigma(T,K)$, we consider the corresponding total variance (TV) surface defined by 
+ \[
+ w(k,T) = \sigma(k,T)^2 T
+ \]
+ where now $k$ is parameterized by log-moneyness, i.e. $k := \log(K/F(t;T))$ and $F(t;T)=S_te^{(r-q)(T-t)}\\$ is the forward price for $S_t$: . 
+We say that the surface $\{ \sigma(K_i,T_j) \}_{K,T}$ is free of Calendar Arbitrage 
+\begin{itemize}
+\item if $\frac{\partial w(k,T)}{\partial T} \geq 0 $ for all $k \in \mathbb{R}, T > 0$ for continuous time data
+\item if $w(k,T_1) \leq w(k,T_2)$ for all $k \in \mathbb{R},  T_1 \leq T_2$ for discrete time data 
+\end{itemize}
+
+% \item \underline{Call Spread Arbitrage}: We say that the surface $\{ \sigma(K_i,T_j) \}_{K,T}$ is free of Call Arbitrage 
+% \begin{itemize}
+% \item if we have $-1 \leq \frac{\partial C(T,K)}{ \partial K} \leq 0$
+% \end{itemize}
+
 \end{enumerate}
-In the following subsection, we will discuss the steps of calibration of the arbitrage-free surface.
-\subsubsection{SABR Interpolation and Extrapolation Between Strikes}
+
+Furthermore,  given a  grid of strikes: $0=K_0<K_1<\dots<K_{max}$, and a grid of expiries $t=T_0 < T_1 < \dots< T_{max} $. Let $C(T,K)$ be the call option price of the expiry $T$ and strike $K$ returned by a model.  The discrete criteria \cite{carr2005note} for the grid of  option prices to be free of arbitrage are set as the following: 
+\begin{enumerate}
+	\item  No butterfly spread arbitrage condition:
+	 \[
+	C(T_{j},K_{i-1})-C(T_{j},K_{i}) > \frac{K_i-K_{i-1}}{K_{i+1}-K_{i}}
+	\left( C(T_{j},K_{i})-C(T_{j},K_{i+1})  \right)
+	\]
+	\item  No calendar spread arbitrage:
+	\[
+	C(T_{j},K_{i})\geq C(T_{j-1},K_{i})
+	\]
+
+	% \item No call spread arbitrage condition:
+	% \[
+	% 0 \leq \frac{C(T_{j},K_{i-1})-C(T_{j},K_{i})}{K_i-K_{i-1}} \leq 1
+	% \]
+\end{enumerate}
+
+
+\subsubsection{Volatility Interpolation and Extrapolation Over Strikes}
 In this thesis, we will use SABR model to obtain the option price for an arbitrary strike $K$ unobserved in the market.
 On each business day $t$, we have observed option quotes for a set of market observed expires. We denote the market available expires as.
 \[
@@ -3024,7 +3078,7 @@ T^{t}_1 < \dots< T^{t}_{max}
 \]
 The first expiry is set to be $t$: $T^{t}_{0}=t$. Note that for the first expiry $T^{t}_{0}=t$, the market option value at $t$ is just the option payoff at $t$ which is $\max\{S_t-K,0\}$ (call) or  $\max\{K-S_t,0\}$ (put). 
 
-Since in this subsection, we are discussion how to obtain a arbitrage-free surface on a fixed date $t$, for the notational simplicity, we will omit the superscript  and subscript $t$ in this subsection \ref{sec:NoArb}, we denote the grid of market observed expires on t to be \[
+Since in this subsection, we are discussing how to obtain a arbitrage-free surface on a fixed date $t$, for the notational simplicity, we will omit the superscript  and subscript $t$ in this subsection \ref{sec:NoArb}, we denote the grid of market observed expires on t to be \[
 \{ T_{0}<
 T_1 < \dots< T_{max}
 \}
@@ -3040,37 +3094,155 @@ We solve
 \[
 \min_{\alpha,\nu,\rho} \sum_{j=1}^{N_K} \left(V_{SABR}(S,t,T_i,K^{mkt}_j,r,q;\alpha,\beta,\nu,\rho)-\Vmkt(t,T_i,K^{mkt}_j)\right)^2
 \]
-where $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ is option pricing function described in section \ref{sec:SABR}. Since we are dealing with S\&P500 index option, the log-normal assumption is more appropriate, we fix $\beta=1$ in the calibration process.  Note that we have three parameters to be calibrated so we need to observe at least 3 data points from market to successfully build a SABR model. Therefore, the number of strikes $N_K$ must be larger than 3. \footnote{The $\Vmkt(t,T_i,K^{mkt}_j)$ is the mid-price of market observed best bid and  best ask prices. We use market quotes in calibration and even if the trading volume is zero, we will still include them in the calibration.}
+where $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ is option pricing function described in section \ref{sec:SABR}. Since we are dealing with S\&P500 index option, the log-normal assumption is more appropriate, we fix $\beta=1$ in the calibration process.  We choose to calibrate a different model for each expiry. A different set of parameters is specified for each expiry, describing an instantaneous process. The SABR models for different expiries are completely independent from each other. We choose this approach because the single implied volatility surface calibrated for all expiries and strikes is unlikely to fit the actual surface and calibrating a single surface is harder and more time-consuming. 
 
-For each $T_i$, we calibrate a separate set of SABR parameters and we then use the calibrated SABR parameters to compute SABR price of the predetermined grid of strikes for each $T_i$.  The SABR prices of the predetermined grid of strikes are used as the calibration targets for the volatility interpolation procedure described in the following subsection.
+Note that we have three parameters to be calibrated so we need to observe at least 3 data points from market to successfully build a SABR model. Therefore, the number of strikes $N_K$ must be larger than 3. \footnote{The $\Vmkt(t,T_i,K^{mkt}_j)$ is the mid-price of market observed best bid and  best ask prices. We use market quotes in calibration and even if the trading volume is zero, we will still include them in the calibration.}
 
-Although SABR model is computationally efficient and can match the market volatility smile well, it is not arbitrage-free.  
-
-The butterfly and the call or put spread arbitrage can exist although their occurrences are infrequent. In addition,  for each expiry, a separate set SABR parameters are calibrated so calender spread arbitrage can also exist. Therefore, before using the SABR price as the target for the LVF  calibration, we need to check whether the arbitrage  exists or not. 
-
-In this thesis, we use the sufficient conditions for no arbitrage \cite{carr2005note} to check whether arbitrage exists for SABR prices computed based on  the grid of strikes: $0=K_0<K_1<\dots<K_{max}$, and the grid of expiries $t=T_0 < T_1 < \dots< T_{max} $. Let $C_{SABR}(T,K)$ be the call option price of  the expiry $T$ and strike $K$ returned by the SABR pricing function $V_{SABR}(\cdot)$. Taking the call option as the example , the criteria are set as the following: 
-\begin{enumerate}
-	\item No call spread arbitrage condition:
+Although SABR model is computationally efficient and can match the market volatility smile well, it is not arbitrage-free. The formula \eqref{eq:SABRExpansion} is an approximation, obtained from  an asymptotic series expansion. Its accuracy degrades if the option strikes move away from the option ATM strike. As a result, the implied probability density function:
 \[
-0 \leq \frac{C_{SABR}(T_{j},K_{i-1})-C_{SABR}(T_{j},K_{i})}{K_i-K_{i-1}} \leq 1
+	\frac{1}{D(t;T)} \left. \frac{\partial^2 C_{SABR}(T,K)}{\partial K^2} \right\vert_{K=x}=	p(x;T,S_t)
 \]
+where $C_{SABR}(T,K)$ is the price of a call option at strike $K$ and expiry $T$, may become negative at very low or very high strikes. Therefore, we may have butterfly spread arbitrage in SABR prices returned by the calibrated models. In addition, for each expiry, a separate set of SABR parameters is calibrated so that calender spread arbitrage can also exist.
 
-	\item  No butterfly spread arbitrage condition:
-	 \[
-	C_{SABR}(T_{j},K_{i-1})-C_{SABR}(T_{j},K_{i}) \geq \frac{K_i-K_{i-1}}{K_{i+1}-K_{i}}
-	\left( C_{SABR}(T_{j},K_{i})-C_{SABR}(T_{j},K_{i+1})  \right)
-	\]
-	\item  No calendar spread arbitrage:
-	\[
-	C_{SABR}(T_{j},K_{i})\geq C_{SABR}(T_{j-1},K_{i})
-	\]
+Therefore, if we found that the grid of prices returned by the SABR model has failed any of the  arbitrage conditions, we will introduce some adjustments. To fix the butterfly spread  arbitrage, we implements an risk-neutral adjustment \cite{brunner2003arbitrage}. This adjustment substitutes the implied distribution tails by those of certain log-normal distributions. Interested reader can refer to \cite{brunner2003arbitrage} for more details. Here we just briefly discuss the process of the adjustment.
+
+First, we introduce lower and upper strike limits, $K_{L}$ and $K_{U}$ within which the implicit probability density function (p.d.f) $p(x;T,S_t)$ is assumed to be valid. The lower and upper strike limit can be the maximum and minimum strike $K_i$ for which the  discrete no butterfly spread arbitrage condition holds. Then we assume the adjusted p.d.f is of the form:
+\[
+\hat{g}(x)=\left\{ \begin{array}{ll }
+\lambda_{L} \;  q(x;\mu_{L},\sigma_{L}), \;&  \text{if} \; 0<x< K_{L}\\
+p(x;T,S_t) , \;&  \text{if} \; \;  K_{L} \leq x \leq K_{U}\\
+\lambda_{U} \;  q(x;\mu_{U},\sigma_{U}), \;& \text{if} \; x> K_{U}
+\end{array} \right.
+\]
+where  $q(x;\mu,\sigma)$ is the p.d.f of a  log-normal distribution with volatility:
+\[
+	q(x;\mu,\sigma)=\frac{1}{x\sigma \sqrt{2 \pi}}
+	e^{-\frac{(\log(x)-\mu)^2}{2 \sigma^2}}.
+\]
+and $p(x;T,S_t)$ is the implied probability density from calibrated SABR model.
+We require the following condition to be satisfied:
+\begin{enumerate}
+\item Intergrability constraint
+\begin{equation}
+\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx+
+\int_{K_{L}}^{K_{U}}	  p(x;T,S_t)  dx+
+\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=1 
+\label{eq:RND1}
+\end{equation}
+\item Martingale  constraint
+\begin{equation}
+\int_{0}^{K_{L}}	 x \lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx+
+\int_{K_{L}}^{K_{U}}	  x p(x;T,S_t)  dx+
+\int_{K_{U}}^{\infty}	 x \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=F(t,T)
+\label{eq:RND2}
+\end{equation}
+\item Continuity of density function constraint:
+\begin{equation}
+\lambda_{L} q(K_{L};\mu_{L},\sigma_{L})=p(K_{L};T,S_t)
+\label{eq:RND3}
+\end{equation}
+\begin{equation}
+\lambda_{U} q(K_{U};\mu_{U},\sigma_{U})=p(K_{U};T,
+S_t)
+\label{eq:RND4}
+\end{equation}
 \end{enumerate}
 
- 
- If we found that the prices returned by the SABR model has failed any  of the above  arbitrage conditions, we will manually adjust the option prices from SABR model until we can pass these conditions. Please, note that this manual process is rarely needed in practice.
+
+% % Furthermore, if we assume $\mu_{L}=\mu_{U}=0$ , we only have 4 parameters to be solved:
+% % \[\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}.\]
+% % This fitting can be more robust and easier to be solved. In our thesis, we assume  $\mu_{L}=\mu_{U}=0$.
+% \begin{itemize}
+% \item Let $C(T,K;\sigma)$ and $C(T,K;\sigma)$ be the call and put option prices with the Black's implied volatility. 
+% \item  Let $DC(T,K;\sigma)$ and $DC(T,K;\sigma)$ be the digital call and put option prices with the Black's implied volatility where a digital call pays on dollar if the underlying price exceeds the strike and a digital put pays the same amount  if the underlying is below the strike. 
+% \item We have $\sigma_B$ given by the SABR apprximation formular \eqref{eq:SABRExpansion} for $K \in [K_{L},K_{U}]$. For simplicity, we wrote $\sigma_{B}(K)$ to denote the implied black's volatility given by the SABR formula \eqref{eq:SABRExpansion} for strike $K$.
+% \end{itemize}
+% Let $\mathcal{N}$ be the cumulative density function of standard normal distribution, we can have the following close-form formula:
+% \[
+% \int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=1-\lambda_{U} \mathcal{N}(\frac{\ln(K_{U})-\mu_{U}}{\sigma_{U}})
+% \]
+% \[
+% 	\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx=\lambda_{L} \mathcal{N}(\frac{\ln(K_{L})-\mu_{L}}{\sigma_{L}})
+% \]
+% % \[
+% % \int_{K_{L}}^{K_{U}}	  p(x;T,S_t)  dx=	\frac{1}{D(t;T)} \left( \left. \frac{\partial C_{SABR}(T,K)}{\partial K} \right\vert_{K=K_{U}} -  \left.\frac{\partial C_{SABR}(T,K)}{\partial K} \right\vert_{K=K_{L}} \right)
+% % \]
+% \[
+% \int_{K_{U}}^{\infty}	 x \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=\lambda_{U} \mathcal{N}(\frac{\ln(K_{U})-\mu_{U}-\sigma_{U}^2}{\sigma_{U}})
+% \]
+% \[
+% 	\int_{0}^{K_{L}}	x \lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx=\lambda_{L} \mathcal{N}(\frac{\mu_{L}+\sigma_{L}^2-\ln(K_{L})}{\sigma_{L}})
+% \]
+% \[
+% \begin{split}
+% \int_{K_{L}}^{K_{U}}	 x p(x;T,S_t)  dx &=	\frac{1}{D(t;T)} \left( 
+% 	C_{SABR}(K_{U},T) -K_{U}\left.\frac{\partial C_{SABR}(T,K)}{\partial K} \right\vert_{K=K_{U}}\right) \\
+% 	&-
+% 	\frac{1}{D(t;T)}
+% 	\left( 
+% 	C_{SABR}(K_{L},T) -K_{L}
+% 	\left.\frac{\partial C_{SABR}(K,T)}{\partial K} \right\vert_{K=K_{L}} \right)
+% \end{split}
+% \]
+We observe that:
+\[
+\int_{K_{L}}^{K_{U}}	  p(x;T,S_t)  dx =1-DP(T,K_{L};\sigma_{B}(K_{L}))-DC(T,K_{U};\sigma_{B}(K_{U}))
+\]
+
+\[ \begin{split}
+\int_{K_{L}}^{K_{U}}	 x p(x;T,S_t)  dx &=
+F(t,T)-[K_{L}DP(T,K_{L};\sigma_{B}(K_{L}))-P(T,K_{L};\sigma_{B}(K_{L}))]\\
+&+[K_{U}DC(T,K_{U};\sigma_{B}(K_{U}))+C(T,K_{U};\sigma_{B}(K_{U}))]
+\end{split}
+\]
+where:
+\begin{itemize}
+\item  We let $C(T,K;\sigma_B)$ and $P(T,K;\sigma_B)$ be the call and put option prices from Black's model with the Black's implied volatility $\sigma_B$. 
+\item  We let $DC(T,K;\sigma_B)$ and $DP(T,K;\sigma_B)$ be the digital call and put option prices from Black's model with the Black's implied volatility $\sigma_B$  where a digital call pays one dollar if the underlying price exceeds the strike and a digital put pays the same amount  if the underlying is below the strike. 
+\item We have $\sigma_B$ given by the SABR apprximation formular \eqref{eq:SABRExpansion} for $K \in [K_{L},K_{U}]$. For simplicity, we wrote $\sigma_{B}(K)$ to denote the implied black's volatility given by the SABR formula \eqref{eq:SABRExpansion} for strike $K$.
+ \end{itemize}
+Therefore, if we have:
+\[
+\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx=DP(T,K_{L};\sigma_{B}(K_{L})
+\]
+\[
+\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=DC(T,K_{U};\sigma_{B}(K_{U})
+\]
+\[
+\int_{0}^{K_{L}} (K_L-x)	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx=P(T,K_{L};\sigma_{B}(K_{L})
+\]
+\[
+\int_{K_{U}}^{\infty}	(x-K_U) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=C(T,K_{U};\sigma_{B}(K_{U})
+\]
+we can easily show the  intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2} are satisified. As a result, we obtain the following system of equations, which we can solve for  $\{\mu_{L}, \mu_{U},\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}.$:
+\begin{equation}
+	\begin{split}
+\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=DP(T,K_{L};\sigma_{B}(K_{L})\\
+\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=DC(T,K_{U};\sigma_{B}(K_{U})\\
+\int_{0}^{K_{L}} (K_L-x)	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=P(T,K_{L};\sigma_{B}(K_{L})\\
+\int_{K_{U}}^{\infty}	(x-K_U) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=C(T,K_{U};\sigma_{B}(K_{U})\\
+\lambda_{L} q(K_{L};\mu_{L},\sigma_{L})&=p(K_{L};T,S_t)\\
+\lambda_{U} q(K_{U};\mu_{U},\sigma_{U})&=p(K_{U};T,
+	S_t)
+	\end{split}
+\end{equation}
+For calendar arbitrage, we will shift the price by the the following procedure to remove it.
+\[
+shift=-min(min(C(T_j,K)-C(T_{j-1},K)),0).	
+\]
+\[
+	\widehat{C}(T_j,K)=C(T_j,K)+shift
+\]
+ Note the shift will be zero if no calendar arbitrage is observed for the grid of strikes.
 
 \subsubsection{Volatility Interpolation Between Expiries}
+In previous section, for each $T_i$, we calibrate a separate set of SABR parameters and we then use the calibrated SABR parameters to compute SABR price of the predetermined grid of strikes for each $T_i$.  The SABR prices of the predetermined grid of strikes are used as the calibration targets for the volatility interpolation procedure described in the this subsection.
+
+
 \citet{andreasen2010volatility} have introduced an efficient and arbitrage-free volatility interpolation method based on a one step finite difference implicit Euler scheme applied to a local volatility parametrization. In this thesis, we use the volatility interpolation approach to compute option price for arbitrary expiry $T$ unobserved in market.
+
+
+
 
 The volatility interpolation method is based on the Dupire's equation \cite{dupire1994pricing}.  The Dupire's equation enables us to deduce the volatility function in a local volatility
 model from quoted put and call options in the market.
@@ -3097,12 +3269,9 @@ Dupire's equation can be simplified as \cite{andreasen2010volatility}:
 \frac{\partial \widehat{C}(T,\widehat{K})}{\partial T}=\frac{1}{2} \widehat{\sigma}^2(T,\widehat{K}) \widehat{K}^2  \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2},\;\; \widehat{\sigma}(T,\widehat{K})={\sigma}(T,K)
 \]
 
-Therefore, we can recursively solve the finite difference  discretization of the Dupire's forward equation using the fully implicit method:
-\[
-\frac{\partial \widehat{C}(T,\widehat{K})}{\partial T}=\frac{1}{2} \widehat{\sigma}^2(T,\widehat{K}) \widehat{K}^2  \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2}
-\]
-with the initial condition $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$, lower boundary condition $\widehat{C}(T,0)=1$, upper boundary condition $\widehat{C}(T,\widehat{K}_{max})=0$.
-Given a grid of expiries $t=T_0 < T_1 < \dots< T_{max} $ and  a grid of normalized strike: $0=\widehat{K}_0<\widehat{K}_1<\dots<\widehat{K}_{max}$, we assume $\widehat{\sigma}(T,\widehat{K})$  to be a piecewise constant functions for a given $T_i$.
+Therefore, we can recursively solve the finite difference  discretization of the Dupire's forward equation using the fully implicit method
+with the initial condition $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$, lower boundary condition $\widehat{C}(T,0)=1$, upper boundary condition $\widehat{C}(T,\widehat{K}_{max})=0$. 
+Given a grid of expiries $t=T_0 < T_1 < \dots< T_{max} $ and  a grid of normalized strike: $0=\widehat{K}_0<\widehat{K}_1<\dots<\widehat{K}_{max}$, they assume $\widehat{\sigma}(T,\widehat{K})$  to be a piecewise constant functions for a given $T_i$.
 \[
 	\widehat{\sigma}(T_i,\widehat{K})=\left\{ \begin{array}{ll}
 		\sigma_{T_i,\widehat{K}_0}  , \; &\text{if} \; \widehat{K} \leq \widehat{K}_0\\
@@ -3112,12 +3281,13 @@ Given a grid of expiries $t=T_0 < T_1 < \dots< T_{max} $ and  a grid of normaliz
 		\sigma_{T_i,\widehat{K}_{max}} , \; &\text{if} \;  \widehat{K} > \widehat{K}_{max} \\
 		\end{array} \right.
 \]
-We further assume:
+The authors further assume:
 \[
  \frac{\partial^2 \widehat{C}(T,\widehat{K}_0)}{ \partial \widehat{K}^2}=\frac{\partial^2 \widehat{C}(T,\widehat{K}_{max})}{ \partial \widehat{K}^2}=0
 \]
 The fully implicit finite difference method in matrix form is:
-\[\begin{bmatrix}
+\begin{equation}
+	\begin{bmatrix}
 \widehat{C}(T_{i},\widehat{K}_0)\\
 \widehat{C}(T_{i},\widehat{K}_1)\\
 \widehat{C}(T_{i},\widehat{K}_2)\\
@@ -3131,41 +3301,74 @@ The fully implicit finite difference method in matrix form is:
 \vdots\\
 \widehat{C}(T_{i+1},\widehat{K}_{max})
 \end{bmatrix}
-\]
-where $\mathcal{\mathbb{M}}$ is a tri-diagonal matrix parametrized by  $\sigma(T_i,.)$
-\[\mathcal{\mathbb{M}}^{-1} \begin{bmatrix}
-	\widehat{C}(T_{i},\widehat{K}_0)\\
-	\widehat{C}(T_{i},\widehat{K}_1)\\
-	\widehat{C}(T_{i},\widehat{K}_2)\\
-	\vdots\\
+\label{eq:LVFInt}
+\end{equation}
+where $\mathcal{\mathbb{M}}$ is a tri-diagonal matrix parametrized by  $\sigma(T_i,.)$. 
+% Therefore, we can easily invert $\mathcal{\mathbb{M}}$ and we get:
+% \begin{equation}
+% 	\mathcal{\mathbb{M}}^{-1} \begin{bmatrix}
+% 	\widehat{C}(T_{i},\widehat{K}_0)\\
+% 	\widehat{C}(T_{i},\widehat{K}_1)\\
+% 	\widehat{C}(T_{i},\widehat{K}_2)\\
+% 	\vdots\\
+% 	\widehat{C}(T_{i},\widehat{K}_{max})
+% 	\end{bmatrix}=
+% 	\begin{bmatrix}
+% 	\widehat{C}(T_{i+1},\widehat{K}_0)\\
+% 	\widehat{C}(T_{i+1},\widehat{K}_1)\\
+% 	\widehat{C}(T_{i+1},\widehat{K}_2)\\
+% 	\vdots\\
+% 	\widehat{C}(T_{i+1},\widehat{K}_{max})
+% 	\end{bmatrix}
+% 	\label{eq:LVFInt}
+% \end{equation}
+
+Given the price vector at $T_{i}$:
+$\begin{bmatrix}
+	\widehat{C}(T_{i},\widehat{K}_0)&
+	\widehat{C}(T_{i},\widehat{K}_1)&
+	\widehat{C}(T_{i},\widehat{K}_2)&
+	\cdots&
 	\widehat{C}(T_{i},\widehat{K}_{max})
-	\end{bmatrix}=
-	\begin{bmatrix}
-	\widehat{C}(T_{i+1},\widehat{K}_0)\\
-	\widehat{C}(T_{i+1},\widehat{K}_1)\\
-	\widehat{C}(T_{i+1},\widehat{K}_2)\\
-	\vdots\\
+\end{bmatrix}$ and  the price the vector at $T_{i+1}$
+$
+\begin{bmatrix}
+	\widehat{C}(T_{i+1},\widehat{K}_0)&
+	\widehat{C}(T_{i+1},\widehat{K}_1)&
+	\widehat{C}(T_{i+1},\widehat{K}_2)&
+	\cdots&
 	\widehat{C}(T_{i+1},\widehat{K}_{max})
 	\end{bmatrix}
+$,
+we will try to find that $\mathcal{\mathbb{M}}$ that satisify equation \eqref{eq:LVFInt}. This can be done by solving the following non-linear least square problem:
+\begin{equation}
+\inf_{\mathcal{\mathbb{M}}} \sum_{j}(\frac{\widehat{C}(T_{i+1},\widehat{K}_j)-\widehat{C}_{SABR}(T_{i+1},k_j)}{Vega_{B}(T_{i+1},\widehat{K}_j)})^2
+\label{eq:LVFCal}
+ \end{equation}
+where we set: 
+ \[	
+	 \begin{bmatrix}
+	\widehat{C}(T_{i+1},\widehat{K}_0)\\
+	\widehat{C}(T_{i+1},\widehat{K}_1)\\
+	\widehat{C}(T_{i+1},\widehat{K}_2)\\% 	\vdots\\
+	\widehat{C}(T_{i+1},\widehat{K}_{max})
+	\end{bmatrix}=
+ 	\mathcal{\mathbb{M}}^{-1} \begin{bmatrix}
+ 	\widehat{C}_{SABR}(T_{i},\widehat{K}_0)\\
+ 	\widehat{C}_{SABR}(T_{i},\widehat{K}_1)\\
+ 	\widehat{C}_{SABR}(T_{i},\widehat{K}_2)\\% 	\vdots\\
+ 	\widehat{C}_{SABR}(T_{i},\widehat{K}_{max})
+ 	\end{bmatrix}
+ \] and  
+ \[
+	\widehat{C}_{SABR}(T_{i},\widehat{K}_j)=\frac{C_{SABR}(T_{i+1},K_j)}{D(t,T_{i})F(t,T_{i+1})}
 	\]
-	We try to find $\mathcal{\mathbb{M}}$ that so that $\widehat{C}(T_{i+1},\widehat{K}_j)=\widehat{C}_{SABR}(T_{i+1},\widehat{K}_j)$.
-	Where
 	\[
-	\widehat{C}_{SABR}(T_{i+1},\widehat{K}_j)=\frac{C_{SABR}(T_{i+1},K_j)}{D(t,T_{i+1})F(t,T_{i+1})}
+	K_j=\widehat{K}_j F(t,T_{i})
 	\]
-	\[
-	K_j=\widehat{K}_j F(t,T_{i+1})
-	\]
-	and $C_{SABR}(T_{i+1},K_j)$ is the price returned by the SABR pricing model for the grid point $(T_{i+1},K_j)$.
+	and $C_{SABR}(T_{i},K_j)$ is the price returned by the SABR pricing model for the grid point $(T_{i},K_j)$. Note that at $T_0=t$, $\widehat{C}_{SABR}(T_0,\widehat{K})=\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is given as the payoff. We can therefore solve the optimization problem for $T_1, \dots, T_{max}$ separately. The $Vega_{B}$ is the Black vega based on the implied volatility returned from the calibrated SABR model.
 
-	Given $\widehat{C}(T_{i},\widehat{K}_j)$, this can be done by:
-	\begin{equation}
-	\inf_{\sigma(T_i,.)} \sum_{j}(\frac{\widehat{C}(T_{i+1},\widehat{K}_j)-\widehat{C}_{SABR}(T_{i+1},k_j)}{Vega_{B}(T_{i+1},\widehat{K}_j)})^2
-	\label{eq:LVFCal}
- 	\end{equation}
-	Note that $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is given, we can therefore recursively solve the optimization problem for $T_1, \dots, T_{max}$. The $Vega_{B}$ is the Black vega based on the implied volatility returned from the calibrated SABR model.
-
-	After optimization,  the local volatility functions are translated into arbitrage-free prices for a discrete set of expiries but it does not directly specify the option prices between the expiries.  For $T \in [T_i,T_{i+1})$, we can fill in the gaps by:
+	After optimization, for $T \in [T_i,T_{i+1})$, we can fill in the gaps by:
 	\[
 	\begin{bmatrix}
 	\widehat{C}(T,\widehat{K}_0)\\
@@ -3174,11 +3377,11 @@ where $\mathcal{\mathbb{M}}$ is a tri-diagonal matrix parametrized by  $\sigma(T
 	\vdots\\
 	\widehat{C}(T,\widehat{K}_{max})
 	\end{bmatrix}=\mathcal{\mathbb{M}}^{-1} \begin{bmatrix}
-		\widehat{C}(T_{i},\widehat{K}_0)\\
-		\widehat{C}(T_{i},\widehat{K}_1)\\
-		\widehat{C}(T_{i},\widehat{K}_2)\\
+		\widehat{C}_{SABR}(T_{i},\widehat{K}_0)\\
+		\widehat{C}_{SABR}(T_{i},\widehat{K}_1)\\
+		\widehat{C}_{SABR}(T_{i},\widehat{K}_2)\\
 		\vdots\\
-		\widehat{C}(T_{i},\widehat{K}_{max})
+		\widehat{C}_{SABR}(T_{i},\widehat{K}_{max})
 		\end{bmatrix}
 		\]
 where $\mathcal{\mathbb{M}}$ is a tri-diagonal matrix parametrized by  $\sigma(T_i,.)$. Note that $\mathcal{\mathbb{M}}$ is known after the calibration \eqref{eq:LVFCal}.
@@ -3186,7 +3389,10 @@ We then recover the call price by:
 \[
 C(T,K)=\widehat{C}(T,\widehat{K}){D(t,T)F(t,T)}
 \]
-Interpolation based on the above procedure can guarantee the option prices computed is arbitrage-free. Detailed proof can be found in \cite{andreasen2010volatility}. To sum up, with the help of SABR model and the volatility interpolation procedure, we can compute the arbitrage-free option price for any arbitrary $T$ for the predetermined grid of strikes $0=K_0<K_1<\dots<K_{max}$. 
+Interpolation based on the above procedure can guarantee the option prices computed is arbitrage-free. Detailed proof can be found in \cite{andreasen2010volatility}. 
+
+
+To sum up, with the help of SABR model and the volatility interpolation procedure, we can compute the arbitrage-free option price for any arbitrary $T$ for the predetermined grid of strikes $0=K_0<K_1<\dots<K_{max}$. 
 
 In the above discussion, we use the call option as the example but the analysis also holds for put options. More specifically, let $P(T,K)$	be the function of put option price, the Dupire's equation for put option is:
 \[
@@ -3197,7 +3403,7 @@ Therefore, one can use the above volatility interpolation procedure to obtain pu
 
 \subsection{Data Augmentation for Training Scenarios}
 \label{sec:Augtrain}
-Following the calibration process in section \ref{sec:NoArb}, on each trading date $t$, we can obtain a pricing surface $Surf_{t}(T,K)$. The $T$ can be any business day that is larger than the current trading date $t$ and smaller than the maximum expiry $T_{max}$ observed in market on date $t$. The $K$ can be any strike that belongs to the given grid of strikes $0=K_0<K_1<\dots<K_{max}$. As an example, in Figure \ref{fig:CaliExp}, we show the resulting price surface and implied  volatility surface for SP500 index call options  on 2012-01-04. In Figure $\ref{fig:CaliExp}$, we use $\tau=T-t$ to denote the time to maturity.
+Following the calibration process in section \ref{sec:NoArb}, on each trading date $t$, we can obtain a pricing surface $C_{t}(T,K)$ (call) or $P_{t}(T,K)$ (put). The $T$ can be any business day that is larger than the current trading date $t$ and smaller than the maximum expiry $T_{max}$ observed in market on date $t$. The $K$ can be any strike that belongs to the given grid of strikes $0=K_0<K_1<\dots<K_{max}$. As an example, in Figure \ref{fig:CaliExp}, we show the resulting price surface and implied  volatility surface for SP500 index call options  on 2012-01-04. In Figure $\ref{fig:CaliExp}$, we use $\tau=T-t$ to denote the time to maturity.
 \begin{figure}[htp!]
 	\centering
 	\subfigure[Implied  Volatility Surface]{

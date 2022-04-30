@@ -25,56 +25,56 @@
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Local Features Daily Hedging}}}{69}{figure.5.4}%
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Sequential Features Daily Hedging}}}{69}{figure.5.4}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces The price surface and implied volatility surface calibrated for SP500 index Call Options on 2012-01-04.}}{78}{figure.6.1}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Implied Volatility Surface}}}{78}{figure.6.1}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Price Surface}}}{78}{figure.6.1}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces $\textsc {GRU}_{\textsc {total}}$: GRU encode-decoder total hedging model. The encoder summarizes the time series $\mathbf {Y}_{t}^{T,K}=\left [\mathbf {y}^{T,K}_{\tau _{1}},\dots ,\mathbf {y}^{T,K}_{\tau _{N+1}}\right ]$ as a succinct vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {h}$}\mathaccent "0362{\mathbf {h}}_E$. The decoder outputs the hedging position based on the vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {h}$}\mathaccent "0362{\mathbf {h}}_E$ and the previous hedging position $\delta ^M_{t-\Delta t,T,K}$ observed at the hedging time $t$. More specifically, in the decoder, a candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$ is firstly produced. The final output $\delta ^M_{t,T,K}$ is computed based on the linear combination of BS delta $\delta ^{BS}_{t,T,K}$ and the candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$. The combination weight is determined by $W_{\delta }$. The feature weight $\omega ^L$ is used to compute weighted sequential feature $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {y}$}\mathaccent "0362{\mathbf {y}}^{T,K}_{\tau }$. The weighting acts as a feature selection process. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input. The output $\delta ^M_{t,T,K}$ at $t$ is used as the input for next step $t+\Delta t$.}}{83}{figure.6.2}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and local model $\textsc {GRU}_{\textsc {local}}$ on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{91}{figure.6.3}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{91}{figure.6.3}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{91}{figure.6.3}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{91}{figure.6.3}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and BS Model on weekly hedging S\&P 500 call options in terms of the the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{91}{figure.6.4}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{91}{figure.6.4}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{91}{figure.6.4}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{91}{figure.6.4}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and Bartlett model on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{91}{figure.6.5}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{91}{figure.6.5}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{91}{figure.6.5}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{91}{figure.6.5}%
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and local model $\textsc {GRU}_{\textsc {local}}$ on monthly hedging S\&P 500 call options in terms of thethe distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{94}{figure.6.6}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{94}{figure.6.6}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{94}{figure.6.6}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{94}{figure.6.6}%
-\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and BS model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{94}{figure.6.7}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{94}{figure.6.7}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{94}{figure.6.7}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{94}{figure.6.7}%
-\contentsline {figure}{\numberline {6.8}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and bartlett model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{94}{figure.6.8}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{94}{figure.6.8}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{94}{figure.6.8}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{94}{figure.6.8}%
-\contentsline {figure}{\numberline {6.9}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and local model $\textsc {GRU}_{\textsc {local}}$ on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{97}{figure.6.9}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{97}{figure.6.9}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{97}{figure.6.9}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{97}{figure.6.9}%
-\contentsline {figure}{\numberline {6.10}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and BS model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{97}{figure.6.10}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{97}{figure.6.10}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{97}{figure.6.10}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{97}{figure.6.10}%
-\contentsline {figure}{\numberline {6.11}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and Bartlett model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{97}{figure.6.11}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{97}{figure.6.11}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{97}{figure.6.11}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{97}{figure.6.11}%
-\contentsline {figure}{\numberline {6.12}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and local model $\textsc {GRU}_{\textsc {local}}$ on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{99}{figure.6.12}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{99}{figure.6.12}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{99}{figure.6.12}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{99}{figure.6.12}%
-\contentsline {figure}{\numberline {6.13}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and BS model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{99}{figure.6.13}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{99}{figure.6.13}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{99}{figure.6.13}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{99}{figure.6.13}%
-\contentsline {figure}{\numberline {6.14}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and Bartlett model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{99}{figure.6.14}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{99}{figure.6.14}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{99}{figure.6.14}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{99}{figure.6.14}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces The price surface and implied volatility surface calibrated for SP500 index Call Options on 2012-01-04.}}{80}{figure.6.1}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Implied Volatility Surface}}}{80}{figure.6.1}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Price Surface}}}{80}{figure.6.1}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces $\textsc {GRU}_{\textsc {total}}$: GRU encode-decoder total hedging model. The encoder summarizes the time series $\mathbf {Y}_{t}^{T,K}=\left [\mathbf {y}^{T,K}_{\tau _{1}},\dots ,\mathbf {y}^{T,K}_{\tau _{N+1}}\right ]$ as a succinct vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {h}$}\mathaccent "0362{\mathbf {h}}_E$. The decoder outputs the hedging position based on the vector $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {h}$}\mathaccent "0362{\mathbf {h}}_E$ and the previous hedging position $\delta ^M_{t-\Delta t,T,K}$ observed at the hedging time $t$. More specifically, in the decoder, a candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$ is firstly produced. The final output $\delta ^M_{t,T,K}$ is computed based on the linear combination of BS delta $\delta ^{BS}_{t,T,K}$ and the candidate output $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \delta $}\mathaccent "0362{\delta }^M_{t,T,K}$. The combination weight is determined by $W_{\delta }$. The feature weight $\omega ^L$ is used to compute weighted sequential feature $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathbf {y}$}\mathaccent "0362{\mathbf {y}}^{T,K}_{\tau }$. The weighting acts as a feature selection process. Each edge in the graph has an arrow on it, pointing from a node whose output is used by the node pointed by the arrow as an input. The output $\delta ^M_{t,T,K}$ at $t$ is used as the input for next step $t+\Delta t$.}}{85}{figure.6.2}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and local model $\textsc {GRU}_{\textsc {local}}$ on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{93}{figure.6.3}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{93}{figure.6.3}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{93}{figure.6.3}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{93}{figure.6.3}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and BS Model on weekly hedging S\&P 500 call options in terms of the the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{93}{figure.6.4}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{93}{figure.6.4}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{93}{figure.6.4}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{93}{figure.6.4}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and Bartlett model on weekly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{93}{figure.6.5}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{93}{figure.6.5}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{93}{figure.6.5}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{93}{figure.6.5}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and local model $\textsc {GRU}_{\textsc {local}}$ on monthly hedging S\&P 500 call options in terms of thethe distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{96}{figure.6.6}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{96}{figure.6.6}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{96}{figure.6.6}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{96}{figure.6.6}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and BS model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{96}{figure.6.7}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{96}{figure.6.7}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{96}{figure.6.7}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{96}{figure.6.7}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and bartlett model on monthly hedging S\&P 500 call options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{96}{figure.6.8}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{96}{figure.6.8}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{96}{figure.6.8}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{96}{figure.6.8}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and local model $\textsc {GRU}_{\textsc {local}}$ on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{99}{figure.6.9}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{99}{figure.6.9}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{99}{figure.6.9}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{99}{figure.6.9}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and BS model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{99}{figure.6.10}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{99}{figure.6.10}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{99}{figure.6.10}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{99}{figure.6.10}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and Bartlett model on weekly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{99}{figure.6.11}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{99}{figure.6.11}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{99}{figure.6.11}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{99}{figure.6.11}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and local model $\textsc {GRU}_{\textsc {local}}$ on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{101}{figure.6.12}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{101}{figure.6.12}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{101}{figure.6.12}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{101}{figure.6.12}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and BS model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{101}{figure.6.13}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{101}{figure.6.13}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{101}{figure.6.13}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{101}{figure.6.13}%
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Comparing total model $\textsc {GRU}_{\textsc {total}}$ and Bartlett model on monthly hedging put options in terms of the distribution of the relative hedging portfolio value at the expiries. Please note that the distribution in this figure assumes we are at the sell-side of the option trading.}}{101}{figure.6.14}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{101}{figure.6.14}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{101}{figure.6.14}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{101}{figure.6.14}%
 \addvspace {10\p@ }
