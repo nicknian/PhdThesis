@@ -3136,96 +3136,134 @@ We require the following condition to be satisfied:
 \int_{K_{U}}^{\infty}	 x \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=F(t,T)
 \label{eq:RND2}
 \end{equation}
-\item Continuity of density function constraint:
-\begin{equation}
-\lambda_{L} q(K_{L};\mu_{L},\sigma_{L})=p(K_{L};T,S_t)
-\label{eq:RND3}
-\end{equation}
-\begin{equation}
-\lambda_{U} q(K_{U};\mu_{U},\sigma_{U})=p(K_{U};T,
-S_t)
-\label{eq:RND4}
-\end{equation}
+% \item Continuity of density function constraint:
+% \begin{equation}
+% \lambda_{L} q(K_{L};\mu_{L},\sigma_{L})=p(K_{L};T,S_t)
+% \label{eq:RND3}
+% \end{equation}
+% \begin{equation}
+% \lambda_{U} q(K_{U};\mu_{U},\sigma_{U})=p(K_{U};T,
+% S_t)
+% \label{eq:RND4}
+% \end{equation}
 \end{enumerate}
 
 
-% % Furthermore, if we assume $\mu_{L}=\mu_{U}=0$ , we only have 4 parameters to be solved:
-% % \[\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}.\]
-% % This fitting can be more robust and easier to be solved. In our thesis, we assume  $\mu_{L}=\mu_{U}=0$.
-% \begin{itemize}
-% \item Let $C(T,K;\sigma)$ and $C(T,K;\sigma)$ be the call and put option prices with the Black's implied volatility. 
-% \item  Let $DC(T,K;\sigma)$ and $DC(T,K;\sigma)$ be the digital call and put option prices with the Black's implied volatility where a digital call pays on dollar if the underlying price exceeds the strike and a digital put pays the same amount  if the underlying is below the strike. 
-% \item We have $\sigma_B$ given by the SABR apprximation formular \eqref{eq:SABRExpansion} for $K \in [K_{L},K_{U}]$. For simplicity, we wrote $\sigma_{B}(K)$ to denote the implied black's volatility given by the SABR formula \eqref{eq:SABRExpansion} for strike $K$.
-% \end{itemize}
-% Let $\mathcal{N}$ be the cumulative density function of standard normal distribution, we can have the following close-form formula:
-% \[
-% \int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=1-\lambda_{U} \mathcal{N}(\frac{\ln(K_{U})-\mu_{U}}{\sigma_{U}})
-% \]
-% \[
-% 	\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx=\lambda_{L} \mathcal{N}(\frac{\ln(K_{L})-\mu_{L}}{\sigma_{L}})
-% \]
-% % \[
-% % \int_{K_{L}}^{K_{U}}	  p(x;T,S_t)  dx=	\frac{1}{D(t;T)} \left( \left. \frac{\partial C_{SABR}(T,K)}{\partial K} \right\vert_{K=K_{U}} -  \left.\frac{\partial C_{SABR}(T,K)}{\partial K} \right\vert_{K=K_{L}} \right)
-% % \]
-% \[
-% \int_{K_{U}}^{\infty}	 x \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=\lambda_{U} \mathcal{N}(\frac{\ln(K_{U})-\mu_{U}-\sigma_{U}^2}{\sigma_{U}})
-% \]
-% \[
-% 	\int_{0}^{K_{L}}	x \lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx=\lambda_{L} \mathcal{N}(\frac{\mu_{L}+\sigma_{L}^2-\ln(K_{L})}{\sigma_{L}})
-% \]
-% \[
-% \begin{split}
-% \int_{K_{L}}^{K_{U}}	 x p(x;T,S_t)  dx &=	\frac{1}{D(t;T)} \left( 
-% 	C_{SABR}(K_{U},T) -K_{U}\left.\frac{\partial C_{SABR}(T,K)}{\partial K} \right\vert_{K=K_{U}}\right) \\
-% 	&-
-% 	\frac{1}{D(t;T)}
-% 	\left( 
-% 	C_{SABR}(K_{L},T) -K_{L}
-% 	\left.\frac{\partial C_{SABR}(K,T)}{\partial K} \right\vert_{K=K_{L}} \right)
-% \end{split}
-% \]
-We observe that:
-\[
-\int_{K_{L}}^{K_{U}}	  p(x;T,S_t)  dx =1-DP(T,K_{L};\sigma_{B}(K_{L}))-DC(T,K_{U};\sigma_{B}(K_{U}))
-\]
 
-\[ \begin{split}
+We observe that:
+\begin{equation}
+\int_{K_{L}}^{K_{U}}	  p(x;T,S_t)  dx =1-DP(T,K_{L};\sigma_{B}(K_{L}))-DC(T,K_{U};\sigma_{B}(K_{U}))
+\end{equation}
+\begin{equation} \begin{split}
 \int_{K_{L}}^{K_{U}}	 x p(x;T,S_t)  dx &=
 F(t,T)-[K_{L}DP(T,K_{L};\sigma_{B}(K_{L}))-P(T,K_{L};\sigma_{B}(K_{L}))]\\
 &+[K_{U}DC(T,K_{U};\sigma_{B}(K_{U}))+C(T,K_{U};\sigma_{B}(K_{U}))]
 \end{split}
-\]
+\end{equation}
 where:
 \begin{itemize}
-\item  We let $C(T,K;\sigma_B)$ and $P(T,K;\sigma_B)$ be the call and put option prices from Black's model with the Black's implied volatility $\sigma_B$. 
+\item  We let $C(T,K;\sigma_B)$ and $P(T,K;\sigma_B)$ be the call and put option prices from Black's model with the Black's implied volatility $\sigma_B$.
 \item  We let $DC(T,K;\sigma_B)$ and $DP(T,K;\sigma_B)$ be the digital call and put option prices from Black's model with the Black's implied volatility $\sigma_B$  where a digital call pays one dollar if the underlying price exceeds the strike and a digital put pays the same amount  if the underlying is below the strike. 
-\item We have $\sigma_B$ given by the SABR apprximation formular \eqref{eq:SABRExpansion} for $K \in [K_{L},K_{U}]$. For simplicity, we wrote $\sigma_{B}(K)$ to denote the implied black's volatility given by the SABR formula \eqref{eq:SABRExpansion} for strike $K$.
+\item We have $\sigma_B$ given by the SABR apprximation formula \eqref{eq:SABRExpansion} for $K \in [K_{L},K_{U}]$. For simplicity, we wrote $\sigma_{B}(K)$ to denote the implied black's volatility given by the SABR formula \eqref{eq:SABRExpansion} for strike $K$.
  \end{itemize}
 Therefore, if we have:
 \[
-\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx=DP(T,K_{L};\sigma_{B}(K_{L})
+\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx=DP(T,K_{L};\sigma_{B}(K_{L}))
 \]
 \[
-\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=DC(T,K_{U};\sigma_{B}(K_{U})
+\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=DC(T,K_{U};\sigma_{B}(K_{U}))
 \]
 \[
-\int_{0}^{K_{L}} (K_L-x)	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx=P(T,K_{L};\sigma_{B}(K_{L})
+\int_{0}^{K_{L}} (K_L-x)	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx=P(T,K_{L};\sigma_{B}(K_{L}))
 \]
 \[
-\int_{K_{U}}^{\infty}	(x-K_U) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=C(T,K_{U};\sigma_{B}(K_{U})
+\int_{K_{U}}^{\infty}	(x-K_U) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=C(T,K_{U};\sigma_{B}(K_{U}))
 \]
-we can easily show the  intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2} are satisified. As a result, we obtain the following system of equations, which we can solve for  $\{\mu_{L}, \mu_{U},\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}.$:
+we can easily show the  intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2} are satisified. As a result, we obtain the following system of equations, which we can solve for  $\{\mu_{L}, \mu_{U},\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$:
 \begin{equation}
 	\begin{split}
 \int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=DP(T,K_{L};\sigma_{B}(K_{L})\\
 \int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=DC(T,K_{U};\sigma_{B}(K_{U})\\
 \int_{0}^{K_{L}} (K_L-x)	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=P(T,K_{L};\sigma_{B}(K_{L})\\
 \int_{K_{U}}^{\infty}	(x-K_U) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=C(T,K_{U};\sigma_{B}(K_{U})\\
-\lambda_{L} q(K_{L};\mu_{L},\sigma_{L})&=p(K_{L};T,S_t)\\
-\lambda_{U} q(K_{U};\mu_{U},\sigma_{U})&=p(K_{U};T,
-	S_t)
+% \lambda_{L} q(K_{L};\mu_{L},\sigma_{L})&=p(K_{L};T,S_t)\\
+% \lambda_{U} q(K_{U};\mu_{U},\sigma_{U})&=p(K_{U};T,
+% 	S_t)
 	\end{split}
+	\label{eq:SABRFix1}
 \end{equation}
+
+Furthermore, recall that the Black-Scholes-Merton \cite{black1973pricing} model implies that the prices of the underlying asset $S_T$ at the maturity $T$ are log-normal distribued:
+\[
+\ln(S_T) \sim  \mathcal{N}(\ln(S_t)+(r-q-\frac{\sigma^2}{2})(T-t),\sigma^2 (T-t))
+\]
+Therefore, we can set $\mu_L=\ln(S_t)+(r-q-\frac{\sigma_L^2}{2})(T-t)$ and $\mu_U=\ln(S_t)+(r-q-\frac{\sigma_U^2}{2})(T-t)$. In this way, we only need to solve for  $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$ after we set $\mu_L=\ln(S_t)+(r-q-\frac{\sigma_L^2}{2})(T-t)$ and $\mu_U=\ln(S_t)+(r-q-\frac{\sigma_U^2}{2})(T-t)$. 
+As we can easily see, Equation \eqref{eq:SABRFix1} can be further simplified as:
+\begin{equation}
+	\begin{split}
+		\lambda_L DP(T,K_{L};\sigma_L)&=DP(T,K_{L};\sigma_{B}(K_{L}))\\
+		\lambda_U DC(T,K_{L};\sigma_U)&=DC(T,K_{U};\sigma_{B}(K_{U}))\\
+		\lambda_L P(T,K_{L};\sigma_L)&=P(T,K_{L};\sigma_{B}(K_{L}))\\
+		\lambda_U C(T,K_{L};\sigma_U)&=C(T,K_{U};\sigma_{B}(K_{U}))\\
+% \lambda_{L} q(K_{L};\mu_{L},\sigma_{L})&=p(K_{L};T,S_t)\\
+% \lambda_{U} q(K_{U};\mu_{U},\sigma_{U})&=p(K_{U};T,
+% 	S_t)
+	\end{split}
+	\label{eq:SABRFix2}
+\end{equation}
+Therefore, we can solve equation  \eqref{eq:SABRFix2} easily with a non-linear least square solver for the parameter: $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$. After the calibration, we will simply using the adjusted p.d.f for option pricing:
+\[
+	C(T,K)=\int_{-\infty}^{\infty} (x-K)_+ \hat{g}(x) dx
+\]
+\[\small
+	C(T,K)=\left\{ \begin{array}{ll }
+		\int_{K}^{K_L} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx+\int_{K_L}^{K_U} (x-K) p(x;T,S_t) dx+\int_{K_U}^{\infty} (x-K) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx\;&  \text{if} \; 0<K< K_{L}\\
+
+		\int_{K}^{K_U} (x-K) p(x;T,S_t) dx+\int_{K_U}^{\infty} (x-K) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx , \;&  \text{if} \; \;  K_{L} \leq K \leq K_{U}\\
+
+		\int_{K}^{\infty} (x-K) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx \;& \text{if} \; K> K_{U}
+\end{array} \right.
+\]
+One can easily see that:
+\[\begin{split}
+	\int_{K}^{K_L} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx&=\int_{K}^{\infty} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx-\int_{K_L}^{\infty} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx\\
+	&=\int_{K}^{\infty} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx\\
+	&-\left[\int_{K_L}^{\infty} (x-K_L) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx
+	+\int_{K_L}^{\infty} (K_L-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx\right]
+	\\
+	&=\lambda_L \left\{C(T,K;\sigma_L)-\left[C(T,K_L;\sigma_L)+(K_L-K)DC(T,K_L;\sigma_L)\right] \right\}
+\end{split}
+\]
+Similarly,
+\[\begin{split}
+	\int_{K_L}^{K_U} (x-K) p(x;T,S_t)dx&=\left[C(T,K_L;\sigma_B(K_L))+(K_L-K)DC(T,K_L;;\sigma_B(K_L))\right]-\left[C(T,K_U;\sigma_B(K_U))+(K_L-K)DC(T,K_L;\sigma_B(K_U))\right]
+\end{split}
+\]
+\[\begin{split}
+	\int_{K_U}^{\infty} (x-K) \lambda_U q(x;\mu_{U},\sigma_{U}) dx&=\int_{K_U}^{\infty} (x-K_U) \lambda_U q(x;\mu_{U},\sigma_{U}) dx+\int_{K_U}^{\infty} (K_U-K) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx \\
+	&=\lambda_U \left[C(T,K_U;\sigma_U)+(K_U-K)DC(T,K_U;\sigma_U)\right]
+\end{split}
+\]
+\[\begin{split}
+	\int_{K}^{\infty} (x-K) \lambda_U q(x;\mu_{U},\sigma_{U}) dx&=\lambda_U C(T,K;\sigma_U)
+\end{split}
+\]
+\[\begin{split}
+	\int_{K}^{K_U} (x-K) p(x;T,S_t)dx&=C(T,K;\sigma_B(K))+\left[C(T,K;\sigma_B(K_U))-(K_U-K)DC(T,K;\sigma_B(K_U))\right]
+\end{split}
+\]
+So we have
+\[\small
+	C(T,K)=\left\{ \begin{array}{ll }
+		\lambda_L C(T,K;\sigma_L)\;&  \text{if} \; 0<K< K_{L}\\
+
+		C(T,K;\sigma_B(K))\;&  \text{if} \; \;  K_{L} \leq K \leq K_{U}\\
+
+		\lambda_U C(T,K;\sigma_U) \; &  \text{if} \; \;  K> K_{U}
+\end{array} \right.
+\]
+
+
 For calendar arbitrage, we will shift the price by the the following procedure to remove it.
 \[
 shift=-min(min(C(T_j,K)-C(T_{j-1},K)),0).	
