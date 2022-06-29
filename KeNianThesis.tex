@@ -1027,7 +1027,7 @@ We demonstrate that determining the hedging position from the partial derivative
 \] of the calibrated pricing function inevitably leads to incomplete elimination of the underlying sensitivity, even in the context of instantaneous hedging. 
 To see this,
 let us assume that a pricing model matches the market price $\Vmkt_{t,T,K}$ with strike $K$ and expiry $T$  at $t$ exactly, i.e., $\theta^*$ is determined so that:
-\begin{equation} \label{eq:imp}
+\begin{equation} 
      V(S,t,T,K;\theta^*)=\Vmkt_{t,T,K}.
 \end{equation} 
 Let us further assume the risk-free interest rate and dividend yield $\{r,q\}$ do not depend on $S$. 
@@ -2973,7 +2973,7 @@ Suppose we have $M$ hedging scenarios, a data driven model can be built by minim
     MSE_{total}=\frac{1}{M}\sum_{i=1}^M P_H(T_i,T_i,K_i)^2
 \]
 
-Clearly, in order to build a efficient data-driven total hedging model, one needs to gather a sufficient  number of sample  $M$.  In addition, ideally, one should also use non-overlapping underlying asset paths to generate training and testing hedging scenarios to avoid the correlation of different hedging scenarios.
+Clearly, in order to build an efficient data-driven total hedging model, one needs to gather a sufficient  number of sample  $M$.  In addition, ideally, one should also use non-overlapping underlying asset paths to generate training and testing hedging scenarios to avoid the correlation of different hedging scenarios.
 However, in reality,  we have the following challenges:
 \begin{enumerate}
 	\item Using non-overlapping underlying asset path to  generate training and testing scenarios is not practical. For instance, assuming we are building a data-driven model for hedging 3 months until expiry, with non-overlapping underlying asset paths, 20 years of market data can provide only 80 different non-overlapping underlying asset paths which is clearly not enough to build a data-driven model.
@@ -2986,7 +2986,7 @@ However, in reality,  we have the following challenges:
 In order to overcome the above challenges, we propose the following remedy.  
 \begin{enumerate}
 	\item Overlapping underlying asset path is allowed to be used.
-	\item Instead of using only market available expiration dates, we assume every business day can be the expiration dates of the options.
+	\item Instead of using only market available expiration dates, we assume every business day can be the expiration date of the options.
 	\item A no-arbitrage price surface is calibrated on each business day to obtain option price for a range of arbitrary combination of  $K$ and $T$: $V^{Aug}_{t,T,K}$.
 \end{enumerate}
 
@@ -2997,19 +2997,19 @@ Therefore, we can greatly increase the number of training scenarios, since now t
 In this section, we describe how to calibrate an arbitrage-free price surface on each business day. We want to create a price surface that is \textbf{arbitrage-free}. In addition, we want to be able to \textbf{extrapolate} for  in-money options and out-of-money options. In the following subsection, we will discuss the steps of calibration of the arbitrage-free surface with.
 
 
-Following \cite{gatheral2014arbitrage}, we say that an implied volatility surface is free of \textit{static arbitrage} if and only if it is free of \textit{call spread arbitrage}, \textit{calendar arbitrage}, and \textit{butterfly arbitrage}, which we describe below. We assume we have a collection of European call option prices $\{C(T,K)\}_{K,T}$ for a range of strikes, $K$, and maturities, $T$, from which we associate its Black-Scholes implied volatility surface $\{ \sigma^{imp}(T,K)\}_{K,T}$. We also suppose that interest rates are deterministic with the expressions $D(t;T)=e^{-r(T-t)}$ for discount factors, $t$ be trading date and $T$ be the maturity date.
+Following \cite{gatheral2014arbitrage}, we say that an implied volatility surface is free of \textit{static arbitrage} if and only if it is free of \textit{call spread arbitrage}, \textit{calendar arbitrage}, and \textit{butterfly arbitrage}, which we describe below. We assume we have a collection of European call option prices $\{C(T,K)\}_{T,K}$ for a range of strikes, $K$, and expiries, $T$, from which we associate its Black-Scholes implied volatility surface $\{ \sigma^{imp}(T,K)\}_{T,K}$. We also suppose that interest rates are deterministic with the expressions $D(t,T)=e^{-r(T-t)}$ for discount factors, $t$ be trading date and $T$ be the maturity date.
 
 
 \begin{enumerate}
-\item  \label{item:butterfly}\underline{Butterfly Arbitrage}: Given a collection of call option prices $\{C(T,K)\}_{K,T}$, using Dupire's method or equivalent approaches \cite{dupire1994pricing} one can (at least formally) find expressions for implied probability densities $\{ p(\cdot;T,S_0) \}_{T}$ such that 
+\item  \label{item:butterfly}\underline{Butterfly Arbitrage}: Given a collection of call option prices $\{C(T,K)\}_{T,K}$, using Dupire's method or equivalent approaches \cite{dupire1994pricing} one can (at least formally) find expressions for implied probability densities $\{ p(\cdot;T,S_0) \}_{T}$ such that 
 \[
-C(T,K) = D(t;T) \int_{(0,\infty)} (S - K)_+ p(S;T,S_t) dS.
+C(T,K) = D(t,T) \int_{(0,\infty)} (S - K)_+ p(S;T,S_t) dS.
 \]
-We say that the surface $\{ \sigma(T,K) \}_{K,T}$, where $\sigma(T,K)$ is the black-scholes implied volatility, is free of Butterfly Arbitrage if its implied probability densities $\{p(\cdot ; T,S_0)\}_{T}$ are valid densities, i.e., $p(S;T,S_t) \geq 0$ for all $S > 0$ and $\int_{0}^{\infty} p(S;T,S_t) dS = 1$. 
+We say that the surface $\{ \sigma^{imp}(T,K) \}_{T,K}$, where $\sigma^{imp}(T,K)$ is the black-scholes implied volatility, is free of Butterfly Arbitrage if its implied probability densities $\{p(\cdot ; T,S_0)\}_{T}$ are valid densities, i.e., $p(S;T,S_t) \geq 0$ for all $S > 0$ and $\int_{0}^{\infty} p(S;T,S_t) dS = 1$. 
 Additionally, the condition $p(S;T,S_t) \geq 0$ for all $S > 0$ is equivalent to require $\frac{\partial^2 C(T,K)}{\partial K^2} > 0$ for all $K > 0$ since 
 \citet{breeden1978prices} show that:
 \[
-	\left. \frac{\partial^2 C(T,K)}{\partial K^2} \right\vert_{K=x}=D(t;T)	p(x;T,S_t)
+	\left. \frac{\partial^2 C(T,K)}{\partial K^2} \right\vert_{K=x}=D(t,T)	p(x;T,S_t)
 \]
 
 
@@ -3031,15 +3031,15 @@ Additionally, the condition $p(S;T,S_t) \geq 0$ for all $S > 0$ is equivalent to
 % \end{enumerate}
 % the above listed conditions being the natural analogue of the density being non-negative and integrating to 1. 
 \item \label{item:calendar} \underline{Calendar Arbitrage}:
-While the above definition is a proper theoretical starting point for working with butterfly arbitrage, one can also characterize the presence of butterfly arbitrage in terms of the observed volatility surface. Given a surface $\sigma(T,K)$, we consider the corresponding total variance (TV) surface defined by 
+ Given a surface $\sigma^{imp}(T,K)$, we consider the corresponding total variance (TV) surface defined by 
  \[
- w(k,T) = \sigma(k,T)^2 T
+ w(\tau,k) = \sigma(T,K)^2 \tau
  \]
- where now $k$ is parameterized by log-moneyness, i.e. $k := \log(K/F(t;T))$ and $F(t;T)=S_te^{(r-q)(T-t)}\\$ is the forward price for $S_t$: . 
-We say that the surface $\{ \sigma(K_i,T_j) \}_{K,T}$ is free of Calendar Arbitrage 
+ where $\tau =T-t$ and $k$ is parameterized by log-moneyness, i.e. $k := \log(K/F(t;T))$ and $F(t;T)=S_te^{(r-q)(T-t)}\\$ is the at-the-money forward (ATMF) price for $S_t$. 
+We say that the surface $\{ \sigma^{imp}(T,K) \}_{T,K}$ is free of Calendar Arbitrage 
 \begin{itemize}
-\item if $\frac{\partial w(k,T)}{\partial T} \geq 0 $ for all $k \in \mathbb{R}, T > 0$ for continuous time data
-\item if $w(k,T_1) \leq w(k,T_2)$ for all $k \in \mathbb{R},  T_1 \leq T_2$ for discrete time data 
+\item if $\frac{\partial w(\tau,k)}{\partial T} \geq 0 $ for all $k \in \mathbb{R}, T > 0$ for continuous time data
+\item if $w(\tau_i,k) \leq w(\tau_{i+1},k)$ for all $k \in \mathbb{R},  T_{i} \leq T_{i+1}$ for discrete time data 
 \end{itemize}
 
 % \item \underline{Call Spread Arbitrage}: We say that the surface $\{ \sigma(K_i,T_j) \}_{K,T}$ is free of Call Arbitrage 
@@ -3049,17 +3049,19 @@ We say that the surface $\{ \sigma(K_i,T_j) \}_{K,T}$ is free of Calendar Arbitr
 
 \end{enumerate}
 
-Furthermore,  given a  grid of strikes: $0=K_0<K_1<\dots<K_{max}$, and a grid of expiries $t=T_0 < T_1 < \dots< T_{max} $. Let $C(T,K)$ be the call option price of the expiry $T$ and strike $K$ returned by a model.  The discrete criteria \cite{carr2005note} for the grid of  option prices to be free of arbitrage are set as the following: 
+Furthermore,  given a  grid of strikes: $0=K_0<K_1<\dots<K_{max}$, and a grid of expiries $t=T_0 < T_1 < \dots< T_{max} $. Let $C(T,K)$ be the call option price of the expiry $T$ and strike $K$ returned by a model.  The corresponding discrete criteria \cite{carr2005note} for a grid of  option prices to be free of arbitrage are set as the following: 
 \begin{enumerate}
 	\item  No butterfly spread arbitrage condition:
-	 \[
+	 \begin{equation}
 	C(T_{j},K_{i-1})-C(T_{j},K_{i}) > \frac{K_i-K_{i-1}}{K_{i+1}-K_{i}}
 	\left( C(T_{j},K_{i})-C(T_{j},K_{i+1})  \right)
-	\]
+	\label{eq:DiscreteCond1}
+\end{equation}
 	\item  No calendar spread arbitrage:
-	\[
+	\begin{equation}
 	C(T_{j},K_{i})\geq C(T_{j-1},K_{i})
-	\]
+	\label{eq:DiscreteCond1}
+\end{equation}
 
 	% \item No call spread arbitrage condition:
 	% \[
@@ -3078,7 +3080,7 @@ T^{t}_1 < \dots< T^{t}_{max}
 \]
 The first expiry is set to be $t$: $T^{t}_{0}=t$. Note that for the first expiry $T^{t}_{0}=t$, the market option value at $t$ is just the option payoff at $t$ which is $\max\{S_t-K,0\}$ (call) or  $\max\{K-S_t,0\}$ (put). 
 
-Since in this subsection, we are discussing how to obtain a arbitrage-free surface on a fixed date $t$, for the notational simplicity, we will omit the superscript  and subscript $t$ in this subsection \ref{sec:NoArb}, we denote the grid of market observed expires on t to be \[
+Since in this subsection, we are discussing how to obtain a arbitrage-free surface on a fixed date $t$, for the notational simplicity, we will omit the superscript  and subscript $t$ in this subsection, we denote the grid of market observed expires on t to be \[
 \{ T_{0}<
 T_1 < \dots< T_{max}
 \}
@@ -3094,19 +3096,19 @@ We solve
 \[
 \min_{\alpha,\nu,\rho} \sum_{j=1}^{N_K} \left(V_{SABR}(S,t,T_i,K^{mkt}_j,r,q;\alpha,\beta,\nu,\rho)-\Vmkt(t,T_i,K^{mkt}_j)\right)^2
 \]
-where $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ is option pricing function described in section \ref{sec:SABR}. Since we are dealing with S\&P500 index option, the log-normal assumption is more appropriate, we fix $\beta=1$ in the calibration process.  We choose to calibrate a different model for each expiry. A different set of parameters is specified for each expiry, describing an instantaneous process. The SABR models for different expiries are completely independent from each other. We choose this approach because the single implied volatility surface calibrated for all expiries and strikes is unlikely to fit the actual surface and calibrating a single surface is harder and more time-consuming. 
+where $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ is option pricing function described in section \ref{sec:SABR}. Since we are dealing with S\&P500 index option, the log-normal assumption is more appropriate, we fix $\beta=1$ in the calibration process.  We choose to calibrate a different model for each expiry. A different set of parameters is specified for each expiry, describing an instantaneous process. The SABR models for different expiries are completely independent from each other. We choose this approach because the single implied volatility surface calibrated for all expiries and strikes is unlikely to fit the actual surface very well and calibrating a single surface is harder and more time-consuming. 
 
-Note that we have three parameters to be calibrated so we need to observe at least 3 data points from market to successfully build a SABR model. Therefore, the number of strikes $N_K$ must be larger than 3. \footnote{The $\Vmkt(t,T_i,K^{mkt}_j)$ is the mid-price of market observed best bid and  best ask prices. We use market quotes in calibration and even if the trading volume is zero, we will still include them in the calibration.}
+Note that we have three parameters to be calibrated so we need to observe at least 3 data points from market to successfully build a SABR model. Therefore, the number of strikes $N_K$ must be larger than or equal to 3. \footnote{The $\Vmkt(t,T_i,K^{mkt}_j)$ is the mid-price of market observed best bid and  best ask prices. We use market quotes in calibration and even if the trading volume is zero, we will still include them in the calibration.}
 
-Although SABR model is computationally efficient and can match the market volatility smile well, it is not arbitrage-free. The formula \eqref{eq:SABRExpansion} is an approximation, obtained from  an asymptotic series expansion. Its accuracy degrades if the option strikes move away from the option ATM strike. As a result, the implied probability density function:
+Although SABR model is computationally efficient and can match the market volatility smile well, it is not arbitrage-free. The formula \eqref{eq:SABRExpansion} is an approximation, obtained from  an asymptotic series expansion. Its accuracy degrades if the option strikes move away from the option at-the-money (ATM) strike. As a result, the implied probability density function:
 \[
-	\frac{1}{D(t;T)} \left. \frac{\partial^2 C_{SABR}(T,K)}{\partial K^2} \right\vert_{K=x}=	p(x;T,S_t)
+	\frac{1}{D(t,T)} \left. \frac{\partial^2 C_{SABR}(T,K)}{\partial K^2} \right\vert_{K=x}=	p(x;T,S_t)
 \]
-where $C_{SABR}(T,K)$ is the price of a call option at strike $K$ and expiry $T$, may become negative at very low or very high strikes. Therefore, we may have butterfly spread arbitrage in SABR prices returned by the calibrated models. In addition, for each expiry, a separate set of SABR parameters is calibrated so that calender spread arbitrage can also exist.
+where $C_{SABR}(T,K)$ is the SABR price of a call option at strike $K$ and expiry $T$, may become negative at very low or very high strikes. Therefore, we may have butterfly spread arbitrage in SABR prices returned by the calibrated models. In addition, for each expiry, a separate set of SABR parameters is calibrated so that calender spread arbitrage can also exist. However, the existence of calendar arbitrage will be rare since the market option prices rarely contains calendar arbitrage.
 
-Therefore, if we found that the grid of prices returned by the SABR model has failed any of the  arbitrage conditions, we will introduce some adjustments. To fix the butterfly spread  arbitrage, we implements an risk-neutral adjustment \cite{brunner2003arbitrage}. This adjustment substitutes the implied distribution tails by those of certain log-normal distributions. Interested reader can refer to \cite{brunner2003arbitrage} for more details. Here we just briefly discuss the process of the adjustment.
+Therefore, if we found that the grid of prices returned by the SABR model has failed any of the  \textbf{discrete} arbitrage conditions, we will introduce some adjustments. To fix the butterfly spread  arbitrage, we implements an risk-neutral adjustment \cite{brunner2003arbitrage}. This adjustment substitutes the implied distribution tails by those of certain log-normal distributions. Interested reader can refer to \cite{brunner2003arbitrage} for more details. Here we just briefly discuss the process of the adjustment.
 
-First, we introduce lower and upper strike limits, $K_{L}$ and $K_{U}$ within which the implicit probability density function (p.d.f) $p(x;T,S_t)$ is assumed to be valid. The lower and upper strike limit can be the maximum and minimum strike $K_i$ for which the  discrete no butterfly spread arbitrage condition holds. Then we assume the adjusted p.d.f is of the form:
+First, we introduce lower and upper strike limits, $K_{L}$ and $K_{U}$ within which the implicit probability density function (p.d.f) $p(x;T,S_t)$ is assumed to be valid. The lower and upper strike limit can be the maximum and minimum strike $K$ for which the  discrete no butterfly spread arbitrage condition \eqref{eq:DiscreteCond1} holds . Then we assume the adjusted p.d.f is of the form:
 \[
 \hat{g}(x)=\left\{ \begin{array}{ll }
 \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}), \;&  \text{if} \; 0<x< K_{L}\\
@@ -3114,12 +3116,12 @@ p(x;T,S_t) , \;&  \text{if} \; \;  K_{L} \leq x \leq K_{U}\\
 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}), \;& \text{if} \; x> K_{U}
 \end{array} \right.
 \]
-where  $q(x;\mu,\sigma)$ is the p.d.f of a  log-normal distribution with volatility:
+where  $q(x;\mu,\sigma)$ is the p.d.f of a  log-normal distribution:
 \[
 	q(x;\mu,\sigma)=\frac{1}{x\sigma \sqrt{2 \pi}}
 	e^{-\frac{(\log(x)-\mu)^2}{2 \sigma^2}}.
 \]
-and $p(x;T,S_t)$ is the implied probability density from calibrated SABR model.
+and $p(x;T,S_t)$ is the implied probability density from the calibrated SABR model.
 We require the following condition to be satisfied:
 \begin{enumerate}
 \item Intergrability constraint
@@ -3147,135 +3149,268 @@ We require the following condition to be satisfied:
 % \label{eq:RND4}
 % \end{equation}
 \end{enumerate}
+We solve the equations \eqref{eq:RND1} and \eqref{eq:RND2} for the unknown parameters $\{\mu_{L}, \mu_{U},\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$.
 
-
-
-We observe that:
-\begin{equation}
-\int_{K_{L}}^{K_{U}}	  p(x;T,S_t)  dx =1-DP(T,K_{L};\sigma_{B}(K_{L}))-DC(T,K_{U};\sigma_{B}(K_{U}))
-\end{equation}
-\begin{equation} \begin{split}
-\int_{K_{L}}^{K_{U}}	 x p(x;T,S_t)  dx &=
-F(t,T)-[K_{L}DP(T,K_{L};\sigma_{B}(K_{L}))-P(T,K_{L};\sigma_{B}(K_{L}))]\\
-&+[K_{U}DC(T,K_{U};\sigma_{B}(K_{U}))+C(T,K_{U};\sigma_{B}(K_{U}))]
-\end{split}
-\end{equation}
-where:
+Let:
 \begin{itemize}
-\item  We let $C(T,K;\sigma_B)$ and $P(T,K;\sigma_B)$ be the call and put option prices from Black's model with the Black's implied volatility $\sigma_B$.
-\item  We let $DC(T,K;\sigma_B)$ and $DP(T,K;\sigma_B)$ be the digital call and put option prices from Black's model with the Black's implied volatility $\sigma_B$  where a digital call pays one dollar if the underlying price exceeds the strike and a digital put pays the same amount  if the underlying is below the strike. 
-\item We have $\sigma_B$ given by the SABR apprximation formula \eqref{eq:SABRExpansion} for $K \in [K_{L},K_{U}]$. For simplicity, we wrote $\sigma_{B}(K)$ to denote the implied black's volatility given by the SABR formula \eqref{eq:SABRExpansion} for strike $K$.
+\item  $C_{BS}(T,K;\sigma)$ and $P_{BS}(T,K;\sigma)$ be the call and put option prices from Black-Scholes model with the Black-Scholes volatility $\sigma$.
+\item  $DC_{BS}(T,K;\sigma)$ and $DP_{BS}(T,K;\sigma)$ be the digital call and put option prices from Black-Scholes model with the Black-Scholes  volatility $\sigma$  where a digital call pays one dollar if the underlying price exceeds the strike and a digital put pays the same amount  if the underlying is below the strike. 
+\item  $\sigma_B$ be implied Black's volatility given by the SABR apprximation formula \eqref{eq:SABRExpansion} for $K \in [K_{L},K_{U}]$. For simplicity, we write $\sigma_{B}(K)$ to denote the implied Black's volatility given by the SABR formula \eqref{eq:SABRExpansion} for a strike $K$.
  \end{itemize}
-Therefore, if we have:
-\[
-\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx=DP(T,K_{L};\sigma_{B}(K_{L}))
-\]
-\[
-\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=DC(T,K_{U};\sigma_{B}(K_{U}))
-\]
-\[
-\int_{0}^{K_{L}} (K_L-x)	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx=P(T,K_{L};\sigma_{B}(K_{L}))
-\]
-\[
-\int_{K_{U}}^{\infty}	(x-K_U) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=C(T,K_{U};\sigma_{B}(K_{U}))
-\]
-we can easily show the  intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2} are satisified. As a result, we obtain the following system of equations, which we can solve for  $\{\mu_{L}, \mu_{U},\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$:
-\begin{equation}
-	\begin{split}
-\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=DP(T,K_{L};\sigma_{B}(K_{L})\\
-\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=DC(T,K_{U};\sigma_{B}(K_{U})\\
-\int_{0}^{K_{L}} (K_L-x)	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=P(T,K_{L};\sigma_{B}(K_{L})\\
-\int_{K_{U}}^{\infty}	(x-K_U) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=C(T,K_{U};\sigma_{B}(K_{U})\\
-% \lambda_{L} q(K_{L};\mu_{L},\sigma_{L})&=p(K_{L};T,S_t)\\
-% \lambda_{U} q(K_{U};\mu_{U},\sigma_{U})&=p(K_{U};T,
-% 	S_t)
-	\end{split}
-	\label{eq:SABRFix1}
-\end{equation}
 
-Furthermore, recall that the Black-Scholes-Merton \cite{black1973pricing} model implies that the prices of the underlying asset $S_T$ at the maturity $T$ are log-normal distribued:
-\[
-\ln(S_T) \sim  \mathcal{N}(\ln(S_t)+(r-q-\frac{\sigma^2}{2})(T-t),\sigma^2 (T-t))
-\]
-Therefore, we can set $\mu_L=\ln(S_t)+(r-q-\frac{\sigma_L^2}{2})(T-t)$ and $\mu_U=\ln(S_t)+(r-q-\frac{\sigma_U^2}{2})(T-t)$. In this way, we only need to solve for  $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$ after we set $\mu_L=\ln(S_t)+(r-q-\frac{\sigma_L^2}{2})(T-t)$ and $\mu_U=\ln(S_t)+(r-q-\frac{\sigma_U^2}{2})(T-t)$. 
-As we can easily see, Equation \eqref{eq:SABRFix1} can be further simplified as:
+ Additionally, observing that the Black-Scholes \cite{black1973pricing} model implies that the prices of the underlying asset $S_T$ at the maturity $T$ are log-normal distribued:
+ \[
+ \ln(S_T) \sim  \mathcal{N}(\ln(S_t)+(r-q-\frac{\sigma^2}{2})(T-t),\sigma^2 (T-t))
+ \]
+we set $\mu_L=\ln(S_t)+(r-q-\frac{\sigma_L^2}{2})(T-t)$ and $\mu_U=\ln(S_t)+(r-q-\frac{\sigma_U^2}{2})(T-t)$ such that we have only four parameters to be solved: $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$. Furthermore, by such setting, we will have:
+\begin{equation}
+\begin{split}
+D(t,T)\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=\lambda_{L} DP_{BS}(T,K_{L};\sigma_{L})\\
+D(t,T)\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=\lambda_{U} DC_{BS}(T,K_{U};\sigma_{U})\\
+D(t,T)\int_{0}^{K_{L}} (K_L-x)	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=\lambda_{L} P_{BS}(T,K_{L};\sigma_{L})\\
+D(t,T)\int_{K_{U}}^{\infty}	(x-K_U) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=\lambda_{U} C_{BS}(T,K_{U};\sigma_{U})\\
+\end{split}
+\label{eq:SABRFix0}
+\end{equation}
+Following equation \eqref{eq:SABRFix0}, we observe that the two constraints \eqref{eq:RND1} and \eqref{eq:RND2} can be written as:
+\begin{equation}
+	\begin{split}\frac{1}{D(t,T)}=&
+\lambda_{L} DP_{BS}(T,K_{L};\sigma_{L})+\\
+&\frac{1}{D(t,T)}-DP_{BS}(T,K_{L};\sigma_{B}(K_L))-DC_{BS}(T,K_{U};\sigma_{B}(K_U))+\\
+&\lambda_{U} DC_{BS}(T,K_{U};\sigma_{U})
+\end{split}
+\label{eq:RND5}
+\end{equation}
+\begin{equation}
+	 \begin{split}
+		F(t,T)=&\frac{1}{D(t,T)}\lambda_L[K_{L}DP_{BS}(T,K_{L};\sigma_{L})-P_{BS}(T,K_{L};\sigma_{L})]+\\
+		&F(t,T)-\frac{1}{D(t,T)}[K_{L}DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))-P_{BS}(T,K_{L};\sigma_{B}(K_{L}))]-\\
+		&\frac{1}{D(t,T)}[K_{U}DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))+C_{BS}(T,K_{U};\sigma_{B}(K_{U}))]+\\
+		&\frac{1}{D(t,T)}\lambda_U[K_{U}DC_{BS}(T,K_{U};\sigma_{U})+C_{BS}(T,K_{U};\sigma_{U})]
+		\end{split}
+	\label{eq:RND6}
+\end{equation}
+As one can easily see, if we have:
+% \begin{equation}
+% \begin{split}
+% D(t,T)\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=DP_{BS}(T,K_{L};\sigma_{B}(K_{L})\\
+% D(t,T)\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=DC_{BS}(T,K_{U};\sigma_{B}(K_{U})\\
+% D(t,T)\int_{0}^{K_{L}} (K_L-x)	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=P_{BS}(T,K_{L};\sigma_{B}(K_{L})\\
+% D(t,T)\int_{K_{U}}^{\infty}	(x-K_U) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=C_{BS}(T,K_{U};\sigma_{B}(K_{U})\\
+% \end{split}
+% \label{eq:SABRFix1}
+% \end{equation}
 \begin{equation}
 	\begin{split}
-		\lambda_L DP(T,K_{L};\sigma_L)&=DP(T,K_{L};\sigma_{B}(K_{L}))\\
-		\lambda_U DC(T,K_{L};\sigma_U)&=DC(T,K_{U};\sigma_{B}(K_{U}))\\
-		\lambda_L P(T,K_{L};\sigma_L)&=P(T,K_{L};\sigma_{B}(K_{L}))\\
-		\lambda_U C(T,K_{L};\sigma_U)&=C(T,K_{U};\sigma_{B}(K_{U}))\\
-% \lambda_{L} q(K_{L};\mu_{L},\sigma_{L})&=p(K_{L};T,S_t)\\
-% \lambda_{U} q(K_{U};\mu_{U},\sigma_{U})&=p(K_{U};T,
-% 	S_t)
+		\lambda_L DP_{BS}(T,K_{L};\sigma_L)&=DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))\\
+		\lambda_U DC_{BS}(T,K_{L};\sigma_U)&=DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))\\
+		\lambda_L P_{BS}(T,K_{L};\sigma_L)&=P_{BS}(T,K_{L};\sigma_{B}(K_{L}))\\
+		\lambda_U C_{BS}(T,K_{L};\sigma_U)&=C_{BS}(T,K_{U};\sigma_{B}(K_{U}))
 	\end{split}
 	\label{eq:SABRFix2}
 \end{equation}
+we can  show the  intergrability constraint \eqref{eq:RND5} and martingale  constraint \eqref{eq:RND6} are satisified. 
+
+
+
+
+
+
+% As we can easily see, Equation \eqref{eq:SABRFix1} can be further simplified as:
+% \begin{equation}
+% 	\begin{split}
+% 		\lambda_L DP_{BS}(T,K_{L};\sigma_L)&=DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))\\
+% 		\lambda_U DC_{BS}(T,K_{L};\sigma_U)&=DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))\\
+% 		\lambda_L P_{BS}(T,K_{L};\sigma_L)&=P_{BS}(T,K_{L};\sigma_{B}(K_{L}))\\
+% 		\lambda_U C_{BS}(T,K_{L};\sigma_U)&=C_{BS}(T,K_{U};\sigma_{B}(K_{U}))
+% 	\end{split}
+% 	\label{eq:SABRFix2}
+% \end{equation}
 Therefore, we can solve equation  \eqref{eq:SABRFix2} easily with a non-linear least square solver for the parameter: $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$. After the calibration, we will simply using the adjusted p.d.f for option pricing:
-\[
-	C(T,K)=\int_{-\infty}^{\infty} (x-K)_+ \hat{g}(x) dx
-\]
+\begin{equation}
+	C_{SABR}(T,K)=D(t,T)\int_{-\infty}^{\infty} (x-K)_+ \hat{g}(x) dx
+	\label{eq:SABRFix3}
+\end{equation}
+We can easily verify that \eqref{eq:SABRFix3} can be written as:
 \[\small
-	C(T,K)=\left\{ \begin{array}{ll }
-		\int_{K}^{K_L} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx+\int_{K_L}^{K_U} (x-K) p(x;T,S_t) dx+\int_{K_U}^{\infty} (x-K) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx\;&  \text{if} \; 0<K< K_{L}\\
+	C_{SABR}(T,K)=\left\{ \begin{array}{ll }
+		\lambda_L C_{BS}(T,K;\sigma_L)\;&  \text{if} \; 0<K< K_{L}\\
 
-		\int_{K}^{K_U} (x-K) p(x;T,S_t) dx+\int_{K_U}^{\infty} (x-K) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx , \;&  \text{if} \; \;  K_{L} \leq K \leq K_{U}\\
+		C_{BS}(T,K;\sigma_B(K))\;&  \text{if} \; \;  K_{L} \leq K \leq K_{U}\\
 
-		\int_{K}^{\infty} (x-K) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx \;& \text{if} \; K> K_{U}
+		\lambda_U C_{BS}(T,K;\sigma_U) \; &  \text{if} \; \;  K> K_{U}
 \end{array} \right.
 \]
-One can easily see that:
-\[\begin{split}
-	\int_{K}^{K_L} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx&=\int_{K}^{\infty} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx-\int_{K_L}^{\infty} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx\\
-	&=\int_{K}^{\infty} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx\\
-	&-\left[\int_{K_L}^{\infty} (x-K_L) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx
-	+\int_{K_L}^{\infty} (K_L-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx\right]
-	\\
-	&=\lambda_L \left\{C(T,K;\sigma_L)-\left[C(T,K_L;\sigma_L)+(K_L-K)DC(T,K_L;\sigma_L)\right] \right\}
-\end{split}
-\]
-Similarly,
-\[\begin{split}
-	\int_{K_L}^{K_U} (x-K) p(x;T,S_t)dx&=\left[C(T,K_L;\sigma_B(K_L))+(K_L-K)DC(T,K_L;;\sigma_B(K_L))\right]-\left[C(T,K_U;\sigma_B(K_U))+(K_L-K)DC(T,K_L;\sigma_B(K_U))\right]
-\end{split}
-\]
-\[\begin{split}
-	\int_{K_U}^{\infty} (x-K) \lambda_U q(x;\mu_{U},\sigma_{U}) dx&=\int_{K_U}^{\infty} (x-K_U) \lambda_U q(x;\mu_{U},\sigma_{U}) dx+\int_{K_U}^{\infty} (K_U-K) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx \\
-	&=\lambda_U \left[C(T,K_U;\sigma_U)+(K_U-K)DC(T,K_U;\sigma_U)\right]
-\end{split}
-\]
-\[\begin{split}
-	\int_{K}^{\infty} (x-K) \lambda_U q(x;\mu_{U},\sigma_{U}) dx&=\lambda_U C(T,K;\sigma_U)
-\end{split}
-\]
-\[\begin{split}
-	\int_{K}^{K_U} (x-K) p(x;T,S_t)dx&=C(T,K;\sigma_B(K))+\left[C(T,K;\sigma_B(K_U))-(K_U-K)DC(T,K;\sigma_B(K_U))\right]
-\end{split}
-\]
-So we have
-\[\small
-	C(T,K)=\left\{ \begin{array}{ll }
-		\lambda_L C(T,K;\sigma_L)\;&  \text{if} \; 0<K< K_{L}\\
+The similar logic will be used to correct the put option prices if any arbitrage exists.
 
-		C(T,K;\sigma_B(K))\;&  \text{if} \; \;  K_{L} \leq K \leq K_{U}\\
+% \[\small
+% 	C_{BS}(T,K)=\left\{ \begin{array}{ll }
+% 		\int_{K}^{K_L} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx+\int_{K_L}^{K_U} (x-K) p(x;T,S_t) dx+\int_{K_U}^{\infty} (x-K) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx\;&  \text{if} \; 0<K< K_{L}\\
 
-		\lambda_U C(T,K;\sigma_U) \; &  \text{if} \; \;  K> K_{U}
-\end{array} \right.
-\]
+% 		\int_{K}^{K_U} (x-K) p(x;T,S_t) dx+\int_{K_U}^{\infty} (x-K) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx , \;&  \text{if} \; \;  K_{L} \leq K \leq K_{U}\\
+
+% 		\int_{K}^{\infty} (x-K) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx \;& \text{if} \; K> K_{U}
+% \end{array} \right.
+% \]
+% One can easily see that:
+% \[\begin{split}
+% 	\int_{K}^{K_L} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx&=\int_{K}^{\infty} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx-\int_{K_L}^{\infty} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx\\
+% 	&=\int_{K}^{\infty} (x-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx\\
+% 	&-\left[\int_{K_L}^{\infty} (x-K_L) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx
+% 	+\int_{K_L}^{\infty} (K_L-K) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx\right]
+% 	\\
+% 	&=\lambda_L \left\{C_{BS}(T,K;\sigma_L)-\left[C_{BS}(T,K_L;\sigma_L)+(K_L-K)DC_{BS}(T,K_L;\sigma_L)\right] \right\}
+% \end{split}
+% \]
+% Similarly,
+% \[\begin{split}
+% 	\int_{K_L}^{K_U} (x-K) p(x;T,S_t)dx&=\left[C_{BS}(T,K_L;\sigma_B(K_L))+(K_L-K)DC_{BS}(T,K_L;;\sigma_B(K_L))\right]-\left[C_{BS}(T,K_U;\sigma_B(K_U))+(K_L-K)DC_{BS}(T,K_L;\sigma_B(K_U))\right]
+% \end{split}
+% \]
+% \[\begin{split}
+% 	\int_{K_U}^{\infty} (x-K) \lambda_U q(x;\mu_{U},\sigma_{U}) dx&=\int_{K_U}^{\infty} (x-K_U) \lambda_U q(x;\mu_{U},\sigma_{U}) dx+\int_{K_U}^{\infty} (K_U-K) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx \\
+% 	&=\lambda_U \left[C_{BS}(T,K_U;\sigma_U)+(K_U-K)DC_{BS}(T,K_U;\sigma_U)\right]
+% \end{split}
+% \]
+% \[\begin{split}
+% 	\int_{K}^{\infty} (x-K) \lambda_U q(x;\mu_{U},\sigma_{U}) dx&=\lambda_U C_{BS}(T,K;\sigma_U)
+% \end{split}
+% \]
+% \[\begin{split}
+% 	\int_{K}^{K_U} (x-K) p(x;T,S_t)dx&=C(T,K;\sigma_B(K))+\left[C(T,K;\sigma_B(K_U))-(K_U-K)DC(T,K;\sigma_B(K_U))\right]
+% \end{split}
+% \]
+% So we have
 
 
 For calendar arbitrage, we will shift the price by the the following procedure to remove it.
 \[
-shift=-min(min(C(T_j,K)-C(T_{j-1},K)),0).	
+shift_{t_j}=-min(min_{K}(C_{SABR}(T_j,K)-C_{SABR}(T_{j-1},K)),0).	
 \]
 \[
-	\widehat{C}(T_j,K)=C(T_j,K)+shift
+	C_{SABR}(T_j,K) \leftarrow C_{SABR}(T_j,K)+shift_{t_j}
 \]
- Note the shift will be zero if no calendar arbitrage is observed for the grid of strikes.
+ Note the shift will be zero if no calendar arbitrage is observed between $T_{j}$ and $T_{j-1}$.
+
+ \subsubsection{Alternative Methods to SABR Calibration}
+ There are many other alternative methods to calibrate the arbitrage-free surface as SABR model. One of the most successful volatility surface models is the Stochastic Inspired Volatility model (SVI) \cite{gatheral2004parsimonious} used internally at Merrill Lynch and publicly disclosed by Jim Gatheral in 2004.  SVI is a simple  five-parameters formula.  Numerous applied research teams have attempted to extend SVI to a whole surface model. This has been achieved in 2012 by Gatheral and Jacquier with the Surface SVI (SSVI) \cite{gatheral2014arbitrage}. SSVI is parameterized in a way that a  SSVI slice at a given maturity $T$ is a SVI slice with only 3 parameters. This restriction allows to get explicit sufficient conditions for absence of arbitrage, while allowing enough flexibility for calibration. The SSVI model is recently extended by \cite{hendriks2017extended} and \cite{corbetta2019robust}. If the input market data used for calibration contains arbitrage, the calibrated surface from SSVI \cite{gatheral2014arbitrage} or its extension \cite{hendriks2017extended,corbetta2019robust} can typically be viewed as the surface that is as close as possible to the original market data, while staying arbitrage-free. In this section we briefly review a recent variant dd-eSSVI method \cite{corbetta2019robust} as an example.
+ 
+ 
+ 
+ Given volatility surface market data as a discrete set of points $\{ \sigma^{imp}(T_j,K_i) \}_{i,j}$, a natural question is whether static arbitrage exists. In most cases, one must 
+ \begin{enumerate}
+ \item Fit a parameterization to the points $\{ \sigma^{imp}(T,K) \}_{T,k}$, typically by time-slice as what we did with SABR model, obtaining a parameterization $\{ \widetilde{\sigma}(T_i,K)   \}_{T_i} $ for each $T_i$ separately.
+ \item Compute $\{ \widetilde{w}(\tau_i,k) \}_{i=1}^N$ on a fine grid of $k$ using the expression $\widetilde{w}(\tau_i,k) := \widetilde{\sigma}(T_i,K)^2 T_i$   
+ \item Check for the properties listed above defining condition \ref{item:butterfly} butterfly arbitrage and condition \ref{item:calendar} calendar arbitrage or the corresponding discrete criteria as in \cite{carr2005note}.
+ \end{enumerate}
+ To obtain such mappings, one typically fits a stochastic volatility model like SABR or Heston to slices of $\{\sigma^{mkt}(K,T)\}_{K,T}$ or considers a generalized model such as Stochastic Volatility Inspired (SVI) parameterizations. 
+ 
+%  \subparagraph{Arbitrage-free parameterizations} 
+ 
+%  As seen in \cite{gatheral2004parsimonious}, \cite{gatheral2014arbitrage}, \cite{hendriks2017extended}, \cite{corbetta2019robust}, and others, many parameterizations of implied volatility or total variance are equipped with a mode where the calibrated surface is also arbitrage-free. If the input market data used for calibration contains arbitrage, the calibrated surface can typically be viewed as the surface that is as close as possible to the original market data, while staying arbitrage-free. 
+ 
+%  This leads us to make the distinction between the two parameterization types for given discrete market data $\{ \sigma(K_i,T_j) \}_{i,j}$ or $\{ w(k_i,T_j) \}_{i,j}$  
+%  \begin{enumerate}
+%  \item \underline{Raw calibration}: a parameterization is fit for each time slice $T_i$ yielding an expression $\{ \sigma(K,T_j) \}_{j}$ or $\{ w(k,T_j) \}_{j}$ aimed at fitting the raw market data as closely as possible. 
+%  \item \underline{Arbitrage-free calibration}: a parameterization is fit for each time slice $T_i$ yielding an expression $\{ \sigma(K,T_j) \}_{j}$ or $\{ w(k,T_j) \}_{j}$ aimed at fitting the raw market data as closely as possible \textit{while staying arbitrage-free}. 
+%  \end{enumerate}
+ 
+ 
+ 
+ %If the parameterization of $\{ \sigma^{Mkt}(K_i,T_j) \}_{i,j}$ indicates arbitrage is present in the market data, some calibration approaches $\{ \widetilde{\sigma}(K,T_i) \}_i, \{\widetilde{w}(k,T_i)\}_{i}$ also provide an alternate mode of calibration where the resulting parameterization is \textit{arbitrage-free} as in 
+ %
+ %the final surface is the closest calibration to $\{\sigma(K_i,T_j)\}_{i,j}$ that is also arbitrage-free. An example of such 
+ 
+ 
+ \subsubsection{SVI Parameterization}
+ \label{sss:SVI}
+ 
+ Following the work of \cite{corbetta2019robust}, we introduce the following Stochastic Volatility Inspired (SVI) parameterization for a surface's Total Variance (TV), $w(\tau,k)$ as
+ \begin{equation}
+ w(\tau,k) = \frac{1}{2}\left(\hat{\theta}_{\tau}  + \hat{\rho}_{\tau} \hat{\psi}_{\tau} k + \sqrt{ \left(\hat{\psi}_{\tau} k + \hat{\rho}_{\tau} \hat{\theta}_{\tau} \right)^2 + \left(1 - \hat{\rho}_{\tau}^2 \right)\hat{\theta}_{\tau}^2 } \right)
+ \label{eqn:w}
+ \end{equation}
+ In this parameterization we have that 
+ \begin{itemize}
+ \item $\hat{\theta}_{\tau}$ is the ATM Forward TV, read directly from the surface
+ \[
+ \hat{\theta}_{\tau} = w(\tau,0) = \sigma(T,K_{ATMF})^2 \cdot \tau
+ \]
+ where $K_{ATMF}=F(t,T)$
+  \item $\hat{\rho}_{\tau}$ controls the slope of the skew 
+ \item $\hat{\psi}_{\tau}$ controls the curvature. 
+ \end{itemize}
+ 
+ An important feature of this parameterization is that it provides easy to impose sufficient conditions on the parameters so that there is no butterfly arbitrage for a given slice, and no calendar arbitrage between two time slices. These conditions are listed below
+ 
+ \subparagraph{Arbitrage Conditions}
+ \begin{itemize}
+ \item \underline{Butterfly Arbitrage}: The surface is free of Butterfly Arbitrage if for each time-slice
+ \begin{equation}
+ 0 < \hat{\psi} < \min\left( \sqrt{\frac{4\hat{\theta}}{1 + |\hat{\rho}|}  }, \frac{4}{1+|\hat{\rho}|}   \right)
+ \label{eqn:butterfly}
+ \end{equation}
+ for $\hat{\theta} > 0 , \hat{\rho} \in (-1,1)$.
+ \item \underline{Calendar Arbitrage}: The surface is free of Calendar Arbitrage under the following set up: Given $\tau_1 \leq \tau_2$, we let $\hat{\theta}_1 := \hat{\theta}_{\tau_1}, \hat{\theta}_2 := \hat{\theta}_{\tau_2}$, $\hat{\psi}_1 := \hat{\psi}_{\tau_1}, \hat{\psi}_2 := \hat{\psi}_{\tau_2}$. To be free of calendar arbitrage it is necessary that 
+ \begin{equation}
+ \hat{\theta}_{1,2} \geq 1 \ \text{and} \ \hat{\psi}_2 > \max\left( \frac{\hat{\psi}_1 + \hat{\rho}_1 \hat{\psi}_1}{1 + \hat{\rho}_2} , \frac{\hat{\psi}_1 - \hat{\psi}_1\hat{\rho}_1}{1 - \hat{\rho}_2}  \right)
+ \label{eqn:calendar1}
+ \end{equation}
+ If the above necessary condition holds, it is further sufficient that
+ \begin{equation}
+ \hat{\psi}_{1,2} \leq \hat{\theta}_{1,2} \ \text{or} \ (\hat{\rho}_1 - \hat{\psi}_{1,2} \hat{\rho}_2)^2 \hat{\theta}_{1,2} \leq ( \hat{\theta}_{1,2} -1)( \hat{\psi}^2 - \hat{\theta}_{1,2}).
+ \label{eqn:calendar2}
+ \end{equation}
+ in order to preclude calendar arbitrage.
+ \end{itemize}
+ 
+ There are many different approaches for calibrating SSVI model. For example, one can use a raw calibration appraoch to fit SSVI model to market data and then check if any arbitrage exists by using  the calibrated parameters. Or one can  use an arbitrage-free calibration \cite{corbetta2019robust} by including above sufficient conditions into the calibration process. Interested reader can refer to \cite{hendriks2017extended,corbetta2019robust} for more details on how to calibrate the SSVI efficiently.
+  
+ 
+ In this thesis, the major goal is not to compare the arbitrage-free surface calibration methods. Therefore, we leave the exploration of the alternative methods to calibrate the arbitrage-free surface as the future work of our study. 
+
+
+
+%  \paragraph{Introduction to calibration types and the Cross-Section Method}
+ 
+%  In this section we outline our procedure for calibrating the dd-eSSVI model to data $\{ \sigma^{imp}(T_j,K_i) \}_{i,j}$ using  a raw calibration approach. As mentioned before, we will outline a calibration routine dd-eSSVI that is free of initial guesses and relies only on simple one-dimensional minimization.
+ 
+%  In each case one begins by re-parameterizing the data into TV and log-moneyness, $\{ w(\tau_j,k_i) \}_{i,j}$ and also fixing a grid for minimizing over $\hat{\rho}$, denoted as $\pmb{\hat{\rho}}_N$ which divides $[-1 + 1/N,1 - 1/N]$ into $N$ equally spaced points \footnote{The choice of this interval instead of $[-1,1]$ is made to avoid certain numerical issues at the end points $-1$ and $1$ which arise later in the algorithms we present.}. 
+ 
+ 
+%  \subparagraph{Raw Calibration} In the raw-calibration scheme, the dd-eSSVI is fit to market data, slice-by-slice, where the parameters from various slices are independent of each other. Given its simplicity, we describe the steps here. For each maturity $T_j$:
+%  \begin{enumerate}
+%  \item For each $\hat{\rho}_n \in \pmb{\hat{\rho}}_N$ we construct the objective function\footnote{This choice of relative error objective function seems to work the best in our back-tests compared to other examples include sum-of-squares or absolute error minimization.} 
+%  \[
+%  F_{\hat{\rho}_n}(\hat{\psi}) = \sum_{i=1}^M  \frac{  | w(\tau,k_i); \hat{\psi}, \hat{\rho}_n ) - w^{mkt}(\tau,k_i)|  }{ w^{mkt}(\tau,k_i) }
+%  \]
+%  \item We calculate $ \hat{\psi}_n :=  \arg\min_{\hat{\psi} \in [\hat{\psi}_l,\hat{\psi}_u]} F_{\hat{\rho}_n}(\hat{\psi}) $ using a numerical minimization scheme such as Brent search. A typical choice for $\hat{\psi}_l, \hat{\psi}_u$ are $\hat{\psi}_l = 0$, $\hat{\psi}_u = 2.5$. \label{item:psiregion} 
+%  \item We set $(\hat{\rho}_{T_j}, \hat{\psi}_{T_j}) = \arg\min_{ \hat{\rho}_n,\hat{\psi}_n } \{ \  F_{\hat{\rho}_n}(\hat{\psi}_n) \  \}_{n=1}^N $
+%  \end{enumerate}
+ 
+%  \subparagraph{Detecting arbitrage} To check if a raw calibration fitting \ref{eqn:w} to market data contains arbitrage, we must check the outlined conditions for butterfly and calendar arbitrage. That is, we must show that $p(k;T)$ is a valid density and $w(k;\tau_1) \leq w(k;\tau_2)$ for all $\tau_1 \leq \tau_2$. 
+ 
+%  Since our market data will always be taken from xTrader's databases and Exotica has a delta-cutoff scheme that ensures $p(k;T)$ is asymptotically valid, we resort to only checking that $p(k;T) > 0$ for all $k$ within a certain range. 
+ 
+ 
+%  \begin{align*}
+%  \partial_k w(k;t) &= \frac{1}{2}\hat{\rho}_{\tau} \hat{\psi}_{\tau} +  \frac{1}{2}\frac{ \left(\hat{\psi}_{\tau} k + \hat{\rho}_{\tau} \hat{\theta}_{\tau} \right)\hat{\psi}_{\tau}  }{ \sqrt{ \left(\hat{\psi}_{\tau} k + \hat{\rho}_{\tau} \hat{\theta}_{\tau} \right)^2 + \left(1-\hat{\rho}^2_{\tau}\right)\hat{\theta}^2_{\tau}  } } \\
+%  \partial_{kk} w(k;t) &= \frac{1}{2}\frac{1}{ \sqrt{ (\hat{\psi}_{\tau} k + \hat{\rho}_{\tau} \hat{\theta}_{\tau})^2 + (1-\hat{\rho}_{\tau}^2)\hat{\theta}_{\tau}^2 }   } \left(  \hat{\psi}_{\tau}^2 - \frac{ \hat{\psi}_{\tau}^2 (\hat{\psi}_{\tau}k+ \hat{\rho}_{\tau} \hat{\theta}_{\tau})^2 }{(\hat{\psi}_{\tau} k + \hat{\rho}_{\tau} \hat{\theta}_{\tau})^2 + (1-\hat{\rho}_{\tau}^2)\hat{\theta}_{\tau}^2  }    \right) 
+%  \end{align*}
+ 
+ 
+
+
+
+
+ 
+
+
+
+
 
 \subsubsection{Volatility Interpolation Between Expiries}
-In previous section, for each $T_i$, we calibrate a separate set of SABR parameters and we then use the calibrated SABR parameters to compute SABR price of the predetermined grid of strikes for each $T_i$.  The SABR prices of the predetermined grid of strikes are used as the calibration targets for the volatility interpolation procedure described in the this subsection.
-
+In previous section, for each $T_i$, we calibrate a separate set of SABR parameters and we then use the calibrated SABR parameters to compute SABR price of the predetermined grid of strikes for each $T_i$. We correct for static arbitrage if we detect any of them. However, after the SABR calibration, we only obtain the option values for expiries listed in the market. Our final goal is get the option values for expiries that are not available in the market. In this section, we discuss how to interpolate the volatility between different exipiries.
 
 \citet{andreasen2010volatility} have introduced an efficient and arbitrage-free volatility interpolation method based on a one step finite difference implicit Euler scheme applied to a local volatility parametrization. In this thesis, we use the volatility interpolation approach to compute option price for arbitrary expiry $T$ unobserved in market.
 
@@ -3498,10 +3633,7 @@ Even if $T_{test}$ is a real expiry in market, the step 5 to 7 are frequently ne
 Fo ra  market observable expiry with $T-t<1$, on each date, we usually will have enough data to calibrate a SABR model. In this thesis, we are hedging for less than 1 year, so step 8 is rarely needed. For the test scenarios, we only care about real expiries  $T_{test} \in \mathbf{T}_t^{mkt}$ and real strikes $K \in \mathbf{K}^{mkt}_{t_0,T_{test}}$ in market. 
 
 
-\subsection{Alternative Methods for Calibrating Arbitrage-Free Surface}
-There are many other alternative methods to calibrate the arbitrage-free surface. One of the most successful volatility surface models is the Stochastic Inspired Volatility model (SVI) \cite{gatheral2004parsimonious} used internally at Merrill Lynch and publicly disclosed by Jim Gatheral in 2004.  SVI is a simple  five-parameters formula. Therefore, no necessary and sufficient conditions are known ensuring the absence of arbitrage. Numerous applied research teams have attempted to extend SVI to a whole surface model. This has been achieved in 2012 by Gatheral and Jacquier with the Surface SVI (SSVI) \cite{gatheral2014arbitrage}. SSVI is parameterized in a way that a  SSVI slice at a given maturity $T$ is a SVI slice with only 3 parameters. This restriction allows to get explicit sufficient conditions for absence of arbitrage, while allowing enough flexibility for calibration. The SSVI model is recently extended by \cite{hendriks2017extended} and \cite{corbetta2019robust}. If the input market data used for calibration contains arbitrage, the calibrated surface from SSVI \cite{gatheral2014arbitrage} or its extension \cite{hendriks2017extended,corbetta2019robust} can typically be viewed as the surface that is as close as possible to the original market data, while staying arbitrage-free. Lastly, the SSVI calibration is conducted similarly as the arbitrage-free surface calibration process mentioned in this thesis. One will fit SVI to options with a discrete set of expiries which is observed from market directly. Then, one may interpolate between two expiries using the certain volatility interpolation algorithms that  guaranteeing no static arbitrages. 
 
-In this thesis, the major goal is not to compare the arbitrage-free surface calibration methods. Therefore, we leave the exploration of the alternative methods to calibrate the arbitrage-free surface as the future work of our study. 
 
 
 \section{Total Hedging Model}
