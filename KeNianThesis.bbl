@@ -1,4 +1,4 @@
-\begin{thebibliography}{182}
+\begin{thebibliography}{189}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -176,6 +176,12 @@ Richard~H Byrd, Robert~B Schnabel, and Gerald~A Shultz.
 \newblock \emph{SIAM Journal on Numerical Analysis}, 24\penalty0 (5):\penalty0
   1152--1170, 1987.
 
+\bibitem[Cao et~al.(2021)Cao, Liu, and Zhai]{cao2021option}
+Yi~Cao, Xiaoquan Liu, and Jia Zhai.
+\newblock Option valuation under no-arbitrage constraints with neural networks.
+\newblock \emph{European Journal of Operational Research}, 293\penalty0
+  (1):\penalty0 361--374, 2021.
+
 \bibitem[Carr(1994)]{Carr94}
 P.~Carr.
 \newblock European put call symmetry.
@@ -191,6 +197,12 @@ Peter Carr and Dilip~B Madan.
 \newblock A note on sufficient conditions for no arbitrage.
 \newblock \emph{Finance Research Letters}, 2\penalty0 (3):\penalty0 125--130,
   2005.
+
+\bibitem[Chance et~al.(2017)Chance, Hanson, Li, and Muthuswamy]{chance2017bias}
+Don~M Chance, Thomas~A Hanson, Weiping Li, and Jayaram Muthuswamy.
+\newblock A bias in the volatility smile.
+\newblock \emph{Review of Derivatives Research}, 20\penalty0 (1):\penalty0
+  47--90, 2017.
 
 \bibitem[Chen et~al.(2011)Chen, Grzelak, and Oosterlee]{chen2011calibration}
 Bin Chen, Lech~A Grzelak, and Cornelis~W Oosterlee.
@@ -562,6 +574,11 @@ Ming Gu and Stanley~C Eisenstat.
 \newblock A stable and fast algorithm for updating the singular value
   decomposition, 1994.
 
+\bibitem[Guo and Liu(2018)]{guo2018black}
+Shuxin Guo and Qiang Liu.
+\newblock The black-scholes-merton dual equation.
+\newblock \emph{Available at SSRN 3160399}, 2018.
+
 \bibitem[Guyon and Elisseeff(2003)]{guyon2003introduction}
 Isabelle Guyon and Andr{\'e} Elisseeff.
 \newblock An introduction to variable and feature selection.
@@ -745,6 +762,12 @@ Zachary~C Lipton, John Berkowitz, and Charles Elkan.
 \newblock A critical review of recurrent neural networks for sequence learning.
 \newblock \emph{arXiv preprint arXiv:1506.00019}, 2015.
 
+\bibitem[Liu et~al.(2019)Liu, Oosterlee, and Bohte]{liu2019pricing}
+Shuaiqiang Liu, Cornelis~W Oosterlee, and Sander~M Bohte.
+\newblock Pricing options and computing implied volatilities using neural
+  networks.
+\newblock \emph{Risks}, 7\penalty0 (1):\penalty0 16, 2019.
+
 \bibitem[Long and Servedio(2010)]{long2010random}
 Philip~M Long and Rocco~A Servedio.
 \newblock Random classification noise defeats all convex potential boosters.
@@ -878,6 +901,12 @@ Fernando De~Meer Pardo and Rafael~Cobo L{\'o}pez.
 \newblock \emph{The Journal of Financial Data Science}, 2\penalty0
   (1):\penalty0 76--85, 2020.
 
+\bibitem[Plemmons(1977)]{plemmons1977m}
+Robert~J Plemmons.
+\newblock M-matrix characterizations. i—nonsingular m-matrices.
+\newblock \emph{Linear Algebra and its applications}, 18\penalty0 (2):\penalty0
+  175--188, 1977.
+
 \bibitem[Qian(1999)]{qian1999momentum}
 Ning Qian.
 \newblock On the momentum term in gradient descent learning algorithms.
@@ -910,6 +939,12 @@ Sashank~J Reddi, Satyen Kale, and Sanjiv Kumar.
 Marko Robnik-{\v{S}}ikonja and Igor Kononenko.
 \newblock Theoretical and empirical analysis of relieff and rrelieff.
 \newblock \emph{Machine learning}, 53\penalty0 (1-2):\penalty0 23--69, 2003.
+
+\bibitem[Rogers and Tehranchi(2010)]{rogers2010can}
+LCG Rogers and MR~Tehranchi.
+\newblock Can the implied volatility surface move by parallel shifts?
+\newblock \emph{Finance and Stochastics}, 14\penalty0 (2):\penalty0 235--248,
+  2010.
 
 \bibitem[Rubinstein(1994)]{rubinstein1994implied}
 Mark Rubinstein.
@@ -1115,5 +1150,12 @@ Haynes~HM Yung and Hua Zhang.
 Matthew~D Zeiler.
 \newblock Adadelta: an adaptive learning rate method.
 \newblock \emph{arXiv preprint arXiv:1212.5701}, 2012.
+
+\bibitem[Zheng et~al.(2021)Zheng, Yang, and Chen]{zheng2021incorporating}
+Yu~Zheng, Yongxin Yang, and Bowei Chen.
+\newblock Incorporating prior financial domain knowledge into neural networks
+  for implied volatility surface prediction.
+\newblock In \emph{Proceedings of the 27th ACM SIGKDD Conference on Knowledge
+  Discovery \& Data Mining}, pages 3968--3975, 2021.
 
 \end{thebibliography}
