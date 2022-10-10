@@ -2119,7 +2119,7 @@ The weighted  local feature vector is defined as
 where $\odot$ denotes the element-wise multiplication.
 
 Similarly,
-for the sequential feature $\mathbf{y}_{\nt_i}^{T,K}$,  the $j^\text{th}$ component of the normalized weight vector is given by
+for the sequential feature $\mathbf{y}_{\nt_i}^{T,K}$,  the $j_\text{th}$ component of the normalized weight vector is given by
 \[
 \frac{exp(\omega^S_j)}{\sum_{i=1}^{d_s} exp(\omega^S_i)}
 \]
@@ -2225,7 +2225,7 @@ the decoder as the fixed size vector $\mathbf{\widehat{h}}_E$, which  extracts r
 \subsection{Decoder}
 
 The decoder combines the output of the encoder from the sequential feature $\mathbf{Y}_{t}^{T,K}$  at the hedging time $t$ with the current local feature $\mathbf{x}_{t}^{T,K}$.
-It uses one neural network to first compute a candidate output  $\widehat{\delta}^M_{t,T,K}$,  based on both the weighted local input  $\widehat{\vx}_{t}^{T,K}$ and the fixed size vector $\mathbf{\widehat{h}}_E$ :
+It uses one neural network to firstly compute a candidate output  $\widehat{\delta}^M_{t,T,K}$,  based on both the weighted local input  $\widehat{\vx}_{t}^{T,K}$ and the fixed size vector $\mathbf{\widehat{h}}_E$ :
 $$
 \widehat{\delta}^M_{t,T,K}=sigmoid (\vv^T_{out} \ tanh( \vU_{out} \mathbf{\widehat{h}}_E + \vW_{out} \widehat{\vx}_{t}^{T,K}+ \vb_{out})).
 $$
@@ -2236,7 +2236,7 @@ W_{\delta}=sigmoid (\vv^T_{Gate} \ tanh( \vU_{Gate} \mathbf{\widehat{h}}_E + \vW
 \end{equation}
 
 The practitioner's BS delta encapsulates a significant portion of the sensitivity of the option price to the underlying and has been adopted in option hedging practice. Therefore we use BS implied volatility delta as a pre-trained model in the designed $\model$ to utilize both local and sequential features to minimize hedge risk.
-Specifically, the output of the proposed  $\model$ is a linear combination of the candidate output $\widehat{\delta}^M_{t,T,K}$ and the BS delta $\delta^{BS}_{t,T,K}$ computed from the implied volatility at the hedging time $t$ for the option with expiry $T$ and strike $K$. In addition,  different combination formulae are used when training for different types of options.
+Specifically, the output of the proposed  $\model$ is a linear combination of the candidate output $\widehat{\delta}^M_{t,T,K}$ and the BS delta $\delta^{BS}_{t,T,K}$ computed from the implied volatility at the hedging time $t$ for the option with expiry $T$ and strike $K$. In addition,  different combination formula are used when training for different types of options.
 For hedging a call option, the final output from $\model$ is :
 \begin{equation}
 \delta^M_{t,T,K}=\widehat{\delta}^M_{t,T,K} \times W_{\delta} +\delta^{BS}_{t,T,K} \times (1-W_{\delta})
@@ -2278,9 +2278,9 @@ Huber(loss,\mathcal{T})=\left\{ \begin{array}{ll }
 \mathcal{T}(|loss|-\frac{1}{2}\mathcal{T}), \; &\text{otherwise}
 \end{array} \right.
 \]
-The Huber loss \citep{Huber1964robust} has been shown to be more robust than the squared loss with respect to toutliers, when  the threshold parameter $\mathcal{T}$ is carefully chosen {\em a priori}.
+The Huber loss \citep{Huber1964robust} has been shown to be more robust than the squared loss with respect to outliers, when  the threshold parameter $\mathcal{T}$ is carefully chosen {\em a priori}.
 In the context of machine learning, the parameter $\mathcal{T}$ can be tuned but this can be computationally expensive. In the proposed
-$\model$, since delta from the BS model  with the implied volatility   is used as a pre-trained model, we adaptively set the thresholding parameter $\mathcal{T}$ to be absolute value of the hedging error from the Black–Scholes delta of the data instance $i$, i.e.,
+$\model$, since delta from the BS model  with the implied volatility   is used as a pre-trained model, we adaptively set the threshold parameter $\mathcal{T}$ to be absolute value of the hedging error from the Black–Scholes delta of the data instance $i$, i.e.,
 \begin{equation}\label{eq:thresh}
 \mathcal{T}_i=|\Delta V^{mkt}_{t_i,T_i,K_i}-\DS_{t_i} \delta^{BS}_{t_i,T_i,K_i}|
 \end{equation}
@@ -2310,7 +2310,7 @@ Next we discuss training  $\model$,  including initialization,  pre-training,  o
 When training a RNN model,  an initial weight matrix is typically chosen as a random orthogonal matrix. Since the orthogonal initialization  can often speed up training \citep{le2015simple}, all the weight matrices   are initialized as orthogonal random matrices in training $\model$. The random orthogonal matrices are   Householder transformations of random matrices \citep{le2015simple}.
 
 \subsection{Optimization}
-First-order optimization methods, such as stochastic gradient descent (SGD) and its extensions,  are the most widely used optimization methods in machine learning, due to  their low computational costs. Despite their wide usage,  well-known deficiencies when  training highly non-convex objective functions, including  relatively-slow convergence, sensitivity to hyper-parameter values (e.g., learning rate), stagnation at high training errors, and difficulty in escaping flat regions and saddle points \citep{yao2018inexact}.
+First-order optimization methods, such as stochastic gradient descent (SGD) and its extensions,  are the most widely used optimization methods in machine learning, due to  their low computational costs. Despite their wide usage,  well-known deficiencies when  training highly non-convex objective functions include relatively-slow convergence, sensitivity to hyper-parameter values (e.g., learning rate), stagnation at high training errors, and difficulty in escaping flat regions and saddle points \citep{yao2018inexact}.
 
 More recently,  improved SGD methods such as ADAM \citep{kingma2014adam}, have been proposed.
 These methods seem to achieve significantly better solutions compared with earlier SGD. However,  it has recently been empirically observed in \cite{reddi2019convergence}  that these algorithms sometimes fail to converge to a first-order critical point due to the exponential moving average used in the algorithms.
@@ -2345,7 +2345,8 @@ Consequently we use a trust region method, which is shown in Algorithm \ref{alg:
 	\SetAlgoNoLine
 	
 	\KwIn{$\theta_0 \in \Real^n$: initial vector of parameters.\newline
-		$Obj(\theta)$: the objective function (For $\model$, we use either \eqref{l1} or  \eqref{l2}. For $\modelT$, we use \eqref{eq:totalObjLinear}. For  $\modelL$, we use \eqref{eq:totalObjLinear}.  )\newline
+		$Obj(\theta)$: the objective function \newline
+		% (For $\model$, we use either \eqref{l1} or  \eqref{l2}. For $\modelT$, we use \eqref{eq:totalObjLinear}. For  $\modelL$, we use \eqref{eq:totalObjLinear}.  
 		$\mathcal{R}_0$: initial trust region radius \newline
 		$\epsilon_{\theta}$: tolerance for the norm of the gradient \newline
 		$\epsilon_{r}$: tolerance for the trust region radius \newline
@@ -2451,7 +2452,7 @@ in which case we re-initialize the parameters of the proposed $\model$ and train
 Lastly, before jumping into the real data experimental results for local discrete hedging in Chapter \ref{sec:LocalComparison}, we introduce the following supplementary models:
 \begin{enumerate}
 	\item To gain insights on the roles of the decoder and encoder in the proposed $\model$,  we  also consider a decoder only model $\modelN$, which corresponds to removing the encoder from $\model$ in Figure \ref{fig:DNN}.  We train  $\modelN$ in the same way  as described in section \ref{sec:train}. 
-	\item To gain insights on the role of output gate and robust Huber loss, we remove the output gate part of the decoder model. The resulting model  is shown in Figure \ref{fig:DRNNC}. In other words, the output $\delta^M$ is purely based $\mathbf{\widehat{h}}_E$ and $ \widehat{\vx}_{t}^{T,K}$:
+	\item To gain insights on the role of output gate and robust Huber loss, we remove the output gate part of the decoder model. The resulting model  is shown in Figure \ref{fig:DRNNC}. In other words, the output $\delta^M$ is purely based on $\mathbf{\widehat{h}}_E$ and $ \widehat{\vx}_{t}^{T,K}$:
 	\[
 		{\delta}^M_{t,T,K}=sigmoid (\vv^T_{out} \ tanh( \vU_{out} \mathbf{\widehat{h}}_E + \vW_{out} \widehat{\vx}_{t}^{T,K}+ \vb_{out})).
 	\]
@@ -2652,13 +2653,13 @@ learning a single $\DKLs$ model for all options will be computationally expensiv
  $$\{\textsc{moneyness,~time-to-expiry,~ Black–Scholes Delta}\}.$$
  In addition,  we use the efficient leave-one-out cross-validation (LOOCV) as in section \ref{sec:cross} to choose regularization parameter $\lambda_P$ for $\DKLs$. For each month, LOOCV is used to choose a  value of the regularization parameter from a candidate set:
 $$\lambda_P \in \{10^7,10^6,10^5,10^4,10^3,10^2,10^0,10^{-1},10^{-2}, 10^{-3},10^{-4},10^{-5},10^{-6},10^{-7} \}.$$
-For the call option, the  $DKLs$ for each bucket is estimated  using all options \textbf{traded} in a 36 months window. For the put option, there is much larger variation in the number of data instances in each bucket.
+For the call option, the  $\DKLs$ for each bucket is estimated  using all options \textbf{traded} in a 36 months window. For the put option, there is much larger variation in the number of data instances in each bucket.
  To ensure a reasonable training data size, we have used a time window of 24 months for delta buckets -0.1 and -0.2,   window of 36 months for delta buckets -0.3 and -0.4,  window of 48 months  for delta buckets -0.5 and -0.6, and window of 72 months  for delta buckets -0.7, -0.8 and -0.9. Hence, the training data  for puts ranges from  Jan 2001 to August 31 2015.
-We train the direct hedging function model $\DKLs$ using all options \textbf{traded} in a fixed time window, as described above, and determine the hedge each day in the following month using the trained model, following the same sliding training-testing window procedure in \citep{hulloptimal}.Furthermore, the  $\DKLs$  model is updated monthly due to the limitation of computationally cost.
+We train the direct hedging function model $\DKLs$ using all options \textbf{traded} in a fixed time window, as described above, and determine the hedge each day in the following month using the trained model, following the same sliding training-testing window procedure in \citep{hulloptimal}. Furthermore, the  $\DKLs$  model is updated monthly due to the limitation of computationally cost.
 
 
 
- The training set, the validation set, and the testing set are the same for $\model$ and $\modelN$. The training procedure is the same for $\model$ and $\modelN$ which is described in section \ref{sec:train}. In addition, $\textsc{GRU}_{c}$ is trained using the data instances, observed in the previous 36 months and procedure described as in section \ref{sec:alternativeModel}. 
+ The training set, the validation set, and the testing set are the same for $\model$, $\textsc{GRU}_{c}$, and $\modelN$. The training procedure is the same for $\model$ and $\modelN$ which is described in section \ref{sec:train}. In addition, $\textsc{GRU}_{c}$ is trained using the data instances, observed in the previous 36 months and procedure described as in section \ref{sec:alternativeModel}. 
  
  For additional reference, we also include the performance of the MV model \eqref{eq:HullWhite}  and Bartlett delta on weekly and monthly hedging. For $\MV$ in Table \ref{SP500CallC} \& \ref{SP500PutC}, on each day,  the model parameter, $a,b \text{ and } c$ are estimated using all {traded} options in a 36-month-window. \footnote{Note that, in the OptionMetric Database, not all the option data instances are actually traded. For many data instances, the trading volumes are zero. It is not clear to us whether the reported test results in \citep{hulloptimal} are computed using all data or traded data only.} 
 
@@ -2684,7 +2685,7 @@ Specifically, we compare $\model$ with the following methods,
     \item Bartlett: Barlett corrective  delta based on \eqref{eq:bartlett},
     \item $\DKLs$: Direct spline kernel hedging method as in \ref{sec:KernelDirect},
     \item $\modelN$: NN with the decoder only described in Figure \ref{fig:DNN}.
-    \item $\textsc{GRU}_{c}$: The sequential learning model excluding the output gate and  trained as in section \ref{sec:alternativeModel}.
+    \item $\textsc{GRU}_{c}$: The sequential learning model excluding the output gate and  trained with MSE objective only.
 \end{itemize}
 
 
@@ -2845,7 +2846,7 @@ Also, the decoder only model significantly improves over the regularized kernel 
   \item $\DKLs$: Direct spline kernel hedging method as in \ref{sec:KernelDirect}.
 \end{itemize}
 
-We have omitted  $\modelN$ and $\textsc{GRU}_{c}$ in the daily hedging comparison since it has been shown to underperform $\model$. But we  have added ${\LVF}$ and ${\SABR}$ since they are based on instantaneous hedging analysis and are more suitable for daily hedging.
+We have omitted  $\modelN$ and $\textsc{GRU}_{c}$ in the daily hedging comparison since it has been shown to underperform $\model$. But we  have added ${\LVF}$ and ${\SABR}$ since they are based on instantaneous hedging analysis and are more suitable for daily hedging. Overall, all methods perform similarly in terms of daily hedging with data-driven model slightly outperforming the parametric models.
 
 %In the following discussion, we use $\model$  to denote the proposed $\model$ in Figure \ref{fig:RNNModel}.
 Since the  same S\&P 500 index option data from the OptionMetric Database is used here,  we simply quote the results  presented in \cite{hulloptimal} for  $\MV$,  ${\LVF}$,  and ${\SABR}$, and the results  presented in \cite{knian2017} for  $\DKLs$.
@@ -2946,7 +2947,7 @@ From subplots (a) and (b) in Figure \ref{fig:put1daily}, it can be observed that
 \caption{Feature score for daily hedging model $\model$:  S\&P500 put option (traded data)} \label{fig:put1daily}
 \end{figure}
 \section{From Local Hedging Models to Total Hedging Models}\label{sec:Localconclusion}
-A natural extension  is to extend the sequential local hedging model to be a total hedging model where we rebalance multiple times until the expiries of the options. In the following chapter \ref{sec:RNNTotal}, we discuss the challenges associated with building such models and present our exploration on the data-driven total hedging model.
+A natural extension  is to extend the sequential local hedging model to be a total risk hedging model where we rebalance multiple times until the expiries of the options. In the following chapter \ref{sec:RNNTotal}, we discuss the challenges associated with building such models and present our exploration on the data-driven total risk hedging model.
 
 \chapter{Data-Driven Sequential Learning Framework for Total Hedging Risk}
 \label{sec:RNNTotal}
@@ -2995,7 +2996,7 @@ In order to overcome  above challenges, we propose the following remedy.
 \end{enumerate}
 
 
-Therefore, we can greatly increase the number of training scenarios, since now the hedging scenarios can have arbitrary combinations of $T$ and $K$ even if the combinations of $T$ and $K$ are not directly observed in the market. 
+Therefore, we can greatly increase the number of training scenarios, since now the hedging scenarios can have more combinations of $T$ and $K$ even if the combinations of $T$ and $K$ are not directly observed in the market. 
 
 \subsection{No-Arbitrage Price Surface}
 \label{sec:NoArb}
@@ -3105,13 +3106,13 @@ We set the first expiry be $t$: $T_{0}=t$. Note that for the first expiry $T_{0}
 % to be the strikes for which market option price is available for $T_i$.
  We solve
 \[
-\min_{\alpha,\nu,\rho} \sum_{j=1}^{N_K} \left(V_{SABR}(S_t,t,T_i,K^{mkt}_j,r,q;\alpha,\beta,\nu,\rho)-\Vmkt(t,T_i,K^{mkt}_j)\right)^2
+\min_{\alpha,\nu,\rho} \sum_{j=1}^{N_K} \left(V_{SABR}(S_t,t,T_i,K^{mkt}_j,r,q;\alpha,\beta,\nu,\rho)-\Vmkt_{t,T_i,K^{mkt}_j}\right)^2
 \]
 where $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ is option pricing function described in section \ref{sec:SABR}.  \citet{hagan2002managing} suggest that $\beta$ can be chose from prior beliefs about which assumption on the distribution of $S_T$  is appropriate (e.g., $\beta=0$ implies a normal distribution of $S_T$ conditioned on a realization of the volatility while $\beta=1$ implies a lognormal distribution of $S_T$ conditioned on a realization of the volatility).   In this thesis we fix $\beta=1$ in the calibration process since we are dealing equity options. If we are dealing with interest rate derivatives, setting $\beta=0$ or $\beta=0.5$ may be more appropriate. In practice, the choice of $\beta$ has little effect on the resulting shape of the volatility curve produced by the SABR model. \citet{hagan2002managing} suggest that the choice of $\beta$ is not crucial in matching the market volatility smile. 
 
 We choose to calibrate a different model for each expiry. A different set of parameters is specified for each expiry, describing an instantaneous process.  We choose this approach because the single implied volatility surface calibrated for all expiries and strikes is unlikely to fit the actual surface very well and calibrating a single surface is harder and more time-consuming. 
 
-Note that we have three parameters to be calibrated so we need to observe at least 3 data points from market to successfully build a SABR model. Therefore, the number of strikes $N_K$ is expected be larger than or equal to 3. \footnote{The $\Vmkt(t,T_i,K^{mkt}_j)$ is the mid-price of market observed best bid and  best ask prices. We use market quotes in calibration and even if the trading volume is zero, we will still include them in the calibration.}
+Note that we have three parameters to be calibrated so we need to observe at least 3 data points from market to successfully build a SABR model. Therefore, the number of strikes $N_K$ is expected be larger than or equal to 3. \footnote{The $\Vmkt_{t,T_i,K^{mkt}_j}$ is the mid-price of market observed best bid and  best ask prices. We use market quotes in calibration and even if the trading volume is zero, we will still include them in the calibration.}
 
 Although SABR model is computationally efficient and can match the market volatility smile well, it is not arbitrage-free. The formula \eqref{eq:SABRExpansion} is an approximation, obtained from  an asymptotic series expansion. Its accuracy degrades if the option strikes move away from the option at-the-money (ATM) strike. As a result, the implied probability density function:
 \begin{equation}
@@ -3136,7 +3137,7 @@ where  $q(x;\mu,\sigma)$ is the p.d.f of a  log-normal distribution:
 	q(x;\mu,\sigma)=\frac{1}{x\sigma \sqrt{2 \pi}}
 	e^{-\frac{(\ln(x)-\mu)^2}{2 \sigma^2}}.
 \]
-and $p(x;T,S_t)$ is the implied probability density from the calibrated SABR model. We assume that the underlying price $S_T$ is distributed according the adjusted p.d.f $\hat{g}(x)$.
+and $p(x;T,S_t)$ is the implied probability density from the calibrated SABR model. We assume that the underlying price at expiry at $T$: $S_T$ is distributed according the adjusted p.d.f $\hat{g}(x)$.
 
 We require the following condition to be satisfied:
 \begin{enumerate}
@@ -3257,7 +3258,15 @@ If one want to ensure the continuity of the density function,  one can solve the
 	S_t)
 	\end{split}
 \end{equation}
-Notice that here $\mu_{L}$ and $\mu_{U}$ are parameters to be solved as well. One can  also set the tail distributions as the mixture of two lognormal distributions and therefore we have  more paramters to be solved as the adjustment described in \cite{brunner2003arbitrage}. In this thesis, we  use the  risk neutral adjustment with 4 parameters  $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$.
+Notice that here $\mu_{L}$ and $\mu_{U}$ are parameters to be solved as well. One can  also set the tail distributions as the mixture of two lognormal distributions and therefore we have  more paramters to be solved as the adjustment described in \cite{brunner2003arbitrage}:
+\[
+\hat{g}(x)=\left\{ \begin{array}{ll }
+\lambda_{L} \;  q(x;\mu^1_{L},\sigma^1_{L})+(1-\lambda_{L}) \;  q(x;\mu^2_{L},\sigma^2_{L}), \;&  \text{if} \; 0<x< K_{L}\\
+p(x;T,S_t) , \;&  \text{if} \; \;  K_{L} \leq x \leq K_{U}\\
+\lambda_{U} \;  q(x;\mu^1_{U},\sigma^1_{U})+(1-\lambda_{U}) \;  q(x;\mu^2_{U},\sigma^2_{U}), \;& \text{if} \; x> K_{U}
+\end{array} \right.
+\]
+In this thesis, we  use the  risk neutral adjustment with 4 parameters  $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$ due to its simplicity.
 
 
 
@@ -3265,10 +3274,10 @@ Notice that here $\mu_{L}$ and $\mu_{U}$ are parameters to be solved as well. On
 
 For calendar arbitrage, we will shift the price by the the following procedure to remove it.
 \[
-shift_{t_j}=-min(min_{K}(C_{SABR}(T_j,K)-C_{SABR}(T_{j-1},K)),0).	
+shift_{T_j}=-min(min_{K}(C_{SABR}(T_j,K)-C_{SABR}(T_{j-1},K)),0).	
 \]
 \[
-	C_{SABR}(T_j,K) \leftarrow C_{SABR}(T_j,K)+shift_{t_j}
+	C_{SABR}(T_j,K) \leftarrow C_{SABR}(T_j,K)+shift_{T_j}
 \]
  Note the shift will be zero if no calendar arbitrage is observed between $T_{j}$ and $T_{j-1}$.
 
@@ -3314,23 +3323,23 @@ shift_{t_j}=-min(min_{K}(C_{SABR}(T_j,K)-C_{SABR}(T_{j-1},K)),0).
  
  Following the work of \cite{corbetta2019robust}, we introduce the following SSVI parameterization for a surface's Total Variance (TV), $w(\tau,k)$ as
  \begin{equation}
- w(\tau,k) = \frac{1}{2}\left(\hat{\theta}_{\tau}  + \hat{\rho}_{\tau} \hat{\psi}_{\tau} k + \sqrt{ \left(\hat{\psi}_{\tau} k + \hat{\rho}_{\tau} \hat{\theta}_{\tau} \right)^2 + \left(1 - \hat{\rho}_{\tau}^2 \right)\hat{\theta}_{\tau}^2 } \right)
+ w(\tau,k) = \frac{\hat{\theta}_{\tau}}{2}\left( 1 + \hat{\rho}_{\tau} \hat{\psi}_{\tau} k + \sqrt{ \left(\hat{\psi}_{\tau} k + \hat{\rho}_{\tau} \right)^2 + \left(1 - \hat{\rho}_{\tau}^2 \right) } \right)
  \label{eqn:w}
  \end{equation}
  In this parameterization we have that 
  \begin{itemize}
- \item $\hat{\theta}_{\tau}$ is the ATM Forward TV
+ \item $\hat{\theta}_{\tau}$ is the ATM Forward TV which can be extracted from market directly.
  \[
- \hat{\theta}_{\tau} = w(\tau,0) = \sigma(T,K_{ATMF})^2 \cdot \tau
+ \hat{\theta}_{\tau} = w(\tau,0) = \sigma^{imp}(T,K_{ATMF})^2 \cdot \tau
  \]
  where $K_{ATMF}=F(t,T)$
   \item $\hat{\rho}_{\tau}$ controls the slope of the skew 
- \item $\hat{\psi}_{\tau}$ controls the curvature. 
+ \item $\hat{\psi}_{\tau}$ controls the curvature, which is usually defined as a function on  $\hat{\theta}_{\tau}$: $\hat{\psi}_{\tau}(\hat{\theta}_{\tau})$
  \end{itemize}
  
- An important feature of this parameterizations is that it provides easy way to impose sufficient conditions on the  parameters ($\hat{\theta}_{\tau},\hat{\rho}_{\tau},\hat{\psi}_{\tau}$) so that there is no butterfly arbitrage for a given slice, and no calendar arbitrage between two time slices. Interested reader can refer the \cite{corbetta2019robust} for the detailed conditions on those parameters. 
+ An important feature of this parameterizations is that it provides easy way to impose sufficient conditions on the  parameters ($\hat{\theta}_{\tau},\hat{\rho}_{\tau},\hat{\psi}_{\tau}$) so that there is no butterfly arbitrage for a given slice, and no calendar arbitrage between two time slices. Interested reader can refer the \cite{corbetta2019robust,gatheral2014arbitrage} for the detailed conditions on those parameters. 
  
- There are many different approaches for calibrating SSVI model. For example, one can use a raw calibration appraoch to fit SSVI model to market data and then check if any arbitrage exists by check the arbitrage conditions on  the calibrated parameters. If arbitrage conditions are violated, one can adjust the parameters so that the sufficient conditions on parameters are satisfied.
+ There are many different approaches for calibrating SSVI models. For example, one can use a raw calibration appraoch to fit SSVI model to market data and then check if any arbitrage exists by check the arbitrage conditions on  the calibrated parameters. If arbitrage conditions are violated, one can adjust the parameters so that the sufficient conditions on parameters are satisfied.
  One can also  use an arbitrage-free calibration \cite{corbetta2019robust} by imposing the  sufficient conditions on the parameters into the calibration process. Interested reader can refer to \cite{hendriks2017extended,corbetta2019robust} for more details on how to calibrate the SSVI efficiently.
   
 Since the major goal in this thesis is not to compare  arbitrage-free surface calibration methods, we leave the exploration of the alternative methods to calibrate the arbitrage-free surface and comparing its impact on the data-driven risk hedging model as the future work of our study. 
@@ -3376,7 +3385,7 @@ Since the major goal in this thesis is not to compare  arbitrage-free surface ca
 
 
 \subsubsection{Volatility Interpolation Between Expiries}
-In previous section, for each $T_i$, we calibrate a separate set of SABR parameters and we then use the calibrated SABR parameters to compute option price and the associated implied volatiliy for a predetermined grid of strikes for each $T_i$. We correct for static arbitrage if we detect any of them in the option prices we produced from the SABR models. However, after the SABR calibration, we only obtain the parametrization of  option values for expiries listed in the market. Our next goal is get  the parametrization of option values for expiries that are not available in the market. In this section, we discuss how to interpolate the volatility between different expiries. Note that even if we use SSVI instead of SABR model, this step of volatility interpolation between expiries is still needed since SSVI model and SABR model are both calibrated to match the volatility smile of market available expiries.
+In previous section, for each $T_i$, we calibrate a separate set of SABR parameters and we then use the calibrated SABR parameters to compute option price and the associated implied volatiliy for a predetermined grid of strikes for each $T_i$. We correct for static arbitrage if we detect any of them in the option prices we produced from the SABR models. However, after the SABR calibration, we only obtain the parametrization of  option values for expiries listed in the market. Our next goal is get  the parametrization of option values for expiries that are not available in the market. In this section, we discuss how to interpolate the volatility between different expiries. Note that even if we use SSVI instead of SABR model, this step of volatility interpolation between expiries is still needed since SSVI model and SABR model are both calibrated to match the volatility smile of market available expiries. Under SSVI models, such arbitrage interpolation is usually done in the space of the SSVI parameters \cite{corbetta2019robust}.
 
 \citet{andreasen2010volatility} have introduced an efficient and arbitrage-free volatility interpolation method based on a one step finite difference implicit Euler scheme applied to a local volatility parametrization. In this thesis, we use the volatility interpolation approach to compute option price for arbitrary expiry $T$ unobserved in market.
 
@@ -3473,7 +3482,7 @@ where $\mathcal{\mathbb{M}}(T_{i+1},T_{i}, \widehat{\sigma}(T_i,.))$ is a tri-di
 \end{bmatrix}
 \label{eq:LVFMatrix}
 \end{equation}
-where $Z_j=\frac{1}{2}\frac{T_{i+1}-T_{i}}{\Delta K^2}\widehat{\sigma}(T_i,K_j)$
+where $Z_j=\frac{1}{2}\frac{T_{i+1}-T_{i}}{\Delta K^2}\widehat{\sigma}(T_i,\widehat{K}_j)$
 
 % Therefore, we can easily invert $\mathcal{\mathbb{M}}$ and we get:
 % \begin{equation}
@@ -3539,7 +3548,7 @@ Note that for the intial case $T_0=t$, $\widehat{C}(T_0,\widehat{K})=max(1-\wide
 	\begin{bmatrix}
 		\widehat{C}(T_i,\widehat{K}_0)\\
 		\widehat{C}(T_i,\widehat{K}_1)\\
-		\widehat{C}(T_1,\widehat{K}_2)\\
+		\widehat{C}(T_i,\widehat{K}_2)\\
 		\vdots\\
 		\widehat{C}(T_i,\widehat{K}_{max})
 		\end{bmatrix}
@@ -3574,9 +3583,9 @@ Interpolation based on the above procedure can guarantee the option prices compu
 \begin{thm}
 	On the discrete strike grid $\widehat{K}_0,\dots, \widehat{K}_{Max}$, 
 	, the finite difference scheme \eqref{eq:LVFInt} and  \eqref{eq:LVFFill} produces option prices that are consistent with absence of arbitrage, i.e., the generated call option prices are decreasing in strikes, increasing in maturity and convex in strikes:
-	\[
-		C(T_i,K_{i})\leq C(T_{i},K_{i-1}) \; \text{ when } K_{i}>K_{i-1}
-	\]
+	% \[
+	% 	C(T_i,K_{i})\leq C(T_{i},K_{i-1}) \; \text{ when } K_{i}>K_{i-1}
+	% \]
 	\[
 			C(T_i,K_{i})\geq C(T_{i-1},K_{i}) \; \text{ when } T_{i}>T_{i-1}
 	\]
@@ -3645,14 +3654,14 @@ Interpolation based on the above procedure can guarantee the option prices compu
 			\frac{\partial \widehat{C}(T)}{ \partial T} =\mathcal{\mathbb{A}}^{-1}  \frac{\partial \mathcal{\mathbb{D}}}{\partial T} C(T)=\frac{1}{T-T_i}\mathcal{\mathbb{A}}^{-1}  \mathcal{\mathbb{D}} \widehat{C}(T) 
 			\label{eq:LVFProof3}
 		\end{equation}
-		Since we already prove the convexity in strikes which means elements in $\mathcal{\mathbb{D}} \widehat{C}(T)$ are all non-negative and all elements in $\mathcal{\mathbb{A}}^{-1}$ are non-negative, we can further conclude that all elements in  $\frac{\partial \widehat{C}(T)}{ \partial T}$ are non-negative. Therefore we prove the generated option prices are increasing in maturity which proved the absence of calendar arbitrage.
+		Since we already prove the convexity in strikes which means elements in $\mathcal{\mathbb{D}} \widehat{C}(T)$ are all non-negative and all elements in $\mathcal{\mathbb{A}}^{-1}$ are non-negative, we can further conclude that all elements in  $\frac{\partial \widehat{C}(T)}{ \partial T}$ are non-negative. Therefore we prove the generated option prices are increasing in maturity which proves the absence of calendar arbitrage.
 
-		Lastly, since at $T_0=t$, $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is the normalized payoff which is monotonically decreasing in strikes. 
-		Follwing equation \eqref{eq:LVFProof3}, we have the elements in  $\left.\frac{\partial \widehat{C}(T)}{ \partial T} \right|_{T=T_0}$ being monotonically decreasing in strikes. Thus,  we conclude that the elements in:
-		\[
-		C(T_0+d T)=	C(T_0)+\left.\frac{\partial \widehat{C}(T)}{ \partial T} \right|_{T=T_0} d T
-		\]
-		is monotonically decreasing in strikes as well. Following the this logic, we can conclude that the $C(T)$ will be monotonically decreasing in strikes which eliminate the existence of call-spread arbitrage.
+		% Lastly, since at $T_0=t$, $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is the normalized payoff which is monotonically decreasing in strikes. 
+		% Follwing equation \eqref{eq:LVFProof3}, we have the elements in  $\left.\frac{\partial \widehat{C}(T)}{ \partial T} \right|_{T=T_0}$ being monotonically decreasing in strikes. Thus,  we conclude that the elements in:
+		% \[
+		% C(T_0+d T)=	C(T_0)+\left.\frac{\partial \widehat{C}(T)}{ \partial T} \right|_{T=T_0} d T
+		% \]
+		% is monotonically decreasing in strikes as well. Following the this logic, we can conclude that the $C(T)$ will be monotonically decreasing in strikes which eliminate the existence of call-spread arbitrage.
 \end{proof}
 
 
@@ -3668,7 +3677,7 @@ As an example, in Figure \ref{fig:CaliExp}, we show the resulting price surface 
 	\subfigure[Price Surface]{
 		\includegraphics[width=0.8\textwidth]{./figures/Price}
 	}
-	\caption{The price surface and implied volatility surface calibrated to SP500 index call options on 2012-01-04. The smile is more pronounced for the shorter maturities than the longer maturities, which is consistent with observations from various studies \cite{chance2017bias,rogers2010can}using market data. Interested readers can also refer to \cite{rogers2010can} for some mathematicaly explaination on why the smile becomes more and more flattened as $\tau$ increases.}
+	\caption{The price surface and implied volatility surface calibrated to SP500 index call options on 2012-01-04. The smile is more pronounced for the shorter maturities than the longer maturities, which is consistent with observations from various studies \cite{chance2017bias,rogers2010can} using market data. Interested readers can also refer to \cite{rogers2010can} for some mathematicaly explaination on why the smile becomes more and more flattened as $\tau$ increases.}
 	\label{fig:CaliExp}
 \end{figure}
 
@@ -3702,7 +3711,7 @@ Based on the calibration process we discussed above, we describe the below proce
 For testing, we use only market observed expiries and strikes. More specifically, the procedure of colleting the testing scenarios for hedging $N_H$ business days is as the following:
 
 \begin{enumerate}
-	\item A test expiry date $T^{mkt}$ must be a real expiry that exists in market. We add a superscripte to emphasize that a testing expiry must be an option expiries listed in the exchanges. Before 2016, For the S\&P 500 index options listed in Chicago Board Options Exchange (CBOE) the expiration dates are the third Fridays of each month. After 2016, more expiration dates are introduced in CBOE.
+	\item A test expiry date $T^{mkt}$ must be a real expiry that exists in market. We add a superscript to emphasize that a testing expiry must be an option expiry listed in the exchanges. Before 2016, For the S\&P 500 index options listed in Chicago Board Options Exchange (CBOE) the expiration dates are the third Fridays of each month. After 2016, more expiration dates are introduced in CBOE.
 	\item The starting date $t_0$ to set up the initial hedging portfolio is  $N_H$-business days away from $T$. That is to say $T^{mkt}=t_0+N_H/250$ where we assume there are 250 business days in one year. 
 	\item On the starting date $t_0$, we can obtain all market option quotes for the expiry  $T^{mkt}$ and we have a grid of market strikes for expiry $T^{mkt}$ on date $t_0$:
 	$\mathbf{K}^{mkt}_{grid}(t _0,T^{mkt})=\{K^{mkt}_1<\dots<K^{mkt}_{N_K}\}$. Note that we have market options quotes or prices for all $K \in \mathbf{K}^{mkt}_{grid}(t _0,T^{mkt})$ on time $t_0$.
@@ -3746,7 +3755,7 @@ This model uses the sequential features, which encode information of two consecu
 
 
 
-Following the discrete total risk definition in section \ref{sec:DiscreteTotalRisk}, consider a hedging portfolio $P^{H}_{t,T,K}$ which is composed of:
+Following the discrete total risk definition in section \ref{sec:DiscreteTotalRisk}, consider a hedging portfolio  which is composed of:
 \begin{itemize}
 	\item A short position on option $\Vmkt_{t,T,K}$
 	\item $\delta^{M}_{t,T,K}$ shares of $\Smkt_t$ 
@@ -3777,7 +3786,7 @@ Following the discrete total risk definition in section \ref{sec:DiscreteTotalRi
 where
 $D(t,T)=e^{-r(T-t)}$ is the discount factor and $\{t_0,t_1, \dots, t_{N_{rb}-1}\}$ is the set of rebalacing time
 
-Now, consider at a arbitrary rebalancing time $t \in \{t_0,t_1, \dots, t_{N_{rb}-1}\}$, strike $K$, and expiry $T$. Assume we have computed the hedging position at previous rebalancing time $t-\Delta$: $\delta_{t-\Delta t, T,K}$. 
+Now, consider at a  rebalancing time $t \in \{t_0,t_1, \dots, t_{N_{rb}-1}\}$, strike $K$, and expiry $T$. Assume we have computed the hedging position at previous rebalancing time $t-\Delta$: $\delta_{t-\Delta t, T,K}$. 
 
 Let $\DT_{d}$ denote the time interval for sequential information recording. In  the subsequent empirical study, the interval $\DT_{d}$ equals one-day. Please note this setting is the same for local risk model described in Chapter \ref{sec:RNNLocal}.  We denote the sequential features recording the daily history for hedging the option with expiry $T$ and strike $K$ as
 \[
@@ -3907,7 +3916,7 @@ Below we firstly discuss the differences between $\modelT$ and $\model$:
 
 \subsection{Training Objective For $\modelT$}
 \label{sec:TotalModelObj}
-Assume that we are given   a set  of hedging scenarios identified by the starting date $t_0$,expiry date $T$ and strike $K$:
+Assume that we are given   a set  of hedging scenarios identified by the starting date $t_0$, expiry date $T$ and strike $K$:
 \[
 \{(t_0^1,T_1,K_1), \dots, (t_0^M,T_M,K_M)\}	
 \]
@@ -3919,7 +3928,7 @@ A natural total risk hedging loss function is the mean squared error:
 MSE_{total}=\frac{1}{M} \sum_{i=1}^M  (\text{Risk}^{total}_{t_0^i,T_i,K_i})^2
 \]
 where $\text{Risk}^{total}_{t_0,T,K}$ is defined as in equation \eqref{eq:TotalObjV3} and $M$ is the number of hedging scenarios .
-A more appropriate criteria however is the relative hedging error instead of the absolute total hedging error since we are mixing scenarios of different strikes together (i.e., the scenarios include near-money, in-the-money, and out-of-the money options. The absolute hedging error for in-the-money options tend to be much bigger than  near-the-money options and out-of-money options). Additionally, MSE is vulnerable to the existence of outliers. Furthermore, \citet{coleman2007total} demonstrated that the linear loss function can produce better hedging performance. Therefore, in training the $\modelT$, we use the following objective:
+A more appropriate criteria however is the relative hedging error instead of the absolute total hedging error since we are mixing scenarios of different strikes together (i.e., the scenarios include near-money, in-the-money, and out-of-the money options. The absolute hedging error for in-the-money options tend to be much bigger than those of  near-the-money options and out-of-money options). Additionally, MSE is vulnerable to the existence of outliers. Furthermore, \citet{coleman2007total} demonstrated that the linear loss function can produce better hedging performance. Therefore, in training the $\modelT$, we use the following objective:
 \begin{equation}
 Obj_{total}=\sum_{i=1}^M \left|\frac{D(t_0^i,T_i)  \text{Risk}^{total}_{t_0^i,T_i,K_i}}{\Vmkt_{t^i_0,T_i,K_i}}\right|
 \label{eq:totalObjLinear}
@@ -3959,13 +3968,13 @@ For the experiments in the following section, we are hedging for a relatively lo
 	\] where $\mathbf{K}^{mkt}(t_0,T^{mkt})$ is the grid of market strikes for expiry $T^{mkt}$ that can be observed directly from market on the initial date $t_0$ which is 100 business away from $T^{mkt}$.
 	\item On the initial date $t_0$, we prepare the training set  and validation set to be 
 		\[TrainSet=\{(T,K)|T_{min} \leq T<t_0, K \in \mathbf{K}_{grid}(T-\frac{100}{250},T)\}\]
-			\[ValSet=\{(T,K)|T=t_0, K \in K \in \mathbf{K}_{grid}(T-\frac{100}{250},T)\}\]
+			\[ValSet=\{(T,K)|T=t_0,  K \in \mathbf{K}_{grid}(T-\frac{100}{250},T)\}\]
 		where $ \mathbf{K}_{grid}(t,T)$ is the  grid of strikes for the expiry $T$ similarly defined as in \ref{sec:Augtrain} step 4. Note that for training and validation set, we do not require $T$ and $K$ to be observed directly from market. $T_{min}$ is the earliest expiry to be included in the training set. We set $T_{min}$ to be 3 years prior to the intial date $t_0$. We train the model based on the training sets. We get the hedging position from either $\modelT$ or $\modelL$ for $t_0$ only: $\delta^{M}_{t_0,T,K}$ where $(T,K) \in Test_{T,K}$
 		
 	\item Similarly, on any rebalancing date $t_j$,  the training set  and validation set are: 
 	\[TrainSet=\{(T,K)|T_{min} \leq T<t_j, K \in \mathbf{K}_{grid}(T-\frac{100}{250},T)\}\]
 			\[ValSet=\{(T,K)|T=t_j, K \in K \in \mathbf{K}_{grid}(T-\frac{100}{250},T)\}\]
-  We update the model based on the new training set. We get the hedging position from either $\modelT$ or $\modelL$ for $t_j$ only: $\delta^{M}_{t_j,T,K}$ where $(T,K) \in Test_{T,K}$
+  We update the model based on the new training set. We get the hedging position from either $\modelT$ or $\modelL$ for $t_j$ only: $\delta^{M}_{t_j,T,K}$.
 \end{enumerate}
 Notice that in setp 3, we have included new data into the training and validation sets since the range for the allowed expiries in training set is extended from $T_{min} \leq T<t_{j-1}$ to be $T_{min} \leq T<t_{j}$.
 \section{Total Discrete Hedging Performance Comparison Using  S\&P 500 index Options} \label{sec:totalcriteria}
@@ -4327,7 +4336,7 @@ We further demonstrate that the daily hedging performance of the proposed $\mode
 
 In addition, from the testing hedging performance, we assess feature importance in  $\model$  for the S\&P 500 index  option hedging. The monthly average feature weights identify the underlying as the most important local feature and the past implied volatility sequence as the most important sequential feature during normal market periods.
 
-To manage with total risk hedging, we extend  $\model$ to $\model$ for multi-step total risk hedging.  To deal with the challenges of acquiring enough market option information for building data-driven hedging models,  we augment the market data using SABR model and local volatility model. Using the S\&P 500 index  option market data from January 2, 2000 to  August 31st, 2015, we compare  the weekly and monthly hedging performance of the proposed total hedging model $\modelT$  with the sequential data-driven local hedging model $\modelL$, which adopts the same model structure but is trained with a local risk training objective, the Black-Scholes delta with implied volatilities, and the SABR-Bartlett delta. We measure the total risk hedging performance, which is evaluated on the expiries of the options. We demonstrate the effectiveness of the total risk hedging model $\modelT$ in reducing the sell-side loss tail risk for both put and call options. We also confirm that the  total hedging model $\modelT$ often leads to better hedging performance in terms of total hedging criteria when compared with $\modelL$,  SABR-Bartlett method, and Black-Scholes model. 
+To manage with total risk hedging, we extend  $\model$ to $\model$ for multi-step total risk hedging.  To deal with the challenges of acquiring enough market option information for building data-driven hedging models,  we augment the market data using SABR model and local volatility model. Using the S\&P 500 index  option market data from January 1st, 2000 to  August 31st, 2015, we compare  the weekly and monthly hedging performance of the proposed total risk hedging model $\modelT$  with the sequential data-driven local risk hedging model $\modelL$, which adopts the same model structure but is trained with a local risk training objective, the Black-Scholes delta with implied volatilities, and the SABR-Bartlett delta. We measure the total risk hedging performance, which is evaluated on the expiries of the options. We demonstrate the effectiveness of the total risk hedging model $\modelT$ in reducing the sell-side loss tail risk for both put and call options. We also confirm that the  total hedging model $\modelT$ often leads to better hedging performance in terms of total hedging criteria when compared with $\modelL$,  SABR-Bartlett method, and Black-Scholes model. 
 
 
 The main objective of this research  is to assess hedging performance of strategies learned  directly from the  historical time series of the market option price and underlying price,  using machine learning methods. Hedging  performance comparisons between data-driven  models $\DKLs$, $\model$, $\modelT$,and  $\modelL$ and the  classical  option hedging based on parametric model calibration suggest that the data driven  learning hedging can be a viable alternative to the classical methods,  potentially leading to better hedging performance.  
@@ -4335,7 +4344,9 @@ The main objective of this research  is to assess hedging performance of strateg
 In terms of limitation of this research, we compare the data-driven models majorly with parametric models available in academic literature.  We understand that the actual industry practice may not apply the parametric models in the same way as we did in this thesis for hedging derivatives.
 While it would also  be interesting to compare hedging methods actually adopted in the financial industry,   limitation in accessing actual industry practice makes it difficult to conduct such a study and make its results publicly available.
 
-Additionally, comparing with the calibration of the traditional parametric pricing models, the learning process for the data-driven hedging model is less computationally efficient. Lastly, the learning process requires certain amount of historical data. For calibrating a parametric model, one usually needs much less data and  can  build the model based on market data observed on spot and compute the sensitivity as hedging position accordingly.  Therefore, our proposed data-driven models are not directly applicable to the illiquid derivative markets.  
+Additionally, comparing with the calibration of the traditional parametric pricing models on vanilla index options, the learning process for the data-driven hedging model is less computationally efficient. However, one should notice that once the model learning of the data-driven model is done, the outputing process of the hedging position is computaionally efficient. In practice, one can train the model after the business trading hours and use  the trained model to get the hedging position efficiently  during the business trading hours.
+
+Lastly, the learning process requires certain amount of historical data. For calibrating a parametric model, one usually needs much less data and  can  build the model based on market data observed on spot and compute the sensitivity as hedging position accordingly.  Therefore, our proposed data-driven models are not directly applicable to the illiquid derivative markets.  
 
 
 
