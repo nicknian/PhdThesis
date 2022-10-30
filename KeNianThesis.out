@@ -5,8 +5,8 @@
 \BOOKMARK [1][-]{section.1.2}{Outline}{chapter.1}% 5
 \BOOKMARK [0][-]{chapter.2}{Option Hedging: From Past to Present}{}% 6
 \BOOKMARK [1][-]{section.2.1}{Discrete Hedging Problem}{chapter.2}% 7
-\BOOKMARK [2][-]{subsection.2.1.1}{Discrete Local Hedging Risk}{section.2.1}% 8
-\BOOKMARK [2][-]{subsection.2.1.2}{Discrete Total Hedging Risk}{section.2.1}% 9
+\BOOKMARK [2][-]{subsection.2.1.1}{Local Hedging Risk}{section.2.1}% 8
+\BOOKMARK [2][-]{subsection.2.1.2}{Total Hedging Risk}{section.2.1}% 9
 \BOOKMARK [2][-]{subsection.2.1.3}{Interest Rate and Dividend}{section.2.1}% 10
 \BOOKMARK [1][-]{section.2.2}{Option Pricing Model}{chapter.2}% 11
 \BOOKMARK [2][-]{subsection.2.2.1}{Black-Scholes Model}{section.2.2}% 12
@@ -14,7 +14,7 @@
 \BOOKMARK [2][-]{subsection.2.2.3}{SABR Model}{section.2.2}% 14
 \BOOKMARK [1][-]{section.2.3}{Option Hedging Using the Sensitivity from Pricing Model}{chapter.2}% 15
 \BOOKMARK [2][-]{subsection.2.3.1}{Classical Hedging Position from Pricing Model}{section.2.3}% 16
-\BOOKMARK [2][-]{subsection.2.3.2}{Parameter Dependence on Underlying Asset}{section.2.3}% 17
+\BOOKMARK [2][-]{subsection.2.3.2}{Parameter Dependence on Underlying Asset Price}{section.2.3}% 17
 \BOOKMARK [2][-]{subsection.2.3.3}{Corrections under the Black-Scholes Framework}{section.2.3}% 18
 \BOOKMARK [1][-]{section.2.4}{Motivation For Direct Nonparametric Data-Driven Hedging Models}{chapter.2}% 19
 \BOOKMARK [0][-]{chapter.3}{Data-Driven Kernel Learning Framework for Local Hedging Risk}{}% 20

@@ -1,6 +1,6 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Daily local hedging risk comparison between original delta $\delta ^{SABR}_{t,T,K}$ from SABR model and $\delta ^{Bartlett}_{t,T,K}$ from Bartlett correction. The performance is evaluated in terms of improvement over Black-Scholes delta on local hedging risk.}}{29}{table.2.1}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Daily local hedging risk comparison between original delta $\delta ^{SABR}_{t,T,K}$ from SABR model and $\delta ^{Bartlett}_{t,T,K}$ from Bartlett correction. The performance is evaluated in terms of improvement over Black-Scholes delta on local hedging risk.}}{30}{table.2.1}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {3.1}{\ignorespaces Parameters for the Heston model. This set of parameters is used to generate synthetic experiments for demonstrating the effectiveness of $\bf \textsc {DKL}_{\text {SPL}}$ on local risk hedging.}}{42}{table.3.1}%
 \contentsline {table}{\numberline {3.2}{\ignorespaces Daily hedging comparison on synthetic experiments between various hedging strategies. The hedging performance is evaluated in terms of local hedging risk.}}{44}{table.3.2}%
