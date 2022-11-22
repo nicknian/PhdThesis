@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.5.4)  30 OCT 2022 18:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.5.4)  10 NOV 2022 18:17
 entering extended mode
 **c:/Users/nfswx/Documents/GitHub/PhdThesis/KeNianThesis.tex
 (c:/Users/nfswx/Documents/GitHub/PhdThesis/KeNianThesis.tex
@@ -483,18 +483,28 @@ Package: amsthm 2017/10/31 v2.20.4
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/threeparttable\threeparttable.sty"
 Package: threeparttable 2003/06/13  v 3.0
 \@tempboxb=\box45
+) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/enumitem\enumitem.sty"
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip84
+\enit@outerparindent=\dimen159
+\enit@toks=\toks35
+\enit@inbox=\box46
+\enit@count@id=\count144
+\enitdp@description=\count145
 )
-\c@thm=\count144
-\c@lem=\count145
-\c@prop=\count146
-\c@cor=\count147
-\c@definition=\count148
+\c@stepsi=\count146
+\enitdp@steps=\count147
+\c@thm=\count148
+\c@lem=\count149
+\c@prop=\count150
+\c@cor=\count151
+\c@definition=\count152
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/frontendlayer\tikz.sty" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/basiclayer\pgf.sty" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/utilities\pgfrcs.sty" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfutil-common.tex"
-\pgfutil@everybye=\toks35
-\pgfutil@tempdima=\dimen159
-\pgfutil@tempdimb=\dimen160
+\pgfutil@everybye=\toks36
+\pgfutil@tempdima=\dimen160
+\pgfutil@tempdimb=\dimen161
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfutil-common-lists.tex")) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfutil-latex.def"
-\pgfutil@abb=\box46
+\pgfutil@abb=\box47
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ms\everyshi.sty"
 Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
 )) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfrcs.code.tex" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf\pgf.revision.tex")
@@ -504,31 +514,31 @@ Package: pgf 2020/01/08 v3.1.5b (3.1.5b)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/basiclayer\pgfcore.sty" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/systemlayer\pgfsys.sty" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgfsys.code.tex"
 Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfkeys.code.tex"
-\pgfkeys@pathtoks=\toks36
-\pgfkeys@temptoks=\toks37
+\pgfkeys@pathtoks=\toks37
+\pgfkeys@temptoks=\toks38
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfkeysfiltered.code.tex"
-\pgfkeys@tmptoks=\toks38
+\pgfkeys@tmptoks=\toks39
 ))
-\pgf@x=\dimen161
-\pgf@y=\dimen162
-\pgf@xa=\dimen163
-\pgf@ya=\dimen164
-\pgf@xb=\dimen165
-\pgf@yb=\dimen166
-\pgf@xc=\dimen167
-\pgf@yc=\dimen168
-\pgf@xd=\dimen169
-\pgf@yd=\dimen170
+\pgf@x=\dimen162
+\pgf@y=\dimen163
+\pgf@xa=\dimen164
+\pgf@ya=\dimen165
+\pgf@xb=\dimen166
+\pgf@yb=\dimen167
+\pgf@xc=\dimen168
+\pgf@yc=\dimen169
+\pgf@xd=\dimen170
+\pgf@yd=\dimen171
 \w@pgf@writea=\write4
 \r@pgf@reada=\read2
-\c@pgf@counta=\count149
-\c@pgf@countb=\count150
-\c@pgf@countc=\count151
-\c@pgf@countd=\count152
-\t@pgf@toka=\toks39
-\t@pgf@tokb=\toks40
-\t@pgf@tokc=\toks41
-\pgf@sys@id@count=\count153
+\c@pgf@counta=\count153
+\c@pgf@countb=\count154
+\c@pgf@countc=\count155
+\c@pgf@countd=\count156
+\t@pgf@toka=\toks40
+\t@pgf@tokb=\toks41
+\t@pgf@tokc=\toks42
+\pgf@sys@id@count=\count157
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgf.cfg"
 File: pgf.cfg 2020/01/08 v3.1.5b (3.1.5b)
 )
@@ -539,59 +549,59 @@ File: pgfsys-pdftex.def 2020/01/08 v3.1.5b (3.1.5b)
 File: pgfsys-common-pdf.def 2020/01/08 v3.1.5b (3.1.5b)
 ))) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgfsyssoftpath.code.tex"
 File: pgfsyssoftpath.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfsyssoftpath@smallbuffer@items=\count154
-\pgfsyssoftpath@bigbuffer@items=\count155
+\pgfsyssoftpath@smallbuffer@items=\count158
+\pgfsyssoftpath@bigbuffer@items=\count159
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgfsysprotocol.code.tex"
 File: pgfsysprotocol.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcore.code.tex"
 Package: pgfcore 2020/01/08 v3.1.5b (3.1.5b)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath.code.tex" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathcalc.code.tex" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathutil.code.tex") ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathparser.code.tex"
-\pgfmath@dimen=\dimen171
-\pgfmath@count=\count156
-\pgfmath@box=\box47
-\pgfmath@toks=\toks42
-\pgfmath@stack@operand=\toks43
-\pgfmath@stack@operation=\toks44
+\pgfmath@dimen=\dimen172
+\pgfmath@count=\count160
+\pgfmath@box=\box48
+\pgfmath@toks=\toks43
+\pgfmath@stack@operand=\toks44
+\pgfmath@stack@operation=\toks45
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.code.tex" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.basic.code.tex") ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.trigonometric.code.tex") ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.random.code.tex") ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.comparison.code.tex") ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.base.code.tex") ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.round.code.tex") ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.misc.code.tex") ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.integerarithmetics.code.tex"))) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfloat.code.tex"
-\c@pgfmathroundto@lastzeros=\count157
+\c@pgfmathroundto@lastzeros=\count161
 )) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfint.code.tex") ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex"
 File: pgfcorepoints.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@picminx=\dimen172
-\pgf@picmaxx=\dimen173
-\pgf@picminy=\dimen174
-\pgf@picmaxy=\dimen175
-\pgf@pathminx=\dimen176
-\pgf@pathmaxx=\dimen177
-\pgf@pathminy=\dimen178
-\pgf@pathmaxy=\dimen179
-\pgf@xx=\dimen180
-\pgf@xy=\dimen181
-\pgf@yx=\dimen182
-\pgf@yy=\dimen183
-\pgf@zx=\dimen184
-\pgf@zy=\dimen185
+\pgf@picminx=\dimen173
+\pgf@picmaxx=\dimen174
+\pgf@picminy=\dimen175
+\pgf@picmaxy=\dimen176
+\pgf@pathminx=\dimen177
+\pgf@pathmaxx=\dimen178
+\pgf@pathminy=\dimen179
+\pgf@pathmaxy=\dimen180
+\pgf@xx=\dimen181
+\pgf@xy=\dimen182
+\pgf@yx=\dimen183
+\pgf@yy=\dimen184
+\pgf@zx=\dimen185
+\pgf@zy=\dimen186
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorepathconstruct.code.tex"
 File: pgfcorepathconstruct.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@path@lastx=\dimen186
-\pgf@path@lasty=\dimen187
+\pgf@path@lastx=\dimen187
+\pgf@path@lasty=\dimen188
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorepathusage.code.tex"
 File: pgfcorepathusage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@shorten@end@additional=\dimen188
-\pgf@shorten@start@additional=\dimen189
+\pgf@shorten@end@additional=\dimen189
+\pgf@shorten@start@additional=\dimen190
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorescopes.code.tex"
 File: pgfcorescopes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfpic=\box48
-\pgf@hbox=\box49
-\pgf@layerbox@main=\box50
-\pgf@picture@serial@count=\count158
+\pgfpic=\box49
+\pgf@hbox=\box50
+\pgf@layerbox@main=\box51
+\pgf@picture@serial@count=\count162
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoregraphicstate.code.tex"
 File: pgfcoregraphicstate.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgflinewidth=\dimen190
+\pgflinewidth=\dimen191
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoretransformations.code.tex"
 File: pgfcoretransformations.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@pt@x=\dimen191
-\pgf@pt@y=\dimen192
-\pgf@pt@temp=\dimen193
+\pgf@pt@x=\dimen192
+\pgf@pt@y=\dimen193
+\pgf@pt@temp=\dimen194
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorequick.code.tex"
 File: pgfcorequick.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoreobjects.code.tex"
@@ -600,17 +610,17 @@ File: pgfcoreobjects.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 File: pgfcorepathprocessing.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorearrows.code.tex"
 File: pgfcorearrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfarrowsep=\dimen194
+\pgfarrowsep=\dimen195
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoreshade.code.tex"
 File: pgfcoreshade.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@max=\dimen195
-\pgf@sys@shading@range@num=\count159
-\pgf@shadingcount=\count160
+\pgf@max=\dimen196
+\pgf@sys@shading@range@num=\count163
+\pgf@shadingcount=\count164
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoreimage.code.tex"
 File: pgfcoreimage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoreexternal.code.tex"
 File: pgfcoreexternal.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfexternal@startupbox=\box51
+\pgfexternal@startupbox=\box52
 )) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorelayers.code.tex"
 File: pgfcorelayers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoretransparency.code.tex"
@@ -621,52 +631,52 @@ File: pgfcorepatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 File: pgfcorerdf.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 ))) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/modules\pgfmoduleshapes.code.tex"
 File: pgfmoduleshapes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfnodeparttextbox=\box52
+\pgfnodeparttextbox=\box53
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/modules\pgfmoduleplot.code.tex"
 File: pgfmoduleplot.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/compatibility\pgfcomp-version-0-65.sty"
 Package: pgfcomp-version-0-65 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@nodesepstart=\dimen196
-\pgf@nodesepend=\dimen197
+\pgf@nodesepstart=\dimen197
+\pgf@nodesepend=\dimen198
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/compatibility\pgfcomp-version-1-18.sty"
 Package: pgfcomp-version-1-18 2020/01/08 v3.1.5b (3.1.5b)
 )) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/utilities\pgffor.sty" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/utilities\pgfkeys.sty" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfkeys.code.tex")) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/math\pgfmath.sty" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath.code.tex")) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgffor.code.tex"
 Package: pgffor 2020/01/08 v3.1.5b (3.1.5b)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/math\pgfmath.code.tex")
-\pgffor@iter=\dimen198
-\pgffor@skip=\dimen199
-\pgffor@stack=\toks45
-\pgffor@toks=\toks46
+\pgffor@iter=\dimen199
+\pgffor@skip=\dimen256
+\pgffor@stack=\toks46
+\pgffor@toks=\toks47
 )) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz\tikz.code.tex"
 Package: tikz 2020/01/08 v3.1.5b (3.1.5b)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/libraries\pgflibraryplothandlers.code.tex"
 File: pgflibraryplothandlers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@plot@mark@count=\count161
-\pgfplotmarksize=\dimen256
+\pgf@plot@mark@count=\count165
+\pgfplotmarksize=\dimen257
 )
-\tikz@lastx=\dimen257
-\tikz@lasty=\dimen258
-\tikz@lastxsaved=\dimen259
-\tikz@lastysaved=\dimen260
-\tikz@lastmovetox=\dimen261
-\tikz@lastmovetoy=\dimen262
-\tikzleveldistance=\dimen263
-\tikzsiblingdistance=\dimen264
-\tikz@figbox=\box53
-\tikz@figbox@bg=\box54
-\tikz@tempbox=\box55
-\tikz@tempbox@bg=\box56
-\tikztreelevel=\count162
-\tikznumberofchildren=\count163
-\tikznumberofcurrentchild=\count164
-\tikz@fig@count=\count165
+\tikz@lastx=\dimen258
+\tikz@lasty=\dimen259
+\tikz@lastxsaved=\dimen260
+\tikz@lastysaved=\dimen261
+\tikz@lastmovetox=\dimen262
+\tikz@lastmovetoy=\dimen263
+\tikzleveldistance=\dimen264
+\tikzsiblingdistance=\dimen265
+\tikz@figbox=\box54
+\tikz@figbox@bg=\box55
+\tikz@tempbox=\box56
+\tikz@tempbox@bg=\box57
+\tikztreelevel=\count166
+\tikznumberofchildren=\count167
+\tikznumberofcurrentchild=\count168
+\tikz@fig@count=\count169
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/modules\pgfmodulematrix.code.tex"
 File: pgfmodulematrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfmatrixcurrentrow=\count166
-\pgfmatrixcurrentcolumn=\count167
-\pgf@matrix@numberofcolumns=\count168
+\pgfmatrixcurrentrow=\count170
+\pgfmatrixcurrentcolumn=\count171
+\pgf@matrix@numberofcolumns=\count172
 )
-\tikz@expandcount=\count169
+\tikz@expandcount=\count173
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarytopaths.code.tex"
 File: tikzlibrarytopaths.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 ))) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.code.tex"
@@ -691,219 +701,219 @@ File: pgflibraryshapes.arrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 File: tikzlibraryshapes.multipart.code.tex 2020/01/08 v3.1.5b (3.1.5b)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/libraries/shapes\pgflibraryshapes.multipart.code.tex"
 File: pgflibraryshapes.multipart.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfnodepartlowerbox=\box57
-\pgfnodeparttwobox=\box58
-\pgfnodepartthreebox=\box59
-\pgfnodepartfourbox=\box60
-\pgfnodeparttwentybox=\box61
-\pgfnodepartnineteenbox=\box62
-\pgfnodeparteighteenbox=\box63
-\pgfnodepartseventeenbox=\box64
-\pgfnodepartsixteenbox=\box65
-\pgfnodepartfifteenbox=\box66
-\pgfnodepartfourteenbox=\box67
-\pgfnodepartthirteenbox=\box68
-\pgfnodeparttwelvebox=\box69
-\pgfnodepartelevenbox=\box70
-\pgfnodeparttenbox=\box71
-\pgfnodepartninebox=\box72
-\pgfnodeparteightbox=\box73
-\pgfnodepartsevenbox=\box74
-\pgfnodepartsixbox=\box75
-\pgfnodepartfivebox=\box76
+\pgfnodepartlowerbox=\box58
+\pgfnodeparttwobox=\box59
+\pgfnodepartthreebox=\box60
+\pgfnodepartfourbox=\box61
+\pgfnodeparttwentybox=\box62
+\pgfnodepartnineteenbox=\box63
+\pgfnodeparteighteenbox=\box64
+\pgfnodepartseventeenbox=\box65
+\pgfnodepartsixteenbox=\box66
+\pgfnodepartfifteenbox=\box67
+\pgfnodepartfourteenbox=\box68
+\pgfnodepartthirteenbox=\box69
+\pgfnodeparttwelvebox=\box70
+\pgfnodepartelevenbox=\box71
+\pgfnodeparttenbox=\box72
+\pgfnodepartninebox=\box73
+\pgfnodeparteightbox=\box74
+\pgfnodepartsevenbox=\box75
+\pgfnodepartsixbox=\box76
+\pgfnodepartfivebox=\box77
 ))) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryarrows.code.tex"
 File: tikzlibraryarrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/libraries\pgflibraryarrows.code.tex"
 File: pgflibraryarrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\arrowsize=\dimen265
+\arrowsize=\dimen266
 )) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarypositioning.code.tex"
 File: tikzlibrarypositioning.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryfit.code.tex"
 File: tikzlibraryfit.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/libraries\pgflibraryarrows.meta.code.tex"
 File: pgflibraryarrows.meta.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfarrowinset=\dimen266
-\pgfarrowlength=\dimen267
-\pgfarrowwidth=\dimen268
-\pgfarrowlinewidth=\dimen269
+\pgfarrowinset=\dimen267
+\pgfarrowlength=\dimen268
+\pgfarrowwidth=\dimen269
+\pgfarrowlinewidth=\dimen270
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarydecorations.pathmorphing.code.tex"
 ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarydecorations.code.tex" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/modules\pgfmoduledecorations.code.tex"
-\pgfdecoratedcompleteddistance=\dimen270
-\pgfdecoratedremainingdistance=\dimen271
-\pgfdecoratedinputsegmentcompleteddistance=\dimen272
-\pgfdecoratedinputsegmentremainingdistance=\dimen273
-\pgf@decorate@distancetomove=\dimen274
-\pgf@decorate@repeatstate=\count170
-\pgfdecorationsegmentamplitude=\dimen275
-\pgfdecorationsegmentlength=\dimen276
+\pgfdecoratedcompleteddistance=\dimen271
+\pgfdecoratedremainingdistance=\dimen272
+\pgfdecoratedinputsegmentcompleteddistance=\dimen273
+\pgfdecoratedinputsegmentremainingdistance=\dimen274
+\pgf@decorate@distancetomove=\dimen275
+\pgf@decorate@repeatstate=\count174
+\pgfdecorationsegmentamplitude=\dimen276
+\pgfdecorationsegmentlength=\dimen277
 )
-\tikz@lib@dec@box=\box77
+\tikz@lib@dec@box=\box78
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/libraries/decorations\pgflibrarydecorations.pathmorphing.code.tex")) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3packages/xparse\xparse.sty" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3kernel\expl3.sty"
 Package: expl3 2020-01-22 L3 programming layer (loader) 
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3kernel\expl3-code.tex"
 Package: expl3 2020-01-22 L3 programming layer (code)
-\c_max_int=\count171
-\l_tmpa_int=\count172
-\l_tmpb_int=\count173
-\g_tmpa_int=\count174
-\g_tmpb_int=\count175
-\l__seq_internal_a_int=\count176
-\l__seq_internal_b_int=\count177
-\g__kernel_prg_map_int=\count178
-\c__ior_term_noprompt_ior=\count179
-\c_log_iow=\count180
-\l_iow_line_count_int=\count181
-\l__iow_line_target_int=\count182
-\l__iow_one_indent_int=\count183
-\l__iow_indent_int=\count184
-\c_zero_dim=\dimen277
-\c_max_dim=\dimen278
-\l_tmpa_dim=\dimen279
-\l_tmpb_dim=\dimen280
-\g_tmpa_dim=\dimen281
-\g_tmpb_dim=\dimen282
-\c_zero_skip=\skip84
-\c_max_skip=\skip85
-\l_tmpa_skip=\skip86
-\l_tmpb_skip=\skip87
-\g_tmpa_skip=\skip88
-\g_tmpb_skip=\skip89
+\c_max_int=\count175
+\l_tmpa_int=\count176
+\l_tmpb_int=\count177
+\g_tmpa_int=\count178
+\g_tmpb_int=\count179
+\l__seq_internal_a_int=\count180
+\l__seq_internal_b_int=\count181
+\g__kernel_prg_map_int=\count182
+\c__ior_term_noprompt_ior=\count183
+\c_log_iow=\count184
+\l_iow_line_count_int=\count185
+\l__iow_line_target_int=\count186
+\l__iow_one_indent_int=\count187
+\l__iow_indent_int=\count188
+\c_zero_dim=\dimen278
+\c_max_dim=\dimen279
+\l_tmpa_dim=\dimen280
+\l_tmpb_dim=\dimen281
+\g_tmpa_dim=\dimen282
+\g_tmpb_dim=\dimen283
+\c_zero_skip=\skip85
+\c_max_skip=\skip86
+\l_tmpa_skip=\skip87
+\l_tmpb_skip=\skip88
+\g_tmpa_skip=\skip89
+\g_tmpb_skip=\skip90
 \c_zero_muskip=\muskip12
 \c_max_muskip=\muskip13
 \l_tmpa_muskip=\muskip14
 \l_tmpb_muskip=\muskip15
 \g_tmpa_muskip=\muskip16
 \g_tmpb_muskip=\muskip17
-\l_keys_choice_int=\count185
-\l__intarray_loop_int=\count186
-\c__intarray_sp_dim=\dimen283
-\g__intarray_font_int=\count187
-\c__fp_leading_shift_int=\count188
-\c__fp_middle_shift_int=\count189
-\c__fp_trailing_shift_int=\count190
-\c__fp_big_leading_shift_int=\count191
-\c__fp_big_middle_shift_int=\count192
-\c__fp_big_trailing_shift_int=\count193
-\c__fp_Bigg_leading_shift_int=\count194
-\c__fp_Bigg_middle_shift_int=\count195
-\c__fp_Bigg_trailing_shift_int=\count196
-\c__kernel_randint_max_int=\count197
-\g__fp_array_int=\count198
-\l__fp_array_loop_int=\count199
-\l__sort_length_int=\count266
-\l__sort_min_int=\count267
-\l__sort_top_int=\count268
-\l__sort_max_int=\count269
-\l__sort_true_max_int=\count270
-\l__sort_block_int=\count271
-\l__sort_begin_int=\count272
-\l__sort_end_int=\count273
-\l__sort_A_int=\count274
-\l__sort_B_int=\count275
-\l__sort_C_int=\count276
-\l__str_internal_int=\count277
-\c__str_replacement_char_int=\count278
-\l__tl_analysis_normal_int=\count279
-\l__tl_analysis_index_int=\count280
-\l__tl_analysis_nesting_int=\count281
-\l__tl_analysis_type_int=\count282
-\l__regex_internal_a_int=\count283
-\l__regex_internal_b_int=\count284
-\l__regex_internal_c_int=\count285
-\l__regex_balance_int=\count286
-\l__regex_group_level_int=\count287
-\l__regex_mode_int=\count288
-\c__regex_cs_in_class_mode_int=\count289
-\c__regex_cs_mode_int=\count290
-\l__regex_catcodes_int=\count291
-\l__regex_default_catcodes_int=\count292
-\c__regex_catcode_D_int=\count293
-\c__regex_catcode_S_int=\count294
-\c__regex_catcode_L_int=\count295
-\c__regex_catcode_O_int=\count296
-\c__regex_catcode_A_int=\count297
-\c__regex_all_catcodes_int=\count298
-\l__regex_show_lines_int=\count299
-\l__regex_min_state_int=\count300
-\l__regex_max_state_int=\count301
-\l__regex_left_state_int=\count302
-\l__regex_right_state_int=\count303
-\l__regex_capturing_group_int=\count304
-\l__regex_min_pos_int=\count305
-\l__regex_max_pos_int=\count306
-\l__regex_curr_pos_int=\count307
-\l__regex_start_pos_int=\count308
-\l__regex_success_pos_int=\count309
-\l__regex_curr_char_int=\count310
-\l__regex_curr_catcode_int=\count311
-\l__regex_last_char_int=\count312
-\l__regex_case_changed_char_int=\count313
-\l__regex_curr_state_int=\count314
-\l__regex_step_int=\count315
-\l__regex_min_active_int=\count316
-\l__regex_max_active_int=\count317
-\l__regex_replacement_csnames_int=\count318
-\l__regex_match_count_int=\count319
-\l__regex_min_submatch_int=\count320
-\l__regex_submatch_int=\count321
-\l__regex_zeroth_submatch_int=\count322
-\g__regex_trace_regex_int=\count323
-\c_empty_box=\box78
-\l_tmpa_box=\box79
-\l_tmpb_box=\box80
-\g_tmpa_box=\box81
-\g_tmpb_box=\box82
-\l__box_top_dim=\dimen284
-\l__box_bottom_dim=\dimen285
-\l__box_left_dim=\dimen286
-\l__box_right_dim=\dimen287
-\l__box_top_new_dim=\dimen288
-\l__box_bottom_new_dim=\dimen289
-\l__box_left_new_dim=\dimen290
-\l__box_right_new_dim=\dimen291
-\l__box_internal_box=\box83
-\l__coffin_internal_box=\box84
-\l__coffin_internal_dim=\dimen292
-\l__coffin_offset_x_dim=\dimen293
-\l__coffin_offset_y_dim=\dimen294
-\l__coffin_x_dim=\dimen295
-\l__coffin_y_dim=\dimen296
-\l__coffin_x_prime_dim=\dimen297
-\l__coffin_y_prime_dim=\dimen298
-\c_empty_coffin=\box85
-\l__coffin_aligned_coffin=\box86
-\l__coffin_aligned_internal_coffin=\box87
-\l_tmpa_coffin=\box88
-\l_tmpb_coffin=\box89
-\g_tmpa_coffin=\box90
-\g_tmpb_coffin=\box91
-\l__coffin_bounding_shift_dim=\dimen299
-\l__coffin_left_corner_dim=\dimen300
-\l__coffin_right_corner_dim=\dimen301
-\l__coffin_bottom_corner_dim=\dimen302
-\l__coffin_top_corner_dim=\dimen303
-\l__coffin_scaled_total_height_dim=\dimen304
-\l__coffin_scaled_width_dim=\dimen305
-\c__coffin_empty_coffin=\box92
-\l__coffin_display_coffin=\box93
-\l__coffin_display_coord_coffin=\box94
-\l__coffin_display_pole_coffin=\box95
-\l__coffin_display_offset_dim=\dimen306
-\l__coffin_display_x_dim=\dimen307
-\l__coffin_display_y_dim=\dimen308
+\l_keys_choice_int=\count189
+\l__intarray_loop_int=\count190
+\c__intarray_sp_dim=\dimen284
+\g__intarray_font_int=\count191
+\c__fp_leading_shift_int=\count192
+\c__fp_middle_shift_int=\count193
+\c__fp_trailing_shift_int=\count194
+\c__fp_big_leading_shift_int=\count195
+\c__fp_big_middle_shift_int=\count196
+\c__fp_big_trailing_shift_int=\count197
+\c__fp_Bigg_leading_shift_int=\count198
+\c__fp_Bigg_middle_shift_int=\count199
+\c__fp_Bigg_trailing_shift_int=\count266
+\c__kernel_randint_max_int=\count267
+\g__fp_array_int=\count268
+\l__fp_array_loop_int=\count269
+\l__sort_length_int=\count270
+\l__sort_min_int=\count271
+\l__sort_top_int=\count272
+\l__sort_max_int=\count273
+\l__sort_true_max_int=\count274
+\l__sort_block_int=\count275
+\l__sort_begin_int=\count276
+\l__sort_end_int=\count277
+\l__sort_A_int=\count278
+\l__sort_B_int=\count279
+\l__sort_C_int=\count280
+\l__str_internal_int=\count281
+\c__str_replacement_char_int=\count282
+\l__tl_analysis_normal_int=\count283
+\l__tl_analysis_index_int=\count284
+\l__tl_analysis_nesting_int=\count285
+\l__tl_analysis_type_int=\count286
+\l__regex_internal_a_int=\count287
+\l__regex_internal_b_int=\count288
+\l__regex_internal_c_int=\count289
+\l__regex_balance_int=\count290
+\l__regex_group_level_int=\count291
+\l__regex_mode_int=\count292
+\c__regex_cs_in_class_mode_int=\count293
+\c__regex_cs_mode_int=\count294
+\l__regex_catcodes_int=\count295
+\l__regex_default_catcodes_int=\count296
+\c__regex_catcode_D_int=\count297
+\c__regex_catcode_S_int=\count298
+\c__regex_catcode_L_int=\count299
+\c__regex_catcode_O_int=\count300
+\c__regex_catcode_A_int=\count301
+\c__regex_all_catcodes_int=\count302
+\l__regex_show_lines_int=\count303
+\l__regex_min_state_int=\count304
+\l__regex_max_state_int=\count305
+\l__regex_left_state_int=\count306
+\l__regex_right_state_int=\count307
+\l__regex_capturing_group_int=\count308
+\l__regex_min_pos_int=\count309
+\l__regex_max_pos_int=\count310
+\l__regex_curr_pos_int=\count311
+\l__regex_start_pos_int=\count312
+\l__regex_success_pos_int=\count313
+\l__regex_curr_char_int=\count314
+\l__regex_curr_catcode_int=\count315
+\l__regex_last_char_int=\count316
+\l__regex_case_changed_char_int=\count317
+\l__regex_curr_state_int=\count318
+\l__regex_step_int=\count319
+\l__regex_min_active_int=\count320
+\l__regex_max_active_int=\count321
+\l__regex_replacement_csnames_int=\count322
+\l__regex_match_count_int=\count323
+\l__regex_min_submatch_int=\count324
+\l__regex_submatch_int=\count325
+\l__regex_zeroth_submatch_int=\count326
+\g__regex_trace_regex_int=\count327
+\c_empty_box=\box79
+\l_tmpa_box=\box80
+\l_tmpb_box=\box81
+\g_tmpa_box=\box82
+\g_tmpb_box=\box83
+\l__box_top_dim=\dimen285
+\l__box_bottom_dim=\dimen286
+\l__box_left_dim=\dimen287
+\l__box_right_dim=\dimen288
+\l__box_top_new_dim=\dimen289
+\l__box_bottom_new_dim=\dimen290
+\l__box_left_new_dim=\dimen291
+\l__box_right_new_dim=\dimen292
+\l__box_internal_box=\box84
+\l__coffin_internal_box=\box85
+\l__coffin_internal_dim=\dimen293
+\l__coffin_offset_x_dim=\dimen294
+\l__coffin_offset_y_dim=\dimen295
+\l__coffin_x_dim=\dimen296
+\l__coffin_y_dim=\dimen297
+\l__coffin_x_prime_dim=\dimen298
+\l__coffin_y_prime_dim=\dimen299
+\c_empty_coffin=\box86
+\l__coffin_aligned_coffin=\box87
+\l__coffin_aligned_internal_coffin=\box88
+\l_tmpa_coffin=\box89
+\l_tmpb_coffin=\box90
+\g_tmpa_coffin=\box91
+\g_tmpb_coffin=\box92
+\l__coffin_bounding_shift_dim=\dimen300
+\l__coffin_left_corner_dim=\dimen301
+\l__coffin_right_corner_dim=\dimen302
+\l__coffin_bottom_corner_dim=\dimen303
+\l__coffin_top_corner_dim=\dimen304
+\l__coffin_scaled_total_height_dim=\dimen305
+\l__coffin_scaled_width_dim=\dimen306
+\c__coffin_empty_coffin=\box93
+\l__coffin_display_coffin=\box94
+\l__coffin_display_coord_coffin=\box95
+\l__coffin_display_pole_coffin=\box96
+\l__coffin_display_offset_dim=\dimen307
+\l__coffin_display_x_dim=\dimen308
+\l__coffin_display_y_dim=\dimen309
 \g__char_data_ior=\read3
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3kernel\l3deprecation.def"
 File: l3deprecation.def 2019-04-06 v L3 Deprecated functions
 )) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3backend\l3backend-pdfmode.def"
 File: l3backend-pdfmode.def 2019-04-06 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count324
-\l__pdf_internal_box=\box96
+\l__kernel_color_stack_int=\count328
+\l__pdf_internal_box=\box97
 ))
 Package: xparse 2020-01-12 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count325
-\g__xparse_grabber_int=\count326
-\l__xparse_m_args_int=\count327
-\l__xparse_v_nesting_int=\count328
+\l__xparse_current_arg_int=\count329
+\g__xparse_grabber_int=\count330
+\l__xparse_m_args_int=\count331
+\l__xparse_v_nesting_int=\count332
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarycalc.code.tex"
 File: tikzlibrarycalc.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tkz-graph\tkz-graph.sty"
@@ -911,39 +921,39 @@ Package: tkz-graph 2018/09/19 ctan v 1.00 d base for graphs
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xkeyval\xkeyval.sty"
 Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xkeyval\xkeyval.tex" ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xkeyval\xkvutils.tex"
-\XKV@toks=\toks47
-\XKV@tempa@toks=\toks48
+\XKV@toks=\toks48
+\XKV@tempa@toks=\toks49
 )
-\XKV@depth=\count329
+\XKV@depth=\count333
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
-\c@tkz@gr@a=\count330
-\c@tkz@gr@b=\count331
-\c@tkz@gr@c=\count332
-\c@tkz@gr@e=\count333
-\c@tkz@gr@d=\count334
-\c@tkz@gr@p=\count335
-\c@tkz@gr@i=\count336
-\c@tkz@gr@n=\count337
-\c@tkz@gr@ta=\count338
-\c@tkz@gr@tb=\count339
+\c@tkz@gr@a=\count334
+\c@tkz@gr@b=\count335
+\c@tkz@gr@c=\count336
+\c@tkz@gr@e=\count337
+\c@tkz@gr@d=\count338
+\c@tkz@gr@p=\count339
+\c@tkz@gr@i=\count340
+\c@tkz@gr@n=\count341
+\c@tkz@gr@ta=\count342
+\c@tkz@gr@tb=\count343
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarybackgrounds.code.tex"
 File: tikzlibrarybackgrounds.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@layerbox@background=\box97
-\pgf@layerboxsaved@background=\box98
+\pgf@layerbox@background=\box98
+\pgf@layerboxsaved@background=\box99
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryautomata.code.tex"
 File: tikzlibraryautomata.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/glossaries-extra\glossaries-extra.sty"
 Package: glossaries-extra 2020/02/28 v1.43 (NLCT)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/etoolbox\etoolbox.sty"
 Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count340
+\etb@tempcnta=\count344
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/glossaries/base\glossaries.sty"
 Package: glossaries 2020/02/13 v4.45 (NLCT)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/mfirstuc\mfirstuc.sty"
 Package: mfirstuc 2017/11/14 v2.06 (NLCT)
-\@glsmfirst=\toks49
-\@glsmrest=\toks50
+\@glsmfirst=\toks50
+\@glsmrest=\toks51
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/textcase\textcase.sty"
 Package: textcase 2019/09/14 v1.00 Text only upper/lower case changing (DPC)
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xfor\xfor.sty"
@@ -952,25 +962,25 @@ Package: xfor 2009/02/05 v1.05 (NLCT)
 Package: datatool-base 2019/09/27 v2.32 (NLCT)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/substr\substr.sty"
 Package: substr 2009/10/20 v1.2 Handle substrings
-\c@su@anzahl=\count341
+\c@su@anzahl=\count345
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datatool\datatool-fp.sty"
 Package: datatool-fp 2019/09/27 v2.32 (NLCT)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp.sty"
 Package: fp 1995/04/02
  `Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\defpattern.sty"
 Package: defpattern 1994/10/12
-\actioncount=\count342
+\actioncount=\count346
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-basic.sty"
 Package: fp-basic 1996/05/13
-\FP@xs=\count343
-\FP@xia=\count344
-\FP@xib=\count345
-\FP@xfa=\count346
-\FP@xfb=\count347
-\FP@rega=\count348
-\FP@regb=\count349
-\FP@regs=\count350
-\FP@times=\count351
+\FP@xs=\count347
+\FP@xia=\count348
+\FP@xib=\count349
+\FP@xfa=\count350
+\FP@xfb=\count351
+\FP@rega=\count352
+\FP@regb=\count353
+\FP@regs=\count354
+\FP@times=\count355
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-addons.sty"
 Package: fp-addons 1995/03/15
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-snap.sty"
@@ -983,7 +993,7 @@ Package: fp-trigo 1995/04/14
 Package: fp-pas 1994/08/29
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-random.sty"
 Package: fp-random 1995/02/23
-\FPseed=\count352
+\FPseed=\count356
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-eqn.sty"
 Package: fp-eqn 1995/04/03
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-upn.sty"
@@ -991,133 +1001,133 @@ Package: fp-upn 1996/10/21
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-eval.sty"
 Package: fp-eval 1995/04/03
 )))
-\@dtl@toks=\toks51
-\@dtl@tmpcount=\count353
-\dtl@tmplength=\skip90
-\dtl@sortresult=\count354
-\@dtl@numgrpsepcount=\count355
-\@dtl@datatype=\count356
-\dtl@codeA=\count357
-\dtl@codeB=\count358
-\@dtl@foreach@level=\count359
+\@dtl@toks=\toks52
+\@dtl@tmpcount=\count357
+\dtl@tmplength=\skip91
+\dtl@sortresult=\count358
+\@dtl@numgrpsepcount=\count359
+\@dtl@datatype=\count360
+\dtl@codeA=\count361
+\dtl@codeB=\count362
+\@dtl@foreach@level=\count363
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/glossaries/base\glossaries-compatible-307.sty"
 Package: glossaries-compatible-307 2020/02/13 v4.45 (NLCT)
 )
-\gls@level=\count360
-\@gls@tmpb=\toks52
-\gls@tmplen=\skip91
-\glskeylisttok=\toks53
-\glslabeltok=\toks54
-\glsshorttok=\toks55
-\glslongtok=\toks56
+\gls@level=\count364
+\@gls@tmpb=\toks53
+\gls@tmplen=\skip92
+\glskeylisttok=\toks54
+\glslabeltok=\toks55
+\glsshorttok=\toks56
+\glslongtok=\toks57
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/glossaries/styles\glossary-hypernav.sty"
 Package: glossary-hypernav 2020/02/13 v4.45 (NLCT)
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/glossaries/styles\glossary-list.sty"
 Package: glossary-list 2020/02/13 v4.45 (NLCT)
-\glslistdottedwidth=\skip92
+\glslistdottedwidth=\skip93
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/glossaries/styles\glossary-long.sty"
 Package: glossary-long 2020/02/13 v4.45 (NLCT)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\longtable.sty"
 Package: longtable 2019/02/06 v4.12 Multi-page Table package (DPC)
-\LTleft=\skip93
-\LTright=\skip94
-\LTpre=\skip95
-\LTpost=\skip96
-\LTchunksize=\count361
-\LTcapwidth=\dimen309
-\LT@head=\box99
-\LT@firsthead=\box100
-\LT@foot=\box101
-\LT@lastfoot=\box102
-\LT@cols=\count362
-\LT@rows=\count363
-\c@LT@tables=\count364
-\c@LT@chunks=\count365
-\LT@p@ftn=\toks57
+\LTleft=\skip94
+\LTright=\skip95
+\LTpre=\skip96
+\LTpost=\skip97
+\LTchunksize=\count365
+\LTcapwidth=\dimen310
+\LT@head=\box100
+\LT@firsthead=\box101
+\LT@foot=\box102
+\LT@lastfoot=\box103
+\LT@cols=\count366
+\LT@rows=\count367
+\c@LT@tables=\count368
+\c@LT@chunks=\count369
+\LT@p@ftn=\toks58
 )
-\glsdescwidth=\skip97
-\glspagelistwidth=\skip98
+\glsdescwidth=\skip98
+\glspagelistwidth=\skip99
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/glossaries/styles\glossary-super.sty"
 Package: glossary-super 2020/02/13 v4.45 (NLCT)
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/supertabular\supertabular.sty"
 Package: supertabular 2020/02/02 v4.1g the supertabular environment
-\c@tracingst=\count366
-\ST@wd=\dimen310
-\ST@rightskip=\skip99
-\ST@leftskip=\skip100
-\ST@parfillskip=\skip101
-\ST@pageleft=\dimen311
-\ST@headht=\dimen312
-\ST@tailht=\dimen313
-\ST@pagesofar=\dimen314
-\ST@pboxht=\dimen315
-\ST@lineht=\dimen316
-\ST@prevht=\dimen317
-\ST@toadd=\dimen318
-\ST@dimen=\dimen319
-\ST@pbox=\box103
+\c@tracingst=\count370
+\ST@wd=\dimen311
+\ST@rightskip=\skip100
+\ST@leftskip=\skip101
+\ST@parfillskip=\skip102
+\ST@pageleft=\dimen312
+\ST@headht=\dimen313
+\ST@tailht=\dimen314
+\ST@pagesofar=\dimen315
+\ST@pboxht=\dimen316
+\ST@lineht=\dimen317
+\ST@prevht=\dimen318
+\ST@toadd=\dimen319
+\ST@dimen=\dimen320
+\ST@pbox=\box104
 )) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/glossaries/styles\glossary-tree.sty"
 Package: glossary-tree 2020/02/13 v4.45 (NLCT)
-\glstreeindent=\skip102
+\glstreeindent=\skip103
 ))
-\glsxtrresourcecount=\count367
-\@glsxtrnewgls@inner=\count368
-\glsshortpltok=\toks58
-\glslongpltok=\toks59
+\glsxtrresourcecount=\count371
+\@glsxtrnewgls@inner=\count372
+\glsshortpltok=\toks59
+\glslongpltok=\toks60
 )
 \glswrite=\write5
 \glo@main@file=\write6
 \openout6 = `KeNianThesis.glo'.
 
-Package glossaries Info: Writing glossary file KeNianThesis.glo on input line 339.
+Package glossaries Info: Writing glossary file KeNianThesis.glo on input line 342.
 \glo@abbreviations@file=\write7
 \openout7 = `KeNianThesis.glo-abr'.
 
-Package glossaries Info: Writing glossary file KeNianThesis.glo-abr on input line 339.
+Package glossaries Info: Writing glossary file KeNianThesis.glo-abr on input line 342.
 \glo@nomenclature@file=\write8
 \openout8 = `KeNianThesis.nomenclature-glo'.
 
-Package glossaries Info: Writing glossary file KeNianThesis.nomenclature-glo on input line 339.
+Package glossaries Info: Writing glossary file KeNianThesis.nomenclature-glo on input line 342.
 \glo@symbols@file=\write9
 \openout9 = `KeNianThesis.symbols-glo'.
 
-Package glossaries Info: Writing glossary file KeNianThesis.symbols-glo on input line 339.
+Package glossaries Info: Writing glossary file KeNianThesis.symbols-glo on input line 342.
  (KeNianThesis.aux)
 \openout1 = `KeNianThesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 343.
-LaTeX Font Info:    ... okay on input line 343.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 343.
-LaTeX Font Info:    ... okay on input line 343.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 343.
-LaTeX Font Info:    ... okay on input line 343.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 343.
-LaTeX Font Info:    ... okay on input line 343.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 343.
-LaTeX Font Info:    ... okay on input line 343.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 343.
-LaTeX Font Info:    ... okay on input line 343.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 343.
-LaTeX Font Info:    ... okay on input line 343.
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 343.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 346.
+LaTeX Font Info:    ... okay on input line 346.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 346.
+LaTeX Font Info:    ... okay on input line 346.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 346.
+LaTeX Font Info:    ... okay on input line 346.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 346.
+LaTeX Font Info:    ... okay on input line 346.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 346.
+LaTeX Font Info:    ... okay on input line 346.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 346.
+LaTeX Font Info:    ... okay on input line 346.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 346.
+LaTeX Font Info:    ... okay on input line 346.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 346.
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/psnfss\ot1ptm.fd"
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count369
-\scratchdimen=\dimen320
-\scratchbox=\box104
-\nofMPsegments=\count370
-\nofMParguments=\count371
-\everyMPshowfont=\toks60
-\MPscratchCnt=\count372
-\MPscratchDim=\dimen321
-\MPnumerator=\count373
-\makeMPintoPDFobject=\count374
-\everyMPtoPDFconversion=\toks61
+\scratchcounter=\count373
+\scratchdimen=\dimen321
+\scratchbox=\box105
+\nofMPsegments=\count374
+\nofMParguments=\count375
+\everyMPshowfont=\toks61
+\MPscratchCnt=\count376
+\MPscratchDim=\dimen322
+\MPnumerator=\count377
+\makeMPintoPDFobject=\count378
+\everyMPtoPDFconversion=\toks62
 )
-\AtBeginShipoutBox=\box105
-Package hyperref Info: Link coloring ON on input line 343.
+\AtBeginShipoutBox=\box106
+Package hyperref Info: Link coloring ON on input line 346.
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\nameref.sty"
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
  ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/latex/refcount\refcount.sty"
@@ -1125,16 +1135,16 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) ("C:\Users\nfswx\AppData\Local\Programs\MiKTeX 2.9\tex/generic/gettitlestring\gettitlestring.sty"
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count375
+\c@section@level=\count379
 )
-LaTeX Info: Redefining \ref on input line 343.
-LaTeX Info: Redefining \pageref on input line 343.
-LaTeX Info: Redefining \nameref on input line 343.
+LaTeX Info: Redefining \ref on input line 346.
+LaTeX Info: Redefining \pageref on input line 346.
+LaTeX Info: Redefining \nameref on input line 346.
  (KeNianThesis.out) (KeNianThesis.out)
 \@outlinefile=\write10
 \openout10 = `KeNianThesis.out'.
 
-\c@lstlisting=\count376
+\c@lstlisting=\count380
  ABD: EveryShipout initializing macros (uw-ethesis-frontpgs.tex
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24.88> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 16.
@@ -1201,7 +1211,7 @@ Overfull \hbox (0.39647pt too wide) in paragraph at lines 139--141
 
 ] [8]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/sc' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 75.
+(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 74.
 )
 \tf@toc=\write11
 \openout11 = `KeNianThesis.toc'.
@@ -1211,11 +1221,11 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/sc' in size <12> not available
 
 
 
-] [11])
+])
 \tf@lot=\write12
 \openout12 = `KeNianThesis.lot'.
 
- [12] (KeNianThesis.lof [13
+ [11] (KeNianThesis.lof [12
 
 
 
@@ -1225,11 +1235,11 @@ Overfull \hbox (1.22102pt too wide) in paragraph at lines 11--11
  [][] [][][]\OT1/ptm/m/n/12 Feature scores for weekly and monthly hedg-ing mod-els $[][]$ on traded S&P500 
  []
 
-[14] [15])
+[13] [14])
 \tf@lof=\write13
 \openout13 = `KeNianThesis.lof'.
 
- [16] (KeNianThesis.gls) (KeNianThesis.gls-abr) (KeNianThesis.nomenclature-gls) (KeNianThesis.symbols-gls))
+ [15] (KeNianThesis.gls) (KeNianThesis.gls-abr) (KeNianThesis.nomenclature-gls) (KeNianThesis.symbols-gls))
 Chapter 1.
 [1
 
@@ -1240,7 +1250,7 @@ Chapter 1.
 
 ] [2]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 422.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 425.
  [3] [4] [5] [6]
 Chapter 2.
 [7
@@ -1248,36 +1258,36 @@ Chapter 2.
 
 ]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 511.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 514.
  [8] [9]
-Overfull \hbox (24.09961pt too wide) in paragraph at lines 588--591
+Overfull \hbox (24.09961pt too wide) in paragraph at lines 591--594
 \OT1/ptm/m/n/12 Assume we re-bal-ance $\OML/ztmcm/m/it/12 N[]$ \OT1/ptm/m/n/12 times, the hedg-ing port-fo-lio is re-bal-anced at dis-crete times $\OMS/ztmcm/m/n/12 f\OML/ztmcm/m/it/12 t[]; t[]; [] ; t[]\OMS/ztmcm/m/n/12 g$
  []
 
 [10] [11] [12] [13] [14]
-Overfull \hbox (1.03146pt too wide) in paragraph at lines 780--781
+Overfull \hbox (1.03146pt too wide) in paragraph at lines 783--785
 []\OT1/ptm/m/n/12 Although, Black-Scholes frame-work pro-vides a close-form for-mula, the Black-Scholes model
  []
 
 [15] [16]
-Overfull \hbox (0.61148pt too wide) in paragraph at lines 846--848
+Overfull \hbox (0.61148pt too wide) in paragraph at lines 849--851
 \OT1/ptm/m/n/12 with $\OML/ztmcm/m/it/12 Re\OT1/ztmcm/m/n/12 [\OMS/ztmcm/m/n/12 \OT1/ztmcm/m/n/12 ]$ \OT1/ptm/m/n/12 de-not-ing the real part of a com-plext num-ber. The char-ac-ter-is-tic func-tion $\OML/ztmcm/m/it/12 f[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 S; \OT1/ztmcm/m/n/12 \OML/ztmcm/m/it/12 ; t; T\OT1/ztmcm/m/n/12 ; \OML/ztmcm/m/it/12 '\OT1/ztmcm/m/n/12 )$
  []
 
 [17] [18] [19]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 990.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 981.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 990.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 981.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 990.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 981.
  [20]
-Overfull \hbox (21.48718pt too wide) in paragraph at lines 994--997
+Overfull \hbox (21.48718pt too wide) in paragraph at lines 998--1001
 []\OT1/ptm/m/n/12 On each trad-ing time $\OML/ztmcm/m/it/12 t$\OT1/ptm/m/n/12 , we have ob-served mar-ket op-tion prices for dif-fer-ent strikes $\OMS/ztmcm/m/n/12 f\OML/ztmcm/m/it/12 K[]; [] ; K[]\OMS/ztmcm/m/n/12 g$
  []
 
 [21] [22] [23] [24]
-Overfull \hbox (9.03215pt too wide) in paragraph at lines 1181--1185
+Overfull \hbox (9.03215pt too wide) in paragraph at lines 1185--1189
 \OT1/ptm/m/n/12 where $\OML/ztmcm/m/it/12 $ \OT1/ptm/m/n/12 is any con-stant volatil-ity. Let $[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 S; t; T; K; r; q\OT1/ztmcm/m/n/12 )$ \OT1/ptm/m/n/12 and $[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 K; t; T; S; q; r\OT1/ztmcm/m/n/12 )$ \OT1/ptm/m/n/12 be the Black{Scholes
  []
 
@@ -1289,102 +1299,107 @@ Package epstopdf Info: Source file: <./figures/Bartlett.eps>
 (epstopdf)                    date: 2020-04-20 11:25:47
 (epstopdf)                    size: 25827 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/Bartlett-eps-converted-to.pdf ./figures/Bartlett.eps>
-(epstopdf)             \includegraphics on input line 1307.
+(epstopdf)             \includegraphics on input line 1311.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./figures/Bartlett-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Bartlett-eps-converted-to.pdf, id=1115, 433.62pt x 289.08pt>
+<./figures/Bartlett-eps-converted-to.pdf, id=1102, 433.62pt x 289.08pt>
 File: ./figures/Bartlett-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/Bartlett-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/Bartlett-eps-converted-to.pdf  used on input line 1307.
+Package pdftex.def Info: ./figures/Bartlett-eps-converted-to.pdf  used on input line 1311.
 (pdftex.def)             Requested size: 460.72124pt x 307.16438pt.
 [28] [29 <./figures/Bartlett-eps-converted-to.pdf>]
-Overfull \hbox (37.39781pt too wide) detected at line 1342
+Overfull \hbox (37.39781pt too wide) detected at line 1346
 []\OML/ztmcm/m/it/12 [] \OT1/ztmcm/m/n/12 = []
  []
 
-[30] [31]
+[30] [31] [32]
 Chapter 3.
-[32
+[33
 
 
-] [33] [34] [35] [36] [37] [38]
-Overfull \hbox (12.28152pt too wide) detected at line 1590
-\OML/ztmcm/m/it/12 V[]\OT1/ztmcm/m/n/12 (\OT1/ptm/b/n/12 x[]\OT1/ztmcm/m/n/12 ; [][]) \OMS/ztmcm/m/n/12   \OML/ztmcm/m/it/12 V\OT1/ztmcm/m/n/12 (\OT1/ptm/b/n/12 x[]\OT1/ztmcm/m/n/12 ; []) = [] \OML/ztmcm/m/it/12 B[]\OT1/ztmcm/m/n/12 (\U/msb/m/n/12 V[] \OMS/ztmcm/m/n/12   \U/msb/m/n/12 V[]\OT1/ztmcm/m/n/12 ) = \OML/ztmcm/m/it/12 B[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 V[]\OT1/ztmcm/m/n/12 (\OT1/ptm/b/n/12 x[]\OT1/ztmcm/m/n/12 ; [][]) \OMS/ztmcm/m/n/12   \U/msb/m/n/12 V[]\OT1/ztmcm/m/n/12 ) = \OML/ztmcm/m/it/12 B[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 V[]\OT1/ztmcm/m/n/12 (\OT1/ptm/b/n/12 x[]\OT1/ztmcm/m/n/12 ; [][]) \OMS/ztmcm/m/n/12   \OML/ztmcm/m/it/12 V[]\OT1/ztmcm/m/n/12 )
+] [34] [35] [36] [37]
+Overfull \hbox (1.62296pt too wide) detected at line 1526
+[][][] \OT1/ztmcm/m/n/12 = [] []
  []
 
-[39] [40] [41]
-Overfull \hbox (1.57312pt too wide) in paragraph at lines 1732--1734
+[38] [39]
+Overfull \hbox (17.28152pt too wide) detected at line 1597
+\OML/ztmcm/m/it/12 V[]\OT1/ztmcm/m/n/12 (\OT1/ptm/b/n/12 x[]\OT1/ztmcm/m/n/12 ; [][]) \OMS/ztmcm/m/n/12   \OML/ztmcm/m/it/12 V\OT1/ztmcm/m/n/12 (\OT1/ptm/b/n/12 x[]\OT1/ztmcm/m/n/12 ; [][]) = [] \OML/ztmcm/m/it/12 B[]\OT1/ztmcm/m/n/12 (\U/msb/m/n/12 V[] \OMS/ztmcm/m/n/12   \U/msb/m/n/12 V[]\OT1/ztmcm/m/n/12 ) = \OML/ztmcm/m/it/12 B[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 V[]\OT1/ztmcm/m/n/12 (\OT1/ptm/b/n/12 x[]\OT1/ztmcm/m/n/12 ; [][]) \OMS/ztmcm/m/n/12   \U/msb/m/n/12 V[]\OT1/ztmcm/m/n/12 ) = \OML/ztmcm/m/it/12 B[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 V[]\OT1/ztmcm/m/n/12 (\OT1/ptm/b/n/12 x[]\OT1/ztmcm/m/n/12 ; [][]) \OMS/ztmcm/m/n/12   \OML/ztmcm/m/it/12 V[]\OT1/ztmcm/m/n/12 )
+ []
+
+[40] [41] [42]
+Overfull \hbox (1.57312pt too wide) in paragraph at lines 1742--1744
 []\OT1/ptm/m/n/12 We train a reg-u-lar-ized op-tion price ker-nel model for the in-di-rect hedg-ing $[][]$ and $[][]$.
  []
 
-[42]
+[43]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1789.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1799.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1789.
- [43] [44]
-Overfull \hbox (49.40468pt too wide) in paragraph at lines 1860--1862
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1799.
+ [44] [45]
+Overfull \hbox (49.40468pt too wide) in paragraph at lines 1870--1872
 \OML/ztmcm/m/it/12 t\OT1/ztmcm/m/n/12 )\OML/ztmcm/m/it/12 ;    [][]\OMS/ztmcm/m/n/12 g$\OT1/ptm/m/n/12 . For clar-ity, we also in-clude the re-sults for FS #1 $\OMS/ztmcm/m/n/12 f[] \OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 S[]=K\OT1/ztmcm/m/n/12 )\OML/ztmcm/m/it/12 ;   [] \OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 T \OMS/ztmcm/m/n/12  
  []
 
-[45] [46] [47]
+[46] [47] [48]
 Chapter 4.
-[48
+[49
 
 
 ]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/sc' in size <17.28> not available
-(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 1993.
+(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 2003.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 1993.
+(hyperref)                removing `math shift' on input line 2003.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 1993.
+(hyperref)                removing `subscript' on input line 2003.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\delta' on input line 1993.
+(hyperref)                removing `\delta' on input line 2003.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 1993.
+(hyperref)                removing `math shift' on input line 2003.
 
 
-Overfull \hbox (3.24753pt too wide) in paragraph at lines 1996--1998
+Overfull \hbox (3.24753pt too wide) in paragraph at lines 2006--2008
 \OT1/ptm/m/n/12 Figure [][]4.1[][] de-picts the pro-posed lo-cal dis-crete GRU hedg-ing model $[][]$, which uses an encoder-
  []
 
-[49] [50] [51] [52] [53]
+[50] [51] [52] [53] [54] [55]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 2315.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 2315.
+(hyperref)                removing `math shift' on input line 2325.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\delta' on input line 2315.
+(hyperref)                removing `subscript' on input line 2325.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 2315.
+(hyperref)                removing `\delta' on input line 2325.
 
-[54] [55] [56] [57] [58] [59] [60]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 2325.
+
+[56] [57] [58] [59] [60] [61]
 Chapter 5.
-[61
+[62
 
 
-] [62] [63]
+] [63] [64]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2714.
- [64] [65]
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2728.
+ [65] [66]
 Package epstopdf Info: Source file: <./figures/CLocal1.eps>
 (epstopdf)                    date: 2021-06-15 15:10:49
 (epstopdf)                    size: 188143 bytes
@@ -1392,7 +1407,7 @@ Package epstopdf Info: Source file: <./figures/CLocal1.eps>
 (epstopdf)                    date: 2021-06-27 17:31:00
 (epstopdf)                    size: 66645 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/CLocal1-eps-converted-to.pdf ./figures/CLocal1.eps>
-(epstopdf)             \includegraphics on input line 2800.
+(epstopdf)             \includegraphics on input line 2814.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -1400,7 +1415,7 @@ pdfTeX warning: pdflatex (file ./figures/CLocal1-eps-converted-to.pdf): PDF incl
 <./figures/CLocal1-eps-converted-to.pdf, id=1624, 1204.5pt x 589.20125pt>
 File: ./figures/CLocal1-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/CLocal1-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/CLocal1-eps-converted-to.pdf  used on input line 2800.
+Package pdftex.def Info: ./figures/CLocal1-eps-converted-to.pdf  used on input line 2814.
 (pdftex.def)             Requested size: 221.14421pt x 108.17339pt.
 Package epstopdf Info: Source file: <./figures/C1.eps>
 (epstopdf)                    date: 2021-06-15 15:24:17
@@ -1409,7 +1424,7 @@ Package epstopdf Info: Source file: <./figures/C1.eps>
 (epstopdf)                    date: 2021-06-27 17:31:01
 (epstopdf)                    size: 42245 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/C1-eps-converted-to.pdf ./figures/C1.eps>
-(epstopdf)             \includegraphics on input line 2802.
+(epstopdf)             \includegraphics on input line 2816.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -1417,7 +1432,7 @@ pdfTeX warning: pdflatex (file ./figures/C1-eps-converted-to.pdf): PDF inclusion
 <./figures/C1-eps-converted-to.pdf, id=1625, 1204.5pt x 551.05875pt>
 File: ./figures/C1-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/C1-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/C1-eps-converted-to.pdf  used on input line 2802.
+Package pdftex.def Info: ./figures/C1-eps-converted-to.pdf  used on input line 2816.
 (pdftex.def)             Requested size: 221.14421pt x 101.17068pt.
 Package epstopdf Info: Source file: <./figures/CLocal2.eps>
 (epstopdf)                    date: 2021-06-15 15:11:17
@@ -1426,7 +1441,7 @@ Package epstopdf Info: Source file: <./figures/CLocal2.eps>
 (epstopdf)                    date: 2021-06-27 17:31:01
 (epstopdf)                    size: 63251 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/CLocal2-eps-converted-to.pdf ./figures/CLocal2.eps>
-(epstopdf)             \includegraphics on input line 2804.
+(epstopdf)             \includegraphics on input line 2818.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -1434,7 +1449,7 @@ pdfTeX warning: pdflatex (file ./figures/CLocal2-eps-converted-to.pdf): PDF incl
 <./figures/CLocal2-eps-converted-to.pdf, id=1626, 1204.5pt x 551.05875pt>
 File: ./figures/CLocal2-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/CLocal2-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/CLocal2-eps-converted-to.pdf  used on input line 2804.
+Package pdftex.def Info: ./figures/CLocal2-eps-converted-to.pdf  used on input line 2818.
 (pdftex.def)             Requested size: 221.14421pt x 101.17068pt.
 Package epstopdf Info: Source file: <./figures/C2.eps>
 (epstopdf)                    date: 2021-06-15 15:26:06
@@ -1443,7 +1458,7 @@ Package epstopdf Info: Source file: <./figures/C2.eps>
 (epstopdf)                    date: 2021-06-27 17:31:02
 (epstopdf)                    size: 42254 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/C2-eps-converted-to.pdf ./figures/C2.eps>
-(epstopdf)             \includegraphics on input line 2806.
+(epstopdf)             \includegraphics on input line 2820.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -1451,9 +1466,9 @@ pdfTeX warning: pdflatex (file ./figures/C2-eps-converted-to.pdf): PDF inclusion
 <./figures/C2-eps-converted-to.pdf, id=1627, 1204.5pt x 551.05875pt>
 File: ./figures/C2-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/C2-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/C2-eps-converted-to.pdf  used on input line 2806.
+Package pdftex.def Info: ./figures/C2-eps-converted-to.pdf  used on input line 2820.
 (pdftex.def)             Requested size: 221.14421pt x 101.17068pt.
-[66 <./figures/CLocal1-eps-converted-to.pdf> <./figures/C1-eps-converted-to.pdf> <./figures/CLocal2-eps-converted-to.pdf> <./figures/C2-eps-converted-to.pdf>]
+[67 <./figures/CLocal1-eps-converted-to.pdf> <./figures/C1-eps-converted-to.pdf> <./figures/CLocal2-eps-converted-to.pdf> <./figures/C2-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <./figures/PLocal1.eps>
 (epstopdf)                    date: 2021-06-15 16:08:37
 (epstopdf)                    size: 183085 bytes
@@ -1461,7 +1476,7 @@ Package epstopdf Info: Source file: <./figures/PLocal1.eps>
 (epstopdf)                    date: 2021-06-27 17:31:03
 (epstopdf)                    size: 64101 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/PLocal1-eps-converted-to.pdf ./figures/PLocal1.eps>
-(epstopdf)             \includegraphics on input line 2831.
+(epstopdf)             \includegraphics on input line 2845.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -1469,7 +1484,7 @@ pdfTeX warning: pdflatex (file ./figures/PLocal1-eps-converted-to.pdf): PDF incl
 <./figures/PLocal1-eps-converted-to.pdf, id=1669, 1204.5pt x 551.05875pt>
 File: ./figures/PLocal1-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/PLocal1-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/PLocal1-eps-converted-to.pdf  used on input line 2831.
+Package pdftex.def Info: ./figures/PLocal1-eps-converted-to.pdf  used on input line 2845.
 (pdftex.def)             Requested size: 221.14421pt x 101.17068pt.
 Package epstopdf Info: Source file: <./figures/P1.eps>
 (epstopdf)                    date: 2021-06-15 16:05:05
@@ -1478,7 +1493,7 @@ Package epstopdf Info: Source file: <./figures/P1.eps>
 (epstopdf)                    date: 2021-06-27 17:31:03
 (epstopdf)                    size: 41057 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/P1-eps-converted-to.pdf ./figures/P1.eps>
-(epstopdf)             \includegraphics on input line 2833.
+(epstopdf)             \includegraphics on input line 2847.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -1486,7 +1501,7 @@ pdfTeX warning: pdflatex (file ./figures/P1-eps-converted-to.pdf): PDF inclusion
 <./figures/P1-eps-converted-to.pdf, id=1670, 1204.5pt x 551.05875pt>
 File: ./figures/P1-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/P1-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/P1-eps-converted-to.pdf  used on input line 2833.
+Package pdftex.def Info: ./figures/P1-eps-converted-to.pdf  used on input line 2847.
 (pdftex.def)             Requested size: 221.14421pt x 101.17068pt.
 Package epstopdf Info: Source file: <./figures/PLocal2.eps>
 (epstopdf)                    date: 2021-06-15 16:08:54
@@ -1495,7 +1510,7 @@ Package epstopdf Info: Source file: <./figures/PLocal2.eps>
 (epstopdf)                    date: 2021-06-27 17:31:04
 (epstopdf)                    size: 63456 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/PLocal2-eps-converted-to.pdf ./figures/PLocal2.eps>
-(epstopdf)             \includegraphics on input line 2835.
+(epstopdf)             \includegraphics on input line 2849.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -1503,7 +1518,7 @@ pdfTeX warning: pdflatex (file ./figures/PLocal2-eps-converted-to.pdf): PDF incl
 <./figures/PLocal2-eps-converted-to.pdf, id=1671, 1204.5pt x 551.05875pt>
 File: ./figures/PLocal2-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/PLocal2-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/PLocal2-eps-converted-to.pdf  used on input line 2835.
+Package pdftex.def Info: ./figures/PLocal2-eps-converted-to.pdf  used on input line 2849.
 (pdftex.def)             Requested size: 221.14421pt x 101.17068pt.
 Package epstopdf Info: Source file: <./figures/P2.eps>
 (epstopdf)                    date: 2021-06-15 16:07:47
@@ -1512,7 +1527,7 @@ Package epstopdf Info: Source file: <./figures/P2.eps>
 (epstopdf)                    date: 2021-06-27 17:31:05
 (epstopdf)                    size: 41092 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/P2-eps-converted-to.pdf ./figures/P2.eps>
-(epstopdf)             \includegraphics on input line 2837.
+(epstopdf)             \includegraphics on input line 2851.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -1520,15 +1535,15 @@ pdfTeX warning: pdflatex (file ./figures/P2-eps-converted-to.pdf): PDF inclusion
 <./figures/P2-eps-converted-to.pdf, id=1672, 1204.5pt x 551.05875pt>
 File: ./figures/P2-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/P2-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/P2-eps-converted-to.pdf  used on input line 2837.
+Package pdftex.def Info: ./figures/P2-eps-converted-to.pdf  used on input line 2851.
 (pdftex.def)             Requested size: 221.14421pt x 101.17068pt.
-[67 <./figures/PLocal1-eps-converted-to.pdf> <./figures/P1-eps-converted-to.pdf> <./figures/PLocal2-eps-converted-to.pdf> <./figures/P2-eps-converted-to.pdf>]
-Overfull \hbox (6.14238pt too wide) in paragraph at lines 2888--2909
+[68 <./figures/PLocal1-eps-converted-to.pdf> <./figures/P1-eps-converted-to.pdf> <./figures/PLocal2-eps-converted-to.pdf> <./figures/P2-eps-converted-to.pdf>] [69]
+Overfull \hbox (6.14238pt too wide) in paragraph at lines 2902--2923
  [] 
  []
 
 
-Overfull \hbox (6.14238pt too wide) in paragraph at lines 2915--2936
+Overfull \hbox (6.14238pt too wide) in paragraph at lines 2929--2950
  [] 
  []
 
@@ -1539,15 +1554,15 @@ Package epstopdf Info: Source file: <./figures/CLocal0.eps>
 (epstopdf)                    date: 2021-06-27 17:31:05
 (epstopdf)                    size: 63143 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/CLocal0-eps-converted-to.pdf ./figures/CLocal0.eps>
-(epstopdf)             \includegraphics on input line 2942.
+(epstopdf)             \includegraphics on input line 2956.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./figures/CLocal0-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/CLocal0-eps-converted-to.pdf, id=1730, 1204.5pt x 551.05875pt>
+<./figures/CLocal0-eps-converted-to.pdf, id=1734, 1204.5pt x 551.05875pt>
 File: ./figures/CLocal0-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/CLocal0-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/CLocal0-eps-converted-to.pdf  used on input line 2942.
+Package pdftex.def Info: ./figures/CLocal0-eps-converted-to.pdf  used on input line 2956.
 (pdftex.def)             Requested size: 221.14421pt x 101.17068pt.
 Package epstopdf Info: Source file: <./figures/C0.eps>
 (epstopdf)                    date: 2021-06-15 15:24:50
@@ -1556,17 +1571,16 @@ Package epstopdf Info: Source file: <./figures/C0.eps>
 (epstopdf)                    date: 2021-06-27 17:31:06
 (epstopdf)                    size: 41116 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/C0-eps-converted-to.pdf ./figures/C0.eps>
-(epstopdf)             \includegraphics on input line 2944.
+(epstopdf)             \includegraphics on input line 2958.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./figures/C0-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/C0-eps-converted-to.pdf, id=1731, 1204.5pt x 589.20125pt>
+<./figures/C0-eps-converted-to.pdf, id=1735, 1204.5pt x 589.20125pt>
 File: ./figures/C0-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/C0-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/C0-eps-converted-to.pdf  used on input line 2944.
+Package pdftex.def Info: ./figures/C0-eps-converted-to.pdf  used on input line 2958.
 (pdftex.def)             Requested size: 221.14421pt x 108.17339pt.
-[68] [69]
 Package epstopdf Info: Source file: <./figures/PLocal0.eps>
 (epstopdf)                    date: 2021-06-15 16:08:07
 (epstopdf)                    size: 183386 bytes
@@ -1574,15 +1588,15 @@ Package epstopdf Info: Source file: <./figures/PLocal0.eps>
 (epstopdf)                    date: 2021-06-27 17:31:06
 (epstopdf)                    size: 64327 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/PLocal0-eps-converted-to.pdf ./figures/PLocal0.eps>
-(epstopdf)             \includegraphics on input line 2952.
+(epstopdf)             \includegraphics on input line 2966.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./figures/PLocal0-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/PLocal0-eps-converted-to.pdf, id=1742, 1204.5pt x 551.05875pt>
+<./figures/PLocal0-eps-converted-to.pdf, id=1737, 1204.5pt x 551.05875pt>
 File: ./figures/PLocal0-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/PLocal0-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/PLocal0-eps-converted-to.pdf  used on input line 2952.
+Package pdftex.def Info: ./figures/PLocal0-eps-converted-to.pdf  used on input line 2966.
 (pdftex.def)             Requested size: 221.14421pt x 101.17068pt.
 Package epstopdf Info: Source file: <./figures/P0.eps>
 (epstopdf)                    date: 2021-06-15 15:28:14
@@ -1591,31 +1605,36 @@ Package epstopdf Info: Source file: <./figures/P0.eps>
 (epstopdf)                    date: 2021-06-27 17:31:07
 (epstopdf)                    size: 38549 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/P0-eps-converted-to.pdf ./figures/P0.eps>
-(epstopdf)             \includegraphics on input line 2954.
+(epstopdf)             \includegraphics on input line 2968.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./figures/P0-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/P0-eps-converted-to.pdf, id=1743, 1204.5pt x 551.05875pt>
+<./figures/P0-eps-converted-to.pdf, id=1738, 1204.5pt x 551.05875pt>
 File: ./figures/P0-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/P0-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/P0-eps-converted-to.pdf  used on input line 2954.
+Package pdftex.def Info: ./figures/P0-eps-converted-to.pdf  used on input line 2968.
 (pdftex.def)             Requested size: 221.14421pt x 101.17068pt.
-[70 <./figures/CLocal0-eps-converted-to.pdf> <./figures/C0-eps-converted-to.pdf> <./figures/PLocal0-eps-converted-to.pdf> <./figures/P0-eps-converted-to.pdf>]
+[70] [71 <./figures/CLocal0-eps-converted-to.pdf> <./figures/C0-eps-converted-to.pdf> <./figures/PLocal0-eps-converted-to.pdf> <./figures/P0-eps-converted-to.pdf>]
 Chapter 6.
-[71
+[72
 
 
-] [72] [73] [74] [75] [76] [77]
+] [73] [74] [75] [76] [77] [78]
+Overfull \hbox (13.95143pt too wide) in paragraph at lines 3235--3236
+\OT1/ptm/m/n/12 the SABR for-mula [] for a strike $\OML/ztmcm/m/it/12 K$ \OT1/ptm/m/n/12 since the other pa-ram-e-ters in $\OML/ztmcm/m/it/12 []\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 F; t; T; K\OT1/ztmcm/m/n/12 ; \OML/ztmcm/m/it/12 ; ; ; \OT1/ztmcm/m/n/12 )$
+ []
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 3245.
+[79] [80] [81]
 
-[78] [79] [80] [81] [82] [83]
-Overfull \hbox (0.435pt too wide) in paragraph at lines 3589--3591
+LaTeX Font Warning: Command \small invalid in math mode on input line 3363.
+
+[82] [83] [84] [85] [86] [87] [88]
+Overfull \hbox (0.435pt too wide) in paragraph at lines 3752--3754
 \OT1/ptm/m/n/12 Interpolation based on the above pro-ce-dure can guar-an-tee the op-tion prices com-puted is arbitrage-
  []
 
-[84]
+[89] [90]
 Package epstopdf Info: Source file: <./figures/ImpVol.eps>
 (epstopdf)                    date: 2020-01-26 20:07:33
 (epstopdf)                    size: 1514284 bytes
@@ -1623,15 +1642,15 @@ Package epstopdf Info: Source file: <./figures/ImpVol.eps>
 (epstopdf)                    date: 2020-04-26 23:54:47
 (epstopdf)                    size: 282307 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/ImpVol-eps-converted-to.pdf ./figures/ImpVol.eps>
-(epstopdf)             \includegraphics on input line 3684.
+(epstopdf)             \includegraphics on input line 3899.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./figures/ImpVol-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/ImpVol-eps-converted-to.pdf, id=1964, 433.62pt x 289.08pt>
+<./figures/ImpVol-eps-converted-to.pdf, id=2058, 433.62pt x 289.08pt>
 File: ./figures/ImpVol-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/ImpVol-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/ImpVol-eps-converted-to.pdf  used on input line 3684.
+Package pdftex.def Info: ./figures/ImpVol-eps-converted-to.pdf  used on input line 3899.
 (pdftex.def)             Requested size: 368.57838pt x 245.73238pt.
 Package epstopdf Info: Source file: <./figures/Price.eps>
 (epstopdf)                    date: 2020-01-26 20:07:33
@@ -1640,147 +1659,151 @@ Package epstopdf Info: Source file: <./figures/Price.eps>
 (epstopdf)                    date: 2020-04-26 23:54:48
 (epstopdf)                    size: 288248 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/Price-eps-converted-to.pdf ./figures/Price.eps>
-(epstopdf)             \includegraphics on input line 3687.
+(epstopdf)             \includegraphics on input line 3902.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./figures/Price-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Price-eps-converted-to.pdf, id=1965, 433.62pt x 289.08pt>
+<./figures/Price-eps-converted-to.pdf, id=2059, 433.62pt x 289.08pt>
 File: ./figures/Price-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/Price-eps-converted-to.pdf>
-Package pdftex.def Info: ./figures/Price-eps-converted-to.pdf  used on input line 3687.
+Package pdftex.def Info: ./figures/Price-eps-converted-to.pdf  used on input line 3902.
 (pdftex.def)             Requested size: 368.57838pt x 245.73238pt.
-[85] [86] [87 <./figures/ImpVol-eps-converted-to.pdf> <./figures/Price-eps-converted-to.pdf>] [88] [89]
+[91] [92 <./figures/ImpVol-eps-converted-to.pdf> <./figures/Price-eps-converted-to.pdf>] [93] [94]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/sc' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 3907.
+(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 4127.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 3907.
+(hyperref)                removing `math shift' on input line 4127.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 3907.
+(hyperref)                removing `subscript' on input line 4127.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\delta' on input line 3907.
+(hyperref)                removing `\delta' on input line 4127.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 3907.
+(hyperref)                removing `math shift' on input line 4127.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 3907.
+(hyperref)                removing `math shift' on input line 4127.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 3907.
+(hyperref)                removing `subscript' on input line 4127.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 3907.
+(hyperref)                removing `math shift' on input line 4127.
 
-[90]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 3925.
-
+[95] [96]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 3925.
+(hyperref)                removing `math shift' on input line 4145.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 3925.
-
-[91]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 3965.
+(hyperref)                removing `subscript' on input line 4145.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 3965.
+(hyperref)                removing `math shift' on input line 4145.
+
+[97]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 4194.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 3965.
+(hyperref)                removing `subscript' on input line 4194.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 3965.
+(hyperref)                removing `math shift' on input line 4194.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 3965.
+(hyperref)                removing `math shift' on input line 4194.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 3965.
+(hyperref)                removing `subscript' on input line 4194.
 
-[92] [93]
-Overfull \hbox (5.67888pt too wide) in paragraph at lines 3998--3999
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `superscript' on input line 4194.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 4194.
+
+[98] [99]
+Overfull \hbox (5.67888pt too wide) in paragraph at lines 4226--4227
 []\OT1/ptm/m/n/12 The 95% Conditional-Value-at-Risk (CVaR) of the rel-a-tive to-tal hedg-ing er-ror $[]$ 
  []
 
 
-Overfull \hbox (5.67888pt too wide) in paragraph at lines 4000--4001
+Overfull \hbox (5.67888pt too wide) in paragraph at lines 4228--4229
 []\OT1/ptm/m/n/12 The 99% Conditional-Value-at-Risk (CVaR) of the rel-a-tive to-tal hedg-ing er-ror $[]$ 
  []
 
-[94] [95]
-Overfull \hbox (22.00487pt too wide) in paragraph at lines 4062--4086
+[100] [101]
+Overfull \hbox (22.00487pt too wide) in paragraph at lines 4290--4314
  [][] 
  []
 
-<./figures/WLocalVersusTotalCallNTM.pdf, id=2134, 463.8078pt x 275.02373pt>
+<./figures/WLocalVersusTotalCallNTM.pdf, id=2229, 463.8078pt x 275.02373pt>
 File: ./figures/WLocalVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/WLocalVersusTotalCallNTM.pdf>
-Package pdftex.def Info: ./figures/WLocalVersusTotalCallNTM.pdf  used on input line 4091.
+Package pdftex.def Info: ./figures/WLocalVersusTotalCallNTM.pdf  used on input line 4319.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/WLocalVersusTotalCallITM.pdf, id=2135, 448.46924pt x 275.02373pt>
+<./figures/WLocalVersusTotalCallITM.pdf, id=2230, 448.46924pt x 275.02373pt>
 File: ./figures/WLocalVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/WLocalVersusTotalCallITM.pdf>
-Package pdftex.def Info: ./figures/WLocalVersusTotalCallITM.pdf  used on input line 4093.
+Package pdftex.def Info: ./figures/WLocalVersusTotalCallITM.pdf  used on input line 4321.
 (pdftex.def)             Requested size: 147.43416pt x 90.41399pt.
-<./figures/WLocalVersusTotalCallOTM.pdf, id=2136, 453.58209pt x 275.02373pt>
+<./figures/WLocalVersusTotalCallOTM.pdf, id=2231, 453.58209pt x 275.02373pt>
 File: ./figures/WLocalVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/WLocalVersusTotalCallOTM.pdf>
-Package pdftex.def Info: ./figures/WLocalVersusTotalCallOTM.pdf  used on input line 4095.
+Package pdftex.def Info: ./figures/WLocalVersusTotalCallOTM.pdf  used on input line 4323.
 (pdftex.def)             Requested size: 147.43416pt x 89.39424pt.
-<./figures/WBSVersusTotalCallNTM.pdf, id=2137, 463.8078pt x 275.02373pt>
+<./figures/WBSVersusTotalCallNTM.pdf, id=2234, 463.8078pt x 275.02373pt>
 File: ./figures/WBSVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/WBSVersusTotalCallNTM.pdf>
-Package pdftex.def Info: ./figures/WBSVersusTotalCallNTM.pdf  used on input line 4099.
+Package pdftex.def Info: ./figures/WBSVersusTotalCallNTM.pdf  used on input line 4327.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/WBSVersusTotalCallITM.pdf, id=2138, 448.46924pt x 275.02373pt>
+<./figures/WBSVersusTotalCallITM.pdf, id=2235, 448.46924pt x 275.02373pt>
 File: ./figures/WBSVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/WBSVersusTotalCallITM.pdf>
-Package pdftex.def Info: ./figures/WBSVersusTotalCallITM.pdf  used on input line 4101.
+Package pdftex.def Info: ./figures/WBSVersusTotalCallITM.pdf  used on input line 4329.
 (pdftex.def)             Requested size: 147.43416pt x 90.41399pt.
-<./figures/WBSVersusTotalCallOTM.pdf, id=2139, 463.8078pt x 275.02373pt>
+<./figures/WBSVersusTotalCallOTM.pdf, id=2236, 463.8078pt x 275.02373pt>
 File: ./figures/WBSVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/WBSVersusTotalCallOTM.pdf>
-Package pdftex.def Info: ./figures/WBSVersusTotalCallOTM.pdf  used on input line 4103.
+Package pdftex.def Info: ./figures/WBSVersusTotalCallOTM.pdf  used on input line 4331.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/WBartlettVersusTotalCallNTM.pdf, id=2140, 463.8078pt x 275.02373pt>
+<./figures/WBartlettVersusTotalCallNTM.pdf, id=2239, 463.8078pt x 275.02373pt>
 File: ./figures/WBartlettVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/WBartlettVersusTotalCallNTM.pdf>
-Package pdftex.def Info: ./figures/WBartlettVersusTotalCallNTM.pdf  used on input line 4108.
+Package pdftex.def Info: ./figures/WBartlettVersusTotalCallNTM.pdf  used on input line 4336.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/WBartlettVersusTotalCallITM.pdf, id=2141, 448.46924pt x 275.02373pt>
+<./figures/WBartlettVersusTotalCallITM.pdf, id=2240, 448.46924pt x 275.02373pt>
 File: ./figures/WBartlettVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/WBartlettVersusTotalCallITM.pdf>
-Package pdftex.def Info: ./figures/WBartlettVersusTotalCallITM.pdf  used on input line 4110.
+Package pdftex.def Info: ./figures/WBartlettVersusTotalCallITM.pdf  used on input line 4338.
 (pdftex.def)             Requested size: 147.43416pt x 90.41399pt.
-<./figures/WBartlettVersusTotalCallOTM.pdf, id=2142, 453.58209pt x 275.02373pt>
+<./figures/WBartlettVersusTotalCallOTM.pdf, id=2241, 453.58209pt x 275.02373pt>
 File: ./figures/WBartlettVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/WBartlettVersusTotalCallOTM.pdf>
-Package pdftex.def Info: ./figures/WBartlettVersusTotalCallOTM.pdf  used on input line 4112.
+Package pdftex.def Info: ./figures/WBartlettVersusTotalCallOTM.pdf  used on input line 4340.
 (pdftex.def)             Requested size: 147.43416pt x 89.39424pt.
-[96] [97] [98 <./figures/WLocalVersusTotalCallNTM.pdf> <./figures/WLocalVersusTotalCallITM.pdf
+[102] [103] [104 <./figures/WLocalVersusTotalCallNTM.pdf> <./figures/WLocalVersusTotalCallITM.pdf
 
 pdfTeX warning: pdflatex (file ./figures/WLocalVersusTotalCallITM.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 > <./figures/WLocalVersusTotalCallOTM.pdf
@@ -1805,56 +1828,56 @@ pdfTeX warning: pdflatex (file ./figures/WBartlettVersusTotalCallITM.pdf): PDF i
 
 pdfTeX warning: pdflatex (file ./figures/WBartlettVersusTotalCallOTM.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
-Overfull \hbox (22.00487pt too wide) in paragraph at lines 4137--4161
+Overfull \hbox (22.00487pt too wide) in paragraph at lines 4365--4389
  [][] 
  []
 
-<./figures/MLocalVersusTotalCallNTM.pdf, id=2530, 453.58209pt x 275.02373pt>
+<./figures/MLocalVersusTotalCallNTM.pdf, id=2632, 453.58209pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalCallNTM.pdf>
-Package pdftex.def Info: ./figures/MLocalVersusTotalCallNTM.pdf  used on input line 4166.
+Package pdftex.def Info: ./figures/MLocalVersusTotalCallNTM.pdf  used on input line 4394.
 (pdftex.def)             Requested size: 147.43416pt x 89.39424pt.
-<./figures/MLocalVersusTotalCallITM.pdf, id=2531, 448.46924pt x 275.02373pt>
+<./figures/MLocalVersusTotalCallITM.pdf, id=2633, 448.46924pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalCallITM.pdf>
-Package pdftex.def Info: ./figures/MLocalVersusTotalCallITM.pdf  used on input line 4168.
+Package pdftex.def Info: ./figures/MLocalVersusTotalCallITM.pdf  used on input line 4396.
 (pdftex.def)             Requested size: 147.43416pt x 90.41399pt.
-<./figures/MLocalVersusTotalCallOTM.pdf, id=2532, 453.58209pt x 275.02373pt>
+<./figures/MLocalVersusTotalCallOTM.pdf, id=2634, 453.58209pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalCallOTM.pdf>
-Package pdftex.def Info: ./figures/MLocalVersusTotalCallOTM.pdf  used on input line 4170.
+Package pdftex.def Info: ./figures/MLocalVersusTotalCallOTM.pdf  used on input line 4398.
 (pdftex.def)             Requested size: 147.43416pt x 89.39424pt.
-<./figures/MBSVersusTotalCallNTM.pdf, id=2533, 463.8078pt x 275.02373pt>
+<./figures/MBSVersusTotalCallNTM.pdf, id=2637, 463.8078pt x 275.02373pt>
 File: ./figures/MBSVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/MBSVersusTotalCallNTM.pdf>
-Package pdftex.def Info: ./figures/MBSVersusTotalCallNTM.pdf  used on input line 4174.
+Package pdftex.def Info: ./figures/MBSVersusTotalCallNTM.pdf  used on input line 4402.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/MBSVersusTotalCallITM.pdf, id=2534, 448.46924pt x 275.02373pt>
+<./figures/MBSVersusTotalCallITM.pdf, id=2638, 448.46924pt x 275.02373pt>
 File: ./figures/MBSVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/MBSVersusTotalCallITM.pdf>
-Package pdftex.def Info: ./figures/MBSVersusTotalCallITM.pdf  used on input line 4176.
+Package pdftex.def Info: ./figures/MBSVersusTotalCallITM.pdf  used on input line 4404.
 (pdftex.def)             Requested size: 147.43416pt x 90.41399pt.
-<./figures/MBSVersusTotalCallOTM.pdf, id=2535, 453.58209pt x 275.02373pt>
+<./figures/MBSVersusTotalCallOTM.pdf, id=2639, 453.58209pt x 275.02373pt>
 File: ./figures/MBSVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/MBSVersusTotalCallOTM.pdf>
-Package pdftex.def Info: ./figures/MBSVersusTotalCallOTM.pdf  used on input line 4178.
+Package pdftex.def Info: ./figures/MBSVersusTotalCallOTM.pdf  used on input line 4406.
 (pdftex.def)             Requested size: 147.43416pt x 89.39424pt.
-<./figures/MBartlettVersusTotalCallNTM.pdf, id=2536, 453.58209pt x 275.02373pt>
+<./figures/MBartlettVersusTotalCallNTM.pdf, id=2642, 453.58209pt x 275.02373pt>
 File: ./figures/MBartlettVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/MBartlettVersusTotalCallNTM.pdf>
-Package pdftex.def Info: ./figures/MBartlettVersusTotalCallNTM.pdf  used on input line 4183.
+Package pdftex.def Info: ./figures/MBartlettVersusTotalCallNTM.pdf  used on input line 4411.
 (pdftex.def)             Requested size: 147.43416pt x 89.39424pt.
-<./figures/MBartlettVersusTotalCallITM.pdf, id=2537, 448.46924pt x 275.02373pt>
+<./figures/MBartlettVersusTotalCallITM.pdf, id=2643, 448.46924pt x 275.02373pt>
 File: ./figures/MBartlettVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/MBartlettVersusTotalCallITM.pdf>
-Package pdftex.def Info: ./figures/MBartlettVersusTotalCallITM.pdf  used on input line 4185.
+Package pdftex.def Info: ./figures/MBartlettVersusTotalCallITM.pdf  used on input line 4413.
 (pdftex.def)             Requested size: 147.43416pt x 90.41399pt.
-<./figures/MBartlettVersusTotalCallOTM.pdf, id=2538, 453.58209pt x 275.02373pt>
+<./figures/MBartlettVersusTotalCallOTM.pdf, id=2644, 453.58209pt x 275.02373pt>
 File: ./figures/MBartlettVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/MBartlettVersusTotalCallOTM.pdf>
-Package pdftex.def Info: ./figures/MBartlettVersusTotalCallOTM.pdf  used on input line 4187.
+Package pdftex.def Info: ./figures/MBartlettVersusTotalCallOTM.pdf  used on input line 4415.
 (pdftex.def)             Requested size: 147.43416pt x 89.39424pt.
-[99] [100] [101 <./figures/MLocalVersusTotalCallNTM.pdf> <./figures/MLocalVersusTotalCallITM.pdf
+[105] [106] [107 <./figures/MLocalVersusTotalCallNTM.pdf> <./figures/MLocalVersusTotalCallITM.pdf
 
 pdfTeX warning: pdflatex (file ./figures/MLocalVersusTotalCallITM.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 > <./figures/MLocalVersusTotalCallOTM.pdf
@@ -1879,56 +1902,56 @@ pdfTeX warning: pdflatex (file ./figures/MBartlettVersusTotalCallITM.pdf): PDF i
 
 pdfTeX warning: pdflatex (file ./figures/MBartlettVersusTotalCallOTM.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
-Overfull \hbox (22.00487pt too wide) in paragraph at lines 4213--4241
+Overfull \hbox (22.00487pt too wide) in paragraph at lines 4441--4469
  [][] 
  []
 
-<./figures/LocalVersusTotalNTM.pdf, id=2917, 463.8078pt x 275.02373pt>
+<./figures/LocalVersusTotalNTM.pdf, id=3024, 463.8078pt x 275.02373pt>
 File: ./figures/LocalVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/LocalVersusTotalNTM.pdf>
-Package pdftex.def Info: ./figures/LocalVersusTotalNTM.pdf  used on input line 4247.
+Package pdftex.def Info: ./figures/LocalVersusTotalNTM.pdf  used on input line 4475.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/LocalVersusTotalITM.pdf, id=2918, 438.24353pt x 275.02373pt>
+<./figures/LocalVersusTotalITM.pdf, id=3025, 438.24353pt x 275.02373pt>
 File: ./figures/LocalVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/LocalVersusTotalITM.pdf>
-Package pdftex.def Info: ./figures/LocalVersusTotalITM.pdf  used on input line 4249.
+Package pdftex.def Info: ./figures/LocalVersusTotalITM.pdf  used on input line 4477.
 (pdftex.def)             Requested size: 147.43416pt x 92.52484pt.
-<./figures/LocalVersusTotalOTM.pdf, id=2919, 463.8078pt x 275.02373pt>
+<./figures/LocalVersusTotalOTM.pdf, id=3026, 463.8078pt x 275.02373pt>
 File: ./figures/LocalVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/LocalVersusTotalOTM.pdf>
-Package pdftex.def Info: ./figures/LocalVersusTotalOTM.pdf  used on input line 4251.
+Package pdftex.def Info: ./figures/LocalVersusTotalOTM.pdf  used on input line 4479.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/BSVersusTotalNTM.pdf, id=2920, 463.8078pt x 275.02373pt>
+<./figures/BSVersusTotalNTM.pdf, id=3029, 463.8078pt x 275.02373pt>
 File: ./figures/BSVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/BSVersusTotalNTM.pdf>
-Package pdftex.def Info: ./figures/BSVersusTotalNTM.pdf  used on input line 4255.
+Package pdftex.def Info: ./figures/BSVersusTotalNTM.pdf  used on input line 4483.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/BSVersusTotalITM.pdf, id=2921, 438.24353pt x 275.02373pt>
+<./figures/BSVersusTotalITM.pdf, id=3030, 438.24353pt x 275.02373pt>
 File: ./figures/BSVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/BSVersusTotalITM.pdf>
-Package pdftex.def Info: ./figures/BSVersusTotalITM.pdf  used on input line 4257.
+Package pdftex.def Info: ./figures/BSVersusTotalITM.pdf  used on input line 4485.
 (pdftex.def)             Requested size: 147.43416pt x 92.52484pt.
-<./figures/BSVersusTotalOTM.pdf, id=2922, 463.8078pt x 275.02373pt>
+<./figures/BSVersusTotalOTM.pdf, id=3031, 463.8078pt x 275.02373pt>
 File: ./figures/BSVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/BSVersusTotalOTM.pdf>
-Package pdftex.def Info: ./figures/BSVersusTotalOTM.pdf  used on input line 4259.
+Package pdftex.def Info: ./figures/BSVersusTotalOTM.pdf  used on input line 4487.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/BartlettVersusTotalNTM.pdf, id=2923, 463.8078pt x 275.02373pt>
+<./figures/BartlettVersusTotalNTM.pdf, id=3034, 463.8078pt x 275.02373pt>
 File: ./figures/BartlettVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/BartlettVersusTotalNTM.pdf>
-Package pdftex.def Info: ./figures/BartlettVersusTotalNTM.pdf  used on input line 4263.
+Package pdftex.def Info: ./figures/BartlettVersusTotalNTM.pdf  used on input line 4491.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/BartlettVersusTotalITM.pdf, id=2924, 438.24353pt x 296.52594pt>
+<./figures/BartlettVersusTotalITM.pdf, id=3035, 438.24353pt x 296.52594pt>
 File: ./figures/BartlettVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/BartlettVersusTotalITM.pdf>
-Package pdftex.def Info: ./figures/BartlettVersusTotalITM.pdf  used on input line 4265.
+Package pdftex.def Info: ./figures/BartlettVersusTotalITM.pdf  used on input line 4493.
 (pdftex.def)             Requested size: 147.43416pt x 99.75871pt.
-<./figures/BartlettVersusTotalOTM.pdf, id=2925, 463.8078pt x 275.02373pt>
+<./figures/BartlettVersusTotalOTM.pdf, id=3036, 463.8078pt x 275.02373pt>
 File: ./figures/BartlettVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/BartlettVersusTotalOTM.pdf>
-Package pdftex.def Info: ./figures/BartlettVersusTotalOTM.pdf  used on input line 4267.
+Package pdftex.def Info: ./figures/BartlettVersusTotalOTM.pdf  used on input line 4495.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-[102] [103] [104 <./figures/LocalVersusTotalNTM.pdf> <./figures/LocalVersusTotalITM.pdf
+[108] [109] [110 <./figures/LocalVersusTotalNTM.pdf> <./figures/LocalVersusTotalITM.pdf
 
 pdfTeX warning: pdflatex (file ./figures/LocalVersusTotalITM.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 > <./figures/LocalVersusTotalOTM.pdf
@@ -1953,55 +1976,55 @@ pdfTeX warning: pdflatex (file ./figures/BartlettVersusTotalITM.pdf): PDF inclus
 
 pdfTeX warning: pdflatex (file ./figures/BartlettVersusTotalOTM.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
-Overfull \hbox (22.00487pt too wide) in paragraph at lines 4278--4302
+Overfull \hbox (22.00487pt too wide) in paragraph at lines 4506--4530
  [][] 
  []
 
-<./figures/MLocalVersusTotalNTM.pdf, id=3311, 463.8078pt x 275.02373pt>
+<./figures/MLocalVersusTotalNTM.pdf, id=3424, 463.8078pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalNTM.pdf>
-Package pdftex.def Info: ./figures/MLocalVersusTotalNTM.pdf  used on input line 4308.
+Package pdftex.def Info: ./figures/MLocalVersusTotalNTM.pdf  used on input line 4536.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/MLocalVersusTotalITM.pdf, id=3312, 453.58209pt x 275.02373pt>
+<./figures/MLocalVersusTotalITM.pdf, id=3425, 453.58209pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalITM.pdf>
-Package pdftex.def Info: ./figures/MLocalVersusTotalITM.pdf  used on input line 4310.
+Package pdftex.def Info: ./figures/MLocalVersusTotalITM.pdf  used on input line 4538.
 (pdftex.def)             Requested size: 147.43416pt x 89.39424pt.
-<./figures/MLocalVersusTotalOTM.pdf, id=3313, 463.8078pt x 275.02373pt>
+<./figures/MLocalVersusTotalOTM.pdf, id=3426, 463.8078pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalOTM.pdf>
-Package pdftex.def Info: ./figures/MLocalVersusTotalOTM.pdf  used on input line 4312.
+Package pdftex.def Info: ./figures/MLocalVersusTotalOTM.pdf  used on input line 4540.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/MBSVersusTotalNTM.pdf, id=3314, 463.8078pt x 275.02373pt>
+<./figures/MBSVersusTotalNTM.pdf, id=3429, 463.8078pt x 275.02373pt>
 File: ./figures/MBSVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/MBSVersusTotalNTM.pdf>
-Package pdftex.def Info: ./figures/MBSVersusTotalNTM.pdf  used on input line 4316.
+Package pdftex.def Info: ./figures/MBSVersusTotalNTM.pdf  used on input line 4544.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/MBSVersusTotalITM.pdf, id=3315, 453.58209pt x 275.02373pt>
+<./figures/MBSVersusTotalITM.pdf, id=3430, 453.58209pt x 275.02373pt>
 File: ./figures/MBSVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/MBSVersusTotalITM.pdf>
-Package pdftex.def Info: ./figures/MBSVersusTotalITM.pdf  used on input line 4318.
+Package pdftex.def Info: ./figures/MBSVersusTotalITM.pdf  used on input line 4546.
 (pdftex.def)             Requested size: 147.43416pt x 89.39424pt.
-<./figures/MBSVersusTotalOTM.pdf, id=3316, 463.8078pt x 275.02373pt>
+<./figures/MBSVersusTotalOTM.pdf, id=3431, 463.8078pt x 275.02373pt>
 File: ./figures/MBSVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/MBSVersusTotalOTM.pdf>
-Package pdftex.def Info: ./figures/MBSVersusTotalOTM.pdf  used on input line 4320.
+Package pdftex.def Info: ./figures/MBSVersusTotalOTM.pdf  used on input line 4548.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/MBartlettVersusTotalNTM.pdf, id=3317, 463.8078pt x 275.02373pt>
+<./figures/MBartlettVersusTotalNTM.pdf, id=3434, 463.8078pt x 275.02373pt>
 File: ./figures/MBartlettVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/MBartlettVersusTotalNTM.pdf>
-Package pdftex.def Info: ./figures/MBartlettVersusTotalNTM.pdf  used on input line 4324.
+Package pdftex.def Info: ./figures/MBartlettVersusTotalNTM.pdf  used on input line 4552.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-<./figures/MBartlettVersusTotalITM.pdf, id=3318, 453.58209pt x 275.02373pt>
+<./figures/MBartlettVersusTotalITM.pdf, id=3435, 453.58209pt x 275.02373pt>
 File: ./figures/MBartlettVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/MBartlettVersusTotalITM.pdf>
-Package pdftex.def Info: ./figures/MBartlettVersusTotalITM.pdf  used on input line 4326.
+Package pdftex.def Info: ./figures/MBartlettVersusTotalITM.pdf  used on input line 4554.
 (pdftex.def)             Requested size: 147.43416pt x 89.39424pt.
 File: ./figures/BartlettVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/BartlettVersusTotalOTM.pdf>
-Package pdftex.def Info: ./figures/BartlettVersusTotalOTM.pdf  used on input line 4328.
+Package pdftex.def Info: ./figures/BartlettVersusTotalOTM.pdf  used on input line 4556.
 (pdftex.def)             Requested size: 147.43416pt x 87.42188pt.
-[105] [106 <./figures/MLocalVersusTotalNTM.pdf> <./figures/MLocalVersusTotalITM.pdf
+[111] [112 <./figures/MLocalVersusTotalNTM.pdf> <./figures/MLocalVersusTotalITM.pdf
 
 pdfTeX warning: pdflatex (file ./figures/MLocalVersusTotalITM.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 > <./figures/MLocalVersusTotalOTM.pdf
@@ -2024,51 +2047,50 @@ pdfTeX warning: pdflatex (file ./figures/MBartlettVersusTotalNTM.pdf): PDF inclu
 pdfTeX warning: pdflatex (file ./figures/MBartlettVersusTotalITM.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
 Chapter 7.
-[107
+[113
 
 
-] [108] [109] (KeNianThesis.bbl [110
+] [114] [115] (KeNianThesis.bbl [116
 
 
 
 
-] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120] [121] [122]) [123]
+] [117] [118] [119] [120] [121] [122] [123] [124] [125] [126] [127] [128]) [129]
 Appendix A.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 4444.
+(hyperref)                removing `math shift' on input line 4672.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 4444.
+(hyperref)                removing `subscript' on input line 4672.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 4444.
+(hyperref)                removing `math shift' on input line 4672.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 4444.
+(hyperref)                removing `math shift' on input line 4672.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 4444.
+(hyperref)                removing `subscript' on input line 4672.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 4444.
+(hyperref)                removing `superscript' on input line 4672.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 4672.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/sc' in size <24.88> not available
-(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 4444.
-[124
+(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 4672.
+[130
 
 
-] [125]
-Appendix B.
-[126
-
-
-] [127] [128] [129
+] [131
 runsystem(makeindex -s KeNianThesis.ist -t KeNianThesis.glg -o KeNianThesis.gls KeNianThesis.glo)...executed (allowed).
 
 runsystem(makeindex -s KeNianThesis.ist -t KeNianThesis.glg-abr -o KeNianThesis.gls-abr KeNianThesis.glo-abr)...executed (allowed).
@@ -2077,24 +2099,32 @@ runsystem(makeindex -s KeNianThesis.ist -t KeNianThesis.nomenclature-glg -o KeNi
 
 runsystem(makeindex -s KeNianThesis.ist -t KeNianThesis.symbols-glg -o KeNianThesis.symbols-gls KeNianThesis.symbols-glo)...executed (allowed).
 
-] [130]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4644.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 4644.
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4719.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 4719.
  (KeNianThesis.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4644.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4644.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4719.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4719.
 Package rerunfilecheck Info: File `KeNianThesis.out' has not changed.
-(rerunfilecheck)             Checksum: FFF059CB334ED2632A1B6681FD5BE435;5164.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 4644.
+(rerunfilecheck)             Checksum: 937FB3DCAC92FF846B7C1C875824A63B;4996.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 4719.
  ) 
 Here is how much of TeX's memory you used:
- 42810 strings out of 492448
- 837367 string characters out of 3119980
- 1055209 words of memory out of 3000000
- 45671 multiletter control sequences out of 15000+200000
+ 43180 strings out of 492448
+ 843666 string characters out of 3119980
+ 1058141 words of memory out of 3000000
+ 46022 multiletter control sequences out of 15000+200000
  642979 words of font info for 236 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,29n,71p,1834b,1007s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 60i,29n,71p,1835b,1007s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{Hfootnote.14} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.13} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.12} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.11} has been referenced but does not exist, replaced by a fixed one
+
 pdfTeX warning (dest): name{Hfootnote.10} has been referenced but does not exist, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.9} has been referenced but does not exist, replaced by a fixed one
@@ -2116,9 +2146,9 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 {C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/rsfs/rsfs10.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on KeNianThesis.pdf (146 pages, 2641610 bytes).
+Output written on KeNianThesis.pdf (146 pages, 2655305 bytes).
 PDF statistics:
- 4076 PDF objects out of 4296 (max. 8388607)
- 682 named destinations out of 1000 (max. 500000)
- 775 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 4135 PDF objects out of 4296 (max. 8388607)
+ 697 named destinations out of 1000 (max. 500000)
+ 759 words of extra memory for PDF output out of 10000 (max. 10000000)
 

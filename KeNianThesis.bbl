@@ -1,4 +1,4 @@
-\begin{thebibliography}{189}
+\begin{thebibliography}{192}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -24,12 +24,20 @@ C.~Alexander, A.~Kaeck, and L.~M. Nogueira.
 \newblock \emph{Journal of Futures Markets}, 29\penalty0 (11):\penalty0
   1021--1049, 2009.
 
-\bibitem[Andersen and Brotherton-Ratcliffe(1998)]{Andersen-etal98}
+\bibitem[Andersen and
+  Brotherton-Ratcliffe(1998{\natexlab{a}})]{Andersen-etal98}
 Leif Andersen and Rupert Brotherton-Ratcliffe.
 \newblock The equity option volatility smile: an implicit finite-difference
   approach.
 \newblock \emph{The Journal of Computational Finance}, 1\penalty0 (2):\penalty0
-  5--32, 1998.
+  5--32, 1998{\natexlab{a}}.
+
+\bibitem[Andersen and Brotherton-Ratcliffe(1998{\natexlab{b}})]{Andersenl98}
+Leif Andersen and Rupert Brotherton-Ratcliffe.
+\newblock The equity option volatility smile: an implicit finite-difference
+  approach.
+\newblock \emph{The Journal of Computational Finance}, 1\penalty0 (2):\penalty0
+  5--32, 1998{\natexlab{b}}.
 
 \bibitem[Andreasen and Huge(2010)]{andreasen2010volatility}
 Jesper Andreasen and Brian~Norsk Huge.
@@ -361,6 +369,12 @@ Toby Daglish, John Hull, and Wulin Suo.
 \newblock Volatility surfaces: theory, rules of thumb, and empirical evidence.
 \newblock \emph{Quantitative Finance}, 7\penalty0 (5):\penalty0 507--524, 2007.
 
+\bibitem[Dempster and Richards(2000)]{dempster2000pricing}
+MAH Dempster and Darren~G Richards.
+\newblock Pricing american options fitting the smile.
+\newblock \emph{Mathematical Finance}, 10\penalty0 (2):\penalty0 157--177,
+  2000.
+
 \bibitem[Derman and Kani(1994)]{DermanKani94}
 E.~Derman and I.~Kani.
 \newblock Riding on a smile.
@@ -456,6 +470,11 @@ Yunlong Feng, Yuning Yang, Xiaolin Huang, Siamak Mehrkanoon, and Johan~AK
 \newblock Robust support vector machines for classification with nonconvex and
   smooth losses.
 \newblock \emph{Neural computation}, 2016.
+
+\bibitem[Fengler(2009)]{fengler2009arbitrage}
+Matthias~R Fengler.
+\newblock Arbitrage-free smoothing of the implied volatility surface.
+\newblock \emph{Quantitative Finance}, 9\penalty0 (4):\penalty0 417--428, 2009.
 
 \bibitem[Fletcher(2013)]{fletcher2013practical}
 Roger Fletcher.
