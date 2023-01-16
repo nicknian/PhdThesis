@@ -166,7 +166,6 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 %\newtheorem{pf}{Proof}
-
 \newcommand*{\Scale}[2][4]{\scalebox{#1}{$#2$}}%
 \newcommand*{\Resize}[2]{\resizebox{#1}{!}{$#2$}}%
 \newcommand{\model}{\textsc{GRU}_\delta}
@@ -288,7 +287,7 @@
 % The following statement specifies the amount of space between
 % paragraphs. Other reasonable specifications are \bigskipamount and \smallskipamount.
 \setlength{\parskip}{\medskipamount}
-
+\setcounter{secnumdepth}{5}
 % The following statement controls the line spacing.  The default
 % spacing corresponds to good typographic conventions and only slight
 % changes (e.g., perhaps "1.2"), if any, should be made.
@@ -650,7 +649,7 @@ where
 
 In this thesis, we focus on S\&P 500 index options. For the S\&P 500 index, the closing index price of each day is already adjusted to capture corporate actions that affect market capitalization such as as additional share insurance, dividends and restructuring events such as mergers or spin-offs\cite{lassance2018comparison}. When we calibrating the  option pricing models such as the Black-Scholes model,   an estimate of the dividends to be paid up until the  expiration of the option is needed.  We assume that the the index pays dividends continuously, according to a continuously-compounded annual dividend yield $q$. Similarly, traditional option pricing models requires a continuously-compounded interest rate as input. This interest rate is calculated from a collection of continuously compounded zero-coupon interest rates at various maturities, collectively referred to as the zero curve. 
 
-In this thesis, we use the option market data from OptionMetric \cite{optionmetrics2008ivy} database. The OptionMetric \cite{optionmetrics2008ivy} database provides us market option quotes for each trading day from 1996-01 to 2015-08-31.  We also use the zero curves on each trading day provided by the OptionMetric \cite{optionmetrics2008ivy} database to extract the risk-free interest rate $r$. The zero curve used by the OptionMetric database is derived from ICE IBA USD LIBOR rates and settlement prices of CME Eurodollar futures. For a given option, the appropriate interest rate input $r$ for option pricing corresponds to the zero-coupon rate that has a maturity equal to the time to maturity of the option $T-t$, and is obtained by linearly interpolating between the two closest zero-coupon rates on the zero curve. In addition, OptionMetric \cite{optionmetrics2008ivy} database provides annual  dividend yield $q$ for the S\&P 500 index. The $q$ is recorded daily for the S\&P 500 index and supplied as the input for calibrating the option pricing models.  Details of how OptionMetric compute the zero curves and the annual dividend yield $q$  using market data can be found in \cite{optionmetrics2008ivy}.
+In this thesis, we use the option market data from OptionMetric \cite{optionmetrics2008ivy} database. The OptionMetric \cite{optionmetrics2008ivy} database provides us market option bid and ask quotes for each trading day from 1996-01 to 2015-08-31.  We also use the zero curves on each trading day provided by the OptionMetric \cite{optionmetrics2008ivy} database to extract the risk-free interest rate $r$. The zero curve used by the OptionMetric database is derived from ICE IBA USD LIBOR rates and settlement prices of CME Eurodollar futures. For a given option, the appropriate interest rate input $r$ for option pricing corresponds to the zero-coupon rate that has a maturity equal to the time to maturity of the option $T-t$, and is obtained by linearly interpolating between the two closest zero-coupon rates on the zero curve. In addition, OptionMetric \cite{optionmetrics2008ivy} database provides annual  dividend yield $q$ for the S\&P 500 index. The $q$ is recorded daily for the S\&P 500 index and supplied as the input for calibrating the option pricing models.  Details of how OptionMetric compute the zero curves and the annual dividend yield $q$  using market data can be found in \cite{optionmetrics2008ivy}.
 
 
 
@@ -991,7 +990,7 @@ We use $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ to denote the option pricin
 
 \subsection{Classical Hedging Position from Pricing Model}
 \label{sec:Classical}
-In section \ref{sec:pricing}, we have introduced several option pricing models with analytical pricing formula. In this section, we consider the option hedging.  We assume the risk-free interest rate and annual dividend yield are given as $r$ and $q$. Therefore, we denote  $V(S,t,T,K;\theta)$  as an option pricing model with $\theta$ as the model parameters to be calibrated. For Black-Scholes model,  $\theta$ is the volatility $\sigma$. For Heston model, $\theta=\{\Upsilon_0,\kappa^*,\overline{\Upsilon}^*,\eta,\rho \}$. For SABR model, $\theta=\{\alpha,\beta,\nu,\rho \}$. \footnote{Note that, Studies \cite{hulloptimal,hagan2002managing,hagan2017bartlett} shows that $\beta$ can often be fixed a priori. In this case, $\theta=\{\alpha,\nu,\rho \}$.} In order to determine hedging position with the most recent information, we calibrate the pricing model to match the market option quotes. 
+In section \ref{sec:pricing}, we have introduced several option pricing models with analytical pricing formula. In this section, we consider the option hedging.  We assume the risk-free interest rate and annual dividend yield are given as $r$ and $q$. Therefore, we denote  $V(S,t,T,K;\theta)$  as an option pricing model with $\theta$ as the model parameters to be calibrated. For Black-Scholes model,  $\theta$ is the volatility $\sigma$. For Heston model, $\theta=\{\Upsilon_0,\kappa^*,\overline{\Upsilon}^*,\eta,\rho \}$. For SABR model, $\theta=\{\alpha,\beta,\nu,\rho \}$. \footnote{Note that, Studies \cite{hulloptimal,hagan2002managing,hagan2017bartlett} shows that $\beta$ can often be fixed a priori. In this case, $\theta=\{\alpha,\nu,\rho \}$.} In order to determine hedging position with the most recent information, we calibrate the pricing model to match the market option prices. 
 
 
 
@@ -1005,7 +1004,7 @@ The underlying asset price is $S_t$. The calibration can be done by:
 
 Determining a single model solving equation \eqref{eq:OptCal} is chanllenging. In practice. approximations are often made.
 For the Black-Scholes model, there is only one parameter to be calibrated,
-so  one can match each market quotes exactly by:
+so  one can match each market prices exactly by:
 \[
 V_{BS}(S_t,t,T_i,K_j;\sigma^{imp}_{t,T_i,K_j})=\Vmkt_{t,T_i,K_i}
 \]
@@ -1022,7 +1021,7 @@ Given the option pricing model $V(S,t,T,K;\theta^*)$ with the calibrated $\theta
 \[
 \delta_{t,T,K}=  \frac{\partial V(S,t,T,K;\theta^*)}{\partial S}
 \]
-Although a more complex option pricing model such as stochastic volatility models can match the market quotes better and account for the volatility smile better, it does not necessarily lead to better hedging strategy. 
+Although a more complex option pricing model such as stochastic volatility models can match the market prices better and account for the volatility smile better, it does not necessarily lead to better hedging strategy. 
 Several studies \cite{dumas1998implied,bakshi1997empirical,yung2003empirical, lassance2018comparison} detail the hedging performances of option pricing models and show that, while explicitly
 modelling volatility smile substantially improves the pricing
 accuracy, it frequently decreases the hedging
@@ -1108,7 +1107,7 @@ To the best of our knowledge, the study
 underlying prices.  
 
 \citet{hulloptimal} proposed a correction form  based on the following analysis using the Black–Scholes model. 
-More specifically, assume we have calibrated the implied volatilities $\sigma^{imp}$ to match all the market option quotes as what we have discussed in section \ref{sec:Classical}.
+More specifically, assume we have calibrated the implied volatilities $\sigma^{imp}$ to match all the market option prices as what we have discussed in section \ref{sec:Classical}.
 Let us again assume we  are computing  the hedging position  with a fixed $T$ and $K$ at a specific trading time $t$, so for notational simplicity in the following discussion, we drop ${t,T,K}$ in the subscript. Following \eqref{eq:MarketDep}, to determine the  sensitivity accurately, one needs to compute 
 \begin{equation} \label{eq:Chain}
 \frac{\partial V_\BS}{\partial S} + \frac{\partial V_\BS}{\partial \sigma^{imp}}
@@ -1540,125 +1539,10 @@ The explicit expression for the spline kernel with order $O_d$  for the one-dime
 \]
 
 For multidimensional data, the spline kernel is the product of one-dimensional spline kernel functions with respect to each dimension. Interested readers can referred to \citep{vapnik1998statistical} for more details. The main benefit of using the spline kernel over the Gaussian kernel  is that spline kernel does not have a hyperparameter to be tuned while  Gaussian kernel has  a bandwidth parameter to be tuned by cross-validation which is often costly. In this thesis, we focus on spline kernel and, in section 
-\ref{sec:Synexperiment}, we will show that spline kernel performs better or equally well when compared with Gaussian kernel.  In the latter discussion, we denote $\delta^{DKL}_{t,T,K}= \delta(\vx_{t}^{T,K}{\valpha}^*)$ as the hedging position form the direct kernel hedging model.
+\ref{sec:Synexperiment}, we will show that spline kernel performs better or equally well when compared with Gaussian kernel.  In the latter discussion, we denote $\delta^{DKL}_{t,T,K}= \delta(\vx_{t}^{T,K}{\valpha}^*)$ as the hedging position form the direct kernel hedging model. For our data-driven approach, we need to select an appropriate penalty $\lambda_P$ to control the model complexity. Cross-validation (CV) is a commonly used method for the performance estimation and model selection for the learning algorithms. For example, the Leave-One-Out Cross-Validation (LOOCV) computes the output for each data instance using parameters trained on the remaining data instances. For the regularized kernel methods, we can compute the CV error efficiently without retraining the model in each CV round \cite{pahikkala2006fast}. More detailed discussion on the fast LOOCV of regularized kernel network \cite{pahikkala2006fast} can be found in appendix \ref{sec:cross}. 
 
 
-\section{Cross Validation} \label{sec:cross}
- For our data-driven approach, we need to select an appropriate penalty $\lambda_P$ to control the model complexity. Cross-validation (CV) is a commonly used method for the performance estimation and model selection for the learning algorithms. For example, the Leave-One-Out Cross-Validation (LOOCV) computes the output for each data instance using parameters trained on the remaining data instances. For the regularized kernel methods, we can compute the CV error efficiently without retraining the model in each CV round.
 
-
-Recall that, for the regularized network or pricing model, the minimization problem is
-\[
-\min_{\mathbf{\valpha}} \left(  \sum_{i=1}^M \left( \Vmkt_{t_i,T_i,K_i}-\sum_{j=1}^M \widehat{\alpha}_j \mathcal{K}(\vx_{t_j}^{T_j,K_j},\vx_{t_i}^{T_i,K_i}) \right)^2+\lambda_P \sum_{i=1}^M\sum_{j=1}^M  \widehat{\alpha}_i \widehat{\alpha}_j \mathcal{K}(\vx_{t_j}^{T_j,K_j},\vx_{t_i}^{T_i,K_i})\right)
- \]
-Let $\vK$ be the kernel matrix with $\vK_{ij}=\mathcal{K}(\mathbf{x}_i,\mathbf{x}_j)$. Note $\vK$ here denotes the kernel matrix which should not be confused with the strike $K$. Problem \eqref{eq:indirect} can be rewritten in matrix form:
-\begin{equation}
-\min_{\valpha \in \Real^M} \; ( \vK \valpha - \vecVmkt)^T ( \vK \valpha -\vecVmkt)+ \lambda_P \valpha^T\vK\valpha
-\label{eq:CV2}
-\end{equation}
-with
-\[
-	\vecVmkt=\{
-	\Vmkt_{t_1,T_1,K_1},\dots,	\Vmkt_{t_M,T_M,K_M}
-	\}	\;\;\;,\;\;\; \valpha=\{\widehat{\alpha}^*_1,\dots,\widehat{\alpha}^*_M\}
-\]
-The solution to \eqref{eq:CV2} is:
-\[
-\valpha^*  =(\vK+\lambda_P \pmb{I})^{-1}\vecVmkt
-\]
-Given the eigen-decomposition $\vK=\pmb{Q} \pmb{\Lambda} \pmb{Q}^T$, we can easily see that:
-\begin{equation}\label{eq:eig}
-(\vK+\lambda_P \pmb{I})^{-1}=\pmb{Q}(\pmb{\Lambda}+\lambda_P \pmb{I})^{-1} \pmb{Q}^T
-\end{equation}
-Because $(\pmb{\Lambda}+\lambda_P I)$ is a diagonal matrix, given the eigen-decomposition $\vK=\pmb{Q} \pmb{\Lambda} \pmb{Q}^T$, we can get different solutions to \eqref{eq:CV2}  as $\lambda_P$ varies in $O(M^2)$.
-
-Let $V(\vx_{t_j}^{T_j,K_j}; \valpha^*)$ be the output for data instance $j$ when regularized kernel methods \eqref{eq:indirectf} is trained on all training data instances. Let $V^l(\vx_{t_j}^{T_j,K_j}; \valpha^l)$  be the output for data instance $j$ when regularized kernel methods \eqref{eq:indirectf} is trained on all training data instances except $\vx_{t_l}^{T_l,K_l}$. 
-Let $\vecVmkt^l=\{\vecVmkt^l_1,\vecVmkt^l_2,\cdots,\vecVmkt^l_M\}$ be the vector where $\vecVmkt^l_{j} = \Vmkt_{t_j,T_j,K_j}$ for $j \neq l$ and $\vecVmkt^l_l = V^l(\vx_{t_l}^{T_l,K_l}; \valpha^l)$. Since $V^l(\cdot; \valpha^l)$ is the model trained on all example except for $\vx_{t_l}^{T_l,K_l}$ , it is easy to see that $V^l(\cdot; \valpha^l)$  minimizes
-\begin{equation}
-\min_{\valpha \in \Real^M} \; ( \vK \valpha - \vecVmkt^l)^T ( \vK \valpha -\vecVmkt^l)+ \lambda_P \valpha^T\vK\valpha
-\label{eq:CV3}
-\end{equation}
-The solution to \eqref{eq:CV3} is:
-\[
-\valpha^l  =(\vK+\lambda_P \pmb{I})^{-1}\vecVmkt^l
-\]
-Let $\pmb{B}=\vK (\vK+\lambda_P \pmb{I})^{-1}$, therefore, we have 
-\[\pmb{B}\vecVmkt=\{
-	V(\vx_{t_1}^{T_1,K_1}; \valpha^*),
-	\dots,
-	V(\vx_{t_M}^{T_M,K_M}; \valpha^*)
-	\}
-\]
-where $V(\vx_{t}^{T,K}; \valpha^*)$ is the option value funtion given in equation  \eqref{eq:KernelRep} with the solution $\valpha^*$ given by $\valpha^*=(\vK+\lambda_P \pmb{I})^{-1}\vecVmkt$.
-Let $B_{ij}$ be the element of $\pmb{B}$ of $i$th row and $j$th column.
-We can easily show that:
-\[
-	V^l(\vx_{t}^{T,K}; \valpha^l)-V(\vx_{t}^{T,K}; \valpha^*)=\sum_{i=1}^M B_{li}(\vecVmkt_i^l-\vecVmkt_i)=B_{ll}(V^l(\vx_{t_l}^{T_l,K_l}; \valpha^l)-\vecVmkt_l)=B_{ll}(V^l(\vx_{t_l}^{T_l,K_l}; \valpha^l)-\Vmkt_{t_l,T_l,K_l})
-\]
-Thus,
-\begin{equation} \label{eq:fastCV}
-	V^l(\vx_{t_l}^{T_l,K_l}; \valpha^l)=
-	\frac{V(\vx_{t_l}^{T_l,K_l}; \valpha^*)-B_{ll}\Vmkt_{t_l,T_l,K_l}}
-	{1-B_{ll}}
-\end{equation}
-Therefore, we can get the $V^l(\vx_{t_l}^{T_l,K_l}; \valpha^l)$  without actually retraining the model. 
-
-The leave-one-out estimations are:
-\begin{equation} \label{eq:fastCV2}
-\vecVmkt_{loo}=(I-\pmb{B}_{LL})^{-1}(\pmb{B}\vecVmkt-\pmb{B}_{LL}\vecVmkt)
-\end{equation}
-and the leave-one-out errors for all data instance are:
-\begin{equation} \label{eq:fastCV3}
-\vecVmkt-\vecVmkt_{loo}=\vecVmkt-(\pmb{I}-\pmb{B}_{LL})^{-1}(\pmb{B}\vecVmkt-\pmb{B}_{LL}\vecVmkt)=(\pmb{I}-\pmb{B}_{LL})^{-1}(\vecVmkt-\pmb{B}\vecVmkt)
-\end{equation}
-where $\pmb{B}_{LL}$ is a diagonal matrix with diagonal element of the matrix $\pmb{B}$, i.e., $B_{ii},\;\; i=1,\dots,M$,   on its diagonal.
-
-We can further simplify the expression by noting the fact that:
-\[\begin{split}
-\pmb{B}&=\vK (\vK+\lambda_P \pmb{I})^{-1} \\
-       &=\pmb{Q}\pmb{\Lambda}(\pmb{\Lambda}+\lambda_P \pmb{I})^{-1} \pmb{Q}^T\\
-       &=\pmb{Q}(\pmb{\Lambda}+\lambda_P \pmb{I}-\lambda_P \pmb{I})(\pmb{\Lambda}+\lambda_P \pmb{I})^{-1} \pmb{Q}^T\\
-       &= \pmb{I}-\lambda_P \pmb{Q} (\pmb{\Lambda}+\lambda_P \pmb{I})^{-1} \pmb{Q}^T=\pmb{I} -\lambda_P  (\vK+\lambda_P \pmb{I})^{-1}
-  \end{split}
-\]
-Therefore, we  get:
-\begin{equation}
-	\begin{split}
-(\pmb{I}-\pmb{B}_{LL})&=diag(\pmb{I}-\pmb{B})=\lambda_P \; diag((\vK+\lambda_P \pmb{I})^{-1})\\
-\vecVmkt-B\vecVmkt&=\lambda_P (\vK+\lambda_P \pmb{I})^{-1} \vecVmkt =\lambda_P \valpha^*
-\label{eq:kernelcheck1}
-	\end{split}
-\end{equation}
-From  equation \eqref{eq:fastCV3} and \eqref{eq:kernelcheck1} , we can get:
-\begin{equation}  \label{eq:fastCV4}
-\vecVmkt-\vecVmkt_{loo}=diag((\vK+\lambda_P \pmb{I})^{-1})^{-1} \valpha^*
-\end{equation}
-
-Given the eigen-decomposition $\vK=\pmb{Q} \pmb{\Lambda} \pmb{Q}^T$, we can compute  $\valpha^*$ as $\lambda_P$ varies in $O(M^2)$. Similarly, given the eigen-decomposition $\vK=\pmb{Q} \pmb{\Lambda} \pmb{Q}^T$, we can compute the diagonal of $(\vK+\lambda_P \pmb{I})^{-1}$ in $O(M^2)$. Then  using \eqref{eq:fastCV4}, the LOOCV errors can be computed in $O(M^2)$.  It can been further shown \cite{pahikkala2006fast} that, given the eigen-decomposition $\vK=\pmb{Q} \pmb{\Lambda} \pmb{Q}^T$, the computational complexity for the $n$-fold cross-validation ($n$FCV) is $O(M^3/n)$. Interested readers can referred to \citep{pahikkala2006fast, wahba1990spline} for more details.
-
-Let $\Delta \vecVmkt=\{\Delta \Vmkt_{t_1,T_1,K_1},\cdots,\Delta \Vmkt_{t_M,T_M,K_M}\}$ and  let $\pmb{D}$ be a diagonal matrix with $D_{ii}=\Delta S_{t_i}. \;i=1,\cdots,M.$ on its diagonal.
-Similarly, we can rewrite  the minimization problem \eqref{eq:directf} in matrix form:
-\begin{equation}
-\min_{\valpha \in \Real^m} \; ( \pmb{D} \vK \valpha - \Delta \vecVmkt)^T (\pmb{D}  \vK \valpha -\Delta \vecVmkt)+ \lambda_P \valpha^T\vK\valpha
-\label{eq:directfM}
-\end{equation}
-Let $\widetilde{\vK}=\pmb{D}\vK$, the solution to \eqref{eq:directfM} can be obtained by:
-\[
-\valpha^* = (\widetilde{\vK}^T\widetilde{\vK}  + \lambda_P \vK)^{-1} \widetilde{\vK}^T \Delta \vecVmkt
-\]
-Unfortunately, we can not directly use the fast cross validation algorithms from \cite{pahikkala2006fast, wahba1990spline} for the minimization problem \eqref{eq:directfM}.
-Because $({\widetilde{\vK}}^T{\widetilde{\vK}}  + \lambda_P \vK)^{-1}$ can not be easily inverted in $O(M^2)$ as $\lambda_P$ varies.
-
-However if we change the penalty term for \eqref{eq:directfM} from $\lambda_P \valpha^T\vK\valpha$ to $\lambda_P \valpha^T\valpha$, the minimization problem becomes:
-\begin{equation}
-\min_{\valpha \in \Real^m} \; ( \pmb{D} \vK \valpha - \Delta\vV)^T (\pmb{D}  \vK \valpha -\Delta\vV)+ \lambda_P \valpha^T\valpha
-\label{eq:directfMV2}
-\end{equation}
-The solution to \eqref{eq:directfMV2} can be obtained by:
-\[
-\valpha^* = (\widetilde{\vK}^T\widetilde{\vK}  + \lambda_P \pmb{I})^{-1} \widetilde{\vK}^T \Delta \vecVmkt
-\]
-Utilizing the ideas from \cite{pahikkala2006fast, wahba1990spline}, we can similarly show that,  given the singular value decomposition $\pmb{\widetilde{K}}=\pmb{U} \pmb{\Sigma} \pmb{V}^T$, for the problem \eqref{eq:directfMV2},  the computational complexity for the LOOCV is still $O(M^2)$ and the computational complexity for the $n$FCV is still $O(M^3/n)$. In practice, changing the penalty term from $\lambda_P \valpha^T\vK\valpha$ to $\lambda_P \valpha^T\valpha$ will not affect the actual performance too much. Therefore, in order to improve the computation efficiency for the direct data-driven approach, we are solving the problem \eqref{eq:directfMV2}.
 
 
 
@@ -1868,7 +1752,7 @@ Given that the analytic delta is for instantaneous hedging while the direct hedg
 
 \subsubsection{Feature Set \#2: $ \{\textsc{moneyness} \;(S_t/K),\;\;\textsc{time-to-expiry} \;(T-t) ,\;\;~ \delta^{BS}_{t,T,K}\}$}
 We add the Black–Scholes delta $\delta^{BS}_{t,T,K}$ using the implied volatility as an additional feature in the direct hedging learning, since \citet{hulloptimal} indicate that a better minimum  variance hedge can be calculated based on the implied volatility delta.  Table \ref{DailyD}, \ref{WeeklyD}, and \ref{MonthlyD}
-present hedging results for  $\DKLs$ \& $\DKLg$ for  $\{\textsc{moneyness} \;(S_t/K),\;\;\textsc{time-to-expiry} \;(T-t) ,\;\;~ \delta^{BS}_{t,T,K}\}$. For clarity, we also include the results for FS \#1 $\{\textsc{moneyness} \;(S_t/K),\;\;\textsc{time-to-expiry} \;(T-t) \}$ and Heston delta for ease of comparison.
+present hedging results for  $\DKLs$ \& $\DKLg$ for  $\{\textsc{moneyness} \;(\frac{S_t}{K}),\;\;\textsc{time-to-expiry} \;(T-t) ,\;\;~ \delta^{BS}_{t,T,K}\}$. For clarity, we also include the results for FS \#1 $\{\textsc{moneyness} \;(\frac{S_t}{K}),\;\;\textsc{time-to-expiry} \;(T-t) \}$ and Heston delta for ease of comparison.
 
 \begin{table}[htp!]
 \begin{center}
@@ -2997,15 +2881,15 @@ Suppose we have $M$ hedging scenarios, a data driven model can be built by minim
 \]
 Clearly, in order to build an effective data-driven total risk hedging model, one needs to gather a sufficient  number $M$ of sample paths. 
 
-For local risk hedging, each data instance is uniquely determined by the triplet $\{t,T,K\}$. We only need the market option quotes of strike $K$ and expiry $T$ to be available on both $t$ and $t+\Delta t$ to gather a data instance for the data-driven local hedging model. Therefore, purely building a model based on market quotes for local risk hedging is achievable. 
+For local risk hedging, each data instance is uniquely determined by the triplet $\{t,T,K\}$. We only need the market option prices of strike $K$ and expiry $T$ to be available on both $t$ and $t+\Delta t$ to gather a data instance for the data-driven local hedging model. Therefore, purely building a model based on market prices for local risk hedging is achievable. 
 
 
-For total risk hedging, if we assume the starting hedging date $t_0$ is $N_H$ days to expiry $T$, each data instance is then uniquely determined by the duplet $\{T,K\}$. If we only rely on market quotes to build the total risk model,  we will face the following challenges:
+For total risk hedging, if we assume the starting hedging date $t_0$ is $N_H$ days to expiry $T$, each data instance is then uniquely determined by the duplet $\{T,K\}$. If we only rely on market prices to build the total risk model,  we will face the following challenges:
 \begin{enumerate}
 		\item Options listed in an exchange only have fixed expiry dates and only a few strikes are listed every day. In other words, the number of unique duplet $\{T,K\}$ in actual market is small.		
 		For example, the expiration date for the standard S\&P 500 index option is fixed at the third Friday of each month.\footnote{Starting from 2016, CBOE also introduces weekly S\&P 500 index options which expired on Monday, Wednesday and Friday of each week. The data we gathered is up to 2015-08-31, so our experiments in this thesis does not include those data.} Therefore, if we only use market available expiration dates, the number of training scenarios will  be severely limited. 
-		\item In addition, the option with specific strike $K$ and expiry $T$ may not be traded or quoted on every trading date during its lifetime. Requiring the market option quotes of strike $K$ and expiry $T$ to be available on entire hedging horizon $[t_0, T]$ is unrealistic especially for in-the-money and out-of-money options. 
-		Therefore, we will have to rely on certain parametric models calibrated to market quotes to compute the necessary derived features (e.g., option sensitivity), which is used as the input of the data-driven model, when there are not market quotes or prices for the specific combination of $T$ and $K$ on some trading dates.
+		\item In addition, the option with specific strike $K$ and expiry $T$ may not be traded  on every trading date during its lifetime. Requiring the market option prices of strike $K$ and expiry $T$ to be available on entire hedging horizon $[t_0, T]$ is unrealistic especially for in-the-money and out-of-money options. 
+		Therefore, we will have to rely on certain parametric models calibrated to market prices to compute the necessary derived features (e.g., option sensitivity), which is used as the input of the data-driven model, when there are not market prices or prices for the specific combination of $T$ and $K$ on some trading dates.
 		\item Lastly, under an ideal setting, one should  use non-overlapping underlying asset paths to generate training and testing hedging scenarios as one often observe autocorrelation in financial time series.  In reality, using non-overlapping underlying asset path to generate training and testing scenarios is not practical. For instance, assuming we are building a data-driven model for hedging 3
 		months until expiry, with non-overlapping underlying asset paths, 20 years of market data can provide only 80 different non-overlapping underlying asset paths, making building a
 		data-driven model difficult.  
@@ -3024,7 +2908,7 @@ Therefore, we greatly increase the number of training scenarios, since now the h
 
 \subsection{No-Arbitrage Price Surface}
 \label{sec:NoArb}
-In this section, we describe how to calibrate an arbitrage-free price surface on each business day from the market option quotes and prices. We want to create a parametrization of the price surface that is \textbf{arbitrage-free}.  We use use SABR model to match the market volatility smiles and we use an arbitrage-free interpolation based on Local Volatility Function (LVF) model to interpolate the SABR model value between expiries.
+In this section, we describe how to calibrate an arbitrage-free price surface on each business day from the market option prices. We want to create a parametrization of the price surface that is \textbf{arbitrage-free}.  We use use SABR model to match the market volatility smiles and we use an arbitrage-free interpolation based on Local Volatility Function (LVF) model to interpolate the SABR model value between expiries.
 
 In this thesis, we choose the SABR model over LVF models in matching market smiles and computing the value of options with the strikes unobserved in the market. This is because  LVF models that were initially proposed by \citet{dupire1994pricing}, \citet{DermanKani94} and \citet{rubinstein1994implied} and put into highly efficient pricing engines by \citet{Andersenl98} and \citet{dempster2000pricing} amongst others, heavily rely on an arbitrage-free  BS implied volatility surface as the input.  If there are arbitrage violations, the convergence of the algorithm solving the underlying generalized Black Scholes partial differential equation will be obstructed \cite{fengler2009arbitrage}.
 
@@ -3038,7 +2922,7 @@ Surface calibration models based on LVF that do not reply on  the assumption tha
 %  In the following subsection, we will discuss the steps of calibration of the arbitrage-free surface with.
 
 \subsubsection{Arbitrage-Free Surface From SABR Model}
-In this section, we discuss how to use SABR model to create an arbitrage-free surface calibrated to match market available quotes. Although SABR model is computationally efficient and can match the market volatility smile well, it is not arbitrage-free. The formula \eqref{eq:SABRExpansion} is an approximation, obtained from  an asymptotic series expansion. Its accuracy degrades if the option strikes move away from the option at-the-money (ATM) strike. Therefore, we also discuss how to fix the arbitrage issue of SABR.
+In this section, we discuss how to use SABR model to create an arbitrage-free surface calibrated to match market available prices. Although SABR model is computationally efficient and can match the market volatility smile well, it is not arbitrage-free. The formula \eqref{eq:SABRExpansion} is an approximation, obtained from  an asymptotic series expansion. Its accuracy degrades if the option strikes move away from the option at-the-money (ATM) strike. Therefore, we also discuss how to fix the arbitrage issue of SABR.
 
 
 Following \cite{gatheral2014arbitrage}, we  check whether  an implied volatility surface is free of \textit{calendar arbitrage}, and \textit{butterfly arbitrage}, which we describe below. Assume that we have a collection of European call option prices $\{C(T,K)\}_{T,K}$ for a range of strikes, $K$, and expiries, $T$, with the Black-Scholes implied volatility surface $\{ \sigma^{imp}(T,K)\}_{T,K}$. We also suppose that interest rates are deterministic with $D(t,T)=e^{-r(T-t)}$ for the discount factor, where $t$ is trading date and $T$ is the maturity date.
@@ -3135,7 +3019,7 @@ We set the first expiry be $t$: $T_{0}=t$. Note that for the first expiry $T_{0}
 \{
 	K^{mkt}_{1},\dots,K^{mkt}_{N_K}
 \}
-\] to the grid of strikes $K$ observed on date $t$  where we have market observations (quotes or traded prices) for the expiry $T$
+\] to the grid of strikes $K$ observed on date $t$  where we have market observations for the expiry $T$
 
 % We firstly use SABR model to obtain option price for a predetermined grid of strike $0=K_0<K_1<\dots<K_{max}$ 
 % to be the strikes for which market option price is available for $T_i$.
@@ -3154,7 +3038,7 @@ Due to the fact that equation \eqref{eq:SABRExpansion} being an appproximation, 
 	\frac{1}{D(t,T)} \left. \frac{\partial^2 C_{SABR}(T,K)}{\partial K^2} \right\vert_{K=x}=	p(x;T,S_t) 
 	\label{eq:impliedDensity}
 \end{equation}
-where $C_{SABR}(T,K)$ is the SABR price of a call option at strike $K$ and expiry $T$ computed using the equation \eqref{eq:SABRExpansion}, may become negative at very low or very high strikes. Therefore, we may observe butterfly spread arbitrage in SABR prices returned by the calibrated models. In addition, for each expiry, a separate set of SABR parameters is calibrated so that calender spread arbitrage can also exist. However, the existence of calendar arbitrage will be rare since the market option prices rarely contains calendar arbitrage and therefore the SABR model, which usually matches the  market option data very well rarely produces calendar arbitrage.
+where $C_{SABR}(T,K)$ is the SABR price of a call option at strike $K$ and expiry $T$ computed using the equation \eqref{eq:SABRExpansion}, may become negative at very low or very high strikes. Therefore, we may observe butterfly spread arbitrage in SABR prices returned by the calibrated models. In addition, for each expiry, a separate set of SABR parameters is calibrated so that calender spread arbitrage can also exist. However, the existence of calendar arbitrage will be rare since the market option prices rarely contains calendar arbitrage and therefore the SABR model, which usually matches the  market option data very well, rarely produces calendar arbitrage.
 
 
 Given a grid of strikes $K$ for which we aim to use SABR model to produce the option prices, if we found that the grid of prices returned by the SABR model has failed the  \textbf{discrete} arbitrage conditions for butterfly arbitrage \eqref{eq:DiscreteCond1}, we will introduce some adjustments. To fix the butterfly spread  arbitrage, we implements an risk-neutral adjustment. This adjustment substitutes the two implied distribution tails by those of certain log-normal distributions. The following  adjustment is inspired by \cite{brunner2003arbitrage}. Interested reader can refer to \cite{brunner2003arbitrage} for more details. Here we just briefly discuss the process of the adjustment.
@@ -3207,7 +3091,7 @@ We require the following condition to be satisfied:
 \int_{K_{U}}^{\infty}	 x \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=F(t,T)
 \label{eq:RND2}
 \end{equation}
-The intergrability constraint ensures that $\hat{g}(x)$ is a valid p.d.f. The martingale  constraint ensures thate $E[S_T]=F(t,T)$ under ther adjusted p.d.f.
+The intergrability constraint ensures that $\hat{g}(x)$ is a valid p.d.f. The martingale  constraint ensures that $E[S_T]=F(t,T)=S_{t}e^{(r-q)(T-t)}$ under ther adjusted p.d.f.
 
 
 % \item Continuity of density function constraint:
@@ -3221,145 +3105,29 @@ The intergrability constraint ensures that $\hat{g}(x)$ is a valid p.d.f. The ma
 % \label{eq:RND4}
 % \end{equation}
 \end{enumerate}
-Since they are six  unknown parameters $\{\mu_{L}, \mu_{U},\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$, additional caliration condition are imposed. Observing that the Black-Scholes \cite{black1973pricing} model implies that, under the risk neutral measurement, the prices of the underlying asset $S_T$ at the maturity $T$ are log-normal distribued:
+Since they are six  unknown parameters $\{\mu_{L}, \mu_{U},\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$, additional calibration conditions are imposed. Observing that the Black-Scholes \cite{black1973pricing} model implies that, under the risk neutral measurement, the prices of the underlying asset $S_T$ at the maturity $T$ are log-normal distribued:
  \[
  \ln(S_T) \sim  \mathcal{N}(\ln(S_t)+(r-q-\frac{\sigma^2}{2})(T-t),\sigma^2 (T-t))
  \]
-we set $\mu_L=\ln(S_t)+(r-q-\frac{\sigma_L^2}{2})(T-t)$ and $\mu_U=\ln(S_t)+(r-q-\frac{\sigma_U^2}{2})(T-t)$ such that we have only four parameters to be solved: $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$. 
+we set $\mu_L=\ln(S_t)+(r-q-\frac{\sigma_L^2}{2})(T-t)$ and $\mu_U=\ln(S_t)+(r-q-\frac{\sigma_U^2}{2})(T-t)$ such that we have only four parameters to be solved: $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$. Furthermore, with $\mu_L=\ln(S_t)+(r-q-\frac{\sigma_L^2}{2})(T-t)$ and $\mu_U=\ln(S_t)+(r-q-\frac{\sigma_U^2}{2})(T-t)$, one can easily verify that if we have $\{\sigma_{L}=\sigma_{B}(K_L),\sigma_{U}=\sigma_{B}(K_U), \lambda_{L}=1, \lambda_{U}=1\}$, intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2} will be  satisified.  
 
 
-Let:
-\begin{itemize}
-\item  $C_{BS}(T,K;\sigma)$ and $P_{BS}(T,K;\sigma)$ be the call and put option prices from Black-Scholes model with the Black-Scholes volatility $\sigma$.
-\item  $DC_{BS}(T,K;\sigma)$ and $DP_{BS}(T,K;\sigma)$ be the digital call and put option prices from Black-Scholes model with the Black-Scholes  volatility $\sigma$  where a digital call pays one dollar if the underlying price exceeds the strike and a digital put pays the same amount  if the underlying is below the strike. 
-\item  $\sigma_B$ be implied Black's volatility given by the SABR apprximation formula \eqref{eq:SABRExpansion} for $K \in [K_{L},K_{U}]$. For simplicity, we write $\sigma_{B}(K)$ to denote the implied Black's volatility given by the SABR formula \eqref{eq:SABRExpansion} for a strike $K$ since the other parameters in  $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$ remain unchanged in the following discussion for a expiry $T$ at a time $t$.
- \end{itemize}
-
- Furthermore, by such setting, we will have:
-
- \begin{align}
- D(t,T)\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=\lambda_{L} DP_{BS}(T,K_{L};\sigma_{L}) \label{eq:SABRFix01} \\
- D(t,T)\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=\lambda_{U} DC_{BS}(T,K_{U};\sigma_{U}) \label{eq:SABRFix02}\\
- D(t,T)\int_{0}^{K_{L}} (K_L-x)	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=\lambda_{L} P_{BS}(T,K_{L};\sigma_{L})\label{eq:SABRFix03} \\
- D(t,T)\int_{K_{U}}^{\infty}	(x-K_U) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=\lambda_{U} C_{BS}(T,K_{U};\sigma_{U})\label{eq:SABRFix04} 
- \end{align}
-
-
-If we have the below equations hold: 
-\begin{align}
-		 \lambda_L DP_{BS}(T,K_{L};\sigma_L)&=DP_{BS}(T,K_{L};\sigma_{B}(K_{L})) \label{eq:SABRFix11} \\
-		 \lambda_U DC_{BS}(T,K_{U};\sigma_U)&=DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))  \label{eq:SABRFix12}\\
-		 \lambda_L P_{BS}(T,K_{L};\sigma_L)&=P_{BS}(T,K_{L};\sigma_{B}(K_{L})) \label{eq:SABRFix13}\\
-		 \lambda_U C_{BS}(T,K_{U};\sigma_U)&=C_{BS}(T,K_{U};\sigma_{B}(K_{U}))
-	 \label{eq:SABRFix14}
-	\end{align}
- we can  show the  intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2} are also satisified.  Furthermore, the solution to the equantions \eqref{eq:SABRFix11} to \eqref{eq:SABRFix14} is $\{\sigma_{L}=\sigma_{B}(K_L),\sigma_{U}=\sigma_{B}(K_U), \lambda_{L}=1, \lambda_{U}=1\}$. Therefore, if we have $\{\sigma_{L}=\sigma_{B}(K_L),\sigma_{U}=\sigma_{B}(K_U), \lambda_{L}=1, \lambda_{U}=1\}$, intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2} are satisified. 
- 
-Here, we firstly show the intergrability constraint \eqref{eq:RND1} is satisified if we have equations \eqref{eq:SABRFix11} to  \eqref{eq:SABRFix14} hold. Comnbining equation  \eqref{eq:SABRFix01} and equation \eqref{eq:SABRFix11}, we have:
- \begin{equation}
-	 \frac{1}{D(t,T)} DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))=\frac{1}{D(t,T)} \lambda_{L} DP_{BS}(T,K_{L};\sigma_{L})=\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx\\
- \label{eq:IntProof1}
- \end{equation}
- Similarly, comnbining equation  \eqref{eq:SABRFix02} and equation \eqref{eq:SABRFix12}, we have
- \begin{equation}
- \frac{1}{D(t,T)} DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))=\frac{1}{D(t,T)} \lambda_{L} DC_{BS}(T,K_{U};\sigma_{U})=\int_{K_{U}}^{\infty}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx
- \label{eq:IntProof2}
- \end{equation}
- We further note that:
-\begin{equation}
-\begin{split}
-	\int_{K_{L}}^{K_{U}}p(x;T,S_t) &=\int_{K_L}^{\infty}p(x;T,S_t)-\int_{K_U}^{\infty}p(x;T,S_t)\\
-	&=\frac{1}{D(t,T)} DC_{BS}(T,K_{L};\sigma_{B}(K_{L}))-\frac{1}{D(t,T)} DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))
-\end{split}
-\end{equation}
-By call-put parity, we have: 
-\[DC_{BS}(T,K_{L};\sigma_{B}(K_{L}))=D(t,T)-DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))\]
-Therefore, we have:
-\begin{equation}
-	\begin{split}
-		\int_{K_{L}}^{K_{U}}p(x;T,S_t) &=\int_{K_L}^{\infty}p(x;T,S_t)-\int_{K_U}^{\infty}p(x;T,S_t)\\
-		&=1-\frac{1}{D(t,T)} DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))-\frac{1}{D(t,T)} DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))
-	\end{split}
-	\label{eq:IntProof3}
-	\end{equation}
-Combining equations \eqref{eq:IntProof1} and \eqref{eq:IntProof2} with equation \eqref{eq:IntProof3}, we show that  the intergrability constraint \eqref{eq:RND1} is satisfied.
-
-In terms of the martingale constraint, we firstly split the equation \eqref {eq:SABRFix03} as follows:
-\begin{equation}
-	\int_{0}^{K_L} (K_L-x) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx=\int_{0}^{K_L} K \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx-\int_{0}^{K_L} x \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx
-	\label{eq:MatProof1}
-\end{equation}
-Plugging in equation \eqref{eq:SABRFix01}, we have:
-\begin{equation}
-	K_L\lambda_{L} DP_{BS}(T,K_{L};\sigma_{L})-\lambda_{L} P_{BS}(T,K_{L};\sigma_{L})=D(t, T)\int_{0}^{K_L} x \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx
-	\label{eq:MatProof2}
-\end{equation}
-Similary, we have:
-\begin{equation}
-	K_U\lambda_{U} DC_{BS}(T,K_{U};\sigma_{U})+\lambda_{U} C_{BS}(T,K_{U};\sigma_{U})=D(t,T)\int_{K_U}^{\infty} x \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx
-	\label{eq:MatProof3}
-\end{equation}
-Furthermore, we can show that for $K_L<K<K_U$:
-\begin{equation}
-	\begin{split}
-	D(t,T) \int_{K_L}^{K_U} (x-K) p(x;T,S_t)dx&=\left[C_{BS}(T,K_L;\sigma_B(K_L))+(K_L-K)DC_{BS}(T,K_L;\sigma_B(K_L))\right]\\ &-\left[C_{BS}(T,K_U;\sigma_B(K_U))+(K_U-K)DC_{BS}(T,K_L;\sigma_B(K_U))\right]
-\end{split}
-\end{equation}
-From equation \eqref{eq:IntProof3} we know that:
-\[
-D(t,T) \int_{K_L}^{K_U} K p(x;T,S_t)dx=K[D(t,T)- DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))- DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))]
-\]
-Therefore, we have
-\begin{equation}
-\begin{split}
-	D(t,T) \int_{K_L}^{K_U} x p(x;T,S_t)dx&=\left[C_{BS}(T,K_L;\sigma_B(K_L))+(K_L-K)DC_{BS}(T,K_L;;\sigma_B(K_L))\right]\\ &-\left[C_{BS}(T,K_U;\sigma_B(K_U))+(K_U-K)DC_{BS}(T,K_L;\sigma_B(K_U))\right]\\
-	&+K[D(t,T)- DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))- DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))]
-\end{split}
-\label{eq:matproof4}
-\end{equation}
-By the call-put parity, we have:
-\begin{equation}	
-	\begin{split}
-	C_{BS}(T,K_L;\sigma_B(K_L))&=D(t,T)[F(t,T)-K_L]+P_{BS}(T,K_L;\sigma_B(K_L))\\
-	DC_{BS}(T,K_L;\sigma_B(K_L))&=D(t,T)-DP_{BS}(T,K_L;\sigma_B(K_L))\\
-\end{split}
-\label{eq:matproof5}
-\end{equation}
-Combining equation \eqref{eq:matproof4} and equations \eqref{eq:matproof5}, we then have:
-\begin{equation}
-	\begin{split}
-		\int_{K_L}^{K_U} x p(x;T,S_t)dx=
-	   &F(t,T)-\frac{1}{D(t,T)}[K_{L}DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))-P_{BS}(T,K_{L};\sigma_{B}(K_{L}))]-\\
-	   &\frac{1}{D(t,T)}[K_{U}DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))+C_{BS}(T,K_{U};\sigma_{B}(K_{U}))]
-	   \end{split}
-	   \label{eq:matproof6}
-\end{equation}
-Plugging in equations \eqref{eq:SABRFix11} to \eqref{eq:SABRFix14} into equation \eqref{eq:matproof6}, we have 
-\begin{equation}
-	\begin{split}
-		\int_{K_L}^{K_U} x p(x;T,S_t)dx=
-	   &F(t,T)-\frac{1}{D(t,T)}[K_{L}DP_{BS}(T,K_{L};\sigma_{L})-P_{BS}(T,K_{L};\sigma_{L})]-\\
-	   &\frac{1}{D(t,T)}[K_{U}DC_{BS}(T,K_{U};\sigma_U)+C_{BS}(T,K_{U};\sigma_{U})]
-	   \end{split}
-	   \label{eq:matproof7}
-\end{equation}
-Lastly, combining equation \eqref{eq:MatProof1}, \eqref{eq:MatProof2} and  \eqref{eq:matproof7} together, 
-\begin{equation}
-	\begin{split}
-	   F(t,T)=&\frac{1}{D(t,T)}\lambda_L[K_{L}DP_{BS}(T,K_{L};\sigma_{L})-P_{BS}(T,K_{L};\sigma_{L})]+\\
-	   &F(t,T)-\frac{1}{D(t,T)}[K_{L}DP_{BS}(T,K_{L};\sigma_{L})-P_{BS}(T,K_{L};\sigma_{L})]-\\
-	   &\frac{1}{D(t,T)}[K_{U}DC_{BS}(T,K_{U};\sigma_U)+C_{BS}(T,K_{U};\sigma_{U})]\\
-	   &\frac{1}{D(t,T)}\lambda_U[K_{U}DC_{BS}(T,K_{U};\sigma_{U})+C_{BS}(T,K_{U};\sigma_{U})]
-	   \end{split}
-   \label{eq:RND6}
-\end{equation}
-We therefore prove the martingale  constraint \eqref{eq:RND2} is satisified.
-We will simply using the adjusted p.d.f for option pricing:
+We use the adjusted p.d.f \eqref{eq:OurFix} for option pricing
 \begin{equation}
 	C_{\hat{g}(x)}(T,K)=D(t,T)\int_{-\infty}^{\infty} (x-K)_+ \hat{g}(x) dx
 	\label{eq:SABRFix3}
 \end{equation}
-We can easily verify that \eqref{eq:SABRFix3} can be written as:
+By setting: 
+\begin{equation}
+\begin{split}
+	\sigma_{L}&=\sigma_{B}(K_L)\;,\;\sigma_{U}=\sigma_{B}(K_U)\\
+	\lambda_{L}&=1 \;,\;\lambda_{U}=1\\
+	\mu_L&=\ln(S_t)+(r-q-\frac{\sigma_{B}(K_L)^2}{2})(T-t)\\ 
+	\mu_U&=\ln(S_t)+(r-q-\frac{\sigma_{B}(K_U)^2}{2})(T-t)
+\end{split}
+\label{eq:SolSABRFix}
+\end{equation}
+we can easily verify that \eqref{eq:SABRFix3} can be written as:
 \[\small
 	\overline{C}_{SABR}(T,K) \leftarrow C_{\hat{g}(x)}(T,K)=\left\{ \begin{array}{ll }
 		 C_{BS}(T,K;\sigma_{B}(K_L))\;&  \text{if} \; 0<K< K_{L}\\
@@ -3369,30 +3137,11 @@ We can easily verify that \eqref{eq:SABRFix3} can be written as:
 		C_{BS}(T,K;\sigma_{B}(K_U)) \; &  \text{if} \; \;  K> K_{U}
 \end{array} \right.
  \]
-Here we use the $\overline{C}_{SABR}(T,K)$ to indicate it is the SABR model value after the  fix for butterfly arbitrage. 
+Here we use the $\overline{C}_{SABR}(T,K)$ to indicate it is the SABR model value after the  fix for the butterfly arbitrage.  Since the adjusted p.d.f \eqref{eq:OurFix} satisfies intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2} and will not be negative at tails of the distribution because that the two tails are from two log-normal distribuions, we can conclude that the adjusted $\overline{C}_{SABR}(T,K)$ will be free of butterfly arbitrage. In appendix \ref{App:SABR Proof}, we show in details that the adjusted p.d.f \eqref{eq:OurFix} with the parameters  setting as in equations \eqref{eq:SolSABRFix} will satisfy the intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2}.
 
-
-
-
-In this thesis, we  use the  risk neutral adjustment \eqref{eq:OurFix} with 4 parameters  $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$ due to its simplicity. Notice that density function $\hat{g}(x)$ calibrated following the above risk neutral adjustment maybe discontinuous at $K_L$ and $K_U$.  If one want to ensure the continuity of the density function,  one can solve the overdetermined system suggested by \citet{brunner2003arbitrage} or solve the following system of equations for  $\{\mu_{L}, \mu_{U},\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$:
- \begin{equation}
- 	\begin{split}
- 		D(t,T)\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=DP(T,K_{L};\sigma_{B}(K_{L})\\
- 		D(t,T)\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=DC(T,K_{U};\sigma_{B}(K_{U})\\
- 		D(t,T)\int_{0}^{K_{L}} (K_L-x)	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=P(T,K_{L};\sigma_{B}(K_{L})\\
- 		D(t,T)\int_{K_{U}}^{\infty}	(x-K_U) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=C(T,K_{U};\sigma_{B}(K_{U})\\
- \lambda_{L} q(K_{L};\mu_{L},\sigma_{L})&=p(K_{L};T,S_t)\\
- \lambda_{U} q(K_{U};\mu_{U},\sigma_{U})&=p(K_{U};T,
- 	S_t)
- 	\end{split}
- \end{equation}
- Notice that here $\mu_{L}$ and $\mu_{U}$ are parameters to be solved as well. 
-
-
-
-For calendar arbitrage, we will shift the price by the the following procedure to remove it. Suppose we have a grid of $K_{grid}=\{K_0,K_1,\dots,K_{max}\}$ we have the a grid of expiries $t=T_0 < T_1 < \dots< T_{max}$. The for each expiry  $T_j,i=1,\dots,max$
+For calendar arbitrage, we will shift the price by the the following procedure to remove it. Suppose we have a grid of $K_{grid}=\{K_0,K_1,\dots,K_{N}\}$ and  a grid of expiries $t=T_0 < T_1 < \dots< T_{M}$. Then for each expiry  $T_j,i=1,\dots,M$
 \[
-shift_{T_j}=-min(min_{K \in K_{grid}}(\overline{C}_{SABR}(T_j,K)-\overline{C}_{SABR}(T_{j-1},K)),0).	
+shift_{T_j}=-min\left\{min_{K \in K_{grid}}\left[\overline{C}_{SABR}(T_j,K)-\overline{C}_{SABR}(T_{j-1},K)\right],0\right\}.	
 \]
 \[
 	\widetilde {C_{SABR}}(T_j,K) \leftarrow \overline{C}_{SABR}(T_j,K)+shift_{T_j}
@@ -3473,7 +3222,7 @@ Therefore, we still have
  
  An important feature of this parameterizations is that it provides easy way to impose sufficient conditions on the  parameters ($\hat{\theta}_{\tau},\hat{\rho}_{\tau},\hat{\psi}_{\tau}$) so that there is no butterfly arbitrage for a given slice, and no calendar arbitrage between two time slices. Interested reader can refer the \cite{corbetta2019robust,gatheral2014arbitrage} for the detailed conditions on those parameters. 
  
- There are many different approaches for calibrating SSVI models. For example, one can use a raw calibration appraoch to fit SSVI model to market data and then check if any arbitrage exists by check the arbitrage conditions on  the calibrated parameters. If arbitrage conditions are violated, one can adjust the parameters so that the sufficient conditions on parameters are satisfied.
+ There are many different approaches for calibrating SSVI models. For example, one can  fit SSVI model to market data without imposiing any constraints on the paremeters and then check if any arbitrage exists by check the arbitrage conditions on  the calibrated parameters. If arbitrage conditions are violated, one can adjust the parameters so that the sufficient conditions on parameters are satisfied.
  One can also  use an arbitrage-free calibration \cite{corbetta2019robust} by imposing the  sufficient conditions on the parameters into the calibration process. Interested reader can refer to \cite{hendriks2017extended,corbetta2019robust} for more details on how to calibrate the SSVI efficiently.
   
 Since the major goal in this thesis is not to compare  arbitrage-free surface calibration methods, we leave the exploration of the alternative methods to calibrate the arbitrage-free surface and comparing its impact on the data-driven risk hedging model as the future work of our study. 
@@ -3519,7 +3268,7 @@ Since the major goal in this thesis is not to compare  arbitrage-free surface ca
 
 
 \subsubsection{Volatility Interpolation Between Expiries}
-In the previous section, for each $T_i$, we calibrate a separate set of SABR parameters and we then use the calibrated SABR parameters to compute option price and the associated implied volatiliy for a predetermined grid of strikes for each $T_i$. We correct for static arbitrage if we detect any of them in the option values produced from the SABR models. However, after the SABR calibration, we only obtain the parametrization of  option values for expiries listed in the market. Our next goal is get  the parametrization of option values for expiries that are not available in the market. In this section, we discuss how to interpolate the volatility between different expiries. Note that even if we use SSVI instead of SABR model, this step of volatility interpolation between expiries is still needed since SSVI model and SABR model are both calibrated to match the volatility smile of market for each expiry. Under SSVI models, one usually interpolates   the SSVI parameters $\{\hat{\theta}_{\tau},\hat{\rho}_{\tau},\hat{\psi}_{\tau}\}$ between different expiries available in market \cite{corbetta2019robust}.
+In the previous section, for each $T_i$, we calibrate a separate set of SABR parameters and we then use the calibrated SABR parameters to compute option price and the associated implied volatiliy for a predetermined grid of strikes for each $T_i$. We correct for butterfly arbitrage and calendar arbitrage if we detect any of them in the option values produced from the SABR models. However, after the SABR calibration, we only obtain the parametrization of  option values for expiries listed in the market. Our next goal is get  the parametrization of option values for expiries that are not available in the market. In this section, we discuss how to interpolate the volatility between different expiries. Note that even if we use SSVI instead of SABR model, this step of volatility interpolation between expiries is still needed since SSVI model and SABR model are both calibrated to match the volatility smile of market for each expiry. Under SSVI models, one usually interpolates   the SSVI parameters $\{\hat{\theta}_{\tau},\hat{\rho}_{\tau},\hat{\psi}_{\tau}\}$ between different expiries available in market \cite{corbetta2019robust}.
 
 \citet{andreasen2010volatility} have introduced an efficient and arbitrage-free volatility interpolation method based on an one step finite difference implicit Euler scheme applied to a local volatility parametrization. In this thesis, we use the volatility interpolation approach to compute option price for an arbitrary expiry $T$ unobserved in the market.
 
@@ -3527,7 +3276,7 @@ In the previous section, for each $T_i$, we calibrate a separate set of SABR par
 
 
 The volatility interpolation method is based on the Dupire's equation \cite{dupire1994pricing}.  The Dupire's equation enables us to deduce the volatility function in a local volatility
-model from quoted put and call options in the market.
+model from  put and call options in the market.
 Under a risk-neutral measure, we assume:
 	\[
 	\frac{d S_t}{ S_t}= \left(r-q\right)dt +\sigma(t,S_t) dZ_t
@@ -3558,32 +3307,33 @@ Dupire's equation can be simplified as \cite{andreasen2010volatility}\footnote{
 
 Therefore, we can recursively solve the finite difference  discretization of the Dupire's forward equation using the fully implicit method.
 Observing that $T_0=t$, on the trading date $t$, the option value expiring at $t$ is just option payoff, we have the the initial condition $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$.
-Furthermore, when $K=0$, we arrive at the lower boundary condition $\widehat{C}(T,0)=1$. When $K_{max}\gg S_t$, we assume the upper boundary condition $\widehat{C}(T,\widehat{K}_{max})=0$ is true. 
+Furthermore, when $K=0$, we arrive at the lower boundary condition $\widehat{C}(T,0)=1$. 
+When the largest strike $K_{max}\gg S_t$, we assume the upper boundary condition $\widehat{C}(T,\widehat{K}_{max})=0$ is true. 
 
 
 
 
-Given a grid of expiries $t=T_0 < T_1 < \dots< T_{max} $ and  a grid of normalized strike: $0=\widehat{K}_0<\widehat{K}_1<\dots<\widehat{K}_{max}$, \citet{andreasen2010volatility} assume $\widehat{\sigma}(T,\widehat{K})$  to be a piecewise constant functions for a given $T_i$.
+Assume we are given a grid of expiries available in market $t=T_0 < T_1 < \dots< T_{M} $ and  a grid of normalized strike: $0=\widehat{K}_0<\widehat{K}_1<\dots<\widehat{K}_{N}=\widehat{K}_{max}$, \citet{andreasen2010volatility} assume $\widehat{\sigma}(T,\widehat{K})$  to be a piecewise constant functions for a given $T_i$.
 \begin{equation}
 	\widehat{\sigma}(T_i,\widehat{K})=\left\{ \begin{array}{ll}
 		\widehat{\sigma}_{T_i,\widehat{K}_0}  , \; &\text{if} \; \widehat{K} \leq \widehat{K}_0\\
 		\vdots & \vdots\\
 		\widehat{\sigma}_{T_i,\widehat{K}_j}  , \; &\text{if} \; \widehat{K}_{j-1}<\widehat{K} \leq \widehat{K}_j\\
 		\vdots & \vdots\\
-		\widehat{\sigma}_{T_i,\widehat{K}_{max}} , \; &\text{if} \;  \widehat{K} > \widehat{K}_{max} \\
+		\widehat{\sigma}_{T_i,\widehat{K}_{N}} , \; &\text{if} \;  \widehat{K} > \widehat{K}_{N} \\
 		\end{array} \right.
 		\label{eq:LVFVolDef}
 	\end{equation}
 The authors further assume:
 \begin{equation}
-	\left. \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2}\right\vert_{\widehat{K}=0}=\left. \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2}\right\vert_{\widehat{K}=\widehat{K}_{max}}=0
+	\left. \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2}\right\vert_{\widehat{K}=0}=\left. \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2}\right\vert_{\widehat{K}=\widehat{K}_{N}}=0
  \label{eq:LVFCond1}
 \end{equation}
 From \eqref{eq:impliedDensity} one can see the second partial derivative of call prices with regards to strike $K$ is the implied density:
 \[
 	\frac{1}{D(t,T)} \left. \frac{\partial^2 C(T,K)}{\partial K^2} \right\vert_{K=x}=	p(x;T,S_t) 
 \]
- Therefore, the boundary conditions \eqref{eq:LVFCond1} essentially assume that the probablity density at the  low strike boundary ($K=0$) and  high strike boundary ($K=K_{Max}$) is zero, which is a reasonable assumption.
+ Therefore, the boundary conditions \eqref{eq:LVFCond1} essentially assume that the probablity density at the  low strike boundary ($K=0$) and  high strike boundary ($K=K_{N}$) is zero, which is a reasonable assumption.
 
 
 The fully implicit finite difference method in matrix form is:
@@ -3593,24 +3343,24 @@ The fully implicit finite difference method in matrix form is:
 \widehat{C}(T_{i},\widehat{K}_1)\\
 \widehat{C}(T_{i},\widehat{K}_2)\\
 \vdots\\
-\widehat{C}(T_{i},\widehat{K}_{max})
+\widehat{C}(T_{i},\widehat{K}_{N})
 \end{bmatrix}=(I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T_{i+1}-T_i))
 \begin{bmatrix}
 \widehat{C}(T_{i+1},\widehat{K}_0)\\
 \widehat{C}(T_{i+1},\widehat{K}_1)\\
 \widehat{C}(T_{i+1},\widehat{K}_2)\\
 \vdots\\
-\widehat{C}(T_{i+1},\widehat{K}_{max})
+\widehat{C}(T_{i+1},\widehat{K}_{N})
 \end{bmatrix}
 \label{eq:LVFInt}
 \end{equation}
 where 
-$I$ is the identity matrix, $\mathcal{\mathbb{S}}$ is a diagonal matrix parameterized by $\widehat{\sigma}(T_i,.)$ as in equation \eqref{eq:LVFVolDef}, and $\mathcal{\mathbb{D}}$ is proportional to the discrete second order difference matrix. Specifically:
+$I$ is the identity matrix, $\mathcal{\mathbb{S}}$ is a diagonal matrix parameterized by $\widehat{\sigma}(T_i,.)$ as in equation \eqref{eq:LVFVolDef},  $\mathcal{\mathbb{D}}$ is proportional to the discrete second order difference matrix and $(T_{i+1}-T_i)$ is a scaler. Specifically:
 		\begin{equation}
 			\mathcal{\mathbb{S}}=	\begin{bmatrix}
 				\widehat{\sigma}^2(T_i,\widehat{K}_{0})&&\\
 				\vdots&\ddots&\vdots\\
-				&&\widehat{\sigma}^2(T_i,\widehat{K}_{Max})
+				&&\widehat{\sigma}^2(T_i,\widehat{K}_{N})
 		\end{bmatrix}
 		\label{eq:LVFMatrixS}
 		\end{equation}
@@ -3620,15 +3370,15 @@ $I$ is the identity matrix, $\mathcal{\mathbb{S}}$ is a diagonal matrix paramete
 		l_1&-l_1-u_1&u_1&&&\\
 		&l_2&-l_2-u_2&u_2&&&\\
 		&&\ddots&\ddots&\ddots&&\\
-		&&&l_{Max-1}&-l_{Max-1}-u_{Max-1}&u_{Max-1}\\
+		&&&l_{N-1}&-l_{N-1}-u_{N-1}&u_{N-1}\\
 		&&&&0&0
 		\end{bmatrix}
 		\label{eq:LVFMatrixD}
 		\end{equation}
 
 		where 
-		\[l_i=\frac{1}{\widehat{K}_{i+1}-\widehat{K}_{i-1}}\frac{1}{\widehat{K}_{i}-\widehat{K}_{i-1}}\]
-		\[u_i=\frac{1}{\widehat{K}_{i+1}-\widehat{K}_{i-1}}\frac{1}{\widehat{K}_{i+1}-\widehat{K}_{i}}\]
+		\[l_j=\frac{1}{\widehat{K}_{j+1}-\widehat{K}_{j-1}}\frac{1}{\widehat{K}_{j}-\widehat{K}_{j-1}}\]
+		\[u_j=\frac{1}{\widehat{K}_{j+1}-\widehat{K}_{j-1}}\frac{1}{\widehat{K}_{j+1}-\widehat{K}_{j}}\]
 
 
 
@@ -3680,7 +3430,7 @@ Given the price vector at $T_{i}$ as the input:
 	\widehat{C}(T_{i},\widehat{K}_1)&
 	\widehat{C}(T_{i},\widehat{K}_2)&
 	\cdots&
-	\widehat{C}(T_{i},\widehat{K}_{max})
+	\widehat{C}(T_{i},\widehat{K}_{N})
 \end{bmatrix}\] and the matrix $\mathcal{\mathbb{M}}(T_{i+1},T_{i}, \widehat{\sigma}(T_i,.))$, we can compute  the price vector at $T_{i+1}$:
 \[
 \begin{bmatrix}
@@ -3688,7 +3438,7 @@ Given the price vector at $T_{i}$ as the input:
 	\widehat{C}(T_{i+1},\widehat{K}_1)&
 	\widehat{C}(T_{i+1},\widehat{K}_2)&
 	\cdots&
-	\widehat{C}(T_{i+1},\widehat{K}_{max})
+	\widehat{C}(T_{i+1},\widehat{K}_{N})
 	\end{bmatrix}.
 \]
 We want  the price vector at $T_{i+1}$ produced by the above LVF to match the price vector we computed using SABR model on $T_{i+1}$. In other words, we will try to find the $\widehat{\sigma}(T_i,.)$, which has the form as in equation \eqref{eq:LVFVolDef}, by solving the following non-linear least square problem:
@@ -3713,7 +3463,7 @@ where we set:
 %  \] and  
  \[
 	\widehat{C}_{SABR}(T_{i+1},\widehat{K}_j)=\frac{\widetilde {C_{SABR}}(T_{i+1},K_j)}{D(t,T_{i+1})F(t,T_{i+1})},
-\] $Vega_{B}(T_{i+1},\widehat{K}_j)$ is the vega computed using SABR model calibrated to market quotes at $T_{i+1}$ and $\widetilde {C_{SABR}}(T,K)$ is the arbitrage-free SABR model value we produce in previous section.
+\] $Vega_{B}(T_{i+1},\widehat{K}_j)$ is the vega computed using SABR model calibrated to market prices at $T_{i+1}$ and $\widetilde {C_{SABR}}(T,K)$ is the arbitrage-free SABR model value we produce in previous section.
 
 Note that for the intial case $T_0=t$, $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is given as the payoff. Given $\widehat{C}(T_0,\widehat{K})$, we firstly solve \eqref{eq:LVFCal} for the $\widehat{\sigma}(T_0,.).$ After obtaining $\widehat{\sigma}(T_0,.)$, we can then solve the forward system  $\eqref{eq:LVFCal}$ to get \[
 	\begin{bmatrix}
@@ -3721,14 +3471,14 @@ Note that for the intial case $T_0=t$, $\widehat{C}(T_0,\widehat{K})=max(1-\wide
 		\widehat{C}(T_i,\widehat{K}_1)\\
 		\widehat{C}(T_i,\widehat{K}_2)\\
 		\vdots\\
-		\widehat{C}(T_i,\widehat{K}_{max})
+		\widehat{C}(T_i,\widehat{K}_{N})
 		\end{bmatrix}
-\] sequentially for $i=1,2,\dots,T_{max-1}$
+\] sequentially for $i=1,2,\dots,T_{M-1}$, where $M$ is the number of expiries in the grid.
 
 
 
 
-After we solved for  $\widehat{\sigma}(T_i,.), i=0,1,\dots,T_{max-1}$, for $T \in [T_i,T_{i+1}]$, we can fill in the gaps by:
+After we solved for  $\widehat{\sigma}(T_i,.), i=0,1,\dots,T_{M-1}$, for $T \in [T_i,T_{i+1}]$, we can fill in the gaps by:
 	\begin{equation}
 	\begin{bmatrix}
 	\widehat{C}(T,\widehat{K}_0)\\
@@ -3745,149 +3495,21 @@ After we solved for  $\widehat{\sigma}(T_i,.), i=0,1,\dots,T_{max-1}$, for $T \i
 		\end{bmatrix}
 		\label{eq:LVFFill}
 	\end{equation}
-where $\mathcal{\mathbb{M}} (T,T_{i}, \widehat{\sigma}(T_i,.))=I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T-T_i)$ is a tri-diagonal matrix parametrized by  $\sigma(T_i,.)$, $T$ and $T_i$. Note that $\sigma(T_i,.)$ is known after the calibration \eqref{eq:LVFCal}.
+where $\mathcal{\mathbb{M}} (T,T_{i}, \widehat{\sigma}(T_i,.))=I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T-T_i)$ is now a tri-diagonal matrix parametrized by  $\sigma(T_i,.)$, $T$ and $T_i$. Note that $\sigma(T_i,.)$ is known after the calibration \eqref{eq:LVFCal}.
 We then recover the call price by:
 \[
 C(T,K)=\widehat{C}(T,\widehat{K}){D(t,T)F(t,T)}
 \]
-Interpolation based on the above procedure can guarantee the option prices computed is arbitrage-free. Detailed proofs are as the following:
-\begin{thm}
-	On the discrete strike grid $\widehat{K}_0,\dots, \widehat{K}_{max}$, the finite difference scheme \eqref{eq:LVFInt} and  \eqref{eq:LVFFill} produces call option prices that are convex in strikes:
-	% \[
-	% 	C(T_i,K_{i})\leq C(T_{i},K_{i-1}) \; \text{ when } K_{i}>K_{i-1}
-	% \]
-	% \[
-	% 		C(T_i,K_{i})\geq C(T_{i-1},K_{i}) \; \text{ when } T_{i}>T_{i-1}
-	% \]
-	\[
-	C(T,K_{i-1})-C(T,K_{i}) > \frac{K_i-K_{i-1}}{K_{i+1}-K_{i}}\left( C(T,K_{i})-C(T,K_{i+1})  \right) \text{ when } K_{i+1}>K_{i}>K_{i-1}
-	\]
- 
-\end{thm}
-	
-\begin{proof}
-	We  prove this by the mathematical induction.
-	\\\textbf{Base case:}
-	For the first expiry $T_0=t$, we have $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ which is the normalized payoff. We naturally have the convexity in strikes at $T_0$. Furthermore, this also implies all elements in $\mathcal{\mathbb{D}}\widehat{C}(T_0)$ are non-negative.
-	\\\textbf{Induction step:}
-	Assume we have the convexity in strikes at $T_i, i=0,1,\dots,max-1$, i.e., all elements in $\mathcal{\mathbb{D}}\widehat{C}(T_i)$ are non-negative.
-	The finite difference scheme \eqref{eq:LVFFill} can be written as the matrix equation system 
-	\begin{equation}
-		(I-\mathcal{\mathbb{S}} \mathcal{\mathbb{D}}(T-T_i))\widehat{C}(T)=\widehat{C}(T_i),\; i=0,1,2,\dots,max-1,\; T \in (T_i, T_{i+1}].
-		\label{eq:LVFProof1}
-	\end{equation}
-	Thus, we can rewrite the equation \eqref{eq:LVFProof1}  as
-	\begin{equation}
-	[\mathcal{\mathbb{S}}^{-1}-\widetilde{\mathcal{\mathbb{D}}}](\mathcal{\mathbb{S}}\widetilde{\mathcal{\mathbb{D}}} \widehat{C}(T))=\widetilde{\mathcal{\mathbb{D}}} \widehat{C}(T_i)
-	\end{equation}
-	where we denote $\widetilde{\mathcal{\mathbb{D}}}=\mathcal{\mathbb{D}}(T-T_i)$.
-	% On the discrete strike grid $\{\widehat{K}_0,\dots, \widehat{K}_{Max}\}$, the finite difference scheme \eqref{eq:LVFFill} can be written as the matrix equation system 
-	% \begin{equation}
-	% 	(I-\mathcal{\mathbb{S}} \mathcal{\mathbb{D}}(T-T_i))\widehat{C}(T)=\widehat{C}(T_i),\; i=0,1,2,\dots,Max-1,\; T \in [T_i, T_{i+1}].
-	% 	\label{eq:LVFProof1}
-	% \end{equation}
-	% where $\widehat{C}(T)=\begin{bmatrix}
-	% 	\widehat{C}(T,\widehat{K}_0)&
-	% 	\widehat{C}(T,\widehat{K}_1)&
-	% 	\widehat{C}(T,\widehat{K}_2)&
-	% 	\cdots&
-	% 	\widehat{C}(T,\widehat{K}_{max})
-	% 	\end{bmatrix}$ is a vector of option prices, $I$ is the identity matrix, $\mathcal{\mathbb{S}}$ is a diagonal matrix and $\mathcal{\mathbb{D}}$ is proportional to the discrete second order difference matrix. Specifically:
-	% 	\begin{equation}
-	% 		\mathcal{\mathbb{S}}=	\begin{bmatrix}
-	% 			\widehat{\sigma}^2(T_i,\widehat{K}_{0})&&\\
-	% 			\vdots&\ddots&\vdots\\
-	% 			&&\widehat{\sigma}^2(T_i,\widehat{K}_{Max})
-	% 	\end{bmatrix}
-	% 	\label{eq:LVFMatrixS}
-	% 	\end{equation}
-	% 	\begin{equation}
-	% 		\mathcal{\mathbb{D}}=	\begin{bmatrix}
-	% 	0&0&&&&\\
-	% 	l_1&-l_1-u_1&u_1&&&\\
-	% 	&l_2&-l_2-u_2&u_2&&&\\
-	% 	&&\ddots&\ddots&\ddots&&\\
-	% 	&&&l_{Max-1}&-l_{Max-1}-u_{Max-1}&u_{Max-1}\\
-	% 	&&&&0&0
-	% 	\end{bmatrix}
-	% 	\end{equation}
+Interpolation based on the above procedure can guarantee the option prices computed is arbitrage-free. Detailed proofs are can be found in appendix \ref{App:LVFProof}:
 
-	% 	where 
-	% 	\[l_i=\frac{1}{\widehat{K}_{i+1}-\widehat{K}_{i-1}}\frac{1}{\widehat{K}_{i}-\widehat{K}_{i-1}}\]
-	% 	\[u_i=\frac{1}{\widehat{K}_{i+1}-\widehat{K}_{i-1}}\frac{1}{\widehat{K}_{i+1}-\widehat{K}_{i}}.\]
-
-
-
-		We assume that $\widehat{\sigma}(T_i,\widehat{K})>0$ for all $\widehat{K}$, therefore we can easily see that:
-		\[\mathcal{\mathbb{A}}=\mathcal{\mathbb{S}}^{-1}-\widetilde{\mathcal{\mathbb{D}}}\]
-		is an M-Matrix \cite{plemmons1977m} and thus all elements of $\mathcal{\mathbb{A}}^{-1}$ are non-negative.
-
-		We can then easily see that 
-		if elements in the vector $\mathcal{\mathbb{D}}\widehat{C}(T_i)$ are all non-negative, then elements in  $\widetilde{\mathcal{\mathbb{D}}}\widehat{C}(T_i)$ are all non-negative.
-		With all elements of $\mathcal{\mathbb{A}}^{-1}$ being non-negative, we can easily show that elements in the vector $\mathcal{\mathbb{S}}\widetilde{\mathcal{\mathbb{D}}}\widehat{C}(T)$ are all non-negative. Furthermore, since:
-		\[
-			\mathcal{\mathbb{S}}\widetilde{\mathcal{\mathbb{D}}}\widehat{C}(T)	=	(T-T_i)\mathcal{\mathbb{S}}\mathcal{\mathbb{D}} \widehat{C}(T)
-		\]
-		Thus all elements in $\mathcal{\mathbb{D}}\widehat{C}(T)$ are non-negative which is equivalent to show that:
-		\[
-				C(T,K_{i-1})-C(T,K_{i}) > \frac{K_i-K_{i-1}}{K_{i+1}-K_{i}}\left( C(T,K_{i})-C(T,K_{i+1})  \right).
-		\]
-	   \\\textbf{Conclusion:}  Since both the base case and the induction step have been proved as true, by mathematical induction, we therefore prove the convexity in strikes which proves the absence of butterfly arbitrage.
-
-
-
-		% Lastly, since at $T_0=t$, $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is the normalized payoff which is monotonically decreasing in strikes. 
-		% Follwing equation \eqref{eq:LVFProof3}, we have the elements in  $\left.\frac{\partial \widehat{C}(T)}{ \partial T} \right|_{T=T_0}$ being monotonically decreasing in strikes. Thus,  we conclude that the elements in:
-		% \[
-		% C(T_0+d T)=	C(T_0)+\left.\frac{\partial \widehat{C}(T)}{ \partial T} \right|_{T=T_0} d T
-		% \]
-		% is monotonically decreasing in strikes as well. Following the this logic, we can conclude that the $C(T)$ will be monotonically decreasing in strikes which eliminate the existence of call-spread arbitrage.
-\end{proof}
-\begin{thm}
-	On the discrete strike grid $\widehat{K}_0,\dots, \widehat{K}_{Max}$, the finite difference scheme \eqref{eq:LVFInt} and  \eqref{eq:LVFFill} produces call option prices increasing in maturity:
-	\[
-			C(T_i,K_{i})\geq C(T_{i-1},K_{i}) \; \text{ when } T_{i}>T_{i-1}
-	\]
-
- 
-\end{thm}
-\begin{proof}
-	Recall that, for $T \in (T_i,T_{i+1}], i=0,\dots, max-1$, we rewrite the finite difference scheme \eqref{eq:LVFFill}  as:
-	\begin{equation}
-		[I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T-T_i) ]\widehat{C}(T)=	\widehat{C}(T_i)
-		\label{eq:LVFProof3}
-	\end{equation}
-Differentiating equation \eqref{eq:LVFProof3} by $T$ on both side:
-\[
-	\frac{\partial  [I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T-T_i) ]}{ \partial T} \widehat{C}(T) +[I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T-T_i) ]\frac{\partial \widehat{C}(T)}{ \partial T} =  0
-\]
-Therefore:
-\[
-	[I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T-T_i) ]\frac{\partial \widehat{C}(T)}{ \partial T} =  	 \mathcal{\mathbb{S}}\mathcal{\mathbb{D}} \widehat{C}(T)
-\]
-Multiply $S^{-1}$ on both side:
-\begin{equation}
-	[S^{-1}-\mathcal{\mathbb{D}}(T-T_i)]\frac{\partial \widehat{C}(T)}{ \partial T} =  	 \mathcal{\mathbb{D}} \widehat{C}(T)
-	\label{eq:LVFProof4}
-\end{equation}
-Recall we define:
-\[\mathcal{\mathbb{A}}=\mathcal{\mathbb{S}}^{-1}-\widetilde{\mathcal{\mathbb{D}}}\]
-where we denote $\widetilde{\mathcal{\mathbb{D}}}=\mathcal{\mathbb{D}}(T-T_i)$.
-Therefore, we can rewrite equation \eqref{eq:LVFProof4} as:
-		\begin{equation}
-			\frac{\partial \widehat{C}(T)}{ \partial T} =\mathcal{\mathbb{A}}^{-1}   \mathcal{\mathbb{D}} \widehat{C}(T)
-			\label{eq:LVFProof5}
-		\end{equation}
-		Since we already prove the convexity in strikes which implies elements in $\mathcal{\mathbb{D}} \widehat{C}(T)$ are all non-negative and all elements in $\mathcal{\mathbb{A}}^{-1}$ are non-negative since $\mathcal{\mathbb{A}}$ is an M-Matrix \cite{plemmons1977m}, we can further conclude that all elements in  $\frac{\partial \widehat{C}(T)}{ \partial T}$ are non-negative. Therefore we prove the generated option prices are increasing in maturity which proves the absence of calendar arbitrage.
-\end{proof}
 
 In this thesis, we only use the above volatility interpolation algorithm to interpolate the option value produced by SABR model for expiry $T \in (T_i,T_{i+1})$, where $T_i$ and $T_{i+1}$ are expiries listed in the market. 
-A natural question the reader may ask is that why donot we apply above algorithm with purely market quotes? In other words, we solve below problem instead of problem \eqref{eq:LVFCal}:
+A natural question the reader may ask is that why donot we apply above algorithm with purely market prices? In other words, we solve below problem instead of problem \eqref{eq:LVFCal}:
 \[
 	\inf_{\widehat{\sigma}(T_i,.)} \sum_{j}(\frac{\widehat{C}(T_{i+1},\widehat{K}_j)-\widehat{C}_{mkt}(T_{i+1},\widehat{K}_j)}{Vega_{B}(T_{i+1},\widehat{K}_j)})^2 \;.
 \]
-In reality, it is hard to find a grid of normalized strike: $0=\widehat{K}_0<\widehat{K}_1<\dots<\widehat{K}_{max}$, for which, $\widehat{C}_{mkt}(T_{i},\widehat{K}_j)$,$i=0,1,\dots,max$ all exists,
-especially, if we want our grid of strike to cover both in-the-money option and out-of-the-money option. That is why we use SABR model  which can produce option value for any $K$ for a expiry $T_i$ in market. In this way, we can use any grid of strikes as we want.
+In reality, it is hard to find a grid of normalized strike: $0=\widehat{K}_0<\widehat{K}_1<\dots<\widehat{K}_{N}$, for which, $\widehat{C}_{mkt}(T_{i},\widehat{K}_j)$,$i=0,1,\dots,N$ all exists.
+Especially, if we want our grid of strike to cover both in-the-money option and out-of-the-money option. That is why we use SABR model  which can produce option value for any $K$ for a expiry $T_i$ in market after the calibration to match market available option prices. In this way, we can use any grid of strikes as we want.
 \subsection{Generation of Training Scenarios}
 \label{sec:Augtrain}
 Following the calibration process in section \ref{sec:NoArb}, we essentially obtain a parametrization of the option value at each trading date $t$: $\{V_{t}(T,K)\}_{T,K}$. Here expiry $T$  can be any value that is later than $t$ and before  the maximum expiry $T_{max}$ observed in the market on date $t$. The strike $K$ price can be any  value.
@@ -3936,10 +3558,10 @@ For testing, we use only market observed expiries and strikes. More specifically
 \begin{enumerate}
 	\item A test expiry date $T^{mkt}$ must be a real expiry that exists in market. We add a superscript to emphasize that a testing expiry must be an option expiry listed in the exchanges. Before 2016, For the S\&P 500 index options listed in Chicago Board Options Exchange (CBOE) the expiration dates are the third Fridays of each month. After 2016, more expiration dates are introduced in CBOE.
 	\item The starting date $t_0$ to set up the initial hedging portfolio is  $N_H$-business days away from $T$. That is to say $T^{mkt}=t_0+N_H/250$ where we assume there are 250 business days in one year. 
-	\item On the starting date $t_0$, we can obtain all market option quotes for the expiry  $T^{mkt}$ and we have a grid of market strikes for expiry $T^{mkt}$ on date $t_0$:
-	$\mathbf{K}^{mkt}_{grid}(t _0,T^{mkt})=\{K^{mkt}_1<\dots<K^{mkt}_{N_K}\}$. Note that we have market options quotes or prices for all $K \in \mathbf{K}^{mkt}_{grid}(t _0,T^{mkt})$ on time $t_0$.
+	\item On the starting date $t_0$, we can obtain all market option prices for the expiry  $T^{mkt}$ and we have a grid of market strikes for expiry $T^{mkt}$ on date $t_0$:
+	$\mathbf{K}^{mkt}_{grid}(t _0,T^{mkt})=\{K^{mkt}_1<\dots<K^{mkt}_{N_K}\}$. Note that we have market options  prices for all $K \in \mathbf{K}^{mkt}_{grid}(t _0,T^{mkt})$ on time $t_0$.
 	\item On each business day $t \in [t _0,T)$, following the calibration process in section \ref{sec:NoArb}, we  obtain a parametrization of the option value:$\{V_{t}(T,K)\}_{T,K}$. 
-	When there is no  market quotes $V^{mkt}_{t,T^{mkt},K}$ on time $t \in [t _0, T^{mkt})$ for $K \in \mathbf{K}^{mkt}_{grid}(t _0,T^{mkt})$, we will query $\{V_{t}(T,K)\}_{T,K}$ to obtain  option prices and option sensitivities and we use them to construct a time series. When market data $V^{mkt}_{t,T^{mkt},K}$ and associated option sensitivities  are available, we use the market data to construct the time series needed as the input for the data-driven model. Note that, with this approach, for instance, a part  of the time series of option prices for a testing scenario can be real market quotes while the other part can be model prices from the  parametrization  obtained following the calibration process in section \ref{sec:NoArb}.
+	When there is no  market prices $V^{mkt}_{t,T^{mkt},K}$ on time $t \in [t _0, T^{mkt})$ for $K \in \mathbf{K}^{mkt}_{grid}(t _0,T^{mkt})$, we will query $\{V_{t}(T,K)\}_{T,K}$ to obtain  option prices and option sensitivities and we use them to construct a time series. When market data $V^{mkt}_{t,T^{mkt},K}$ and associated option sensitivities  are available, we use the market data to construct the time series needed as the input for the data-driven model. Note that, with this approach, for instance, a part  of the time series of option prices for a testing scenario can be real market prices while the other part can be model prices from the  parametrization  obtained following the calibration process in section \ref{sec:NoArb}.
 	\item The time series of daily underlying prices $S_t, t \in[t_0,T)$ are obtained directly from market. 
 	
 	% The grid for testing is set to be $\mathbf{K}^{test}_{grid}=\{K_0=0<K_1<\dots<K_{max}\}$ where $K_i-K_{i-1}=\Delta K, i \geq 1$ and $K_{max}=2 \times K^{mkt}_{N_K}$. Please note that $\mathbf{K}^{mkt}_{t_0,T_{test}} \subset \mathbf{K}^{test}_{grid}$.  
@@ -3957,10 +3579,10 @@ For testing, we use only market observed expiries and strikes. More specifically
 
 To sum up, the key differences between testing scenarios and traing scenarios are:
 \begin{itemize}
-	\item  For testing scenarios, we use real market quotes to initialize the hedging portfolio and the strikes and expiries are real market strikes and expiries.
+	\item  For testing scenarios, we use real market prices to initialize the hedging portfolio and the strikes and expiries are real market strikes and expiries.
 	\item  For testing scenarios, we use real option market data to construct the timeseries whenever asscoiated  option market data is available. Otherwise, we will query the calibrated option value function.
-	\item For training scenarios, we use model prices to initialize the hedging portfolio. The strikes and expiries do not necessarily have to be are real market strikes and expiries.  \footnote{Note that after calibration, for the option with a market quote avaliable in exchange, the model value will be very close to available market quote.}
-	\item   For training scenarios, we always query the parametrization of the option value we calibrated to construct  the time series. Please note that  since we calibrate the models to match the market quotes, when market quotes are available, the model prices will very close to the market quotes. 
+	\item For training scenarios, we use model prices to initialize the hedging portfolio. The strikes and expiries do not necessarily have to be are real market strikes and expiries.  \footnote{Note that after calibration, for the option with a market price avaliable in exchange, the model value will be very close to available market price.}
+	\item   For training scenarios, we always query the parametrization of the option value we calibrated to construct  the time series. Please note that  since we calibrate the models to match the market prices, when market prices are available, the model prices will very close to the market prices. 
 \end{itemize}
 
 
@@ -4669,6 +4291,657 @@ For extending our work, we note that there are several directions:
 %\end{table}
 \newpage
 \appendix
+\chapter{Cross Validation of Kernel Regularized Network} \label{sec:cross}
+\renewcommand{\theequation}{\thechapter.\arabic{equation}}
+\renewcommand{\thethm}{\thechapter.\arabic{thm}}
+ For our data-driven approach based on kernel regularized network methond, we need to select an appropriate penalty $\lambda_P$ to control the model complexity. Cross-validation (CV) is a commonly used method for the performance estimation and model selection for the learning algorithms. For example, the Leave-One-Out Cross-Validation (LOOCV) computes the output for each data instance using parameters trained on the remaining data instances. For the regularized kernel methods, we can compute the CV error efficiently without retraining the model in each CV round \cite{pahikkala2006fast, wahba1990spline}. 
+
+
+Recall that, for the regularized  pricing model, the minimization problem is
+\begin{equation}
+\min_{\mathbf{\valpha}} \left(  \sum_{i=1}^M \left( \Vmkt_{t_i,T_i,K_i}-\sum_{j=1}^M \widehat{\alpha}_j \mathcal{K}(\vx_{t_j}^{T_j,K_j},\vx_{t_i}^{T_i,K_i}) \right)^2+\lambda_P \sum_{i=1}^M\sum_{j=1}^M  \widehat{\alpha}_i \widehat{\alpha}_j \mathcal{K}(\vx_{t_j}^{T_j,K_j},\vx_{t_i}^{T_i,K_i})\right)
+\label{eq:AppCross1}
+\end{equation}
+Here $\Vmkt_{t_i,T_i,K_i}$ is the market option value for time $t_i$, expiry $T_i$ and strike $K_i$. The vector $\vx_{t_j}^{T_j,K_j}$ is the vector of  corresponding input features and $\lambda_P$ is the penalty parameter for the regulation. Let $\vK$ be the kernel matrix with $\vK_{ij}=\mathcal{K}(\mathbf{x}_i,\mathbf{x}_j)$. Note $\vK$ here denotes the kernel matrix which should not be confused with the strike $K$. Problem \eqref{eq:AppCross1} can be rewritten in matrix form:
+\begin{equation}
+\min_{\valpha \in \Real^M} \; ( \vK \valpha - \vecVmkt)^T ( \vK \valpha -\vecVmkt)+ \lambda_P \valpha^T\vK\valpha
+\label{eq:CV2}
+\end{equation}
+with
+\[
+	\vecVmkt=\{
+	\Vmkt_{t_1,T_1,K_1},\dots,	\Vmkt_{t_M,T_M,K_M}
+	\}	\;\;\;,\;\;\; \valpha=\{\widehat{\alpha}_1,\dots,\widehat{\alpha}_M\}
+\]
+The solution to \eqref{eq:CV2} is:
+\[
+\valpha^*  =(\vK+\lambda_P \pmb{I})^{-1}\vecVmkt
+\]
+Given the eigen-decomposition $\vK=\pmb{Q} \pmb{\Lambda} \pmb{Q}^T$, we can easily see that:
+\begin{equation}\label{eq:eig}
+(\vK+\lambda_P \pmb{I})^{-1}=\pmb{Q}(\pmb{\Lambda}+\lambda_P \pmb{I})^{-1} \pmb{Q}^T
+\end{equation}
+Because $(\pmb{\Lambda}+\lambda_P I)$ is a diagonal matrix, given the eigen-decomposition $\vK=\pmb{Q} \pmb{\Lambda} \pmb{Q}^T$, we can get different solutions to \eqref{eq:CV2}  as $\lambda_P$ varies in $O(M^2)$.
+
+Let $V(\vx_{t_j}^{T_j,K_j}; \valpha^*)$ be the output for data instance $j$ when regularized kernel methods \eqref{eq:AppCross1} is trained on all training data instances. Let $V^l(\vx_{t_j}^{T_j,K_j}; \valpha^l)$  be the output for data instance $j$ when regularized kernel methods \eqref{eq:AppCross1} is trained on all training data instances except $\vx_{t_l}^{T_l,K_l}$. 
+Let $\vecVmkt^l=\{\vecVmkt^l_1,\vecVmkt^l_2,\cdots,\vecVmkt^l_M\}$ be the vector where $\vecVmkt^l_{j} = \Vmkt_{t_j,T_j,K_j}$ for $j \neq l$ and $\vecVmkt^l_l = V^l(\vx_{t_l}^{T_l,K_l}; \valpha^l)$. Since $V^l(\cdot; \valpha^l)$ is the model trained on all example except for $\vx_{t_l}^{T_l,K_l}$ , it is easy to see that $V^l(\cdot; \valpha^l)$  minimizes
+\begin{equation}
+\min_{\valpha \in \Real^M} \; ( \vK \valpha - \vecVmkt^l)^T ( \vK \valpha -\vecVmkt^l)+ \lambda_P \valpha^T\vK\valpha
+\label{eq:CV3}
+\end{equation}
+The solution to \eqref{eq:CV3} is:
+\[
+\valpha^l  =(\vK+\lambda_P \pmb{I})^{-1}\vecVmkt^l
+\]
+Let $\pmb{B}=\vK (\vK+\lambda_P \pmb{I})^{-1}$, therefore, we have 
+\[\pmb{B}\vecVmkt=\{
+	V(\vx_{t_1}^{T_1,K_1}; \valpha^*),
+	\dots,
+	V(\vx_{t_M}^{T_M,K_M}; \valpha^*)
+	\}
+\]
+where $V(\vx_{t}^{T,K}; \valpha^*)$ is the option value funtion  with the solution $\valpha^*$ given by $\valpha^*=(\vK+\lambda_P \pmb{I})^{-1}\vecVmkt$.
+Let $B_{ij}$ be the element of $\pmb{B}$ of $i$th row and $j$th column.
+We can easily show that:
+\[
+	V^l(\vx_{t}^{T,K}; \valpha^l)-V(\vx_{t}^{T,K}; \valpha^*)=\sum_{i=1}^M B_{li}(\vecVmkt_i^l-\vecVmkt_i)=B_{ll}(V^l(\vx_{t_l}^{T_l,K_l}; \valpha^l)-\vecVmkt_l)=B_{ll}(V^l(\vx_{t_l}^{T_l,K_l}; \valpha^l)-\Vmkt_{t_l,T_l,K_l})
+\]
+Thus,
+\begin{equation} \label{eq:fastCV}
+	V^l(\vx_{t_l}^{T_l,K_l}; \valpha^l)=
+	\frac{V(\vx_{t_l}^{T_l,K_l}; \valpha^*)-B_{ll}\Vmkt_{t_l,T_l,K_l}}
+	{1-B_{ll}}
+\end{equation}
+Therefore, we can get the $V^l(\vx_{t_l}^{T_l,K_l}; \valpha^l)$  without actually retraining the model. 
+
+The leave-one-out estimations are:
+\begin{equation} \label{eq:fastCV2}
+\vecVmkt_{loo}=(I-\pmb{B}_{LL})^{-1}(\pmb{B}\vecVmkt-\pmb{B}_{LL}\vecVmkt)
+\end{equation}
+and the leave-one-out errors for all data instance are:
+\begin{equation} \label{eq:fastCV3}
+\vecVmkt-\vecVmkt_{loo}=\vecVmkt-(\pmb{I}-\pmb{B}_{LL})^{-1}(\pmb{B}\vecVmkt-\pmb{B}_{LL}\vecVmkt)=(\pmb{I}-\pmb{B}_{LL})^{-1}(\vecVmkt-\pmb{B}\vecVmkt)
+\end{equation}
+where $\pmb{B}_{LL}$ is a diagonal matrix with diagonal element of the matrix $\pmb{B}$, i.e., $B_{ii},\;\; i=1,\dots,M$,   on its diagonal.
+
+We can further simplify the expression by noting the fact that:
+\[\begin{split}
+\pmb{B}&=\vK (\vK+\lambda_P \pmb{I})^{-1} \\
+       &=\pmb{Q}\pmb{\Lambda}(\pmb{\Lambda}+\lambda_P \pmb{I})^{-1} \pmb{Q}^T\\
+       &=\pmb{Q}(\pmb{\Lambda}+\lambda_P \pmb{I}-\lambda_P \pmb{I})(\pmb{\Lambda}+\lambda_P \pmb{I})^{-1} \pmb{Q}^T\\
+       &= \pmb{I}-\lambda_P \pmb{Q} (\pmb{\Lambda}+\lambda_P \pmb{I})^{-1} \pmb{Q}^T=\pmb{I} -\lambda_P  (\vK+\lambda_P \pmb{I})^{-1}
+  \end{split}
+\]
+Therefore, we  get:
+\begin{equation}
+	\begin{split}
+(\pmb{I}-\pmb{B}_{LL})&=diag(\pmb{I}-\pmb{B})=\lambda_P \; diag((\vK+\lambda_P \pmb{I})^{-1})\\
+\vecVmkt-B\vecVmkt&=\lambda_P (\vK+\lambda_P \pmb{I})^{-1} \vecVmkt =\lambda_P \valpha^*
+\label{eq:kernelcheck1}
+	\end{split}
+\end{equation}
+From  equation \eqref{eq:fastCV3} and \eqref{eq:kernelcheck1} , we can get:
+\begin{equation}  \label{eq:fastCV4}
+\vecVmkt-\vecVmkt_{loo}=diag((\vK+\lambda_P \pmb{I})^{-1})^{-1} \valpha^*
+\end{equation}
+
+Given the eigen-decomposition $\vK=\pmb{Q} \pmb{\Lambda} \pmb{Q}^T$, we can compute  $\valpha^*$ as $\lambda_P$ varies in $O(M^2)$. Similarly, given the eigen-decomposition $\vK=\pmb{Q} \pmb{\Lambda} \pmb{Q}^T$, we can compute the diagonal of $(\vK+\lambda_P \pmb{I})^{-1}$ in $O(M^2)$. Then  using \eqref{eq:fastCV4}, the LOOCV errors can be computed in $O(M^2)$.  It can been further shown \cite{pahikkala2006fast} that, given the eigen-decomposition $\vK=\pmb{Q} \pmb{\Lambda} \pmb{Q}^T$, the computational complexity for the $n$-fold cross-validation ($n$FCV) is $O(M^3/n)$. Interested readers can referred to \citep{pahikkala2006fast} for more details.
+
+Let $\Delta \vecVmkt=\{\Delta \Vmkt_{t_1,T_1,K_1},\cdots,\Delta \Vmkt_{t_M,T_M,K_M}\}$ and  let $\pmb{D}$ be a diagonal matrix with $D_{ii}=\Delta S_{t_i}. \;i=1,\cdots,M.$ on its diagonal.
+Similarly, we can rewrite  the minimization problem in  matrix form:
+\begin{equation}
+\min_{\valpha \in \Real^m} \; ( \pmb{D} \vK \valpha - \Delta \vecVmkt)^T (\pmb{D}  \vK \valpha -\Delta \vecVmkt)+ \lambda_P \valpha^T\vK\valpha
+\label{eq:directfM}
+\end{equation}
+Let $\widetilde{\vK}=\pmb{D}\vK$, the solution to \eqref{eq:directfM} can be obtained by:
+\[
+\valpha^* = (\widetilde{\vK}^T\widetilde{\vK}  + \lambda_P \vK)^{-1} \widetilde{\vK}^T \Delta \vecVmkt
+\]
+% Unfortunately, we can not directly use the fast cross validation algorithms from \cite{pahikkala2006fast, wahba1990spline} for the minimization problem \eqref{eq:directfM}.
+% Because $({\widetilde{\vK}}^T{\widetilde{\vK}}  + \lambda_P \vK)^{-1}$ can not be easily inverted in $O(M^2)$ as $\lambda_P$ varies.
+
+In this thesis, we change the penalty term for \eqref{eq:directfM} from $\lambda_P \valpha^T\vK\valpha$ to $\lambda_P \valpha^T\valpha$, the minimization problem becomes:
+\begin{equation}
+\min_{\valpha \in \Real^m} \; ( \pmb{D} \vK \valpha - \Delta\vV)^T (\pmb{D}  \vK \valpha -\Delta\vV)+ \lambda_P \valpha^T\valpha
+\label{eq:directfMV2}
+\end{equation}
+The solution to \eqref{eq:directfMV2} can be obtained by:
+\[
+\valpha^* = (\widetilde{\vK}^T\widetilde{\vK}  + \lambda_P \pmb{I})^{-1} \widetilde{\vK}^T \Delta \vecVmkt
+\]
+Utilizing the ideas from \cite{pahikkala2006fast, wahba1990spline}, we can similarly show that,  given the singular value decomposition ${\widetilde{\vK}}=\pmb{U} \pmb{\Sigma} \pmb{V}^T$, for the problem \eqref{eq:directfMV2},  the computational complexity for the LOOCV is still $O(M^2)$ and the computational complexity for the $n$FCV is still $O(M^3/n)$. In practice, changing the penalty term from $\lambda_P \valpha^T\vK\valpha$ to $\lambda_P \valpha^T\valpha$ will not affect the actual performance too much. Therefore, in order to improve the computation efficiency for the direct data-driven approach, we are solving the problem \eqref{eq:directfMV2}.
+
+
+
+\chapter{Fixing the Butterfly Arbitrage for SABR Model}
+\label{App:SABR Proof}
+In this thesis, we assume the adjusted p.d.f is of the following simplified form:
+\begin{equation}
+\hat{g}(x)=\left\{ \begin{array}{ll }
+\lambda_{L} \;  q(x;\mu_{L},\sigma_{L}), \;&  \text{if} \; 0<x< K_{L}\\
+p(x;T,S_t) , \;&  \text{if} \; \;  K_{L} \leq x \leq K_{U}\\
+\lambda_{U} \;  q(x;\mu_{U},\sigma_{U}), \;& \text{if} \; x> K_{U}
+\end{array} \right.
+\label{eq:AppOurFix}
+\end{equation}
+Here,  $K_{L}$ and $K_{U}$ are the lower and upper strike limits, within which the implicit probability density function (p.d.f) $p(x;T,S_t)$ from SABR model is assumed to be valid. The distribution $q(x;\mu,\sigma)$ is the p.d.f of a log-normal distribution parametrized by $\mu$ and $\sigma$:
+\[
+	q(x;\mu,\sigma)=\frac{1}{x\sigma \sqrt{2 \pi}}
+	e^{-\frac{(\ln(x)-\mu)^2}{2 \sigma^2}}.
+\]
+
+We require the following conditions to be satisfied:
+\begin{enumerate}
+\item Intergrability constraint
+\begin{equation}
+\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx+
+\int_{K_{L}}^{K_{U}}	  p(x;T,S_t)  dx+
+\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=1 
+\label{eq:AppRND1}
+\end{equation}
+\item Martingale  constraint
+\begin{equation}
+\int_{0}^{K_{L}}	 x \lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx+
+\int_{K_{L}}^{K_{U}}	  x p(x;T,S_t)  dx+
+\int_{K_{U}}^{\infty}	 x \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=F(t,T)
+\label{eq:AppRND2}
+\end{equation}
+The intergrability constraint ensures that $\hat{g}(x)$ is a valid p.d.f. The martingale  constraint ensures that $E[S_T]=F(t,T)=S_{t}e^{(r-q)(T-t)}$ under ther adjusted p.d.f.
+\end{enumerate}
+Furthermore, we set $\mu_L=\ln(S_t)+(r-q-\frac{\sigma_L^2}{2})(T-t)$ and $\mu_U=\ln(S_t)+(r-q-\frac{\sigma_U^2}{2})(T-t)$ such that we have only four parameters to be solved: $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$. 
+
+
+
+
+
+Let:
+\begin{itemize}
+\item  $C_{BS}(T,K;\sigma)$ and $P_{BS}(T,K;\sigma)$ be the call and put option prices from Black-Scholes model with the Black-Scholes volatility $\sigma$.
+\item  $DC_{BS}(T,K;\sigma)$ and $DP_{BS}(T,K;\sigma)$ be the digital call and put option prices from Black-Scholes model with the Black-Scholes  volatility $\sigma$  where a digital call pays one dollar if the underlying price exceeds the strike and a digital put pays the same amount  if the underlying is below the strike. 
+\item  $\sigma_B$ be implied Black's volatility given by the SABR apprximation formula \eqref{eq:SABRExpansion} for $K \in [K_{L},K_{U}]$. For simplicity, we write $\sigma_{B}(K)$ to denote the implied Black's volatility given by the SABR formula \eqref{eq:SABRExpansion} for a strike $K$ since the other parameters in  $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$ remain unchanged in the following discussion for a expiry $T$ at a time $t$.
+ \end{itemize}
+
+By above settings, we will have:
+
+ \begin{align}
+ D(t,T)\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=\lambda_{L} DP_{BS}(T,K_{L};\sigma_{L}) \label{eq:SABRFix01} \\
+ D(t,T)\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=\lambda_{U} DC_{BS}(T,K_{U};\sigma_{U}) \label{eq:SABRFix02}\\
+ D(t,T)\int_{0}^{K_{L}} (K_L-x)	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx&=\lambda_{L} P_{BS}(T,K_{L};\sigma_{L})\label{eq:SABRFix03} \\
+ D(t,T)\int_{K_{U}}^{\infty}	(x-K_U) \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx&=\lambda_{U} C_{BS}(T,K_{U};\sigma_{U})\label{eq:SABRFix04} 
+ \end{align}
+
+
+If we have the below equations hold: 
+\begin{align}
+		 \lambda_L DP_{BS}(T,K_{L};\sigma_L)&=DP_{BS}(T,K_{L};\sigma_{B}(K_{L})) \label{eq:SABRFix11} \\
+		 \lambda_U DC_{BS}(T,K_{U};\sigma_U)&=DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))  \label{eq:SABRFix12}\\
+		 \lambda_L P_{BS}(T,K_{L};\sigma_L)&=P_{BS}(T,K_{L};\sigma_{B}(K_{L})) \label{eq:SABRFix13}\\
+		 \lambda_U C_{BS}(T,K_{U};\sigma_U)&=C_{BS}(T,K_{U};\sigma_{B}(K_{U}))
+	 \label{eq:SABRFix14}
+	\end{align}
+ we can  show the  intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2} are also satisified.  Furthermore, the solution to the equantions \eqref{eq:SABRFix11} to \eqref{eq:SABRFix14} is $\{\sigma_{L}=\sigma_{B}(K_L),\sigma_{U}=\sigma_{B}(K_U), \lambda_{L}=1, \lambda_{U}=1\}$. Therefore, if we have $\{\sigma_{L}=\sigma_{B}(K_L),\sigma_{U}=\sigma_{B}(K_U), \lambda_{L}=1, \lambda_{U}=1\}$, the intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2} are satisified. 
+ 
+Here, we firstly show the intergrability constraint \eqref{eq:RND1} is satisified if we have equations \eqref{eq:SABRFix11} to  \eqref{eq:SABRFix14} hold. Comnbining equation  \eqref{eq:SABRFix01} and equation \eqref{eq:SABRFix11}, we have:
+ \begin{equation}
+	 \frac{1}{D(t,T)} DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))=\frac{1}{D(t,T)} \lambda_{L} DP_{BS}(T,K_{L};\sigma_{L})=\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx\\
+ \label{eq:IntProof1}
+ \end{equation}
+ Similarly, comnbining equation  \eqref{eq:SABRFix02} and equation \eqref{eq:SABRFix12}, we have
+ \begin{equation}
+ \frac{1}{D(t,T)} DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))=\frac{1}{D(t,T)} \lambda_{L} DC_{BS}(T,K_{U};\sigma_{U})=\int_{K_{U}}^{\infty}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx
+ \label{eq:IntProof2}
+ \end{equation}
+ We further note that:
+\begin{equation}
+\begin{split}
+	\int_{K_{L}}^{K_{U}}p(x;T,S_t) &=\int_{K_L}^{\infty}p(x;T,S_t)-\int_{K_U}^{\infty}p(x;T,S_t)\\
+	&=\frac{1}{D(t,T)} DC_{BS}(T,K_{L};\sigma_{B}(K_{L}))-\frac{1}{D(t,T)} DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))
+\end{split}
+\end{equation}
+By call-put parity, we have: 
+\[DC_{BS}(T,K_{L};\sigma_{B}(K_{L}))=D(t,T)-DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))\]
+Therefore, we have:
+\begin{equation}
+	\begin{split}
+		\int_{K_{L}}^{K_{U}}p(x;T,S_t) &=\int_{K_L}^{\infty}p(x;T,S_t)-\int_{K_U}^{\infty}p(x;T,S_t)\\
+		&=1-\frac{1}{D(t,T)} DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))-\frac{1}{D(t,T)} DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))
+	\end{split}
+	\label{eq:IntProof3}
+	\end{equation}
+Combining equations \eqref{eq:IntProof1} and \eqref{eq:IntProof2} with equation \eqref{eq:IntProof3}, we show that  the intergrability constraint \eqref{eq:RND1} is satisfied.
+
+In terms of the martingale constraint, we firstly split the equation \eqref {eq:SABRFix03} as follows:
+\begin{equation}
+	\int_{0}^{K_L} (K_L-x) \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx=\int_{0}^{K_L} K \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx-\int_{0}^{K_L} x \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx
+	\label{eq:MatProof1}
+\end{equation}
+Plugging in equation \eqref{eq:SABRFix01}, we have:
+\begin{equation}
+	K_L\lambda_{L} DP_{BS}(T,K_{L};\sigma_{L})-\lambda_{L} P_{BS}(T,K_{L};\sigma_{L})=D(t, T)\int_{0}^{K_L} x \lambda_{L} \;  q(x;\mu_{L},\sigma_{L}) dx
+	\label{eq:MatProof2}
+\end{equation}
+Similary, we have:
+\begin{equation}
+	K_U\lambda_{U} DC_{BS}(T,K_{U};\sigma_{U})+\lambda_{U} C_{BS}(T,K_{U};\sigma_{U})=D(t,T)\int_{K_U}^{\infty} x \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx
+	\label{eq:MatProof3}
+\end{equation}
+Furthermore, we can show that for $K_L<K<K_U$:
+\begin{equation}
+	\begin{split}
+	D(t,T) \int_{K_L}^{K_U} (x-K) p(x;T,S_t)dx&=\left[C_{BS}(T,K_L;\sigma_B(K_L))+(K_L-K)DC_{BS}(T,K_L;\sigma_B(K_L))\right]\\ &-\left[C_{BS}(T,K_U;\sigma_B(K_U))+(K_U-K)DC_{BS}(T,K_L;\sigma_B(K_U))\right]
+\end{split}
+\end{equation}
+From equation \eqref{eq:IntProof3} we know that:
+\[
+D(t,T) \int_{K_L}^{K_U} K p(x;T,S_t)dx=K[D(t,T)- DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))- DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))]
+\]
+Therefore, we have
+\begin{equation}
+\begin{split}
+	D(t,T) \int_{K_L}^{K_U} x p(x;T,S_t)dx&=\left[C_{BS}(T,K_L;\sigma_B(K_L))+(K_L-K)DC_{BS}(T,K_L;;\sigma_B(K_L))\right]\\ &-\left[C_{BS}(T,K_U;\sigma_B(K_U))+(K_U-K)DC_{BS}(T,K_L;\sigma_B(K_U))\right]\\
+	&+K[D(t,T)- DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))- DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))]
+\end{split}
+\label{eq:matproof4}
+\end{equation}
+By the call-put parity, we have:
+\begin{equation}	
+	\begin{split}
+	C_{BS}(T,K_L;\sigma_B(K_L))&=D(t,T)[F(t,T)-K_L]+P_{BS}(T,K_L;\sigma_B(K_L))\\
+	DC_{BS}(T,K_L;\sigma_B(K_L))&=D(t,T)-DP_{BS}(T,K_L;\sigma_B(K_L))\\
+\end{split}
+\label{eq:matproof5}
+\end{equation}
+Combining equation \eqref{eq:matproof4} and equations \eqref{eq:matproof5}, we then have:
+\begin{equation}
+	\begin{split}
+		\int_{K_L}^{K_U} x p(x;T,S_t)dx=
+	   &F(t,T)-\frac{1}{D(t,T)}[K_{L}DP_{BS}(T,K_{L};\sigma_{B}(K_{L}))-P_{BS}(T,K_{L};\sigma_{B}(K_{L}))]-\\
+	   &\frac{1}{D(t,T)}[K_{U}DC_{BS}(T,K_{U};\sigma_{B}(K_{U}))+C_{BS}(T,K_{U};\sigma_{B}(K_{U}))]
+	   \end{split}
+	   \label{eq:matproof6}
+\end{equation}
+Plugging in equations \eqref{eq:SABRFix11} to \eqref{eq:SABRFix14} into equation \eqref{eq:matproof6}, we have 
+\begin{equation}
+	\begin{split}
+		\int_{K_L}^{K_U} x p(x;T,S_t)dx=
+	   &F(t,T)-\frac{1}{D(t,T)}[K_{L}DP_{BS}(T,K_{L};\sigma_{L})-P_{BS}(T,K_{L};\sigma_{L})]-\\
+	   &\frac{1}{D(t,T)}[K_{U}DC_{BS}(T,K_{U};\sigma_U)+C_{BS}(T,K_{U};\sigma_{U})]
+	   \end{split}
+	   \label{eq:matproof7}
+\end{equation}
+Lastly, combining equation \eqref{eq:MatProof1}, \eqref{eq:MatProof2} and  \eqref{eq:matproof7} together, 
+\begin{equation}
+	\begin{split}
+	   F(t,T)=&\frac{1}{D(t,T)}\lambda_L[K_{L}DP_{BS}(T,K_{L};\sigma_{L})-P_{BS}(T,K_{L};\sigma_{L})]+\\
+	   &F(t,T)-\frac{1}{D(t,T)}[K_{L}DP_{BS}(T,K_{L};\sigma_{L})-P_{BS}(T,K_{L};\sigma_{L})]-\\
+	   &\frac{1}{D(t,T)}[K_{U}DC_{BS}(T,K_{U};\sigma_U)+C_{BS}(T,K_{U};\sigma_{U})]\\
+	   &\frac{1}{D(t,T)}\lambda_U[K_{U}DC_{BS}(T,K_{U};\sigma_{U})+C_{BS}(T,K_{U};\sigma_{U})]
+	   \end{split}
+   \label{eq:RND6}
+\end{equation}
+We therefore prove the martingale  constraint \eqref{eq:RND2} is satisified.
+
+Since the adjusted p.d.f \eqref{eq:AppOurFix} satisfies intergrability constraint \eqref{eq:AppRND1} and martingale  constraint \eqref{eq:AppRND2}
+with the setting:
+\begin{equation}
+	\begin{split}
+		\sigma_{L}&=\sigma_{B}(K_L)\;,\;\sigma_{U}=\sigma_{B}(K_U)\\
+		\lambda_{L}&=1 \;,\;\lambda_{U}=1\\
+		\mu_L&=\ln(S_t)+(r-q-\frac{\sigma_{B}(K_L)^2}{2})(T-t)\\ 
+		\mu_U&=\ln(S_t)+(r-q-\frac{\sigma_{B}(K_U)^2}{2})(T-t)
+	\end{split}
+	\label{eq:AppSolSABRFix}
+	\end{equation}
+and will not be negative at tails of the distribution because that the two tails are from two log-normal distribuions, we can conclude that the adjusted $\overline{C}_{SABR}(T,K)$ will be free of butterfly arbitrage.
+
+In this thesis, we  use the  risk neutral adjustment \eqref{eq:AppOurFix} with 4 parameters  $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$ due to its simplicity. Notice that density function $\hat{g}(x)$ calibrated following the above risk neutral adjustment maybe discontinuous at $K_L$ and $K_U$.  If one want to ensure the continuity of the density function,  one can solve the overdetermined system suggested by \citet{brunner2003arbitrage}.
+
+
+ \chapter{No-Arbitrage Properties of the Volatility Interpolation Algorithm}
+ \label{App:LVFProof}
+ Define the normalized call price in terms of discount factor $D(t,T)$ and forward price $F(t,T)$ and the normalized strike $\widehat{K}$ as:
+ \[
+ \begin{split}
+ D(t,T)&=e^{-r(T-t)}\\
+ F(t,T)&=S_te^{(r-q)(T-t)}\\
+ \widehat{K}&=\frac{K}{F(t,T)}\\
+ \widehat{C}(T,\widehat{K})&=\frac{C(T,\widehat{K} F(t,T))}{D(t,T)F(t,T)}=\frac{C(T,K)}{D(t,T)F(t,T)}
+ \end{split}
+ \]
+ In this thesis, we use the Dupire's equation to interpolate the implied volatilities between expiries:
+ \[
+ \frac{\partial \widehat{C}(T,\widehat{K})}{\partial T}=\frac{1}{2} \widehat{\sigma}^2(T,\widehat{K}) \widehat{K}^2  \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2},\;\; \widehat{\sigma}(T,\widehat{K})={\sigma}(T,K)
+ \]
+ 
+ 
+ 
+ 
+ 
+ 
+ Assume we are given a grid of expiries available in market $t=T_0 < T_1 < \dots< T_{M} $ and  a grid of normalized strike: $0=\widehat{K}_0<\widehat{K}_1<\dots<\widehat{K}_{N}$, and $\widehat{\sigma}(T,\widehat{K})$  is a piecewise constant functions for a given $T_i$.
+ \begin{equation}
+	 \widehat{\sigma}(T_i,\widehat{K})=\left\{ \begin{array}{ll}
+		 \widehat{\sigma}_{T_i,\widehat{K}_0}  , \; &\text{if} \; \widehat{K} \leq \widehat{K}_0\\
+		 \vdots & \vdots\\
+		 \widehat{\sigma}_{T_i,\widehat{K}_j}  , \; &\text{if} \; \widehat{K}_{j-1}<\widehat{K} \leq \widehat{K}_j\\
+		 \vdots & \vdots\\
+		 \widehat{\sigma}_{T_i,\widehat{K}_{N}} , \; &\text{if} \;  \widehat{K} > \widehat{K}_{N} \\
+		 \end{array} \right.
+		 \label{eq:AppLVFVolDef}
+	 \end{equation}
+
+ 
+ The fully implicit finite difference method in matrix form is:
+ \begin{equation}
+	 \begin{bmatrix}
+ \widehat{C}(T_{i},\widehat{K}_0)\\
+ \widehat{C}(T_{i},\widehat{K}_1)\\
+ \widehat{C}(T_{i},\widehat{K}_2)\\
+ \vdots\\
+ \widehat{C}(T_{i},\widehat{K}_{N})
+ \end{bmatrix}=(I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T_{i+1}-T_i))
+ \begin{bmatrix}
+ \widehat{C}(T_{i+1},\widehat{K}_0)\\
+ \widehat{C}(T_{i+1},\widehat{K}_1)\\
+ \widehat{C}(T_{i+1},\widehat{K}_2)\\
+ \vdots\\
+ \widehat{C}(T_{i+1},\widehat{K}_{N})
+ \end{bmatrix}
+ \label{eq:AppLVFInt}
+ \end{equation}
+ where 
+ $I$ is the identity matrix, $\mathcal{\mathbb{S}}$ is a diagonal matrix parameterized by $\widehat{\sigma}(T_i,.)$ as in equation \eqref{eq:AppLVFVolDef},  $\mathcal{\mathbb{D}}$ is proportional to the discrete second order difference matrix and $(T_{i+1}-T_i)$ is a scaler. Specifically:
+		 \begin{equation}
+			 \mathcal{\mathbb{S}}=	\begin{bmatrix}
+				 \widehat{\sigma}^2(T_i,\widehat{K}_{0})&&\\
+				 \vdots&\ddots&\vdots\\
+				 &&\widehat{\sigma}^2(T_i,\widehat{K}_{N})
+		 \end{bmatrix}
+		 \label{eq:LVFMatrixS}
+		 \end{equation}
+		 \begin{equation}
+			 \mathcal{\mathbb{D}}=\begin{bmatrix}
+		 0&0&&&&\\
+		 l_1&-l_1-u_1&u_1&&&\\
+		 &l_2&-l_2-u_2&u_2&&&\\
+		 &&\ddots&\ddots&\ddots&&\\
+		 &&&l_{N-1}&-l_{N-1}-u_{N-1}&u_{N-1}\\
+		 &&&&0&0
+		 \end{bmatrix}
+		 \label{eq:AppLVFMatrixD}
+		 \end{equation}
+ 
+		 where 
+		 \[l_j=\frac{1}{\widehat{K}_{j+1}-\widehat{K}_{j-1}}\frac{1}{\widehat{K}_{j}-\widehat{K}_{j-1}}\]
+		 \[u_j=\frac{1}{\widehat{K}_{j+1}-\widehat{K}_{j-1}}\frac{1}{\widehat{K}_{j+1}-\widehat{K}_{j}}\]
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+%  Denote $\mathcal{\mathbb{M}}(T_{i+1},T_{i}, \widehat{\sigma}(T_i,.))=(I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T_{i+1}-T_i))$. We can see that  $\mathcal{\mathbb{M}}(T_{i+1},T_{i}, \widehat{\sigma}(T_i,.))$ is a tri-diagonal matrix parametrized by  $\widehat{\sigma}(T_i,.)$,  $T_{i+1}$,   and $T_{i}$.  
+ % The matrix  $\mathcal{\mathbb{M}}(T_{i+1},T_{i}, \widehat{\sigma}(T_i,.))$ is then\footnote{For a non-uniform grid of strikes, we can derive a similar form for the matrix as well}:
+ 
+ % \begin{equation}
+ % 	\begin{bmatrix}
+ % 1&0&0&\dots&0&0\\
+ % -Z_1&1+2Z_1&-Z_1&&&\\
+ % &-Z_2&1+2Z_2&-Z_2&&&\\
+ % &&\ddots&\ddots&\ddots&&\\
+ % &&&-Z_{Max-1}&1+2Z_{Max-1}&-Z_{Max-1}\\
+ % &&&0&0&1
+ % \end{bmatrix}
+ % \label{eq:LVFMatrix}
+ % \end{equation}
+ % where $Z_j=\frac{1}{2}\frac{T_{i+1}-T_{i}}{\Delta K^2}\widehat{\sigma}^2(T_i,\widehat{K}_j)$
+ 
+ % Therefore, we can easily invert $\mathcal{\mathbb{M}}$ and we get:
+ % \begin{equation}
+ % 	\mathcal{\mathbb{M}}^{-1} \begin{bmatrix}
+ % 	\widehat{C}(T_{i},\widehat{K}_0)\\
+ % 	\widehat{C}(T_{i},\widehat{K}_1)\\
+ % 	\widehat{C}(T_{i},\widehat{K}_2)\\
+ % 	\vdots\\
+ % 	\widehat{C}(T_{i},\widehat{K}_{max})
+ % 	\end{bmatrix}=
+ % 	\begin{bmatrix}
+ % 	\widehat{C}(T_{i+1},\widehat{K}_0)\\
+ % 	\widehat{C}(T_{i+1},\widehat{K}_1)\\
+ % 	\widehat{C}(T_{i+1},\widehat{K}_2)\\
+ % 	\vdots\\
+ % 	\widehat{C}(T_{i+1},\widehat{K}_{max})
+ % 	\end{bmatrix}
+ % 	\label{eq:LVFInt}
+ % \end{equation}
+ 
+ Given the price vector at $T_{i}$ as the input:
+ \[\begin{bmatrix}
+	 \widehat{C}(T_{i},\widehat{K}_0)&
+	 \widehat{C}(T_{i},\widehat{K}_1)&
+	 \widehat{C}(T_{i},\widehat{K}_2)&
+	 \cdots&
+	 \widehat{C}(T_{i},\widehat{K}_{N})
+ \end{bmatrix}\] and the matrix $\mathcal{\mathbb{M}}(T_{i+1},T_{i}, \widehat{\sigma}(T_i,.))$, we can compute  the price vector at $T_{i+1}$:
+ \[
+ \begin{bmatrix}
+	 \widehat{C}(T_{i+1},\widehat{K}_0)&
+	 \widehat{C}(T_{i+1},\widehat{K}_1)&
+	 \widehat{C}(T_{i+1},\widehat{K}_2)&
+	 \cdots&
+	 \widehat{C}(T_{i+1},\widehat{K}_{N})
+	 \end{bmatrix}.
+ \]
+ We want  the price vector at $T_{i+1}$ produced by the above LVF to match the price vector we computed using SABR model on $T_{i+1}$. In other words, we will try to find the $\widehat{\sigma}(T_i,.)$, which has the form as in equation \eqref{eq:AppLVFVolDef}, by solving the following non-linear least square problem:
+ \begin{equation}
+ \inf_{\widehat{\sigma}(T_i,.)} \sum_{j}(\frac{\widehat{C}(T_{i+1},\widehat{K}_j)-\widehat{C}_{SABR}(T_{i+1},\widehat{K}_j)}{Vega_{B}(T_{i+1},\widehat{K}_j)})^2
+ \label{eq:AppLVFCal}
+  \end{equation}
+ where we set: 
+ %  \[	
+ % 	 \begin{bmatrix}
+ % 	\widehat{C}(T_{i+1},\widehat{K}_0)\\
+ % 	\widehat{C}(T_{i+1},\widehat{K}_1)\\
+ % 	\widehat{C}(T_{i+1},\widehat{K}_2)\\% 	\vdots\\
+ % 	\widehat{C}(T_{i+1},\widehat{K}_{max})
+ % 	\end{bmatrix}=
+ %  	\mathcal{\mathbb{M}}^{-1} \begin{bmatrix}
+ %  	\widehat{C}_{SABR}(T_{i},\widehat{K}_0)\\
+ %  	\widehat{C}_{SABR}(T_{i},\widehat{K}_1)\\
+ %  	\widehat{C}_{SABR}(T_{i},\widehat{K}_2)\\% 	\vdots\\
+ %  	\widehat{C}_{SABR}(T_{i},\widehat{K}_{max})
+ %  	\end{bmatrix}
+ %  \] and  
+  \[
+	 \widehat{C}_{SABR}(T_{i+1},\widehat{K}_j)=\frac{\widetilde {C_{SABR}}(T_{i+1},K_j)}{D(t,T_{i+1})F(t,T_{i+1})},
+ \] $Vega_{B}(T_{i+1},\widehat{K}_j)$ is the vega computed using SABR model calibrated to market prices at $T_{i+1}$ and $\widetilde {C_{SABR}}(T,K)$ is the arbitrage-free SABR model value we produce in previous section.
+ 
+ Note that for the intial case $T_0=t$, $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is given as the payoff. Given $\widehat{C}(T_0,\widehat{K})$, we firstly solve \eqref{eq:LVFCal} for the $\widehat{\sigma}(T_0,.).$ After obtaining $\widehat{\sigma}(T_0,.)$, we can then solve the forward system  $\eqref{eq:LVFCal}$ to get \[
+	 \begin{bmatrix}
+		 \widehat{C}(T_i,\widehat{K}_0)\\
+		 \widehat{C}(T_i,\widehat{K}_1)\\
+		 \widehat{C}(T_i,\widehat{K}_2)\\
+		 \vdots\\
+		 \widehat{C}(T_i,\widehat{K}_{N})
+		 \end{bmatrix}
+ \] sequentially for $i=1,2,\dots,T_{M-1}$, where $M$ is the number of expiries in the grid.
+ 
+ 
+ 
+ 
+ After we solved for  $\widehat{\sigma}(T_i,.), i=0,1,\dots,T_{M-1}$, for $T \in [T_i,T_{i+1}]$, we can fill in the gaps by:
+	 \begin{equation}
+	 \begin{bmatrix}
+	 \widehat{C}(T,\widehat{K}_0)\\
+	 \widehat{C}(T,\widehat{K}_1)\\
+	 \widehat{C}(T,\widehat{K}_2)\\
+	 \vdots\\
+	 \widehat{C}(T,\widehat{K}_{max})
+	 \end{bmatrix}=\mathcal{\mathbb{M}}^{-1} (T,T_{i}, \widehat{\sigma}(T_i,.))\begin{bmatrix}
+		 \widehat{C}_{}(T_{i},\widehat{K}_0)\\
+		 \widehat{C}_{}(T_{i},\widehat{K}_1)\\
+		 \widehat{C}_{}(T_{i},\widehat{K}_2)\\
+		 \vdots\\
+		 \widehat{C}_{}(T_{i},\widehat{K}_{max})
+		 \end{bmatrix}
+		 \label{eq:AppLVFFill}
+	 \end{equation}
+ where $\mathcal{\mathbb{M}} (T,T_{i}, \widehat{\sigma}(T_i,.))=I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T-T_i)$ is now a tri-diagonal matrix parametrized by  $\sigma(T_i,.)$, $T$ and $T_i$. Note that $\sigma(T_i,.)$ is known after the calibration.
+ We then recover the call price by:
+ \[
+ C(T,K)=\widehat{C}(T,\widehat{K}){D(t,T)F(t,T)}
+ \]
+ 
+ The finite difference scheme \eqref{eq:AppLVFInt} and  \eqref{eq:AppLVFFill} 
+produce call option prices that are free of butterfly and calendar arbitrage. We prove this with the folllowing Theorem \ref{thm:LVFProof} and Theorem \ref{thm:LVFProof1}. In this thesis, we provide proofs for discrete cases with a given grid of strikes and expiries. For detailed proofs for continous cases, interested reader can refer to \cite{andreasen2010volatility}.
+
+
+ \begin{thm}
+	\label{thm:LVFProof}
+	On the discrete strike grid $\widehat{K}_0,\dots, \widehat{K}_{N}$, the finite difference scheme \eqref{eq:AppLVFInt} and  \eqref{eq:AppLVFFill} produces call option prices that are convex in strikes:
+	% \[
+	% 	C(T_i,K_{i})\leq C(T_{i},K_{i-1}) \; \text{ when } K_{i}>K_{i-1}
+	% \]
+	% \[
+	% 		C(T_i,K_{i})\geq C(T_{i-1},K_{i}) \; \text{ when } T_{i}>T_{i-1}
+	% \]
+	\[
+	C(T,K_{i-1})-C(T,K_{i}) > \frac{K_i-K_{i-1}}{K_{i+1}-K_{i}}\left( C(T,K_{i})-C(T,K_{i+1})  \right) \text{ when } K_{i+1}>K_{i}>K_{i-1}
+	\]
+ 
+\end{thm}
+
+\begin{proof}
+	We  prove this by the mathematical induction.
+	\\\textbf{Base case:}
+	For the first expiry $T_0=t$, we have $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ which is the normalized payoff. We naturally have the convexity in strikes at $T_0$. Denote the vector of option value to be:
+	\[\mathbf{C}(T_0)=\begin{bmatrix}
+		\widehat{C}(T_{0},\widehat{K}_0)&
+		\widehat{C}(T_{0},\widehat{K}_1)&
+		\widehat{C}(T_{0},\widehat{K}_2)&
+		\cdots&
+		\widehat{C}(T_{0},\widehat{K}_{N})
+	\end{bmatrix}
+		\]
+	As we can see, the convexity in strikes at $T_0$ implies all elements in $\mathcal{\mathbb{D}}\widehat{\mathbf{C}}(T_0)$ are non-negative.
+	\\\textbf{Induction step:}
+	Assume we have the convexity in strikes at $T_i, i=0,1,\dots,N-1$, i.e., all elements in $\mathcal{\mathbb{D}}\widehat{\mathbf{C}}(T_i)$ are non-negative.
+	The finite difference scheme \eqref{eq:AppLVFFill} can be written as the matrix equation system 
+	\begin{equation}
+		(I-\mathcal{\mathbb{S}} \mathcal{\mathbb{D}}(T-T_i))\widehat{\mathbf{C}}(T)=\widehat{\mathbf{C}}(T_i),\; i=0,1,2,\dots,N-1,\; T \in (T_i, T_{i+1}].
+		\label{eq:LVFProof1}
+	\end{equation}
+	Thus, we can rewrite the equation \eqref{eq:LVFProof1}  as
+	\begin{equation}
+	[\mathcal{\mathbb{S}}^{-1}-\widetilde{\mathcal{\mathbb{D}}}](\mathcal{\mathbb{S}}\widetilde{\mathcal{\mathbb{D}}} \widehat{\mathbf{C}}(T))=\widetilde{\mathcal{\mathbb{D}}} \widehat{\mathbf{C}}(T_i)
+	\end{equation}
+	where we denote $\widetilde{\mathcal{\mathbb{D}}}=\mathcal{\mathbb{D}}(T-T_i)$.
+	% On the discrete strike grid $\{\widehat{K}_0,\dots, \widehat{K}_{Max}\}$, the finite difference scheme \eqref{eq:LVFFill} can be written as the matrix equation system 
+	% \begin{equation}
+	% 	(I-\mathcal{\mathbb{S}} \mathcal{\mathbb{D}}(T-T_i))\widehat{C}(T)=\widehat{C}(T_i),\; i=0,1,2,\dots,Max-1,\; T \in [T_i, T_{i+1}].
+	% 	\label{eq:LVFProof1}
+	% \end{equation}
+	% where $\widehat{C}(T)=\begin{bmatrix}
+	% 	\widehat{C}(T,\widehat{K}_0)&
+	% 	\widehat{C}(T,\widehat{K}_1)&
+	% 	\widehat{C}(T,\widehat{K}_2)&
+	% 	\cdots&
+	% 	\widehat{C}(T,\widehat{K}_{max})
+	% 	\end{bmatrix}$ is a vector of option prices, $I$ is the identity matrix, $\mathcal{\mathbb{S}}$ is a diagonal matrix and $\mathcal{\mathbb{D}}$ is proportional to the discrete second order difference matrix. Specifically:
+	% 	\begin{equation}
+	% 		\mathcal{\mathbb{S}}=	\begin{bmatrix}
+	% 			\widehat{\sigma}^2(T_i,\widehat{K}_{0})&&\\
+	% 			\vdots&\ddots&\vdots\\
+	% 			&&\widehat{\sigma}^2(T_i,\widehat{K}_{Max})
+	% 	\end{bmatrix}
+	% 	\label{eq:LVFMatrixS}
+	% 	\end{equation}
+	% 	\begin{equation}
+	% 		\mathcal{\mathbb{D}}=	\begin{bmatrix}
+	% 	0&0&&&&\\
+	% 	l_1&-l_1-u_1&u_1&&&\\
+	% 	&l_2&-l_2-u_2&u_2&&&\\
+	% 	&&\ddots&\ddots&\ddots&&\\
+	% 	&&&l_{Max-1}&-l_{Max-1}-u_{Max-1}&u_{Max-1}\\
+	% 	&&&&0&0
+	% 	\end{bmatrix}
+	% 	\end{equation}
+
+	% 	where 
+	% 	\[l_i=\frac{1}{\widehat{K}_{i+1}-\widehat{K}_{i-1}}\frac{1}{\widehat{K}_{i}-\widehat{K}_{i-1}}\]
+	% 	\[u_i=\frac{1}{\widehat{K}_{i+1}-\widehat{K}_{i-1}}\frac{1}{\widehat{K}_{i+1}-\widehat{K}_{i}}.\]
+
+
+
+		We assume that $\widehat{\sigma}(T_i,\widehat{K})>0$ for all $\widehat{K}$, therefore we can easily see that:
+		\[\mathcal{\mathbb{A}}=\mathcal{\mathbb{S}}^{-1}-\widetilde{\mathcal{\mathbb{D}}}\]
+		is an M-Matrix \cite{plemmons1977m} and thus all elements of $\mathcal{\mathbb{A}}^{-1}$ are non-negative.
+
+		We can then easily see that 
+		if elements in the vector $\mathcal{\mathbb{D}}\widehat{\mathbf{C}}(T_i)$ are all non-negative, then elements in  $\widetilde{\mathcal{\mathbb{D}}}\widehat{\mathbf{C}}(T_i)$ are all non-negative.
+		With all elements of $\mathcal{\mathbb{A}}^{-1}$ being non-negative, we can easily show that elements in the vector $\mathcal{\mathbb{S}}\widetilde{\mathcal{\mathbb{D}}}\widehat{\mathbf{C}}(T)$ are all non-negative. Furthermore, since:
+		\[
+			\mathcal{\mathbb{S}}\widetilde{\mathcal{\mathbb{D}}}\widehat{\mathbf{C}}(T)	=	(T-T_i)\mathcal{\mathbb{S}}\mathcal{\mathbb{D}} \widehat{\mathbf{C}}(T),
+		\] and $\mathcal{\mathbb{S}}$ is a diagonal matrix wih non-negative diagonal elements, we can easily see that  all elements in $\mathcal{\mathbb{D}}\widehat{\mathbf{C}}(T)$ are non-negative which is equivalent to show that:
+		\[
+				C(T,K_{i-1})-C(T,K_{i}) > \frac{K_i-K_{i-1}}{K_{i+1}-K_{i}}\left( C(T,K_{i})-C(T,K_{i+1})  \right).
+		\]
+	   \\\textbf{Conclusion:}  Since both the base case and the induction step have been proved as true, by mathematical induction, we therefore prove the convexity in strikes which proves the absence of butterfly arbitrage.
+
+
+
+		% Lastly, since at $T_0=t$, $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is the normalized payoff which is monotonically decreasing in strikes. 
+		% Follwing equation \eqref{eq:LVFProof3}, we have the elements in  $\left.\frac{\partial \widehat{C}(T)}{ \partial T} \right|_{T=T_0}$ being monotonically decreasing in strikes. Thus,  we conclude that the elements in:
+		% \[
+		% C(T_0+d T)=	C(T_0)+\left.\frac{\partial \widehat{C}(T)}{ \partial T} \right|_{T=T_0} d T
+		% \]
+		% is monotonically decreasing in strikes as well. Following the this logic, we can conclude that the $C(T)$ will be monotonically decreasing in strikes which eliminate the existence of call-spread arbitrage.
+\end{proof}
+\begin{thm}
+	\label{thm:LVFProof1}
+	On the discrete strike grid $\widehat{K}_0,\dots, \widehat{K}_{N}$, the finite difference scheme \eqref{eq:AppLVFInt} and  \eqref{eq:AppLVFFill} produces call option prices increasing in maturity:
+	\[
+			C(T_i,K_{i})\geq C(T_{i-1},K_{i}) \; \text{ when } T_{i}>T_{i-1}
+	\]
+
+ 
+\end{thm}
+\begin{proof}
+	Recall that, for $T \in (T_i,T_{i+1}], i=0,\dots, M-1$, we rewrite the finite difference scheme \eqref{eq:AppLVFFill}  as:
+	\begin{equation}
+		[I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T-T_i) ]\widehat{\mathbf{C}}(T)=	\widehat{\mathbf{C}}(T_i)
+		\label{eq:LVFProof3}
+	\end{equation}
+Differentiating equation \eqref{eq:LVFProof3} by $T$ on both side:
+\[
+	\frac{\partial  [I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T-T_i) ]}{ \partial T} \widehat{\mathbf{C}}(T) +[I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T-T_i) ]\frac{\partial \widehat{\mathbf{C}}(T)}{ \partial T} =  0
+\]
+Therefore:
+\[
+	[I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T-T_i) ]\frac{\partial \widehat{\mathbf{C}}(T)}{ \partial T} =  	 \mathcal{\mathbb{S}}\mathcal{\mathbb{D}} \widehat{\mathbf{C}}(T)
+\]
+Multiply $S^{-1}$ on both side:
+\begin{equation}
+	[S^{-1}-\mathcal{\mathbb{D}}(T-T_i)]\frac{\partial \widehat{\mathbf{C}}(T)}{ \partial T} =  	 \mathcal{\mathbb{D}} \widehat{\mathbf{C}}(T)
+	\label{eq:LVFProof4}
+\end{equation}
+Recall we define:
+\[\mathcal{\mathbb{A}}=\mathcal{\mathbb{S}}^{-1}-\widetilde{\mathcal{\mathbb{D}}}\]
+where we denote $\widetilde{\mathcal{\mathbb{D}}}=\mathcal{\mathbb{D}}(T-T_i)$.
+Therefore, we can rewrite equation \eqref{eq:LVFProof4} as:
+		\begin{equation}
+			\frac{\partial \widehat{\mathbf{C}}(T)}{ \partial T} =\mathcal{\mathbb{A}}^{-1}   \mathcal{\mathbb{D}} \widehat{\mathbf{C}}(T)
+			\label{eq:LVFProof5}
+		\end{equation}
+		Since in Theorem \ref{thm:LVFProof} we already prove the convexity in strikes which implies elements in $\mathcal{\mathbb{D}} \widehat{\mathbf{C}}(T)$ are all non-negative and all elements in $\mathcal{\mathbb{A}}^{-1}$ are non-negative since $\mathcal{\mathbb{A}}$ is an M-Matrix \cite{plemmons1977m}, we can further conclude that all elements in  $\frac{\partial \widehat{\mathbf{C}}(T)}{ \partial T}$ are non-negative. Therefore we prove the generated option prices are increasing in maturity which proves the absence of calendar arbitrage.
+\end{proof}
+
+
+
 \chapter{Model Structure of $\modelT$ and  $\modelL$}
 \label{App:modelstructure}
 Below we briefly illustrate the model structure of $\modelT$ and $\modelL$
