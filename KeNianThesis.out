@@ -44,21 +44,24 @@
 \BOOKMARK [0][-]{chapter.6}{Data-Driven Sequential Learning for Total Hedging Risk}{}% 44
 \BOOKMARK [1][-]{section.6.1}{Market Data Augmentation}{chapter.6}% 45
 \BOOKMARK [2][-]{subsection.6.1.1}{No-Arbitrage Price Surface}{section.6.1}% 46
-\BOOKMARK [2][-]{subsection.6.1.2}{Generation of Training Scenarios}{section.6.1}% 47
-\BOOKMARK [2][-]{subsection.6.1.3}{Generation of Testing Scenarios}{section.6.1}% 48
-\BOOKMARK [1][-]{section.6.2}{Total Risk Hedging Model}{chapter.6}% 49
-\BOOKMARK [2][-]{subsection.6.2.1}{The Difference Between GRU And GRUtotal}{section.6.2}% 50
-\BOOKMARK [2][-]{subsection.6.2.2}{Training Objective For GRUtotal}{section.6.2}% 51
-\BOOKMARK [2][-]{subsection.6.2.3}{Training Procedure For GRUtotal and GRUtotallocal}{section.6.2}% 52
-\BOOKMARK [1][-]{section.6.3}{Total Discrete Hedging Performance Comparison Using S\046P 500 index Options}{chapter.6}% 53
-\BOOKMARK [2][-]{subsection.6.3.1}{Data and Experimental Setting}{section.6.3}% 54
-\BOOKMARK [2][-]{subsection.6.3.2}{Call Option Total Hedging Comparison}{section.6.3}% 55
-\BOOKMARK [2][-]{subsection.6.3.3}{Put Option Total Risk Hedging Comparison}{section.6.3}% 56
-\BOOKMARK [0][-]{chapter.7}{Conclusion and Future Work}{}% 57
-\BOOKMARK [0][-]{section*.8}{References}{}% 58
-\BOOKMARK [0][-]{appendix.A}{Cross Validation of Kernel Regularized Network}{}% 59
-\BOOKMARK [0][-]{appendix.B}{Fixing the Butterfly Arbitrage for SABR Model}{}% 60
-\BOOKMARK [0][-]{appendix.C}{No-Arbitrage Properties of the Volatility Interpolation Algorithm}{}% 61
-\BOOKMARK [0][-]{appendix.D}{Model Structure of GRUtotal and GRUtotallocal}{}% 62
-\BOOKMARK [1][-]{section.D.1}{Feature Selection via Embedded Feature Weighting}{appendix.D}% 63
-\BOOKMARK [1][-]{section.D.2}{GRU Encoder}{appendix.D}% 64
+\BOOKMARK [2][-]{subsection.6.1.2}{Training and Testing Data Construction}{section.6.1}% 47
+\BOOKMARK [1][-]{section.6.2}{Total Risk Hedging Model}{chapter.6}% 48
+\BOOKMARK [2][-]{subsection.6.2.1}{The Difference Between GRU And GRUtotal}{section.6.2}% 49
+\BOOKMARK [2][-]{subsection.6.2.2}{Training Objective For GRUtotal}{section.6.2}% 50
+\BOOKMARK [2][-]{subsection.6.2.3}{Training Procedure For GRUtotal}{section.6.2}% 51
+\BOOKMARK [1][-]{section.6.3}{Total Discrete Hedging Performance Comparison Using S\046P 500 index Options}{chapter.6}% 52
+\BOOKMARK [2][-]{subsection.6.3.1}{Data and Experimental Setting}{section.6.3}% 53
+\BOOKMARK [2][-]{subsection.6.3.2}{Call Option Total Hedging Comparison}{section.6.3}% 54
+\BOOKMARK [2][-]{subsection.6.3.3}{Put Option Total Risk Hedging Comparison}{section.6.3}% 55
+\BOOKMARK [0][-]{chapter.7}{Conclusion and Future Work}{}% 56
+\BOOKMARK [0][-]{section*.8}{References}{}% 57
+\BOOKMARK [0][-]{appendix.A}{Cross Validation of Kernel Regularized Network}{}% 58
+\BOOKMARK [0][-]{appendix.B}{Fixing the Butterfly Arbitrage for SABR Model}{}% 59
+\BOOKMARK [0][-]{appendix.C}{No-Arbitrage Properties of the Volatility Interpolation Algorithm}{}% 60
+\BOOKMARK [0][-]{appendix.D}{Model Structure of GRUtotal and GRUtotallocal}{}% 61
+\BOOKMARK [1][-]{section.D.1}{Feature Selection via Embedded Feature Weighting}{appendix.D}% 62
+\BOOKMARK [1][-]{section.D.2}{GRU Encoder}{appendix.D}% 63
+\BOOKMARK [2][-]{subsection.D.2.1}{Decoder for GRUtotal}{section.D.2}% 64
+\BOOKMARK [0][-]{appendix.E}{Comparison of GRUtotal and GRUtotallocal}{}% 65
+\BOOKMARK [1][-]{subsection.E.0.1}{Call Option Total Hedging Comparison}{appendix.E}% 66
+\BOOKMARK [2][-]{subsection.E.0.2}{Put Option Total Risk Hedging Comparison}{subsection.E.0.1}% 67
