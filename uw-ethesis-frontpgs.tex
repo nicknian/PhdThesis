@@ -139,7 +139,7 @@ Furthermore, we show that the proposed approach achieves significant gain over t
 Following the direct data-driven kernel learning approach \citep{knian2017}, we propose a robust encoder-decoder  Gated Recurrent Unit (GRU) model, $\text{GRU}_{\delta}$, for optimal discrete option hedging. The proposed $\text{GRU}_{\delta}$ utilizes the Black-Scholes model as a pre-trained model and  incorporates sequential information and feature selection.  Using the S\&P 500 index European option market data from January 2, 2004 to August 31, 2015,   we demonstrate that the weekly and monthly hedging performance of the proposed $\text{GRU}_{\delta}$ significantly surpasses that of the data-driven minimum variance (MV) method in \citep{hulloptimal}, the regularized kernel data-driven model \citep{knian2017}, and the SABR-Bartlett method \cite{hagan2017bartlett}.
 In addition, the daily hedging performance of the proposed $\text{GRU}_{\delta}$ also surpasses that of MV methods in \cite{hulloptimal} based on parametric models, the kernel method \citep{knian2017} and SABR-Bartlett method \cite{hagan2017bartlett}.
 
-Lastly, we design a multi-steps data-driven models $\modelT$ based on the $\model$  to hedge the option discretely until the expiry.  We utilize SABR model and Local Volatility Function (LVF) to augment existing market data and thus alleviate the problem of  scarcity in market option prices. The augmented market data is used to train a sufficient  total risk hedging model $\modelT$ that outperforms the comparing local risk  hedging model $\modelL$.
+Lastly, we design a multi-steps data-driven models $\modelT$ based on the $\model$  to hedge the option discretely until the expiry.  We utilize SABR model and Local Volatility Function (LVF) to augment existing market data and thus alleviate the problem of  scarcity in market option prices. The augmented market data is used to train a sufficient  total risk hedging model $\modelT$.
 \cleardoublepage
 
 % A C K N O W L E D G E M E N T S
@@ -147,7 +147,7 @@ Lastly, we design a multi-steps data-driven models $\modelT$ based on the $\mode
 
 \begin{center}\textbf{Acknowledgements}\end{center}
 
-I would like to thank all the little people who made this thesis possible.
+I would like to thank all the  people who made this thesis possible.
 \cleardoublepage
 
 % D E D I C A T I O N
@@ -179,6 +179,11 @@ This is dedicated to the one I love.
 \cleardoublepage
 \phantomsection		% allows hyperref to link to the correct page
 
+
+
+\listofalgorithms
+\cleardoublepage
+\phantomsection		% allows hyperref to link to the correct page
 % GLOSSARIES (Lists of definitions, abbreviations, symbols, etc. provided by the glossaries-extra package)
 % -----------------------------
 \printglossaries

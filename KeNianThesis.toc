@@ -3,85 +3,86 @@
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Contribution}{3}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Outline}{5}{section.1.2}%
-\contentsline {chapter}{\numberline {2}Option Hedging: From Past to Present}{7}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Discrete Hedging Problem}{7}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Local Hedging Risk}{8}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Total Hedging Risk}{10}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Interest Rate and Dividend}{11}{subsection.2.1.3}%
-\contentsline {section}{\numberline {2.2}Option Pricing Model}{13}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Black-Scholes Model}{13}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Heston Model}{16}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}SABR Model}{18}{subsection.2.2.3}%
-\contentsline {section}{\numberline {2.3}Option Hedging Using the Sensitivity from Pricing Model}{20}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Classical Hedging Position from Pricing Model}{20}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Parameter Dependence on Underlying Asset Price}{22}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Corrections under the Black-Scholes Framework}{23}{subsection.2.3.3}%
-\contentsline {subsubsection}{\numberline {2.3.3.1}A Data-Driven Correction for the Black–Scholes Delta Hedging}{23}{subsubsection.2.3.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.3.2}Correction With LVF Model For The Black–Scholes Delta Hedging}{25}{subsubsection.2.3.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.3.3}Correction With SABR model for the the Black–Scholes Delta Hedging}{27}{subsubsection.2.3.3.3}%
-\contentsline {section}{\numberline {2.4}Motivation For Direct Nonparametric Data-Driven Hedging Models}{31}{section.2.4}%
-\contentsline {chapter}{\numberline {3}Data-Driven Kernel Learning Framework for Local Hedging Risk}{33}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Regularized Kernel Pricing Model}{34}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Indirect Hedging Positions From Kernel Pricing Functions}{36}{subsection.3.1.1}%
-\contentsline {section}{\numberline {3.2}Regularized Kernel Hedging Model}{37}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Comparison using synthetic data}{39}{section.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.0.1}Feature Set \#1:$ \{\textsc {moneyness} \tmspace +\thickmuskip {.2777em}(S_t/K),\tmspace +\thickmuskip {.2777em}\tmspace +\thickmuskip {.2777em}\textsc {time-to-expiry} \tmspace +\thickmuskip {.2777em}(T-t)\}$}{42}{subsubsection.3.3.0.1}%
-\contentsline {subsubsection}{\numberline {3.3.0.2}Feature Set \#2: $ \{\textsc {moneyness} \tmspace +\thickmuskip {.2777em}(S_t/K),\tmspace +\thickmuskip {.2777em}\tmspace +\thickmuskip {.2777em}\textsc {time-to-expiry} \tmspace +\thickmuskip {.2777em}(T-t) ,\tmspace +\thickmuskip {.2777em}\tmspace +\thickmuskip {.2777em}\nobreakspace {} \delta ^{BS}_{t,T,K}\}$}{43}{subsubsection.3.3.0.2}%
-\contentsline {section}{\numberline {3.4}Enhancement Over the Kernel Local Hedging Model}{45}{section.3.4}%
-\contentsline {chapter}{\numberline {4}Data-Driven Sequential Learning Framework for Local Hedging Risk}{46}{chapter.4}%
-\contentsline {section}{\numberline {4.1} The Proposed $\textsc {GRU}_\delta $ for market data-driven hedging}{47}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Local Discrete Hedging GRU Model}{47}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Feature Selection via Embedded Feature Weighting}{48}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}GRU Encoder}{50}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}Decoder}{50}{subsection.4.1.4}%
-\contentsline {subsection}{\numberline {4.1.5}Robust Loss Function}{52}{subsection.4.1.5}%
-\contentsline {section}{\numberline {4.2}Training $\textsc {GRU}_\delta $}{53}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Initialization}{53}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Optimization}{53}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Pre-training and Regularization}{55}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Model Re-use and Re-initialization}{56}{subsection.4.2.4}%
-\contentsline {section}{\numberline {4.3}Alternative Data-Driven Hedging Models Under Neural Network Framework}{56}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Local Discrete Hedging Performance Comparison Using S\&P 500 index Options}{59}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Data and Experimental Setting}{59}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Weekly and Monthly Hedging Comparisons}{62}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Feature Importance}{64}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Daily Hedging Comparison}{66}{subsection.5.1.3}%
-\contentsline {chapter}{\numberline {6}Data-Driven Sequential Learning for Total Hedging Risk}{69}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Market Data Augmentation}{70}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}No-Arbitrage Price Surface}{71}{subsection.6.1.1}%
-\contentsline {subsubsection}{\numberline {6.1.1.1}Arbitrage-Free Surface From SABR Model}{72}{subsubsection.6.1.1.1}%
-\contentsline {subsubsection}{\numberline {6.1.1.2}Alternative Methods to SABR Calibration}{77}{subsubsection.6.1.1.2}%
-\contentsline {subsubsection}{\numberline {6.1.1.3}dd-eSSVI Parameterization}{78}{subsubsection.6.1.1.3}%
-\contentsline {subsubsection}{\numberline {6.1.1.4}Volatility Interpolation Between Expiries}{79}{subsubsection.6.1.1.4}%
-\contentsline {subsection}{\numberline {6.1.2}Training and Testing Data Construction}{83}{subsection.6.1.2}%
-\contentsline {subsubsection}{\numberline {6.1.2.1}Construction of Training Scenarios}{84}{subsubsection.6.1.2.1}%
-\contentsline {subsubsection}{\numberline {6.1.2.2}Construction of the Testing Scenarios}{84}{subsubsection.6.1.2.2}%
-\contentsline {subsubsection}{\numberline {6.1.2.3}Construction of Training, Testing and Validation Data Sets}{90}{subsubsection.6.1.2.3}%
-\contentsline {section}{\numberline {6.2}Total Risk Hedging Model}{94}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}The Difference Between $\textsc {GRU}_\delta $ And $\textsc {GRU}_{\textsc {total}}$}{96}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Training Objective For $\textsc {GRU}_{\textsc {total}}$}{98}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Training Procedure For $\textsc {GRU}_{\textsc {total}}$}{99}{subsection.6.2.3}%
-\contentsline {section}{\numberline {6.3}Total Discrete Hedging Performance Comparison Using S\&P 500 index Options}{99}{section.6.3}%
+\contentsline {chapter}{\numberline {2}Option Hedging: From Past to Present}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Discrete Hedging Problem}{6}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Local Hedging Risk}{7}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Total Hedging Risk}{9}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Interest Rate and Dividend}{10}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.2}Option Pricing Model}{12}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Black-Scholes Model}{12}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Heston Model}{15}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}SABR Model}{17}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}Option Hedging Using the Sensitivity from Pricing Model}{19}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Classical Hedging Position from Pricing Model}{19}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Parameter Dependence on Underlying Asset Price}{21}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Corrections under the Black-Scholes Framework}{22}{subsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.3.1}A Data-Driven Correction for the Black–Scholes Delta Hedging}{22}{subsubsection.2.3.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.3.2}Correction With LVF Model For The Black–Scholes Delta Hedging}{24}{subsubsection.2.3.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3.3}Correction With SABR model for the the Black–Scholes Delta Hedging}{26}{subsubsection.2.3.3.3}%
+\contentsline {section}{\numberline {2.4}Motivation For Direct Nonparametric Data-Driven Hedging Models}{30}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Data-Driven Kernel Learning Framework for Local Hedging Risk}{32}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Regularized Kernel Pricing Model}{33}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Indirect Hedging Positions From Kernel Pricing Functions}{35}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Regularized Kernel Hedging Model}{36}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Comparison using synthetic data}{38}{section.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.0.1}Feature Set \#1:$ \{\textsc {moneyness} \tmspace +\thickmuskip {.2777em}(S_t/K),\tmspace +\thickmuskip {.2777em}\tmspace +\thickmuskip {.2777em}\textsc {time-to-expiry} \tmspace +\thickmuskip {.2777em}(T-t)\}$}{41}{subsubsection.3.3.0.1}%
+\contentsline {subsubsection}{\numberline {3.3.0.2}Feature Set \#2: $ \{\textsc {moneyness} \tmspace +\thickmuskip {.2777em}(S_t/K),\tmspace +\thickmuskip {.2777em}\tmspace +\thickmuskip {.2777em}\textsc {time-to-expiry} \tmspace +\thickmuskip {.2777em}(T-t) ,\tmspace +\thickmuskip {.2777em}\tmspace +\thickmuskip {.2777em}\nobreakspace {} \delta ^{BS}_{t,T,K}\}$}{42}{subsubsection.3.3.0.2}%
+\contentsline {section}{\numberline {3.4}Enhancement Over the Kernel Local Hedging Model}{44}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Data-Driven Sequential Learning Framework for Local Hedging Risk}{45}{chapter.4}%
+\contentsline {section}{\numberline {4.1} The Proposed $\textsc {GRU}_\delta $ for market data-driven hedging}{46}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Local Discrete Hedging GRU Model}{46}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Feature Selection via Embedded Feature Weighting}{47}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}GRU Encoder}{49}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Decoder}{49}{subsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.1.5}Robust Loss Function}{51}{subsection.4.1.5}%
+\contentsline {section}{\numberline {4.2}Training $\textsc {GRU}_\delta $}{52}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Initialization}{52}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Optimization}{52}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Pre-training and Regularization}{54}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Model Re-use and Re-initialization}{55}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}Alternative Data-Driven Hedging Models Under Neural Network Framework}{55}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Local Discrete Hedging Performance Comparison Using S\&P 500 index Options}{58}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Data and Experimental Setting}{58}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Weekly and Monthly Hedging Comparisons}{61}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Feature Importance}{63}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Daily Hedging Comparison}{65}{subsection.5.1.3}%
+\contentsline {chapter}{\numberline {6}Data-Driven Sequential Learning for Total Hedging Risk}{68}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Market Data Augmentation}{69}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}No-Arbitrage Price Surface}{70}{subsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.1.1}Arbitrage-Free Surface From SABR Model}{71}{subsubsection.6.1.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.1.2}Alternative Methods to SABR Calibration}{76}{subsubsection.6.1.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.1.3}dd-eSSVI Parameterization}{77}{subsubsection.6.1.1.3}%
+\contentsline {subsubsection}{\numberline {6.1.1.4}Volatility Interpolation Between Expiries}{78}{subsubsection.6.1.1.4}%
+\contentsline {subsection}{\numberline {6.1.2}Training and Testing Data Construction}{82}{subsection.6.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.2.1}Construction of Training Scenarios}{83}{subsubsection.6.1.2.1}%
+\contentsline {subsubsection}{\numberline {6.1.2.2}Construction of the Testing Scenarios}{83}{subsubsection.6.1.2.2}%
+\contentsline {subsubsection}{\numberline {6.1.2.3}Construction of Training, Testing and Validation Data Sets}{89}{subsubsection.6.1.2.3}%
+\contentsline {section}{\numberline {6.2}Total Risk Hedging Model}{93}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}The Difference Between $\textsc {GRU}_\delta $ And $\textsc {GRU}_{\textsc {total}}$}{95}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Training Objective For $\textsc {GRU}_{\textsc {total}}$}{97}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Training Procedure For $\textsc {GRU}_{\textsc {total}}$}{98}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Total Discrete Hedging Performance Comparison Using S\&P 500 index Options}{98}{section.6.3}%
 \contentsline {subsection}{\numberline {6.3.1}Data and Experimental Setting}{99}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Call Option Total Hedging Comparison}{100}{subsection.6.3.2}%
-\contentsline {subsubsection}{\numberline {6.3.2.1}Call Option Weekly Hedging Comparison}{101}{subsubsection.6.3.2.1}%
-\contentsline {subsubsection}{\numberline {6.3.2.2}Call Option Monthly Hedging Comparison}{103}{subsubsection.6.3.2.2}%
-\contentsline {subsection}{\numberline {6.3.3}Put Option Total Risk Hedging Comparison}{105}{subsection.6.3.3}%
-\contentsline {subsubsection}{\numberline {6.3.3.1}Put Option Weekly Hedging Comparison}{106}{subsubsection.6.3.3.1}%
-\contentsline {subsubsection}{\numberline {6.3.3.2}Put Option Monthly Hedging Comparison}{108}{subsubsection.6.3.3.2}%
-\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{110}{chapter.7}%
-\contentsline {chapter}{\textbf {References}}{113}{section*.8}%
-\contentsline {chapter}{\numberline {A}Cross Validation of Kernel Regularized Network}{127}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Fixing the Butterfly Arbitrage for SABR Model}{131}{appendix.B}%
-\contentsline {chapter}{\numberline {C}No-Arbitrage Properties of the Volatility Interpolation Algorithm}{136}{appendix.C}%
-\contentsline {chapter}{\numberline {D}Model Structure of $\textsc {GRU}_{\textsc {total}}$ and $\textsc {GRU}_{\textsc {total}}^{\textsc {local}}$}{141}{appendix.D}%
-\contentsline {section}{\numberline {D.1}Feature Selection via Embedded Feature Weighting}{141}{section.D.1}%
-\contentsline {section}{\numberline {D.2}GRU Encoder}{141}{section.D.2}%
-\contentsline {subsection}{\numberline {D.2.1}Decoder for $\textsc {GRU}_{\textsc {total}}$}{142}{subsection.D.2.1}%
-\contentsline {chapter}{\numberline {E}Comparison of $\textsc {GRU}_{\textsc {total}}$ and $\textsc {GRU}_{\textsc {total}}^{\textsc {local}}$}{143}{appendix.E}%
-\contentsline {subsection}{\numberline {E.0.1}Call Option Total Hedging Comparison}{143}{subsection.E.0.1}%
-\contentsline {subsubsection}{\numberline {E.0.1.1}Call Option Weekly Hedging Comparison}{144}{subsubsection.E.0.1.1}%
-\contentsline {subsubsection}{\numberline {E.0.1.2}Call Option Monthly Hedging Comparison}{145}{subsubsection.E.0.1.2}%
-\contentsline {subsection}{\numberline {E.0.2}Put Option Total Risk Hedging Comparison}{147}{subsection.E.0.2}%
-\contentsline {subsubsection}{\numberline {E.0.2.1}Put Option Weekly Hedging Comparison}{147}{subsubsection.E.0.2.1}%
-\contentsline {subsubsection}{\numberline {E.0.2.2}Put Option Monthly Hedging Comparison}{149}{subsubsection.E.0.2.2}%
+\contentsline {subsection}{\numberline {6.3.2}Call Option Total Hedging Comparison}{99}{subsection.6.3.2}%
+\contentsline {subsubsection}{\numberline {6.3.2.1}Call Option Weekly Hedging Comparison}{100}{subsubsection.6.3.2.1}%
+\contentsline {subsubsection}{\numberline {6.3.2.2}Call Option Monthly Hedging Comparison}{102}{subsubsection.6.3.2.2}%
+\contentsline {subsection}{\numberline {6.3.3}Put Option Total Risk Hedging Comparison}{104}{subsection.6.3.3}%
+\contentsline {subsubsection}{\numberline {6.3.3.1}Put Option Weekly Hedging Comparison}{105}{subsubsection.6.3.3.1}%
+\contentsline {subsubsection}{\numberline {6.3.3.2}Put Option Monthly Hedging Comparison}{107}{subsubsection.6.3.3.2}%
+\contentsline {subsection}{\numberline {6.3.4}Comparison to Local Risk Hedging Model}{107}{subsection.6.3.4}%
+\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{111}{chapter.7}%
+\contentsline {chapter}{\textbf {References}}{114}{section*.10}%
+\contentsline {chapter}{\numberline {A}Cross Validation of Kernel Regularized Network}{128}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Fixing the Butterfly Arbitrage for SABR Model}{132}{appendix.B}%
+\contentsline {chapter}{\numberline {C}No-Arbitrage Properties of the Volatility Interpolation Algorithm}{137}{appendix.C}%
+\contentsline {chapter}{\numberline {D}Model Structure of $\textsc {GRU}_{\textsc {total}}$ and $\textsc {GRU}_{\textsc {total}}^{\textsc {local}}$}{142}{appendix.D}%
+\contentsline {section}{\numberline {D.1}Feature Selection via Embedded Feature Weighting}{142}{section.D.1}%
+\contentsline {section}{\numberline {D.2}GRU Encoder}{142}{section.D.2}%
+\contentsline {section}{\numberline {D.3}Decoder for $\textsc {GRU}_{\textsc {total}}$}{143}{section.D.3}%
+\contentsline {chapter}{\numberline {E}Comparison of $\textsc {GRU}_{\textsc {total}}$ and $\textsc {GRU}_{\textsc {total}}^{\textsc {local}}$}{144}{appendix.E}%
+\contentsline {section}{\numberline {E.1}Call Option Total Hedging Comparison}{145}{section.E.1}%
+\contentsline {subsection}{\numberline {E.1.1}Call Option Weekly Hedging Comparison}{145}{subsection.E.1.1}%
+\contentsline {subsection}{\numberline {E.1.2}Call Option Monthly Hedging Comparison}{147}{subsection.E.1.2}%
+\contentsline {section}{\numberline {E.2}Put Option Total Risk Hedging Comparison}{148}{section.E.2}%
+\contentsline {subsection}{\numberline {E.2.1}Put Option Weekly Hedging Comparison}{148}{subsection.E.2.1}%
+\contentsline {subsection}{\numberline {E.2.2}Put Option Monthly Hedging Comparison}{150}{subsection.E.2.2}%
