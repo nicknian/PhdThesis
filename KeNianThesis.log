@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.5.4)  24 JAN 2023 16:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.5.4)  24 JAN 2023 22:05
 entering extended mode
 **./KeNianThesis.tex
 (KeNianThesis.tex
@@ -2577,19 +2577,19 @@ Overfull \hbox (22.00487pt too wide) in paragraph at lines 5469--5483
  [][] 
  []
 
-<./figures/WLocalVersusTotalCallNTM.pdf, id=3752, 409.71507pt x 275.02373pt>
+<./figures/WLocalVersusTotalCallNTM.pdf, id=3751, 409.71507pt x 275.02373pt>
 File: ./figures/WLocalVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/WLocalVersusTotalCallNTM.pdf>
 Package pdftex.def Info: ./figures/WLocalVersusTotalCallNTM.pdf  used on input 
 line 5488.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/WLocalVersusTotalCallITM.pdf, id=3753, 409.71507pt x 275.02373pt>
+<./figures/WLocalVersusTotalCallITM.pdf, id=3752, 409.71507pt x 275.02373pt>
 File: ./figures/WLocalVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/WLocalVersusTotalCallITM.pdf>
 Package pdftex.def Info: ./figures/WLocalVersusTotalCallITM.pdf  used on input 
 line 5490.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/WLocalVersusTotalCallOTM.pdf, id=3754, 399.48938pt x 275.02373pt>
+<./figures/WLocalVersusTotalCallOTM.pdf, id=3753, 399.48938pt x 275.02373pt>
 File: ./figures/WLocalVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/WLocalVersusTotalCallOTM.pdf>
 Package pdftex.def Info: ./figures/WLocalVersusTotalCallOTM.pdf  used on input 
@@ -2609,19 +2609,19 @@ Overfull \hbox (22.00487pt too wide) in paragraph at lines 5502--5516
  [][] 
  []
 
-<./figures/MLocalVersusTotalCallNTM.pdf, id=3885, 407.94221pt x 275.02373pt>
+<./figures/MLocalVersusTotalCallNTM.pdf, id=3884, 407.94221pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalCallNTM.pdf>
 Package pdftex.def Info: ./figures/MLocalVersusTotalCallNTM.pdf  used on input 
 line 5521.
 (pdftex.def)             Requested size: 147.43416pt x 99.39455pt.
-<./figures/MLocalVersusTotalCallITM.pdf, id=3886, 409.71507pt x 275.02373pt>
+<./figures/MLocalVersusTotalCallITM.pdf, id=3885, 409.71507pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalCallITM.pdf>
 Package pdftex.def Info: ./figures/MLocalVersusTotalCallITM.pdf  used on input 
 line 5523.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/MLocalVersusTotalCallOTM.pdf, id=3887, 399.48938pt x 275.02373pt>
+<./figures/MLocalVersusTotalCallOTM.pdf, id=3886, 399.48938pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalCallOTM.pdf>
 Package pdftex.def Info: ./figures/MLocalVersusTotalCallOTM.pdf  used on input 
@@ -2641,19 +2641,19 @@ Overfull \hbox (22.00487pt too wide) in paragraph at lines 5548--5568
  [][] 
  []
 
-<./figures/LocalVersusTotalNTM.pdf, id=4014, 409.71507pt x 275.02373pt>
+<./figures/LocalVersusTotalNTM.pdf, id=4013, 409.71507pt x 275.02373pt>
 File: ./figures/LocalVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/LocalVersusTotalNTM.pdf>
 Package pdftex.def Info: ./figures/LocalVersusTotalNTM.pdf  used on input line 
 5574.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/LocalVersusTotalITM.pdf, id=4015, 399.48938pt x 275.02373pt>
+<./figures/LocalVersusTotalITM.pdf, id=4014, 399.48938pt x 275.02373pt>
 File: ./figures/LocalVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/LocalVersusTotalITM.pdf>
 Package pdftex.def Info: ./figures/LocalVersusTotalITM.pdf  used on input line 
 5576.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
-<./figures/LocalVersusTotalOTM.pdf, id=4016, 411.25832pt x 275.02373pt>
+<./figures/LocalVersusTotalOTM.pdf, id=4015, 411.25832pt x 275.02373pt>
 File: ./figures/LocalVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/LocalVersusTotalOTM.pdf>
 Package pdftex.def Info: ./figures/LocalVersusTotalOTM.pdf  used on input line 
@@ -2673,19 +2673,19 @@ Overfull \hbox (22.00487pt too wide) in paragraph at lines 5589--5603
  [][] 
  []
 
-<./figures/MLocalVersusTotalNTM.pdf, id=4148, 409.71507pt x 275.02373pt>
+<./figures/MLocalVersusTotalNTM.pdf, id=4147, 409.71507pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalNTM.pdf>
 Package pdftex.def Info: ./figures/MLocalVersusTotalNTM.pdf  used on input line
  5609.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/MLocalVersusTotalITM.pdf, id=4149, 399.48938pt x 275.02373pt>
+<./figures/MLocalVersusTotalITM.pdf, id=4148, 399.48938pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalITM.pdf>
 Package pdftex.def Info: ./figures/MLocalVersusTotalITM.pdf  used on input line
  5611.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
-<./figures/MLocalVersusTotalOTM.pdf, id=4150, 409.71507pt x 275.02373pt>
+<./figures/MLocalVersusTotalOTM.pdf, id=4149, 409.71507pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalOTM.pdf>
 Package pdftex.def Info: ./figures/MLocalVersusTotalOTM.pdf  used on input line
@@ -2786,9 +2786,9 @@ type1/urw/symbol/usyr.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fon
 ts/type1/urw/times/utmb8a.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9
 /fonts/type1/urw/times/utmr8a.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX
  2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on KeNianThesis.pdf (167 pages, 2666269 bytes).
+Output written on KeNianThesis.pdf (167 pages, 2665823 bytes).
 PDF statistics:
- 4501 PDF objects out of 5155 (max. 8388607)
+ 4500 PDF objects out of 5155 (max. 8388607)
  900 named destinations out of 1000 (max. 500000)
  839 words of extra memory for PDF output out of 10000 (max. 10000000)
 
