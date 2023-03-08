@@ -1,0 +1,76 @@
+\BOOKMARK [0][-]{section*.2}{List of Tables}{}% 1
+\BOOKMARK [0][-]{section*.4}{List of Figures}{}% 2
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 3
+\BOOKMARK [1][-]{section.1.1}{Contribution}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.2}{Outline}{chapter.1}% 5
+\BOOKMARK [0][-]{chapter.2}{Option Hedging: From Past to Present}{}% 6
+\BOOKMARK [1][-]{section.2.1}{Discrete Hedging Problem}{chapter.2}% 7
+\BOOKMARK [2][-]{subsection.2.1.1}{Local Hedging Risk}{section.2.1}% 8
+\BOOKMARK [2][-]{subsection.2.1.2}{Total Hedging Risk}{section.2.1}% 9
+\BOOKMARK [2][-]{subsection.2.1.3}{Interest Rate and Dividend}{section.2.1}% 10
+\BOOKMARK [1][-]{section.2.2}{Option Pricing Model}{chapter.2}% 11
+\BOOKMARK [2][-]{subsection.2.2.1}{Black-Scholes Model}{section.2.2}% 12
+\BOOKMARK [2][-]{subsection.2.2.2}{Heston Model}{section.2.2}% 13
+\BOOKMARK [2][-]{subsection.2.2.3}{SABR Model}{section.2.2}% 14
+\BOOKMARK [1][-]{section.2.3}{Option Hedging Using the Sensitivity from Pricing Model}{chapter.2}% 15
+\BOOKMARK [2][-]{subsection.2.3.1}{Classical Hedging Position from Pricing Model}{section.2.3}% 16
+\BOOKMARK [2][-]{subsection.2.3.2}{Parameter Dependence on Underlying Asset Price}{section.2.3}% 17
+\BOOKMARK [2][-]{subsection.2.3.3}{Corrections under the Black-Scholes Framework}{section.2.3}% 18
+\BOOKMARK [1][-]{section.2.4}{Motivation For Direct Nonparametric Data-Driven Hedging Models}{chapter.2}% 19
+\BOOKMARK [0][-]{chapter.3}{Data-Driven Kernel Learning Framework for Local Hedging Risk}{}% 20
+\BOOKMARK [1][-]{section.3.1}{Regularized Kernel Pricing Model}{chapter.3}% 21
+\BOOKMARK [2][-]{subsection.3.1.1}{Indirect Hedging Positions From Kernel Pricing Functions}{section.3.1}% 22
+\BOOKMARK [1][-]{section.3.2}{Regularized Kernel Hedging Model}{chapter.3}% 23
+\BOOKMARK [1][-]{section.3.3}{Comparison using synthetic data}{chapter.3}% 24
+\BOOKMARK [1][-]{section.3.4}{Enhancement Over the Kernel Local Hedging Model}{chapter.3}% 25
+\BOOKMARK [0][-]{chapter.4}{Data-Driven Sequential Learning Framework for Local Hedging Risk}{}% 26
+\BOOKMARK [1][-]{section.4.1}{ The Proposed GRU for market data-driven hedging}{chapter.4}% 27
+\BOOKMARK [2][-]{subsection.4.1.1}{Local Discrete Hedging GRU Model}{section.4.1}% 28
+\BOOKMARK [2][-]{subsection.4.1.2}{Feature Selection via Embedded Feature Weighting}{section.4.1}% 29
+\BOOKMARK [2][-]{subsection.4.1.3}{GRU Encoder}{section.4.1}% 30
+\BOOKMARK [2][-]{subsection.4.1.4}{Decoder}{section.4.1}% 31
+\BOOKMARK [2][-]{subsection.4.1.5}{Robust Loss Function}{section.4.1}% 32
+\BOOKMARK [1][-]{section.4.2}{Training GRU}{chapter.4}% 33
+\BOOKMARK [2][-]{subsection.4.2.1}{Initialization}{section.4.2}% 34
+\BOOKMARK [2][-]{subsection.4.2.2}{Optimization}{section.4.2}% 35
+\BOOKMARK [2][-]{subsection.4.2.3}{Pre-training and Regularization}{section.4.2}% 36
+\BOOKMARK [2][-]{subsection.4.2.4}{Model Re-use and Re-initialization}{section.4.2}% 37
+\BOOKMARK [1][-]{section.4.3}{Alternative Data-Driven Hedging Models Under Neural Network Framework}{chapter.4}% 38
+\BOOKMARK [0][-]{chapter.5}{Local Discrete Hedging Performance Comparison Using S\046P 500 index Options}{}% 39
+\BOOKMARK [1][-]{section.5.1}{Data and Experimental Setting}{chapter.5}% 40
+\BOOKMARK [2][-]{subsection.5.1.1}{Weekly and Monthly Hedging Comparisons}{section.5.1}% 41
+\BOOKMARK [2][-]{subsection.5.1.2}{Feature Importance}{section.5.1}% 42
+\BOOKMARK [2][-]{subsection.5.1.3}{Daily Hedging Comparison}{section.5.1}% 43
+\BOOKMARK [0][-]{chapter.6}{Data-Driven Sequential Learning for Total Hedging Risk}{}% 44
+\BOOKMARK [1][-]{section.6.1}{Total Risk Hedging Model}{chapter.6}% 45
+\BOOKMARK [2][-]{subsection.6.1.1}{Difference Between GRU And GRUtotal}{section.6.1}% 46
+\BOOKMARK [2][-]{subsection.6.1.2}{Training Objective For GRUtotal}{section.6.1}% 47
+\BOOKMARK [2][-]{subsection.6.1.3}{Market Data Augmentation}{section.6.1}% 48
+\BOOKMARK [2][-]{subsection.6.1.4}{Training and Testing Data Construction}{section.6.1}% 49
+\BOOKMARK [2][-]{subsection.6.1.5}{Training Procedure For GRUtotal}{section.6.1}% 50
+\BOOKMARK [1][-]{section.6.2}{Total Discrete Hedging Performance Comparison Using S\046P 500 index Options}{chapter.6}% 51
+\BOOKMARK [2][-]{subsection.6.2.1}{Data and Experimental Setting}{section.6.2}% 52
+\BOOKMARK [2][-]{subsection.6.2.2}{Call Option Total Hedging Comparison}{section.6.2}% 53
+\BOOKMARK [2][-]{subsection.6.2.3}{Put Option Total Risk Hedging Comparison}{section.6.2}% 54
+\BOOKMARK [2][-]{subsection.6.2.4}{Comparison to Local Risk Hedging Model}{section.6.2}% 55
+\BOOKMARK [0][-]{chapter.7}{Conclusion and Future Work}{}% 56
+\BOOKMARK [0][-]{section*.10}{References}{}% 57
+\BOOKMARK [0][-]{appendix.A}{Cross Validation of Kernel Regularized Network}{}% 58
+\BOOKMARK [0][-]{appendix.B}{No-Arbitrage Price Surface}{}% 59
+\BOOKMARK [1][-]{section.B.1}{Arbitrage-Free Surface From SABR Model}{appendix.B}% 60
+\BOOKMARK [2][-]{subsection.B.1.1}{Alternative Methods to SABR Calibration}{section.B.1}% 61
+\BOOKMARK [1][-]{section.B.2}{Volatility Interpolation Between Expiries}{appendix.B}% 62
+\BOOKMARK [0][-]{appendix.C}{Construction of Training, Testing and Validation Data Sets For GRUtotal}{}% 63
+\BOOKMARK [0][-]{appendix.D}{Fixing the Butterfly Arbitrage for SABR Model}{}% 64
+\BOOKMARK [0][-]{appendix.E}{No-Arbitrage Properties of the Volatility Interpolation Algorithm}{}% 65
+\BOOKMARK [0][-]{appendix.F}{Model Structure of GRUtotal and GRUtotallocal}{}% 66
+\BOOKMARK [1][-]{section.F.1}{Feature Selection via Embedded Feature Weighting}{appendix.F}% 67
+\BOOKMARK [1][-]{section.F.2}{GRU Encoder}{appendix.F}% 68
+\BOOKMARK [1][-]{section.F.3}{Decoder for GRUtotal}{appendix.F}% 69
+\BOOKMARK [0][-]{appendix.G}{Comparison of GRUtotal and GRUtotallocal}{}% 70
+\BOOKMARK [1][-]{section.G.1}{Call Option Total Hedging Comparison}{appendix.G}% 71
+\BOOKMARK [2][-]{subsection.G.1.1}{Call Option Weekly Hedging Comparison}{section.G.1}% 72
+\BOOKMARK [2][-]{subsection.G.1.2}{Call Option Monthly Hedging Comparison}{section.G.1}% 73
+\BOOKMARK [1][-]{section.G.2}{Put Option Total Risk Hedging Comparison}{appendix.G}% 74
+\BOOKMARK [2][-]{subsection.G.2.1}{Put Option Weekly Hedging Comparison}{section.G.2}% 75
+\BOOKMARK [2][-]{subsection.G.2.2}{Put Option Monthly Hedging Comparison}{section.G.2}% 76

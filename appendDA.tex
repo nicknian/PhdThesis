@@ -1,0 +1,1077 @@
+
+
+
+\section{No-Arbitrage Price Surface}
+\label{sec:NoArb}
+In this section, we describe how to calibrate an arbitrage-free price surface on each business day from the market option prices. We want to create a parametrization of the price surface that is \textbf{arbitrage-free}.  We use use SABR model to match the market volatility smiles and we use an arbitrage-free interpolation based on Local Volatility Function (LVF) model to interpolate the SABR model value between expiries.
+
+In this thesis, we choose the SABR model over LVF models in matching market smiles and computing the value of options with the strikes unobserved in the market. This is because  LVF models that were initially proposed by \citet{dupire1994pricing}, \citet{DermanKani94} and \citet{rubinstein1994implied} and put into highly efficient pricing engines by \citet{Andersenl98} and \citet{dempster2000pricing} amongst others, heavily rely on an arbitrage-free  BS implied volatility surface as the input.  If there are arbitrage violations, the convergence of the algorithm solving the underlying generalized Black Scholes partial differential equation will be obstructed \cite{fengler2009arbitrage}. Unfortunately, an arbitrage-free BS implied volatility surface as the input is not guranteed in practice. For instance, we in this thesis observe market bid and ask quotes of European options. The mid prices are  used in calibrating pricing functions.  The input of BS implied volatilities from mid prices are not guaranteed to be arbitrage-free. Therefore, we need to remove the arbitrage of the BS implied volatilities in the input data either manually or use arbitrage-free smoonthing algorithm as in \cite{fengler2009arbitrage} before using it as the input in LVF pricing. Another problem as indicated by \citet{hagan2002managing} is that the dynamics of the market smile predicted by LVF is opposite to the market behavior. The contradiction between model and market lead to unstable sensitivities (delta, vega) computation. Hedging using the delta from LVF may perform worse than hedging using BS implied delta \cite{hagan2002managing}. \footnote{Note that we also use SABR-Bartlett delta as the comparing hedging method, we will need to calibrate the SABR model for each expiry anyway.}
+
+Surface calibration models based on LVF that do not reply on  the assumption that the input BS implied volatility surface is arbitrage-free exists. For example, volatility interpolation algorithm from \citet{andreasen2010volatility} can create an arbitrage-free surface without assuming the  input is arbitrage-free. However, the resulting model cannot interpolate and extrapolate in strikes as we will discuss in more details in later section.  Therefore, in this thesis, we only use the volatility interpolation algorithm \cite{andreasen2010volatility} to interpolate the model value from SABR between market available expiries.
+
+% In addition, we want to be able to \textbf{extrapolate} for  in-money options and out-of-money options.
+%  In the following subsection, we will discuss the steps of calibration of the arbitrage-free surface with.
+
+\subsubsection{Arbitrage-Free Surface From SABR Model}
+In this section, we discuss how to use SABR model to create an arbitrage-free surface calibrated to match market available prices. Although SABR model is computationally efficient and can match the market volatility smile well, it is not arbitrage-free. The formula \eqref{eq:SABRExpansion} is an approximation, obtained from  an asymptotic series expansion. Its accuracy degrades if the option strikes move away from the option at-the-money (ATM) strike. Therefore, we also discuss how to fix the arbitrage issue of SABR.
+
+
+Following \cite{gatheral2014arbitrage}, we  check whether  an implied volatility surface is free of \textit{calendar arbitrage}, and \textit{butterfly arbitrage}, which we describe below. Assume that we have a collection of European call option prices $\{C(T,K)\}_{T,K}$ for a range of strikes, $K$, and expiries, $T$, with the Black-Scholes implied volatility surface $\{ \sigma^{imp}(T,K)\}_{T,K}$. We also suppose that interest rates are deterministic with $D(t,T)=e^{-r(T-t)}$ for the discount factor, where $t$ is trading date and $T$ is the maturity date.
+
+
+\begin{enumerate}
+\item  \label{item:butterfly}\underline{Butterfly Arbitrage}: At time $t$, given a collection of call option prices $\{C(T,K)\}_{T,K}$, using Dupire's method \cite{dupire1994pricing}, one can write the option value with  an implied probability density $ p(\cdot;T,S_t) $ such that 
+\[
+C(T,K) = D(t,T) \int_{(0,\infty)} (S - K)_+ p(S;T,S_t) dS.
+\]
+We say that the surface $\{ \sigma^{imp}(T,K) \}_{T,K}$, where $\sigma^{imp}(T,K)$ is the Black-Scholes implied volatility, is free of Butterfly Arbitrage if its implied probability density $p(\cdot ; T,S_t)$ is a valid density, i.e., $p(S;T,S_t) \geq 0$ for all $S > 0$ and $\int_{0}^{\infty} p(S;T,S_t) dS = 1$. 
+Additionally, the condition $p(S;T,S_t) \geq 0$ for all $S > 0$ is equivalent to require $\frac{\partial^2 C(T,K)}{\partial K^2} \geq 0$ for all $K > 0$ since 
+\citet{breeden1978prices} show that:
+\[
+	\left. \frac{\partial^2 C(T,K)}{\partial K^2} \right\vert_{K=x}=D(t,T)	p(x;T,S_t)
+\]
+
+
+%With this definition of $w$, we may now express $p(k;T)$ as
+% \[
+% p(k;T) =  \frac{g(k;T)}{ 2 \pi w(k;T) } \exp{ \left( \frac{-d_{-}(k;T)^2 }{2} \right)  }
+% \]
+% where 
+% \begin{equation}
+% g(k;T_i) := \left(1 - \frac{k \partial_k w(k;T)}{2 w(k;T_i)} \right)^2 - \frac{ \left( \partial_kw(k;T_i)\right)^2}{4}\left( \frac{1}{w(k;T)} + \frac{1}{4}  \right) + \frac{\partial_{kk}w(k;T_i)}{2} 
+% \label{eqn:gfun}
+% \end{equation}
+% and $d_{\pm}(k)$ is as in the Black-Scholes formula. To classify butterfly arbitrage based on the TV surface, there is no butterfly arbitrage when
+% \begin{enumerate}
+% \item 
+%  $g(k) > 0$ for all $k \in \mathbb{R}$ and 
+% \item  
+%  $\lim_{k \to \infty}d_+(k) = -\infty$,
+% \end{enumerate}
+% the above listed conditions being the natural analogue of the density being non-negative and integrating to 1. 
+\item \label{item:calendar} \underline{Calendar Arbitrage}:
+ Given a surface $\sigma^{imp}(T,K)$, we consider, at the time $t$, the corresponding total variance (TV) surface defined by 
+ \[
+ w(\tau,k) = \sigma^{imp}(T,K)^2 \tau
+ \]
+ where $\tau =T-t$ and $k$ is parameterized by log-moneyness, i.e. $k := \log(K/F(t;T))$, and $F(t;T)=S_te^{(r-q)(T-t)}$ is the at-the-money forward (ATMF) price for $S_t$. Let $t=T_0 < T_1 < \dots< T_{M} $ be a set of expiries. We say that the surface $\{ \sigma^{imp}(T,K) \}_{T,K}$ is free of Calendar Arbitrage 
+\begin{itemize}
+\item if $\frac{\partial w(\tau,k)}{\partial T} \geq 0 $ for all $k \in \mathbb{R}, T > 0$ for continuous time data
+\item if $w(\tau_i,k) \leq w(\tau_{i+1},k)$ for all $k \in \mathbb{R},  T_{i} < T_{i+1}$ for discrete time data 
+\end{itemize}
+
+% \item \underline{Call Spread Arbitrage}: We say that the surface $\{ \sigma(K_i,T_j) \}_{K,T}$ is free of Call Arbitrage 
+% \begin{itemize}
+% \item if we have $-1 \leq \frac{\partial C(T,K)}{ \partial K} \leq 0$
+% \end{itemize}
+
+\end{enumerate}
+
+Furthermore,  given a  grid of strikes: $0=K_0<K_1<\dots<K_{N}$, and a grid of expiries $t=T_0 < T_1 < \dots< T_{M} $.   The corresponding discrete criteria \cite{carr2005note} for a grid of  option prices to be free of arbitrage are set as the following with $j=1,\dots,N-1$: 
+\begin{enumerate}
+	\item  No butterfly spread arbitrage condition:
+	 \begin{equation}
+	C(T_{j},K_{i-1})-C(T_{j},K_{i}) > \frac{K_i-K_{i-1}}{K_{i+1}-K_{i}}
+	\left( C(T_{j},K_{i})-C(T_{j},K_{i+1})  \right)
+	\label{eq:DiscreteCond1}
+\end{equation}
+	\item  No calendar spread arbitrage:
+	\begin{equation}
+	C(T_{j},K_{i})\geq C(T_{j-1},K_{i})
+	\label{eq:DiscreteCond2}
+\end{equation}
+
+	% \item No call spread arbitrage condition:
+	% \[
+	% 0 \leq \frac{C(T_{j},K_{i-1})-C(T_{j},K_{i})}{K_i-K_{i-1}} \leq 1
+	% \]
+\end{enumerate}
+
+
+
+In this thesis, we will use SABR model to obtain the option price for an strike $K$ unobserved in the market when $T$ is an expiry listed in the exchange.
+% On each business day $t$, we have observed option quotes for a set of market observed expiries. We denote the market available expiries as.
+% \[
+% \mathbf{T}^{mkt}_t=\{ T^{t}_{0}<
+% T^{t}_1 < \dots< T^{t}_{max}
+% \}
+% \]
+% We use the superscript and subscript $t$ to indicate that above expiries are the expiries on trading date $t$ for which we have some observations of market quotes and prices.
+
+
+% Since in this subsection, we are discussing how to obtain a arbitrage-free surface on a fixed date $t$, for the notational simplicity, we will omit the superscript  and subscript $t$ in this subsection, 
+We denote the grid of market observed expiries on a business date $t$ to be \[
+\mathbf{T}^{mkt}_t=\{ T_{0}<
+T_1 < \dots< T_{M}
+\}
+\]
+We set the first expiry be $t$: $T_{0}=t$. Note that for the first expiry $T_{0}=t$, the market option value at $t$ is just the option payoff at $t$ which is $\max\{S_t-K,0\}$ (call) or  $\max\{K-S_t,0\}$ (put).  For an  expiry $T_i$, let us further define:
+\[\mathbf{K}^{mkt}(t,T)=
+\{
+	K^{mkt}_{t,T,1},\dots,K^{mkt}_{t,T,N_K}
+\}
+\] to be the grid of strikes $K$ observed in market on date $t$  for which we have market option value for the expiry $T$
+
+% We firstly use SABR model to obtain option price for a predetermined grid of strike $0=K_0<K_1<\dots<K_{max}$ 
+% to be the strikes for which market option price is available for $T_i$.
+To calibrate an option value function with the market prices under SABR model, given $T_i$  and fix $\beta=1$, we solve
+\[
+\min_{\alpha,\nu,\rho} \sum_{K \in \mathbf{K}^{mkt}(t,T_i) }^{} \left(V_{SABR}(S_t,t,T_i,K,r,q;\alpha,\beta,\nu,\rho)-\Vmkt_{t,T_i,K}\right)^2
+\]
+where $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ is option pricing function described in section \ref{sec:SABR} with the approximation formula \eqref{eq:SABRExpansion}.  \citet{hagan2002managing} suggest that $\beta$ can be chosen from prior beliefs about which assumption on the distribution of $S_T$  is appropriate (e.g., $\beta=0$ implies a normal distribution of $S_T$ conditioned on a realization of the volatility while $\beta=1$ implies a lognormal distribution of $S_T$ conditioned on a realization of the volatility).   In this thesis, we fix $\beta=1$ in the calibration process since we are dealing equity options. If we are dealing with interest rate derivatives, setting $\beta=0$ or $\beta=0.5$ may be more appropriate. In practice, the choice of $\beta$ has little effect on the resulting shape of the volatility curve produced by the SABR model. \citet{hagan2002managing} suggest that the choice of $\beta$ is not crucial in matching the market volatility smile. Furthermore, \citet{bartlett2006hedging}  suggests that the choice of $\beta$ is also not crucial when we use the bartlett delta as in equation \eqref{eq:bartlett} as the delta position from SABR model.
+
+We choose to calibrate a different pricing function model for each expiry. A different set of parameters is specified for each expiry, describing an instantaneous process.  We choose this approach because the single implied volatility surface calibrated for all expiries and strikes is unlikely to fit the actual surface very well. In addition,  calibrating a single surface is harder and more time-consuming. 
+
+Note that we have three parameters to be calibrated so we need to observe at least 3 data points from market to successfully build a SABR model. Therefore, the number of strikes $N_K$ is expected be larger than or equal to 3. \footnote{The $\Vmkt_{t,T,K}$ is the mid-price of market observed best bid and  best ask prices.}
+
+Due to the fact that equation \eqref{eq:SABRExpansion} being an appproximation, the implied probability density function:
+\begin{equation}
+	\frac{1}{D(t,T)} \left. \frac{\partial^2 C_{SABR}(T,K)}{\partial K^2} \right\vert_{K=x}=	p(x;T,S_t) 
+	\label{eq:impliedDensity}
+\end{equation}
+where $C_{SABR}(T,K)$ is the SABR pricing function of a call option at strike $K$ and expiry $T$ computed using the equation \eqref{eq:SABRExpansion}, may become negative at very low or very high strikes. Therefore, we may observe butterfly spread arbitrage in SABR prices returned by the calibrated models. In addition, for each expiry, a separate set of SABR parameters is calibrated so that calender spread arbitrage can also exist. However, the existence of calendar arbitrage will be rare since the market option prices rarely contains calendar arbitrage and therefore the SABR model, which usually matches the  market option data very well, rarely produces calendar arbitrage.
+
+
+Given a grid of strikes $K$ for which we aim to use SABR model to produce the option prices, if we found that the grid of prices returned by the SABR model has failed the  \textbf{discrete} arbitrage conditions for butterfly arbitrage \eqref{eq:DiscreteCond1}, we will introduce some adjustments. To fix the butterfly spread  arbitrage, we implements a risk-neutral adjustment. This adjustment substitutes the two implied distribution tails by those of certain log-normal distributions. The following  adjustment is inspired by \cite{brunner2003arbitrage}. Interested reader can refer to \cite{brunner2003arbitrage} for more details. Here we just briefly discuss the process of the adjustment.
+
+
+
+Firstly, we introduce lower and upper strike limits, $K_{L}$ and $K_{U}$ within which the implicit probability density function (p.d.f) $p(x;T,S_t)$ from SABR model is assumed to be valid. The lower and upper strike limit can be the maximum and minimum strike $K$ for which the  discrete no butterfly spread arbitrage condition \eqref{eq:DiscreteCond1} holds. \citet{brunner2003arbitrage}  set the tail distributions as the mixture of two lognormal distributions:
+\begin{equation}
+\hat{g}(x)=\left\{ \begin{array}{ll }
+\lambda_{L} \;  q(x;\mu^1_{L},\sigma^1_{L})+(1-\lambda_{L}) \;  q(x;\mu^2_{L},\sigma^2_{L}), \;&  \text{if} \; 0<x< K_{L}\\
+p(x;T,S_t) , \;&  \text{if} \; \;  K_{L} \leq x \leq K_{U}\\
+\lambda_{U} \;  q(x;\mu^1_{U},\sigma^1_{U})+(1-\lambda_{U}) \;  q(x;\mu^2_{U},\sigma^2_{U}), \;& \text{if} \; x> K_{U}
+\end{array} \right.
+\label{eq:oriFix}
+\end{equation}
+where  $q(x;\mu,\sigma)$ is the p.d.f of a  log-normal distribution:
+\[
+	q(x;\mu,\sigma)=\frac{1}{x\sigma \sqrt{2 \pi}}
+	e^{-\frac{(\ln(x)-\mu)^2}{2 \sigma^2}}.
+\]
+and $p(x;T,S_t)$ is the implied probability density from the calibrated SABR model.  Here, the parameters to be determined are:\[
+	\{\lambda_{L}, \mu^1_{L},\sigma^1_{L},\mu^2_{L},\sigma^2_{L},
+\lambda_{U}, \mu^1_{U},\sigma^1_{U},\mu^2_{U},\sigma^2_{U}	\}.
+\]
+In this thesis, we assume the adjusted p.d.f is of the following simplified form:
+\begin{equation}
+\hat{g}(x)=\left\{ \begin{array}{ll }
+\lambda_{L} \;  q(x;\mu_{L},\sigma_{L}), \;&  \text{if} \; 0<x< K_{L}\\
+p(x;T,S_t) , \;&  \text{if} \; \;  K_{L} \leq x \leq K_{U}\\
+\lambda_{U} \;  q(x;\mu_{U},\sigma_{U}), \;& \text{if} \; x> K_{U}
+\end{array} \right.
+\label{eq:OurFix}
+\end{equation}
+We assume that the underlying price at expiry at $T$: $S_T$ is distributed according the adjusted p.d.f $\hat{g}(x)$.
+We choose the equation \eqref{eq:OurFix} becasue it has a simpler solution than the equation \eqref{eq:oriFix}, for which we need to solve an overdetermined non-linear system.
+
+We require the following condition to be satisfied:
+\begin{enumerate}
+\item Intergrability constraint
+\begin{equation}
+\int_{0}^{K_{L}}	\lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx+
+\int_{K_{L}}^{K_{U}}	  p(x;T,S_t)  dx+
+\int_{K_{U}}^{\infty}	 \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=1 
+\label{eq:RND1}
+\end{equation}
+\item Martingale  constraint
+\begin{equation}
+\int_{0}^{K_{L}}	 x \lambda_{L}   q(x;\mu_{L},\sigma_{L}) dx+
+\int_{K_{L}}^{K_{U}}	  x p(x;T,S_t)  dx+
+\int_{K_{U}}^{\infty}	 x \lambda_{U} \;  q(x;\mu_{U},\sigma_{U}) dx=F(t,T)
+\label{eq:RND2}
+\end{equation}
+The intergrability constraint ensures that $\hat{g}(x)$ is a valid p.d.f. The martingale  constraint ensures that $E[S_T]=F(t,T)=S_{t}e^{(r-q)(T-t)}$ under ther adjusted p.d.f.
+
+
+% \item Continuity of density function constraint:
+% \begin{equation}
+% \lambda_{L} q(K_{L};\mu_{L},\sigma_{L})=p(K_{L};T,S_t)
+% \label{eq:RND3}
+% \end{equation}
+% \begin{equation}
+% \lambda_{U} q(K_{U};\mu_{U},\sigma_{U})=p(K_{U};T,
+% S_t)
+% \label{eq:RND4}
+% \end{equation}
+\end{enumerate}
+Since they are six  unknown parameters $\{\mu_{L}, \mu_{U},\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$, additional calibration conditions are imposed. Observing that the Black-Scholes \cite{black1973pricing} model implies that, under the risk neutral measurement, the prices of the underlying asset $S_T$ at the maturity $T$ are log-normal distribued:
+ \[
+ \ln(S_T) \sim  \mathcal{N}(\ln(S_t)+(r-q-\frac{\sigma^2}{2})(T-t),\sigma^2 (T-t))
+ \]
+we set $\mu_L=\ln(S_t)+(r-q-\frac{\sigma_L^2}{2})(T-t)$ and $\mu_U=\ln(S_t)+(r-q-\frac{\sigma_U^2}{2})(T-t)$ such that we have only four parameters to be solved: $\{\sigma_{L},\sigma_{U}, \lambda_{L}, \lambda_{U}\}$. Furthermore, with $\mu_L=\ln(S_t)+(r-q-\frac{\sigma_L^2}{2})(T-t)$ and $\mu_U=\ln(S_t)+(r-q-\frac{\sigma_U^2}{2})(T-t)$, one can easily verify that if we have $\{\sigma_{L}=\sigma_{B}(K_L),\sigma_{U}=\sigma_{B}(K_U), \lambda_{L}=1, \lambda_{U}=1\}$, intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2} will be  satisified.  
+
+
+We use the adjusted p.d.f \eqref{eq:OurFix} for option pricing
+\begin{equation}
+	C_{\hat{g}(x)}(T,K)=D(t,T)\int_{-\infty}^{\infty} (x-K)_+ \hat{g}(x) dx
+	\label{eq:SABRFix3}
+\end{equation}
+For simplicity, we write $\sigma_{B}(K)$ to denote the implied Black's volatility given by the SABR formula \eqref{eq:SABRExpansion} for a strike $K$ since the other inputs in  $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$  as in formula \eqref{eq:SABRExpansion} remain unchanged in the following discussion for an expiry $T$ at a time $t$.
+
+
+By setting: 
+\begin{equation}
+\begin{split}
+	\sigma_{L}&=\sigma_{B}(K_L)\;,\;\sigma_{U}=\sigma_{B}(K_U)\\
+	\lambda_{L}&=1 \;,\;\lambda_{U}=1\\
+	\mu_L&=\ln(S_t)+(r-q-\frac{\sigma_{B}(K_L)^2}{2})(T-t)\\ 
+	\mu_U&=\ln(S_t)+(r-q-\frac{\sigma_{B}(K_U)^2}{2})(T-t)
+\end{split}
+\label{eq:SolSABRFix}
+\end{equation}
+we can easily verify that \eqref{eq:SABRFix3} can be written as:
+\[\small
+	\overline{C}_{SABR}(T,K) \leftarrow C_{\hat{g}(x)}(T,K)=\left\{ \begin{array}{ll }
+		 C_{BS}(T,K;\sigma_{B}(K_L))\;&  \text{if} \; 0<K< K_{L}\\
+
+		C_{SABR}(T,K)\;&  \text{if} \; \;  K_{L} \leq K \leq K_{U}\\
+
+		C_{BS}(T,K;\sigma_{B}(K_U)) \; &  \text{if} \; \;  K> K_{U}
+\end{array} \right.
+ \]
+Here we use the $\overline{C}_{SABR}(T,K)$ to indicate it is the SABR model value after the  fix for the butterfly arbitrage.  Since the adjusted p.d.f \eqref{eq:OurFix} with the setting \eqref{eq:SolSABRFix} satisfies intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2} and will not be negative at tails of the distribution because that the two tails are from two log-normal distribuions, we can conclude that the adjusted $\overline{C}_{SABR}(T,K)$ will be free of butterfly arbitrage. In appendix \ref{App:SABR Proof}, we show in details that the adjusted p.d.f \eqref{eq:OurFix} with the parameters  setting as in equations \eqref{eq:SolSABRFix} will satisfy the intergrability constraint \eqref{eq:RND1} and martingale  constraint \eqref{eq:RND2}.
+
+For calendar arbitrage, we will shift the price by the the following procedure to remove it. Suppose we have a grid of $\mathbf{K}_{grid}=\{K_0,K_1,\dots,K_{N}\}$ and  a grid of expiries $t=T_0 < T_1 < \dots< T_{M}$. Then for each expiry  $T_j,i=1,\dots,M$, we have:
+\[
+shift_{T_j}=-min\left\{min_{K \in \mathbf{K}_{grid}}\left[\overline{C}_{SABR}(T_j,K)-\overline{C}_{SABR}(T_{j-1},K)\right],0\right\}.	
+\]
+\[
+	\widetilde {C_{SABR}}(T_j,K) \leftarrow \overline{C}_{SABR}(T_j,K)+shift_{T_j}
+\]
+ Note the shift will be zero if no calendar arbitrage is observed between $T_{j}$ and $T_{j-1}$. Note that the constant shift will preserve the no butterfly arbitrage condition from $\overline{C}_{SABR}(T,K)$, one can easily see this by noting that no butterfly arbitrage implies that:	 
+ \[
+		\overline{C}_{SABR}(T_{j},K_{i-1})- \overline{C}_{SABR}(T_{j},K_{i}) > \frac{K_i-K_{i-1}}{K_{i+1}-K_{i}}
+	\left(  \overline{C}_{SABR}(T_{j},K_{i})- \overline{C}_{SABR}(T_{j},K_{i+1})  \right)
+\]
+Therefore, we still have
+\[
+\begin{split}
+	&[\overline{C}_{SABR}(T_{j},K_{i-1})+shift_{T_j}]- [\overline{C}_{SABR}(T_{j},K_{i})+shift_{T_j}] \\
+	&> \frac{K_i-K_{i-1}}{K_{i+1}-K_{i}}
+	\left\{  \left[\overline{C}_{SABR}(T_{j},K_{i})+shift_{T_j}\right]- \left[\overline{C}_{SABR}(T_{j},K_{i+1})+shift_{T_j}\right]  \right\}
+\end{split}
+\]
+
+
+
+
+ Lastly, there is a no call-spread arbitrage condition that requires the call option value decreasing in strikes:
+ \[
+	C(T,K_{i+1})\leq C(T,K_{i}) \; \text{when} \; K_{i+1}>K_{i}.
+\]
+ We comments that call-spread arbitrage violation is rare and no violations of this condition from the prices produced by SABR model  are observed for all the computational results in this thesis. Additionally, by the call-put parity, if we have no butterfly arbitrage and no calendar arbitrage with call option prices, then we will  have  no butterfly arbitrage and no calendar arbitrage in  the put option prices as well.
+ \subsubsection{Alternative Methods to SABR Calibration}
+ Given BS implied volatility surface computed from market option values as a discrete set of points $\{ \sigma^{imp}_{BS,mkt}(T,K) \}_{T,K}$, a natural question is whether  arbitrage exists. In most cases, one must 
+ \begin{enumerate}
+ \item Fit a parameterization to the points $\{ \sigma^{imp}_{BS,mkt}(T,K) \}_{T,K}$, typically by time-slice as what we do with SABR model, obtaining a parameterization $\widetilde{\sigma}^{imp}_{model}(T_i,K)$ for each $T_i$ separately.
+ For example, if we fit a SABR model, $\widetilde{\sigma}^{imp}_{model}(T_i,K)=\sigma_{B}(F,t,T_i,K;\alpha,\beta,\nu,\rho)$ and since except $K$ all other parameters are fixed for an expiry $T_j$ on a time $t$, it is a function of $K$ only.
+ \item Compute $\{ \widetilde{w}(\tau_i,k) \}_{i=1}^N$ on a fine grid of $k$ using the expression $\widetilde{w}(\tau_i,k) := \widetilde{\sigma}^{imp}_{model}(T_i,K)^2 \tau_i$,  where $\tau_i =T_i-t$ and $k$ is parameterized by log-moneyness, i.e. $k := \log(K/F(t;T))$.  
+ \item Check for the discrete no-arbitrage criteria \eqref{eq:DiscreteCond1} and \eqref{eq:DiscreteCond2} as in \cite{carr2005note} for a given grid of strikes and a given grid of expiries. 
+ \end{enumerate}
+ To obtain such mappings, one typically fits a stochastic volatility model like SABR or Heston to slices of $\{\sigma^{imp}_{BS,mkt}(T,K)\}_{T,K}$ or considers a generalized model such as Stochastic Volatility Inspired (SVI) parameterizations.  
+ 
+ The Stochastic Inspired Volatility model (SVI) \cite{gatheral2004parsimonious} was used internally at Merrill Lynch and publicly disclosed by Jim Gatheral in 2004.  SVI is a simple  five-parameters model.  In 2012,  the Surface SVI (SSVI) \cite{gatheral2014arbitrage} is proposed by Gatheral and Jacquier to extend SVI model to be a model that can fit the whole surface instead of just one volatility smile. The SSVI is parameterized in a way that a  SSVI slice at a given maturity $T$ is a SVI slice with only 3 parameters. This restriction leads to  explicit sufficient conditions for the absence of arbitrage, while allowing enough flexibility for calibration. The SSVI model is recently extended in \cite{hendriks2017extended} and \cite{corbetta2019robust}. If the input market data used for calibration contains arbitrage, the calibrated surface from SSVI \cite{gatheral2014arbitrage} or its extension \cite{hendriks2017extended,corbetta2019robust} can typically be viewed as the surface that is as close as possible to the original market data, while staying arbitrage-free. In this section we briefly review a recent variant dd-eSSVI ( data-driven extended SSVI) method \cite{corbetta2019robust} as an example.
+ 
+ 
+ 
+ 
+ 
+%  \subparagraph{Arbitrage-free parameterizations} 
+ 
+%  As seen in \cite{gatheral2004parsimonious}, \cite{gatheral2014arbitrage}, \cite{hendriks2017extended}, \cite{corbetta2019robust}, and others, many parameterizations of implied volatility or total variance are equipped with a mode where the calibrated surface is also arbitrage-free. If the input market data used for calibration contains arbitrage, the calibrated surface can typically be viewed as the surface that is as close as possible to the original market data, while staying arbitrage-free. 
+ 
+%  This leads us to make the distinction between the two parameterization types for given discrete market data $\{ \sigma(K_i,T_j) \}_{i,j}$ or $\{ w(k_i,T_j) \}_{i,j}$  
+%  \begin{enumerate}
+%  \item \underline{Raw calibration}: a parameterization is fit for each time slice $T_i$ yielding an expression $\{ \sigma(K,T_j) \}_{j}$ or $\{ w(k,T_j) \}_{j}$ aimed at fitting the raw market data as closely as possible. 
+%  \item \underline{Arbitrage-free calibration}: a parameterization is fit for each time slice $T_i$ yielding an expression $\{ \sigma(K,T_j) \}_{j}$ or $\{ w(k,T_j) \}_{j}$ aimed at fitting the raw market data as closely as possible \textit{while staying arbitrage-free}. 
+%  \end{enumerate}
+ 
+ 
+ 
+ %If the parameterization of $\{ \sigma^{Mkt}(K_i,T_j) \}_{i,j}$ indicates arbitrage is present in the market data, some calibration approaches $\{ \widetilde{\sigma}(K,T_i) \}_i, \{\widetilde{w}(k,T_i)\}_{i}$ also provide an alternate mode of calibration where the resulting parameterization is \textit{arbitrage-free} as in 
+ %
+ %the final surface is the closest calibration to $\{\sigma(K_i,T_j)\}_{i,j}$ that is also arbitrage-free. An example of such 
+ 
+ 
+ \subsubsection{dd-eSSVI Parameterization}
+ \label{sss:SVI}
+ 
+ Following the work of \cite{corbetta2019robust}, we introduce the following SSVI parameterization for a surface's Total Variance (TV), $w(\tau,k)$ as
+ \begin{equation}
+ w(\tau,k) = \frac{\hat{\theta}_{\tau}}{2}\left( 1 + \hat{\rho}_{\tau} \hat{\psi}_{\tau} k + \sqrt{ \left(\hat{\psi}_{\tau} k + \hat{\rho}_{\tau} \right)^2 + \left(1 - \hat{\rho}_{\tau}^2 \right) } \right)
+ \label{eqn:w}
+ \end{equation}
+ In this parameterization we have that 
+ \begin{itemize}
+ \item $\hat{\theta}_{\tau}$ is the ATM Forward TV which can be extracted from market directly.
+ \[
+ \hat{\theta}_{\tau} = w(\tau,0) = \sigma^{imp}_{BS,mkt}(T,K_{ATMF})^2 \cdot \tau
+ \]
+ where $K_{ATMF}=F(t,T)$
+  \item $\hat{\rho}_{\tau}$ controls the slope of the skew 
+ \item $\hat{\psi}_{\tau}$ controls the curvature, which is usually defined as a function of  $\hat{\theta}_{\tau}$: $\hat{\psi}_{\tau}(\hat{\theta}_{\tau})$
+ \end{itemize}
+ 
+ An important feature of this parameterizations is that it provides easy way to impose sufficient conditions on the  parameters ($\hat{\theta}_{\tau},\hat{\rho}_{\tau},\hat{\psi}_{\tau}$) so that there is no butterfly arbitrage for a given slice, and no calendar arbitrage between two time slices. Interested reader can refer to \cite{corbetta2019robust,gatheral2014arbitrage} for the detailed conditions on those parameters. 
+ 
+ There are many different approaches for calibrating SSVI models. For example, one can  fit SSVI model to market data without imposing any constraints on the parameters and then check if any arbitrage exists by imposing the arbitrage conditions on  the calibrated parameters. If arbitrage conditions are violated, one can adjust the parameters so that the sufficient conditions on parameters are satisfied.
+ One can also  use an arbitrage-free calibration \cite{corbetta2019robust} by imposing the  sufficient conditions on the parameters into the calibration process. Interested reader can refer to \cite{hendriks2017extended,corbetta2019robust} for more details on how to calibrate the SSVI efficiently.
+  
+Since the major goal in this thesis is not to compare  arbitrage-free surface calibration methods, we leave the exploration of the alternative methods to calibrate the arbitrage-free surface and comparing its impact on the data-driven risk hedging model as the future work of our study. 
+
+
+
+%  \paragraph{Introduction to calibration types and the Cross-Section Method}
+ 
+%  In this section we outline our procedure for calibrating the dd-eSSVI model to data $\{ \sigma^{imp}(T_j,K_i) \}_{i,j}$ using  a raw calibration approach. As mentioned before, we will outline a calibration routine dd-eSSVI that is free of initial guesses and relies only on simple one-dimensional minimization.
+ 
+%  In each case one begins by re-parameterizing the data into TV and log-moneyness, $\{ w(\tau_j,k_i) \}_{i,j}$ and also fixing a grid for minimizing over $\hat{\rho}$, denoted as $\pmb{\hat{\rho}}_N$ which divides $[-1 + 1/N,1 - 1/N]$ into $N$ equally spaced points \footnote{The choice of this interval instead of $[-1,1]$ is made to avoid certain numerical issues at the end points $-1$ and $1$ which arise later in the algorithms we present.}. 
+ 
+ 
+%  \subparagraph{Raw Calibration} In the raw-calibration scheme, the dd-eSSVI is fit to market data, slice-by-slice, where the parameters from various slices are independent of each other. Given its simplicity, we describe the steps here. For each maturity $T_j$:
+%  \begin{enumerate}
+%  \item For each $\hat{\rho}_n \in \pmb{\hat{\rho}}_N$ we construct the objective function\footnote{This choice of relative error objective function seems to work the best in our back-tests compared to other examples include sum-of-squares or absolute error minimization.} 
+%  \[
+%  F_{\hat{\rho}_n}(\hat{\psi}) = \sum_{i=1}^M  \frac{  | w(\tau,k_i); \hat{\psi}, \hat{\rho}_n ) - w^{mkt}(\tau,k_i)|  }{ w^{mkt}(\tau,k_i) }
+%  \]
+%  \item We calculate $ \hat{\psi}_n :=  \arg\min_{\hat{\psi} \in [\hat{\psi}_l,\hat{\psi}_u]} F_{\hat{\rho}_n}(\hat{\psi}) $ using a numerical minimization scheme such as Brent search. A typical choice for $\hat{\psi}_l, \hat{\psi}_u$ are $\hat{\psi}_l = 0$, $\hat{\psi}_u = 2.5$. \label{item:psiregion} 
+%  \item We set $(\hat{\rho}_{T_j}, \hat{\psi}_{T_j}) = \arg\min_{ \hat{\rho}_n,\hat{\psi}_n } \{ \  F_{\hat{\rho}_n}(\hat{\psi}_n) \  \}_{n=1}^N $
+%  \end{enumerate}
+ 
+%  \subparagraph{Detecting arbitrage} To check if a raw calibration fitting \ref{eqn:w} to market data contains arbitrage, we must check the outlined conditions for butterfly and calendar arbitrage. That is, we must show that $p(k;T)$ is a valid density and $w(k;\tau_1) \leq w(k;\tau_2)$ for all $\tau_1 \leq \tau_2$. 
+ 
+%  Since our market data will always be taken from xTrader's databases and Exotica has a delta-cutoff scheme that ensures $p(k;T)$ is asymptotically valid, we resort to only checking that $p(k;T) > 0$ for all $k$ within a certain range. 
+ 
+ 
+%  \begin{align*}
+%  \partial_k w(k;t) &= \frac{1}{2}\hat{\rho}_{\tau} \hat{\psi}_{\tau} +  \frac{1}{2}\frac{ \left(\hat{\psi}_{\tau} k + \hat{\rho}_{\tau} \hat{\theta}_{\tau} \right)\hat{\psi}_{\tau}  }{ \sqrt{ \left(\hat{\psi}_{\tau} k + \hat{\rho}_{\tau} \hat{\theta}_{\tau} \right)^2 + \left(1-\hat{\rho}^2_{\tau}\right)\hat{\theta}^2_{\tau}  } } \\
+%  \partial_{kk} w(k;t) &= \frac{1}{2}\frac{1}{ \sqrt{ (\hat{\psi}_{\tau} k + \hat{\rho}_{\tau} \hat{\theta}_{\tau})^2 + (1-\hat{\rho}_{\tau}^2)\hat{\theta}_{\tau}^2 }   } \left(  \hat{\psi}_{\tau}^2 - \frac{ \hat{\psi}_{\tau}^2 (\hat{\psi}_{\tau}k+ \hat{\rho}_{\tau} \hat{\theta}_{\tau})^2 }{(\hat{\psi}_{\tau} k + \hat{\rho}_{\tau} \hat{\theta}_{\tau})^2 + (1-\hat{\rho}_{\tau}^2)\hat{\theta}_{\tau}^2  }    \right) 
+%  \end{align*}
+ 
+ 
+
+
+
+
+ 
+
+
+
+
+
+\subsubsection{Volatility Interpolation Between Expiries}
+In the previous section, for each $T_i$, we calibrate a separate set of SABR parameters and we then use the calibrated SABR parameters to compute option price and the associated implied volatiliy for a predetermined grid of strikes for each $T_i$. We correct for butterfly arbitrage and calendar arbitrage if we detect any of them in the option values produced from the SABR models. However, after the SABR calibration, we only obtain the parametrization of  option values for expiries listed in the market. Our next goal is get  the parametrization of option values for expiries that are not available in the market. In this section, we discuss how to interpolate the volatility between different expiries. Note that even if we use SSVI instead of SABR model, this step of volatility interpolation between expiries is still needed since SSVI model and SABR model are both calibrated to match the volatility smile of market for each market expiry only. Under SSVI models, one usually interpolates   the SSVI parameters $\{\hat{\theta}_{\tau},\hat{\rho}_{\tau},\hat{\psi}_{\tau}\}$ between different expiries available in market \cite{corbetta2019robust}.
+
+\citet{andreasen2010volatility} have introduced an efficient and arbitrage-free volatility interpolation method based on an one step finite difference implicit Euler scheme applied to a local volatility parametrization. In this thesis, we use the volatility interpolation approach to compute option price for an arbitrary expiry $T$ unobserved in the market.
+
+
+
+
+The volatility interpolation method is based on the Dupire's equation \cite{dupire1994pricing}.  The Dupire's equation enables us to deduce the volatility function in a local volatility
+model from  put and call options in the market.
+Under a risk-neutral measure, we assume:
+	\[
+	\frac{d S_t}{ S_t}= \left(r-q\right)dt +\sigma(t,S_t) dZ_t
+	\]
+where $r$ is the risk-free interest rate and $q$ is the dividend yield.
+ Let $C(T,K)$ be the call option pricing function, Dupire's equation states:
+	\[
+	\frac{\partial C(T,K)}{\partial T}=\frac{1}{2} {\sigma}^2(T,K)K^2  \frac{\partial^2 C(T,K)}{ \partial K^2}-(r-q) K\frac{\partial C(T,K)}{\partial K}-qC(T,K)
+	\]
+Define the normalized call price in terms of discounting factor $D(t,T)$ and forward price $F(t,T)$ and the normalized strike $\widehat{K}$ as:
+\[
+\begin{split}
+D(t,T)&=e^{-r(T-t)}\\
+F(t,T)&=S_te^{(r-q)(T-t)}\\
+\widehat{K}&=\frac{K}{F(t,T)}\\
+\widehat{C}(T,\widehat{K})&=\frac{C(T,\widehat{K} F(t,T))}{D(t,T)F(t,T)}=\frac{C(T,K)}{D(t,T)F(t,T)}
+\end{split}
+\]
+Dupire's equation can be simplified as \cite{andreasen2010volatility}\footnote{
+	 We use the call option as the example but the analysis also holds for put options. More specifically, let $P(T,K)$	be the function of put option price, the Dupire's equation for put option is:
+	\[
+	\frac{\partial \widehat{P}(T,\widehat{K})}{\partial T}=\frac{1}{2} \widehat{\sigma}^2(T,\widehat{K}) \widehat{K}^2  \frac{\partial^2 \widehat{P}(T,\widehat{K})}{ \partial \widehat{K}^2},\;\; \widehat{\sigma}(T,\widehat{K})={\sigma}(T,K).
+	\]
+}:
+\[
+\frac{\partial \widehat{C}(T,\widehat{K})}{\partial T}=\frac{1}{2} \widehat{\sigma}^2(T,\widehat{K}) \widehat{K}^2  \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2},\;\; \widehat{\sigma}(T,\widehat{K})={\sigma}(T,K)
+\]
+
+Therefore, we can sequentially solve the finite difference  discretization of the Dupire's forward equation using the fully implicit method.
+Observing that $T_0=t$, on the trading date $t$, the option value expiring at $t$ is just option payoff, we have the the initial condition $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$.
+Furthermore, when $K=0$, we arrive at the lower boundary condition $\widehat{C}(T,0)=1$. 
+When the largest strike $K_{max}\gg S_t$, we assume the upper boundary condition $\widehat{C}(T,\widehat{K}_{max})=0$ is true. 
+
+
+
+
+Assume we are given a grid of expiries available in market $t=T_0 < T_1 < \dots< T_{M} $ and  a grid of normalized strike: $0=\widehat{K}_0<\widehat{K}_1<\dots<\widehat{K}_{N}=\widehat{K}_{max}$, \citet{andreasen2010volatility} assume $\widehat{\sigma}(T,\widehat{K})$  to be a piecewise constant functions for a given $T_i$.
+\begin{equation}
+	\widehat{\sigma}(T_i,\widehat{K})=\left\{ \begin{array}{ll}
+		\widehat{\sigma}_{T_i,\widehat{K}_0}  , \; &\text{if} \; \widehat{K} \leq \widehat{K}_0\\
+		\vdots & \vdots\\
+		\widehat{\sigma}_{T_i,\widehat{K}_j}  , \; &\text{if} \; \widehat{K}_{j-1}<\widehat{K} \leq \widehat{K}_j\\
+		\vdots & \vdots\\
+		\widehat{\sigma}_{T_i,\widehat{K}_{N}} , \; &\text{if} \;  \widehat{K} > \widehat{K}_{N} \\
+		\end{array} \right.
+		\label{eq:LVFVolDef}
+	\end{equation}
+The authors further assume:
+\begin{equation}
+	\left. \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2}\right\vert_{\widehat{K}=0}=\left. \frac{\partial^2 \widehat{C}(T,\widehat{K})}{ \partial \widehat{K}^2}\right\vert_{\widehat{K}=\widehat{K}_{N}}=0
+ \label{eq:LVFCond1}
+\end{equation}
+From \eqref{eq:impliedDensity}, one can see the second partial derivative of call prices with regards to strike $K$ is the implied density:
+\[
+	\frac{1}{D(t,T)} \left. \frac{\partial^2 C(T,K)}{\partial K^2} \right\vert_{K=x}=	p(x;T,S_t) 
+\]
+ Therefore, the boundary conditions \eqref{eq:LVFCond1} essentially assume that the probablity density at the  low strike boundary ($K=0$) and  high strike boundary ($K=K_{N}$) is zero, which is a reasonable assumption.
+
+
+The fully implicit finite difference method in matrix form is:
+\begin{equation}
+	\begin{bmatrix}
+\widehat{C}(T_{i},\widehat{K}_0)\\
+\widehat{C}(T_{i},\widehat{K}_1)\\
+\widehat{C}(T_{i},\widehat{K}_2)\\
+\vdots\\
+\widehat{C}(T_{i},\widehat{K}_{N})
+\end{bmatrix}=(I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T_{i+1}-T_i))
+\begin{bmatrix}
+\widehat{C}(T_{i+1},\widehat{K}_0)\\
+\widehat{C}(T_{i+1},\widehat{K}_1)\\
+\widehat{C}(T_{i+1},\widehat{K}_2)\\
+\vdots\\
+\widehat{C}(T_{i+1},\widehat{K}_{N})
+\end{bmatrix}
+\label{eq:LVFInt}
+\end{equation}
+where 
+$I$ is the identity matrix, $\mathcal{\mathbb{S}}$ is a diagonal matrix parameterized by $\widehat{\sigma}(T_i,.)$ as in equation \eqref{eq:LVFVolDef},  $\mathcal{\mathbb{D}}$ is proportional to the discrete second order difference matrix and $(T_{i+1}-T_i)$ is a scaler. Specifically:
+		\begin{equation}
+			\mathcal{\mathbb{S}}=	\begin{bmatrix}
+				\widehat{\sigma}^2(T_i,\widehat{K}_{0})&&\\
+				\vdots&\ddots&\vdots\\
+				&&\widehat{\sigma}^2(T_i,\widehat{K}_{N})
+		\end{bmatrix}
+		\label{eq:LVFMatrixS}
+		\end{equation}
+		\begin{equation}
+			\mathcal{\mathbb{D}}=\begin{bmatrix}
+		0&0&&&&\\
+		l_1&-l_1-u_1&u_1&&&\\
+		&l_2&-l_2-u_2&u_2&&&\\
+		&&\ddots&\ddots&\ddots&&\\
+		&&&l_{N-1}&-l_{N-1}-u_{N-1}&u_{N-1}\\
+		&&&&0&0
+		\end{bmatrix}
+		\label{eq:LVFMatrixD}
+		\end{equation}
+
+		where 
+		\[l_j=\frac{1}{\widehat{K}_{j+1}-\widehat{K}_{j-1}}\frac{1}{\widehat{K}_{j}-\widehat{K}_{j-1}}\]
+		\[u_j=\frac{1}{\widehat{K}_{j+1}-\widehat{K}_{j-1}}\frac{1}{\widehat{K}_{j+1}-\widehat{K}_{j}}\]
+
+
+
+
+
+
+
+
+
+
+Denote $\mathcal{\mathbb{M}}(T_{i+1},T_{i}, \widehat{\sigma}(T_i,.))=(I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T_{i+1}-T_i))$. We can see that  $\mathcal{\mathbb{M}}(T_{i+1},T_{i}, \widehat{\sigma}(T_i,.))$ is a tri-diagonal matrix parametrized by  $\widehat{\sigma}(T_i,.)$,  $T_{i+1}$,   and $T_{i}$.  
+% The matrix  $\mathcal{\mathbb{M}}(T_{i+1},T_{i}, \widehat{\sigma}(T_i,.))$ is then\footnote{For a non-uniform grid of strikes, we can derive a similar form for the matrix as well}:
+
+% \begin{equation}
+% 	\begin{bmatrix}
+% 1&0&0&\dots&0&0\\
+% -Z_1&1+2Z_1&-Z_1&&&\\
+% &-Z_2&1+2Z_2&-Z_2&&&\\
+% &&\ddots&\ddots&\ddots&&\\
+% &&&-Z_{Max-1}&1+2Z_{Max-1}&-Z_{Max-1}\\
+% &&&0&0&1
+% \end{bmatrix}
+% \label{eq:LVFMatrix}
+% \end{equation}
+% where $Z_j=\frac{1}{2}\frac{T_{i+1}-T_{i}}{\Delta K^2}\widehat{\sigma}^2(T_i,\widehat{K}_j)$
+
+% Therefore, we can easily invert $\mathcal{\mathbb{M}}$ and we get:
+% \begin{equation}
+% 	\mathcal{\mathbb{M}}^{-1} \begin{bmatrix}
+% 	\widehat{C}(T_{i},\widehat{K}_0)\\
+% 	\widehat{C}(T_{i},\widehat{K}_1)\\
+% 	\widehat{C}(T_{i},\widehat{K}_2)\\
+% 	\vdots\\
+% 	\widehat{C}(T_{i},\widehat{K}_{max})
+% 	\end{bmatrix}=
+% 	\begin{bmatrix}
+% 	\widehat{C}(T_{i+1},\widehat{K}_0)\\
+% 	\widehat{C}(T_{i+1},\widehat{K}_1)\\
+% 	\widehat{C}(T_{i+1},\widehat{K}_2)\\
+% 	\vdots\\
+% 	\widehat{C}(T_{i+1},\widehat{K}_{max})
+% 	\end{bmatrix}
+% 	\label{eq:LVFInt}
+% \end{equation}
+
+Given the price vector at $T_{i}$ as the input:
+\[\begin{bmatrix}
+	\widehat{C}(T_{i},\widehat{K}_0),&
+	\widehat{C}(T_{i},\widehat{K}_1),&
+	\widehat{C}(T_{i},\widehat{K}_2),&
+	\cdots&
+	\widehat{C}(T_{i},\widehat{K}_{N})
+\end{bmatrix}\] and the matrix $\mathcal{\mathbb{M}}(T_{i+1},T_{i}, \widehat{\sigma}(T_i,.))$, we can compute  the price vector at $T_{i+1}$:
+\[
+\begin{bmatrix}
+	\widehat{C}(T_{i+1},\widehat{K}_0),&
+	\widehat{C}(T_{i+1},\widehat{K}_1),&
+	\widehat{C}(T_{i+1},\widehat{K}_2),&
+	\cdots&
+	\widehat{C}(T_{i+1},\widehat{K}_{N})
+	\end{bmatrix}.
+\]
+We want  the price vector at $T_{i+1}$ produced by the above LVF to match the price vector we computed using SABR model on $T_{i+1}$. In other words, we will try to find the $\widehat{\sigma}(T_i,.)$, which has the form as in equation \eqref{eq:LVFVolDef}. \citet{andreasen2010volatility} suggest one can obtain $\widehat{\sigma}^*(T_i,.)$ by solving the following non-linear least square problem:
+\begin{equation}
+\inf_{\widehat{\sigma}(T_i,.)} \sum_{j=0}^{N}(\frac{\widehat{C}(T_{i+1},\widehat{K}_j)-\widehat{C}_{SABR}(T_{i+1},\widehat{K}_j)}{Vega_{B}(T_{i+1},\widehat{K}_j)})^2
+\label{eq:LVFCal}
+ \end{equation}
+where we set: 
+%  \[	
+% 	 \begin{bmatrix}
+% 	\widehat{C}(T_{i+1},\widehat{K}_0)\\
+% 	\widehat{C}(T_{i+1},\widehat{K}_1)\\
+% 	\widehat{C}(T_{i+1},\widehat{K}_2)\\% 	\vdots\\
+% 	\widehat{C}(T_{i+1},\widehat{K}_{max})
+% 	\end{bmatrix}=
+%  	\mathcal{\mathbb{M}}^{-1} \begin{bmatrix}
+%  	\widehat{C}_{SABR}(T_{i},\widehat{K}_0)\\
+%  	\widehat{C}_{SABR}(T_{i},\widehat{K}_1)\\
+%  	\widehat{C}_{SABR}(T_{i},\widehat{K}_2)\\% 	\vdots\\
+%  	\widehat{C}_{SABR}(T_{i},\widehat{K}_{max})
+%  	\end{bmatrix}
+%  \] and  
+ \[
+	\widehat{C}_{SABR}(T_{i+1},\widehat{K}_j)=\frac{\widetilde {C_{SABR}}(T_{i+1},K_j)}{D(t,T_{i+1})F(t,T_{i+1})},
+\] $Vega_{B}(T_{i+1},\widehat{K}_j)$ is the  vega computed using SABR model calibrated to market prices at $T_{i+1}$ and $\widetilde {C_{SABR}}(T,K)$ is the arbitrage-free SABR model value we produce in previous section.
+
+Note that for the intial case $T_0=t$, $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is given as the payoff. Given $\widehat{C}(T_0,\widehat{K})$, we firstly solve \eqref{eq:LVFCal} for the $\widehat{\sigma}^*(T_0,.).$ After obtaining $\widehat{\sigma}^*(T_0,.)$, we can then solve the forward system  $\eqref{eq:LVFCal}$ to get \[
+	\begin{bmatrix}
+		\widehat{C}(T_i,\widehat{K}_0)\\
+		\widehat{C}(T_i,\widehat{K}_1)\\
+		\widehat{C}(T_i,\widehat{K}_2)\\
+		\vdots\\
+		\widehat{C}(T_i,\widehat{K}_{N})
+		\end{bmatrix}
+\] sequentially for $i=1,2,\dots,T_{M-1}$, where $M$ is the number of expiries in the grid.
+
+
+
+
+After we solved for  $\widehat{\sigma}^*(T_i,.), i=0,1,\dots,T_{M-1}$, for $T \in (T_i,T_{i+1}]$, we can fill in the gaps by:
+	\begin{equation}
+	\begin{bmatrix}
+	\widehat{C}(T,\widehat{K}_0)\\
+	\widehat{C}(T,\widehat{K}_1)\\
+	\widehat{C}(T,\widehat{K}_2)\\
+	\vdots\\
+	\widehat{C}(T,\widehat{K}_{max})
+	\end{bmatrix}=\mathcal{\mathbb{M}}^{-1} (T,T_{i}, \widehat{\sigma}^*(T_i,.))\begin{bmatrix}
+		\widehat{C}_{}(T_{i},\widehat{K}_0)\\
+		\widehat{C}_{}(T_{i},\widehat{K}_1)\\
+		\widehat{C}_{}(T_{i},\widehat{K}_2)\\
+		\vdots\\
+		\widehat{C}_{}(T_{i},\widehat{K}_{max})
+		\end{bmatrix}
+		\label{eq:LVFFill}
+	\end{equation}
+where $\mathcal{\mathbb{M}} (T,T_{i}, \widehat{\sigma}^*(T_i,.))=I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T-T_i)$ is now a tri-diagonal matrix parametrized by  $\sigma^*(T_i,.)$, $T$ and $T_i$. Note that $\sigma^*(T_i,.)$ is known after the calibration \eqref{eq:LVFCal}.
+We then recover the call price by:
+\[
+C(T,K)=\widehat{C}(T,\widehat{K}){D(t,T)F(t,T)}
+\]
+Interpolation based on the above procedure can guarantee the option prices computed is arbitrage-free. Detailed proofs are can be found in Appendix \ref{App:LVFProof}.
+
+
+In this thesis, we only use the above volatility interpolation algorithm to interpolate the option value produced by SABR model for expiry $T \in (T_i,T_{i+1})$, where $T_i$ and $T_{i+1}$ are expiries listed in the market. 
+A natural question the reader may ask is that why  we cannot apply above algorithm with purely market prices? In other words, we solve the below problem instead of problem \eqref{eq:LVFCal}:
+\[
+	\inf_{\widehat{\sigma}(T_i,.)} \sum_{j}(\frac{\widehat{C}(T_{i+1},\widehat{K}_j)-\widehat{C}_{mkt}(T_{i+1},\widehat{K}_j)}{Vega_{B}(T_{i+1},\widehat{K}_j)})^2 \;.
+\]
+In reality, it is hard to find a grid of normalized strike: $0=\widehat{K}_0<\widehat{K}_1<\dots<\widehat{K}_{N}$, for which,  $\widehat{C}_{mkt}(T_{i},\widehat{K}_j)$, $i=0,1,\dots,N$ all exists.
+Especially, if we want our grid of strike to cover both in-the-money option and out-of-the-money option. That is why we use SABR model  which can produce option value for any $K$ for an expiry $T_i$ in market after the calibration. In this way, we can use any grid of strikes as we want.
+
+
+
+Following the discussion in section \ref{sec:NoArb}, we summarize the SABR smile calibration and the corresponding fix for the butterfly arbitrage and the calendar arbitrage in Algorithm \ref{alg:SABRArbitrageFree} and Algorithm \ref{alg:SABRCalendarArbitrage}. We summarize the LVF volatility interpolation in Algorithm \ref{alg:LVFCalibration}. With the help from SABR model and LVF volatility interpolation, we essentially obtain a parametrization of the option value at each trading date $t$: $\{V^{t}_{model}(T,K)\}_{T,K}$. Here the expiry $T$  can be any value that is later than $t$ and before  the maximum expiry $T_{t,max}^{mkt}$ observed in the market on date $t$. The strike $K$ price can be any  value. We summarize the process of constructing the arbitrage-free options values for a given grid of strikes and a given grid of expiries in Algorithm \ref{alg:SurfaceConstruction}. 
+
+
+
+
+\begin{algorithm}[htp!]
+	\DontPrintSemicolon
+	
+	% 	\KwIn{$\theta_0 \in \Real^n$: initial vector of parameters.\newline
+	% 		$Obj(\theta)$: the objective function \newline
+	% 		% (For $\model$, we use either \eqref{l1} or  \eqref{l2}. For $\modelT$, we use \eqref{eq:totalObjLinear}. For  $\modelL$, we use \eqref{eq:totalObjLinear}.  
+	% 		$\mathcal{R}_0$: initial trust region radius \newline
+	% 		$\epsilon_{\theta}$: tolerance for the norm of the gradient \newline
+	% 		$\epsilon_{r}$: tolerance for the trust region radius \newline
+	% 		$\eta_{r_1}$: first threshold  for update the trust region radius \newline
+	% 		$\eta_{r_2}$: second threshold  for update the trust region radius \newline
+	% 		$\gamma_u>1$: ratio to increase the trust-region radius \newline
+	% 		$0<\gamma_d<1$: ratio to decrease the trust-region radius}
+	% 	\KwOut{
+	% 		$\theta^*$: the vector of parameters that minimize the objective function $Obj(\theta)$
+	% 	}
+	
+	
+	\SetKwFunction{FMain}{SABRCalibration}
+	\SetKwProg{Fn}{Function}{:}{}
+	\Fn{\FMain{$t$, $T$, $\mathbf{K}_{grid}$}}{
+		\KwIn{ $t$: An option trading date $t$.\newline
+			$T$: A \underline{\textbf{market}} option expiry.\newline
+			$\mathbf{K}_{grid}=\{K_0, K_1, \dots, K_N\}$: A grid of strikes for outputting option value.\newline
+		}
+		Extract the set of strikes available in market at time $t$: $\mathbf{K}^{mkt}(t,T)$\;
+		Extract the set of market option prices for expiry $T$ at time  $t$:$\{\Vmkt_{t,T,K}|\forall K \in \mathbf{K}^{mkt}(t,T)\}$\;
+		Set $\beta^*=1$\;
+		Solve:
+		$\alpha^{*},\nu^{*},\rho^{*}=\argmin_{\alpha,\nu,\rho} \sum_{K \in \mathbf{K}^{mkt}(t,T) }^{} \left(V_{SABR}(S_t,t,T,K,r,q;\alpha,\beta^*,\nu,\rho)-\Vmkt_{t,T,K}\right)^2$
+		\;
+		Calculate the call option prices $C_{SABR}(T,K)$ for $K\in \mathbf{K}_{grid}$ using the SABR parameters $\beta^*,\alpha^{*},\nu^{*},\rho^{*}$.\;
+		Check if there is any violation of the following condition on the grid of strikes $\mathbf{K}_{grid}$ with $i=1,\dots, N-1$:
+		\begin{equation}
+		C_{SABR}(T,K_{i-1})-C_{SABR}(T,K_{i}) > \frac{K_i-K_{i-1}}{K_{i+1}-K_{i}}
+		\left( C_{SABR}(T,K_{i})-C_{SABR}(T,K_{i+1})  \right) 
+		\label{eq:SabrAlgRef}
+		\end{equation}\;
+		\eIf{No violation}
+		{Set $K_L=K_0$, $K_L=K_N$}
+		{Set $K_L$ to be the smallest $K_i$ where condition \eqref{eq:SabrAlgRef} hold\;
+			Set $K_U$ to be the largest $K_i$ where condition \eqref{eq:SabrAlgRef} hold\;
+		}
+		Calculate call option value function with no-butterfly arbitrage:
+		\[\small
+		\overline{C}_{SABR}(T,K) \leftarrow C_{\hat{g}(x)}(T,K)=\left\{ \begin{array}{ll }
+		C_{BS}(T,K;\sigma_{B}(K_L))\;&  \text{if} \; 0<K< K_{L}\\
+		
+		C_{SABR}(T,K)\;&  \text{if} \; \;  K_{L} \leq K \leq K_{U}\\
+		
+		C_{BS}(T,K;\sigma_{B}(K_U)) \; &  \text{if} \; \;  K> K_{U}
+		\end{array} \right.
+		\]
+		\tcc{
+			$\sigma_{B}(K)$ is the short form of the SABR implied volatility approximation  \eqref{eq:SABRExpansion}.}
+		\;
+		
+		
+		\KwRet  $\overline{C}_{SABR}(T,K)$ 
+	}
+	%	\;
+	%	\SetKwProg{Pn}{Function}{:}{\KwRet}
+	%	\Pn{\FMain{$f$, $a$, $b$, $\varepsilon$}}{
+	%		  a\;
+	%		  b\;
+	%	}
+	\caption{Function For SABR Calibration } 
+	\label{alg:SABRArbitrageFree}
+\end{algorithm}
+
+
+
+\begin{algorithm}[htp!]
+	\DontPrintSemicolon
+	
+	% 	\KwIn{$\theta_0 \in \Real^n$: initial vector of parameters.\newline
+	% 		$Obj(\theta)$: the objective function \newline
+	% 		% (For $\model$, we use either \eqref{l1} or  \eqref{l2}. For $\modelT$, we use \eqref{eq:totalObjLinear}. For  $\modelL$, we use \eqref{eq:totalObjLinear}.  
+	% 		$\mathcal{R}_0$: initial trust region radius \newline
+	% 		$\epsilon_{\theta}$: tolerance for the norm of the gradient \newline
+	% 		$\epsilon_{r}$: tolerance for the trust region radius \newline
+	% 		$\eta_{r_1}$: first threshold  for update the trust region radius \newline
+	% 		$\eta_{r_2}$: second threshold  for update the trust region radius \newline
+	% 		$\gamma_u>1$: ratio to increase the trust-region radius \newline
+	% 		$0<\gamma_d<1$: ratio to decrease the trust-region radius}
+	% 	\KwOut{
+	% 		$\theta^*$: the vector of parameters that minimize the objective function $Obj(\theta)$
+	% 	}
+	
+	
+	\SetKwFunction{FMain}{SABRArbitrageFree}
+	\SetKwProg{Fn}{Function}{:}{}
+	\Fn{\FMain{ $t$, $\mathbf{T}_{mkt}$,$\mathbf{K}_{grid}$}}{
+		\KwIn{ $t$: An option trading date $t$.\newline
+			$\mathbf{T}^{mkt}_t=\{T_0=t, \dots, T_M\}$: A grid of \underline{\textbf{market}} available expiries at time $t$.\newline
+						$\mathbf{K}_{grid}=\{K_0, K_1, \dots, K_N\}$: A grid of strikes for outputting option value.\newline
+			\texttt{SABRCalibration}: SABR Calibration Algorithm as in Algorithm \ref{alg:SABRArbitrageFree}. \newline
+		}
+		Set $\widetilde {C_{SABR}}(T_0,K)=\max(S_t-K,0)$\;
+		\tcc{Option value with expiry $T_0=t$ is the payoff}
+		\For{$i = 1;\ i \leq M;\ i = i + 1$}{
+			$\overline{C}_{SABR}(T_i,K)$ $\leftarrow$ \texttt{SABRCalibration}($t$,$T_i$,$\mathbf{K}_{grid}$)\;
+		}\;
+		
+		\For{$i = 1;\ i < M;\ i = i + 1$}{
+			$
+			shift_{T_i}=-min\left\{min_{K \in \mathbf{K}_{grid}}\left[\overline{C}_{SABR}(T_i,K)-\overline{C}_{SABR}(T_{i-1},K)\right],0\right\}.	
+			$\;
+			\eIf{$shift_{T_i} \neq 0$}{
+				\For{$j = i;\ j < M;\ j = j + 1$}{
+					\tcc{We need to shift every $T_j \geq T_i$, if shift is not zero}
+					$
+					\overline{C}_{SABR}(T_j,K) \leftarrow \overline{C}_{SABR}(T_j,K)+shift_{T_i}
+					$\;
+					
+				}
+			$\widetilde {C_{SABR}}(T_i,K) \leftarrow \overline{C}_{SABR}(T_i,K)$\;
+			}
+			{$\widetilde {C_{SABR}}(T_i,K) \leftarrow \overline{C}_{SABR}(T_i,K)$\;}
+		}
+		%	 Calculate put option value using call-put parity:
+		%	\[\widetilde {P_{SABR}}(T,K)=\widetilde {C_{SABR}}(T,K)-S_t+K D(t,T)\;\;,\;\;D(t,T)=e^{-r(T-t)} \]\;
+		
+		\KwRet $\{\widetilde {C_{SABR}}(T,K) |\forall T \in \mathbf{T}_{mkt}\;,\;\forall K \in \mathbf{K}_{grid} \}$
+	}
+	\caption{Function For Returning Arbitrage Free Option Value With SABR Model} 
+	\label{alg:SABRCalendarArbitrage}
+\end{algorithm}
+
+
+
+\begin{algorithm}[htp!]
+	\DontPrintSemicolon
+	
+	% 	\KwIn{$\theta_0 \in \Real^n$: initial vector of parameters.\newline
+	% 		$Obj(\theta)$: the objective function \newline
+	% 		% (For $\model$, we use either \eqref{l1} or  \eqref{l2}. For $\modelT$, we use \eqref{eq:totalObjLinear}. For  $\modelL$, we use \eqref{eq:totalObjLinear}.  
+	% 		$\mathcal{R}_0$: initial trust region radius \newline
+	% 		$\epsilon_{\theta}$: tolerance for the norm of the gradient \newline
+	% 		$\epsilon_{r}$: tolerance for the trust region radius \newline
+	% 		$\eta_{r_1}$: first threshold  for update the trust region radius \newline
+	% 		$\eta_{r_2}$: second threshold  for update the trust region radius \newline
+	% 		$\gamma_u>1$: ratio to increase the trust-region radius \newline
+	% 		$0<\gamma_d<1$: ratio to decrease the trust-region radius}
+	% 	\KwOut{
+	% 		$\theta^*$: the vector of parameters that minimize the objective function $Obj(\theta)$
+	% 	}
+	
+	
+	\SetKwFunction{FMain}{LVFCalibration}
+	\SetKwProg{Fn}{Function}{:}{}
+	\Fn{\FMain{ $t$,$\mathbf{T}^{mkt}_t$, $\mathbf{K}_{grid}$,$\mathbf{T}_{grid}$ }}{
+		\KwIn{ $t$: An option trading date $t$.\newline
+			$\mathbf{T}^{mkt}_t=\{T_0=t, \dots, T_M\}$: A grid of \underline{\textbf{market}} available expiries at time $t$.\newline
+			$\mathbf{K}_{grid}=\{K_0, K_1, \dots, K_N\}$: A grid of strikes for outputting option value.\newline
+			$\mathbf{T}_{grid}=\{T^B_0=t, \dots, T^B_{N_B}\}$: A grid of expiries for outputting option value. This grid includes every business days between $T_0=t$ and $T_M$.\newline
+			\texttt{SABRArbitrageFree}: SABR Surfrace Algorithm as in Algorithm \ref{alg:SABRCalendarArbitrage}.\newline
+		}
+		$\{\widetilde {C_{SABR}}(T,K) |\forall T \in \mathbf{T}^{mkt}_t\;,\;\forall K \in \mathbf{K}_{grid} \}$ $\leftarrow$ \texttt{SABRArbitrageFree}($t$,$\mathbf{T}^{mkt}_t$,$\mathbf{K}_{grid}$)\;
+		Calculate
+		\[
+		\begin{split}
+		\widehat{C}_{SABR}(T,\widehat{K})&=\frac{\widetilde {C_{SABR}}(T,K)}{D(t,T)F(t,T)},		\widehat{K}=\frac{K}{F(t,T)}\\
+		D(t,T)&=e^{-r(T-t)},F(t,T)=S_te^{(r-q)(T-t)}
+		\end{split}
+		\]\;'
+		Set $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$\;
+		\tcc{The normalized option value with expiry $T_0=t$ is the normalized payoff}
+		\For{$i = 0;\ i < M;\ i = i + 1$}{
+			Obtain the local volatility function $\widehat{\sigma}^*(T_i,K)$ by solving problem \eqref{eq:LVFCal}\;
+			Construct   $\mathcal{\mathbb{S}}$ parametrized by $\widehat{\sigma}^*(T_i,K)$ as in equation \eqref{eq:LVFMatrixS}\;
+			Construct $\mathcal{\mathbb{D}}$ as in equation \eqref{eq:LVFMatrixD}\;
+			
+			\For{$j = 1;\ j < N_B;\ j = j + 1$}{
+				\If{$T^B_j \in (T_i, T_{i+1}]$}{
+					Construct $\mathcal{\mathbb{M}}(T^B_{j},T_{i}, \widehat{\sigma}^*(T_i,.))=(I-\mathcal{\mathbb{S}}\mathcal{\mathbb{D}}(T^B_{j}-T_i))$\;
+					Compute
+					\[
+					\begin{bmatrix}
+					\widehat{C}(T^B_{j},\widehat{K}_0)\\
+					\widehat{C}(T^B_{j},\widehat{K}_1)\\
+					\widehat{C}(T^B_{j},\widehat{K}_2)\\
+					\vdots\\
+					\widehat{C}(T^B_{j},\widehat{K}_{N})
+					\end{bmatrix}=\mathcal{\mathbb{M}}^{-1} (T^B_{j},T_{i}, \widehat{\sigma}^*(T_i,.))\begin{bmatrix}
+					\widehat{C}_{}(T_{i},\widehat{K}_0)\\
+					\widehat{C}_{}(T_{i},\widehat{K}_1)\\
+					\widehat{C}_{}(T_{i},\widehat{K}_2)\\
+					\vdots\\
+					\widehat{C}_{}(T_{i},\widehat{K}_{N})
+					\end{bmatrix}
+					\]\;
+				}
+			}
+			
+			
+		}
+		\KwRet $\{\widehat{C}_{}(T,\widehat{K}) |\forall T \in \mathbf{T}_{grid}\;,\;\forall K \in \mathbf{K}_{grid} \}$
+	}
+	\caption{Function For LVF Calibration} 
+	\label{alg:LVFCalibration}
+\end{algorithm}
+
+\begin{algorithm}[htp!]
+	\DontPrintSemicolon
+	
+	% 	\KwIn{$\theta_0 \in \Real^n$: initial vector of parameters.\newline
+	% 		$Obj(\theta)$: the objective function \newline
+	% 		% (For $\model$, we use either \eqref{l1} or  \eqref{l2}. For $\modelT$, we use \eqref{eq:totalObjLinear}. For  $\modelL$, we use \eqref{eq:totalObjLinear}.  
+	% 		$\mathcal{R}_0$: initial trust region radius \newline
+	% 		$\epsilon_{\theta}$: tolerance for the norm of the gradient \newline
+	% 		$\epsilon_{r}$: tolerance for the trust region radius \newline
+	% 		$\eta_{r_1}$: first threshold  for update the trust region radius \newline
+	% 		$\eta_{r_2}$: second threshold  for update the trust region radius \newline
+	% 		$\gamma_u>1$: ratio to increase the trust-region radius \newline
+	% 		$0<\gamma_d<1$: ratio to decrease the trust-region radius}
+	% 	\KwOut{
+	% 		$\theta^*$: the vector of parameters that minimize the objective function $Obj(\theta)$
+	% 	}
+	
+	
+	\SetKwFunction{FMain}{ArbitrageFreeSurface}
+	\SetKwProg{Fn}{Function}{:}{}
+	\Fn{\FMain{ $t$, $\mathbf{K}_{grid}$,$\mathbf{T}_{mkt}$,optType}}{
+		\KwIn{ $t$: An option trading date $t$.\newline
+			$\mathbf{K}_{grid}=\{K_0, K_1, \dots, K_N\}$: A grid of strikes for outputting option value.\newline
+			$\mathbf{T}^{mkt}_t=\{T_0=t, \dots, T_M\}$: A grid of \underline{\textbf{market}} available expiries at time $t$.\newline
+			optType: Call or Put Option.\newline 
+			\texttt{LVFCalibration}: The volatility Interpolation function as in Algorithm \ref{alg:LVFCalibration}.\newline
+		}
+	
+		Extract $\mathbf{T}_{grid}=\{T^B_0=t, \dots, T^B_{N_B}=T_M\}$: This grid includes every business days between $t$ and $T_M$. The  $T_M$ is the maximum market expiry date in $\mathbf{T}^{mkt}_t$ .\;
+		$\{\widehat{C}_{}(T,\widehat{K}) |\forall T \in \mathbf{T}_{grid}\;,\;\forall K \in \mathbf{K}_{grid} \}$ $\leftarrow$ \texttt{LVFCalibration}($t$,$\mathbf{T}^{mkt}_t$,$\mathbf{K}_{grid}$,$\mathbf{T}_{grid}$)\;
+		\tcc{Construct Put opton value using call-put parity}
+		
+		\[
+		\begin{split}
+		C^t_{model}(T,K)&=\widehat{C}(T,\widehat{K}){D(t,T)F(t,T)}, D(t,T)=e^{-r(T-t)},F(t,T)=S_te^{(r-q)(T-t)}\\
+		P^t_{model}(T,K)&=C^t_{model}(T,K)-S_t+K D(t,T)
+		\end{split}
+		\]\;
+		
+		\eIf{optType=Call}
+		{
+			\[
+			V_{model}^t(T,K)=C^t_{model}(T,K)
+			\]\;
+		}
+		{
+			\[V_{model}^t(T,K)=P^t_{model}(T,K)\]\;
+		}
+		\KwRet $\{V_{model}^t(T,K)| \forall T \in \mathbf{T}_{grid}\;,\;\forall K \in \mathbf{K}_{grid} \}$
+	}
+	\caption{Function For Arbitrage Free Surface Construction} 
+	\label{alg:SurfaceConstruction}
+\end{algorithm}
+
+
+
+% \item On each business day $t \in [t_0,T_{train})$, we can observed a set of market observed expiries: $\mathbf{T}_t^{mkt}=\{T_0^{t},T_1^{t},\dots,T_{max}^{t}\}$.
+
+
+% \item  We calibrate the SABR models for each market observed expiries $T_i^{t} \in \mathbf{T}_t^{mkt},	\;  t \in [t_0, T)$. The calibrated SABR models return the prices  for the grid $0=K_0<K_1<\dots<K_{max}$ and we fix the potential arbitrages for SABR prices returned by the SABR models, if there is any. After this process, we will have $V^{SABR}_{t,T,K}$ where $ t \in [t,T_{train}), T \in \mathbf{T}_t^{mkt}, K \in \mathbf{K}^{Aug}_{grid,T_{train}}$.
+% \item If $T_{train} \in \mathbf{T}_t^{mkt}$ and $\Vmkt_{t,T_{train},K}$ is directly observable from market. 
+% We will just use the market data to construct the time series needed for the hedging model. 
+
+% \item If $T_{train} \in \mathbf{T}_t^{mkt}$ but  the 
+% $\Vmkt_{t,T_{train},K}$ is not directly observable from market due to the fact that there is no market quote for strike $K$, we will use SABR model to fill the gaps. In this case, we assume  $\Vmkt_{t,T_{train},K}=V^{SABR}_{t,T_{train},K}$.
+
+
+% \item If $T_{train} \notin \mathbf{T}_t^{mkt}$ or we do not have enough data to calibrate a SABR model for $T_{train} \in  \mathbf{T}_t^{mkt}$, we can use the  volatility interpolation process based on LVF \cite{andreasen2010volatility} to obtain option prices on each day $t$ for the expiry $T_{train}$ we picked on step 1: $V^{LVF}_{t,T_{train},K}$ where $t \in [t_0, T_{train}), K \in \mathbf{K}^{Aug}_{grid,T_{train}}$.  In this case, we assume  $\Vmkt_{t,T_{train},K}=V^{LVF}_{t,T_{train},K}$. Furthermore, we can also obtain other option related information such as Black-Scholes delta, gamma, vega and so on.
+
+%	
+%	\item We can repeat step 1 to 7 for all $T_{train}$ within a training period. For instance, if we take 2007-01-01 to 2008-01-01 as the training period, then $T_{train}$ will be  any business day within that period.
+%	\item We prepare the training data based on the augmented option data and underlying data. Please note that for the underlying asset history, we do not need to augment it since the prices of underlying asset, e.g., S\&P500 index, can be observed  on every business days.
+
+\subsubsection{Construction of Training, Testing and Validation Data Sets}
+
+We provide more details on training, testing and validation data sets.
+\begin{steps}
+	\item We test on the real market expiries.  The set of all testing expiries is defined as:
+	\[
+	\mathbf{T}_{AllTest}=\{T^{mkt}|\text{2000-01-01}\leq T^{mkt} \leq \text{2015-08-31}, T^{mkt} \text{  is a market expiry date }\}
+	\]
+	Namely, we test on all the market observed  expiry date $T$, which are between 2000-01-01 to 2015-08-31. Note that, we have included two crisis periods: the burst of dot-com bubble  period (2000 to 2002) and subprime mortgage crisis period (2007 to 2008). We assume we are on the sell-side of the option trading. 
+	
+	\item For a testing expiry date $T^{test} \in \mathbf{T}_{AllTest}$, we construct the testing set below:
+	\[
+	TestSet=\{Scenario(T^{test},K)|\forall K \in \mathbf{K}^{mkt}_{grid}(t_0,T^{test})\}
+	\] where $\mathbf{K}^{mkt}_{grid}(t_0,T^{test})$ is the grid of market strikes for expiry $T^{test}$ that can be observed directly from market on the initial date $t_0$. And $t_0$ is 100 business away from $T^{test}$. In other word, the total hedging horizon is $N_H=100$ business days. We build a sequence of models to hedge those testing scenarios with the same expiry date $T^{test}$ and different strikes $K \in \mathbf{K}^{mkt}_{grid}(t_0,T^{test})$. The testing scenario: $Scenario(T^{test},K)$ is constructed using procedure described in Algorithm \ref{alg:TestConstruction}.
+	\item On the initial date $t_0$, we prepare the training set  as: 
+	\[TrainSet=\{Scenario(T,K)|\forall K \in \mathbf{K}_{grid}(T-\frac{100}{250},T),\forall T \in \mathbf{B}(T_{min},t_0)\}\]
+	\[
+	\mathbf{B}(T_{min},t_0)=\{ t|t \text{ is a business day},  T_{min}< t <t_0\} 
+	\]
+ 	where $T_{min}$ is the earliest expiry to be included in the training set and  $\mathbf{B}(T_{min},t_0)$ is the set of all business days $t$ with  $T_{min}< t <t_0$. We set $T_{min}$ to be 3 years prior to the intial date of the testing scenarios $t_0$. 
+	The grid of strikes $ \mathbf{K}_{grid}(t,T)$ is defined as: $\mathbf{K}_{grid}(t,{T})=\{0=K_0<K_1<\dots<2*K^{mkt}_{max}(t,{T})\}$ with $K_i-K_{i-1}=5, i \geq 1$ and $K^{mkt}_{max}(t,T)$ is defined as the maximum of  strikes we observed in market between between $t$ and  $T$.  
+	In other words, we include all training hedging scenarios for which the expiry dates are before $t_0$ and later than $T_{min}$.
+	
+	The validation set is:
+	\[ValSet=\{Scenario(T,K)|T=t_0,  \forall K \in \mathbf{K}_{grid}(T-\frac{100}{250},T)\}\]
+	In other words, we include all training hedging scenarios for which the expiry date is $t_0$ as the validation set.
+    Note that for training and validation set, we do not require $T$ and $K$ to be observed directly from market.  We train the model based on the training sets. We get the hedging position for the testing scenarios from the data-driven model for $t_0$ only: $\delta^{M}_{t_0,T,K}$.
+	
+
+  
+	
+	\item Similarly, on any rebalancing date $t_j>t_0$,  the training set  and validation set are: 
+		\[TrainSet=\{Scenario(T,K)|\forall K \in \mathbf{K}_{grid}(T-\frac{100}{250},T),\forall T \in \mathbf{B}(T_{min},t_j)\}\]
+		\[
+		\mathbf{B}(T_{min},t_j)=\{ t|t \text{ is a business day},  T_{min}< t <t_j\} 
+		\]
+	where $\mathbf{B}(T_{min},t_j)$ is the set of all business days $t$ with  $T_{min}< t <t_j$.
+	\[ValSet=\{Scenario(T,K)|T=t_j, \forall K  \in \mathbf{K}_{grid}(T-\frac{100}{250},T)\}\]
+	We update the model based on the new training set. We get the hedging position from the data-driven model $\modelT$ for $t_j$ only: $\delta^{M}_{t_j,T,K}$. Notice that  the range for the allowed expiries in the training set is extended because $\mathbf{B}(T_{min},t_0) \subset \mathbf{B}(T_{min},t_j)$ when  $t_j>t_0$. Therefore, We have included new data into the training data set. We also validate our model based on most recent scenarios expiring on $t_j$.
+\end{steps}
+
+
+\begin{algorithm}[htp!]
+	\DontPrintSemicolon
+	
+	\SetKwFunction{FMain}{TrainingScenarioGeneration}
+	\SetKwProg{Fn}{Function}{:}{}
+	\Fn{\FMain{$T$,optType}}{
+		\KwIn{ 
+			   $T$: an expiry date for the hedging scenarios.\newline
+			   optType: Call or put option. \newline
+			   \texttt{ArbitrageFreeSurface}: The function for surface construction as in Alogrithm \ref{alg:SurfaceConstruction}.\newline
+		}
+	Set	$t_0=T-\frac{100}{250}$: A initial date for setting up the hedging scenarios.\;
+	Extract $\mathbf{t}_B=\{t_0,\dots,t_N=T\}$: the set of business dates between $t_0$ and $T$ sorted in ascending order.\;
+	Extract $K^{mkt}_{max}(t_0,T)$: the maximum of  strikes we observed in market between between $t_0$ and  $T$.\; 
+	Construct the grid of strikes: $\mathbf{K}_{grid}(t_0,{T})=\{0=K_0<K_1<\dots<2*K^{mkt}_{max}(t_0,\widehat{T})\}$ where $K_i-K_{i-1}=5$ \;
+\For{$t \in \mathbf{t}_B$ }
+{ \tcc{Construct the Surface for each date $t \in \mathbf{t}_B$}
+$\mathbf{T}^{mkt}_t \leftarrow $ the set of market expiries at $t$\;
+\texttt{ArbitrageFreeSurface}($t$, $\mathbf{K}_{grid}(t_0,{T})$,$\mathbf{T}^{mkt}_t$,optType)\;
+}
+\For{$t \in \mathbf{t}_B$}{
+	\For{$K \in  \mathbf{K}_{grid}(t_0,{T})$ }
+	{ Extract  underlying price $S_t$  directly from market.\;
+	  Extract option value $V_{t,T,K}=V_{model}^t(T,K)$ on the ArbitrageFreeSurface  at $t$.\;
+	  Construct a vector of features $\vy^{T,K}_{t}$ based on \underline{\textbf{model}} option value.\;
+	}
+}
+
+\For{$K \in  \mathbf{K}_{grid}(t_0,{T})$ }
+{
+	\tcc{
+		$\{S_t|\forall t \in \mathbf{t}_B \}$: the time-series of underlying prices.\newline
+		$\{V_{t,T,K}|\forall t \in \mathbf{t}_B\}$:the time-series of option prices for a hedging scenario identified by $(T,K)$.\newline
+		$\{\vy^{T,K}_{t}|\forall t \in \mathbf{t}_B\}$:the time-series of feature vectors for a hedging scenario identified by $(T,K)$.
+	}
+
+	$Scenario(T,K) \leftarrow \{S_t,V_{t,T,K},\vy^{T,K}_{t}| \forall t \in \mathbf{t}_B \} $\;
+
+}
+	\KwRet $\{Scenario(T,K)|\forall  K \in  \mathbf{K}_{grid}(t_0,{T}) \}$ 
+}
+	\caption{Function For Constructing Training Hedging Scenarios With  Expiry Date $T$ } 
+	\label{alg:Construction}
+\end{algorithm}
+
+
+
+% Even if $T_{test}$ is a real expiry in market, the step 5 to 7 are frequently needed since that the options with a specific strike and expiry combination are usually not traded every day so SABR model will be needed to fill in the gaps. 
+% Fo ra  market observable expiry with $T-t<1$, on each date, we usually will have enough data to calibrate a SABR model. In this thesis, we are hedging for less than 1 year, so step 8 is rarely needed. For the test scenarios, we only care about real expiries  $T_{test} \in \mathbf{T}_t^{mkt}$ and real strikes $K \in \mathbf{K}^{mkt}_{t_0,T_{test}}$ in market. 
+
+\begin{algorithm}[htp!]
+	\DontPrintSemicolon
+	
+	\SetKwFunction{FMain}{TestingScenarioGeneration}
+	\SetKwProg{Fn}{Function}{:}{}
+\Fn{\FMain{$T$,optType}}{
+	\KwIn{ 
+		$T$: A  \underline{\textbf{market}} expiry date for the hedging scenarios.\newline
+		optType: Call or put option. \newline
+		\texttt{ArbitrageFreeSurface}: The function for surface construction as in Alogrithm \ref{alg:SurfaceConstruction}.\newline
+	}
+	Set	$t_0=T-\frac{100}{250}$: A initial date for setting up the hedging scenarios.\;
+	Extract $\mathbf{t}_B=\{t_0,\dots,t_N=T\}$: the set of business dates between $t_0$ and $T$ sorted in ascending order.\;
+		Extract all \underline{\textbf{market}} available strikes at $t_0$ for the expiry $T$ as the grid of strikes:
+		$\mathbf{K}^{mkt}_{grid}(t _0,T)=\{K^{mkt}_{t_0,T,1},\dots,K^{mkt}_{t_0,T,N_K}\}$\;
+
+		\For{$t \in \mathbf{t}_B$ }
+		{ \tcc{Construct the Surface for each date $t \in \mathbf{t}_B$}
+			$\mathbf{T}^{mkt}_{t} \leftarrow $ the set of market expiries at time $t$\;
+			\texttt{ArbitrageFreeSurface}($t$, $\mathbf{K}^{mkt}_{grid}(t _0,T)$,$\mathbf{T}^{mkt}_{t}$,optType)\;
+		}
+		\For{$t \in \mathbf{t}_B$}{
+			\For{$K \in  \mathbf{K}^{mkt}_{grid}(t_0,{T})$ }
+			{ Extract  underlying price $S_t$  directly from market.\;
+				\eIf{$V^{mkt}_{t,T,K}$ does not exist}
+				{Extract option value as $V_{t,T,K}=V_{model}^t(T,K)$ on the ArbitrageFreeSurface  at $t$.\;
+				 Construct a vector of fetures $\vy^{T,K}_{t}$ based on \underline{\textbf{model}} option value. \;}
+				{
+				Extract option value as $V_{t,T,K}=V^{mkt}_{t,T,K}$.\;
+				Construct a vector of features $\vy^{T,K}_{t}$ based on \underline{\textbf{market}} option value.	
+			}
+		
+			}
+		}
+		
+		\For{$K \in  \mathbf{K}_{grid}(t_0,{T})$ }
+		{
+			\tcc{
+			$\{S_t|\forall t \in \mathbf{t}_B \}$: the time-series of underlying prices.\newline
+			$\{V_{t,T,K}|\forall t \in \mathbf{t}_B\}$:the time-series of option prices for a hedging scenario identified by $(T,K)$.\newline
+			$\{\vy^{T,K}_{t}|\forall t \in \mathbf{t}_B\}$:the time-series of feature vectors for a hedging scenario identified by $(T,K)$.
+		}
+		
+		$Scenario(T,K) \leftarrow \{S_t,\; V_{t,T,K},\;\vy^{T,K}_{t}| \forall t \in \mathbf{t}_B \} $\;
+
+		}
+			\KwRet $\{Scenario(T,K)|\forall  K \in  \mathbf{K}^{mkt}_{grid}(t_0,{T}) \}$ 
+	}
+	\caption{Function For Constructing Testing Hedging Scenarios With Expiry Date $T$ } 
+	\label{alg:TestConstruction}
+\end{algorithm}
+
+
+
+
+\begin{algorithm}[htp!]
+	\DontPrintSemicolon
+	
+	\SetKwFunction{FMain}{BuildModelForScenarios}
+	\SetKwProg{Fn}{Function}{:}{}
+	\Fn{\FMain{ $T^{test}$, optType}}{
+			\KwIn{ 
+				$T^{test}$: A \underline{\textbf{market}} expiry date for the testing hedging scenarios.\newline
+				optType: Call or put option. \newline
+				\texttt{TestingScenarioGeneration}: The function for generating testing scenarios as in Algorithm \ref{alg:TestConstruction}.\newline
+				\texttt{TrainingScenarioGeneration}: The function for generating training scenarios as in Algorithm \ref{alg:Construction}.\newline
+			}
+			Set  $t_0 \leftarrow T^{test}-\frac{100}{250}$\;
+			Extract $\mathbf{t}_{RB}=\{t_0,\dots,t_j,\dots, t_{N_{rb}-1}\}$: the set of \underline{\textbf{rebalancing}} dates sorted in ascending order. Each rebalancing time is $t_j=t_0+j\times \Delta t$ and $\Delta t$ is the gap between the adjacent rebalancing dates.\;
+			Extract all market available strikes at $t_0$ for the expiry $T^{test}$ as the grid of strikes:$\mathbf{K}^{mkt}_{grid}(t _0,T^{test})$\;
+			TestSet $\leftarrow \texttt{TestingScenarioGeneration}(T^{test}, \text{optType})$\;
+			Set $T_{min} \leftarrow t_0-3$: $T_{min}$ is 3 years prior to $t_0$.\;
+			\For{$j=0,j<N_{rb},j=j+1$}{
+				TrainSet $\leftarrow \emptyset$\;
+				Extract $\mathbf{B}(T_{min},t_j)$: the set of all business days between $T_{min}$ and $t_j$.\;
+				\For{$T \in \mathbf{B}(T_{min},t_j)$}{
+					TrainSubSet$\leftarrow \texttt{TrainingScenarioGeneration}(T, \text{optType})$\;
+				$\text{TrainSet} \leftarrow \text{TrainSet}  \cup \text{TrainSubSet}$\;
+					
+			}
+			ValSet$\leftarrow \texttt{TrainingScenarioGeneration}(t_j, \text{optType})$\;
+			Bulid model  based on TrainSet\;
+			Validate model based on ValSet\;
+			Compute the hedging position at $t_j$ for TestSet: $\{\delta^M_{t_j,T,K}|\forall K \in \mathbf{K}^{mkt}_{grid}(t_0,T), T=T^{test}\}$\;
+			}
+			\KwRet $\{\delta^M_{t,T,K}|\forall t \in \mathbf{t}_{RB},\forall  K \in  \mathbf{K}^{mkt}_{grid}(t_0,{T}),T=T^{test} \}$			
+		}
+	
+	\caption{Function For Building Model To Hedge Scenarios With the Expiry Date $T^{test}$} 
+	\label{alg:ModelBuilding}
+	\end{algorithm}
+
+
+
+

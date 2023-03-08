@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.5.4)  24 JAN 2023 22:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.5.4)  7 MAR 2023 11:23
 entering extended mode
 **./KeNianThesis.tex
 (KeNianThesis.tex
@@ -1610,7 +1610,7 @@ Overfull \hbox (0.39647pt too wide) in paragraph at lines 139--141
 
 ] [8]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/sc' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 78.
+(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 73.
 )
 \tf@toc=\write11
 \openout11 = `KeNianThesis.toc'.
@@ -2081,21 +2081,53 @@ Chapter 6.
 [68
 
 
-] [69] [70] [71] [72] [73] [74]
+] [69]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/sc' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 3024.
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 3132.
 
-[75] [76] [77] [78] [79] [80] [81]
-Overfull \hbox (0.435pt too wide) in paragraph at lines 3503--3505
-\OT1/ptm/m/n/12 Interpolation based on the above pro-ce-dure can guar-an-tee th
-e op-tion prices com-puted is arbitrage-
- []
 
-[82]
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 3024.
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 3591.
 
-[83] [84] [85] [86] [87] [88]
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 3024.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\delta' on input line 3024.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 3024.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 3024.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 3024.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 3024.
+
+[70]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 3044.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 3044.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 3044.
+
+[71] [72]
 Package epstopdf Info: Source file: <./figures/ImpVol.eps>
 (epstopdf)                    date: 2020-01-26 20:07:33
 (epstopdf)                    size: 1514284 bytes
@@ -2104,17 +2136,17 @@ Package epstopdf Info: Source file: <./figures/ImpVol.eps>
 (epstopdf)                    size: 282307 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/ImpVol-eps-conver
 ted-to.pdf ./figures/ImpVol.eps>
-(epstopdf)             \includegraphics on input line 3957.
+(epstopdf)             \includegraphics on input line 3143.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./figures/ImpVol-eps-converted-to.pdf): PDF 
 inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/ImpVol-eps-converted-to.pdf, id=2190, 433.62pt x 289.08pt>
+<./figures/ImpVol-eps-converted-to.pdf, id=1896, 433.62pt x 289.08pt>
 File: ./figures/ImpVol-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/ImpVol-eps-converted-to.pdf>
 Package pdftex.def Info: ./figures/ImpVol-eps-converted-to.pdf  used on input l
-ine 3957.
+ine 3143.
 (pdftex.def)             Requested size: 368.57838pt x 245.73238pt.
 Package epstopdf Info: Source file: <./figures/Price.eps>
 (epstopdf)                    date: 2020-01-26 20:07:33
@@ -2124,124 +2156,85 @@ Package epstopdf Info: Source file: <./figures/Price.eps>
 (epstopdf)                    size: 288248 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/Price-eps-convert
 ed-to.pdf ./figures/Price.eps>
-(epstopdf)             \includegraphics on input line 3960.
+(epstopdf)             \includegraphics on input line 3146.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./figures/Price-eps-converted-to.pdf): PDF i
 nclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Price-eps-converted-to.pdf, id=2191, 433.62pt x 289.08pt>
+<./figures/Price-eps-converted-to.pdf, id=1897, 433.62pt x 289.08pt>
 File: ./figures/Price-eps-converted-to.pdf Graphic file (type pdf)
 <use ./figures/Price-eps-converted-to.pdf>
 Package pdftex.def Info: ./figures/Price-eps-converted-to.pdf  used on input li
-ne 3960.
+ne 3146.
 (pdftex.def)             Requested size: 368.57838pt x 245.73238pt.
-[89] [90] [91 <./figures/ImpVol-eps-converted-to.pdf> <./figures/Price-eps-conv
-erted-to.pdf>] [92] [93] [94]
-LaTeX Font Info:    Font shape `OT1/ptm/bx/sc' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 4205.
+[73] [74 <./figures/ImpVol-eps-converted-to.pdf> <./figures/Price-eps-converted
+-to.pdf>]
 
+LaTeX Warning: Reference `' on page 75 undefined on input line 3172.
 
+[75] [76]
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 4205.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 4205.
+LaTeX Warning: Reference `' on page 77 undefined on input line 3206.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\delta' on input line 4205.
+(hyperref)                removing `math shift' on input line 3210.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 4205.
+(hyperref)                removing `subscript' on input line 3210.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 4205.
+(hyperref)                removing `math shift' on input line 3210.
 
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 4205.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 4205.
-
-[95] [96]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 4223.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 4223.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 4223.
-
-[97]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 4272.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 4272.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 4272.
-
-[98] [99]
-Overfull \hbox (20.51991pt too wide) in paragraph at lines 4348--4367
+[77] [78]
+Overfull \hbox (20.51991pt too wide) in paragraph at lines 3286--3305
  [][] 
  []
 
-<./figures/WBSVersusTotalCallNTM.pdf, id=2391, 409.71507pt x 275.02373pt>
+<./figures/WBSVersusTotalCallNTM.pdf, id=2020, 409.71507pt x 275.02373pt>
 File: ./figures/WBSVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/WBSVersusTotalCallNTM.pdf>
 Package pdftex.def Info: ./figures/WBSVersusTotalCallNTM.pdf  used on input lin
-e 4372.
+e 3310.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/WBSVersusTotalCallITM.pdf, id=2392, 409.71507pt x 275.02373pt>
+<./figures/WBSVersusTotalCallITM.pdf, id=2021, 409.71507pt x 275.02373pt>
 File: ./figures/WBSVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/WBSVersusTotalCallITM.pdf>
 Package pdftex.def Info: ./figures/WBSVersusTotalCallITM.pdf  used on input lin
-e 4374.
+e 3312.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/WBSVersusTotalCallOTM.pdf, id=2393, 409.71507pt x 275.02373pt>
+<./figures/WBSVersusTotalCallOTM.pdf, id=2022, 409.71507pt x 275.02373pt>
 File: ./figures/WBSVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/WBSVersusTotalCallOTM.pdf>
 Package pdftex.def Info: ./figures/WBSVersusTotalCallOTM.pdf  used on input lin
-e 4376.
+e 3314.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/WBartlettVersusTotalCallNTM.pdf, id=2396, 411.87274pt x 275.02373pt>
+<./figures/WBartlettVersusTotalCallNTM.pdf, id=2025, 411.87274pt x 275.02373pt>
 
 File: ./figures/WBartlettVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/WBartlettVersusTotalCallNTM.pdf>
 Package pdftex.def Info: ./figures/WBartlettVersusTotalCallNTM.pdf  used on inp
-ut line 4381.
+ut line 3319.
 (pdftex.def)             Requested size: 147.43416pt x 98.45032pt.
-<./figures/WBartlettVersusTotalCallITM.pdf, id=2397, 409.71507pt x 275.02373pt>
+<./figures/WBartlettVersusTotalCallITM.pdf, id=2026, 409.71507pt x 275.02373pt>
 
 File: ./figures/WBartlettVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/WBartlettVersusTotalCallITM.pdf>
 Package pdftex.def Info: ./figures/WBartlettVersusTotalCallITM.pdf  used on inp
-ut line 4383.
+ut line 3321.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/WBartlettVersusTotalCallOTM.pdf, id=2398, 399.48938pt x 275.02373pt>
+<./figures/WBartlettVersusTotalCallOTM.pdf, id=2027, 399.48938pt x 275.02373pt>
 
 File: ./figures/WBartlettVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/WBartlettVersusTotalCallOTM.pdf>
 Package pdftex.def Info: ./figures/WBartlettVersusTotalCallOTM.pdf  used on inp
-ut line 4385.
+ut line 3323.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
-[100] [101 <./figures/WBSVersusTotalCallNTM.pdf> <./figures/WBSVersusTotalCallI
-TM.pdf
+[79] [80 <./figures/WBSVersusTotalCallNTM.pdf> <./figures/WBSVersusTotalCallITM
+.pdf
 
 pdfTeX warning: pdflatex.exe (file ./figures/WBSVersusTotalCallITM.pdf): PDF in
 clusion: multiple pdfs with page group included in a single page
@@ -2262,51 +2255,51 @@ PDF inclusion: multiple pdfs with page group included in a single page
 pdfTeX warning: pdflatex.exe (file ./figures/WBartlettVersusTotalCallOTM.pdf): 
 PDF inclusion: multiple pdfs with page group included in a single page
 >]
-Overfull \hbox (20.51991pt too wide) in paragraph at lines 4407--4426
+Overfull \hbox (20.51991pt too wide) in paragraph at lines 3345--3364
  [][] 
  []
 
-<./figures/MBSVersusTotalCallNTM.pdf, id=2646, 409.71507pt x 275.02373pt>
+<./figures/MBSVersusTotalCallNTM.pdf, id=2276, 409.71507pt x 275.02373pt>
 File: ./figures/MBSVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/MBSVersusTotalCallNTM.pdf>
 Package pdftex.def Info: ./figures/MBSVersusTotalCallNTM.pdf  used on input lin
-e 4431.
+e 3369.
 (pdftex.def)             Requested size: 140.5166pt x 94.32095pt.
-<./figures/MBSVersusTotalCallITM.pdf, id=2647, 415.64363pt x 275.02373pt>
+<./figures/MBSVersusTotalCallITM.pdf, id=2277, 415.64363pt x 275.02373pt>
 File: ./figures/MBSVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/MBSVersusTotalCallITM.pdf>
 Package pdftex.def Info: ./figures/MBSVersusTotalCallITM.pdf  used on input lin
-e 4433.
+e 3371.
 (pdftex.def)             Requested size: 147.43416pt x 97.55226pt.
-<./figures/MBSVersusTotalCallOTM.pdf, id=2648, 403.87465pt x 275.02373pt>
+<./figures/MBSVersusTotalCallOTM.pdf, id=2278, 403.87465pt x 275.02373pt>
 File: ./figures/MBSVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/MBSVersusTotalCallOTM.pdf>
 Package pdftex.def Info: ./figures/MBSVersusTotalCallOTM.pdf  used on input lin
-e 4435.
+e 3373.
 (pdftex.def)             Requested size: 147.43416pt x 100.3975pt.
-<./figures/MBartlettVersusTotalCallNTM.pdf, id=2651, 399.48938pt x 275.02373pt>
+<./figures/MBartlettVersusTotalCallNTM.pdf, id=2281, 399.48938pt x 275.02373pt>
 
 File: ./figures/MBartlettVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/MBartlettVersusTotalCallNTM.pdf>
 Package pdftex.def Info: ./figures/MBartlettVersusTotalCallNTM.pdf  used on inp
-ut line 4440.
+ut line 3378.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
-<./figures/MBartlettVersusTotalCallITM.pdf, id=2652, 409.71507pt x 275.02373pt>
+<./figures/MBartlettVersusTotalCallITM.pdf, id=2282, 409.71507pt x 275.02373pt>
 
 File: ./figures/MBartlettVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/MBartlettVersusTotalCallITM.pdf>
 Package pdftex.def Info: ./figures/MBartlettVersusTotalCallITM.pdf  used on inp
-ut line 4442.
+ut line 3380.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/MBartlettVersusTotalCallOTM.pdf, id=2653, 399.48938pt x 275.02373pt>
+<./figures/MBartlettVersusTotalCallOTM.pdf, id=2283, 399.48938pt x 275.02373pt>
 
 File: ./figures/MBartlettVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/MBartlettVersusTotalCallOTM.pdf>
 Package pdftex.def Info: ./figures/MBartlettVersusTotalCallOTM.pdf  used on inp
-ut line 4444.
+ut line 3382.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
-[102] [103 <./figures/MBSVersusTotalCallNTM.pdf> <./figures/MBSVersusTotalCallI
-TM.pdf
+[81] [82 <./figures/MBSVersusTotalCallNTM.pdf> <./figures/MBSVersusTotalCallITM
+.pdf
 
 pdfTeX warning: pdflatex.exe (file ./figures/MBSVersusTotalCallITM.pdf): PDF in
 clusion: multiple pdfs with page group included in a single page
@@ -2326,48 +2319,48 @@ PDF inclusion: multiple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex.exe (file ./figures/MBartlettVersusTotalCallOTM.pdf): 
 PDF inclusion: multiple pdfs with page group included in a single page
->] [104]
-Overfull \hbox (20.51991pt too wide) in paragraph at lines 4470--4493
+>] [83]
+Overfull \hbox (20.51991pt too wide) in paragraph at lines 3408--3431
  [][] 
  []
 
-<./figures/BSVersusTotalNTM.pdf, id=2898, 409.71507pt x 275.02373pt>
+<./figures/BSVersusTotalNTM.pdf, id=2527, 409.71507pt x 275.02373pt>
 File: ./figures/BSVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/BSVersusTotalNTM.pdf>
-Package pdftex.def Info: ./figures/BSVersusTotalNTM.pdf  used on input line 449
-8.
+Package pdftex.def Info: ./figures/BSVersusTotalNTM.pdf  used on input line 343
+6.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/BSVersusTotalITM.pdf, id=2899, 399.48938pt x 275.02373pt>
+<./figures/BSVersusTotalITM.pdf, id=2528, 399.48938pt x 275.02373pt>
 File: ./figures/BSVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/BSVersusTotalITM.pdf>
-Package pdftex.def Info: ./figures/BSVersusTotalITM.pdf  used on input line 450
-0.
+Package pdftex.def Info: ./figures/BSVersusTotalITM.pdf  used on input line 343
+8.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
-<./figures/BSVersusTotalOTM.pdf, id=2900, 409.71507pt x 275.02373pt>
+<./figures/BSVersusTotalOTM.pdf, id=2529, 409.71507pt x 275.02373pt>
 File: ./figures/BSVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/BSVersusTotalOTM.pdf>
-Package pdftex.def Info: ./figures/BSVersusTotalOTM.pdf  used on input line 450
-2.
+Package pdftex.def Info: ./figures/BSVersusTotalOTM.pdf  used on input line 344
+0.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/BartlettVersusTotalNTM.pdf, id=2903, 409.71507pt x 275.02373pt>
+<./figures/BartlettVersusTotalNTM.pdf, id=2532, 409.71507pt x 275.02373pt>
 File: ./figures/BartlettVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/BartlettVersusTotalNTM.pdf>
 Package pdftex.def Info: ./figures/BartlettVersusTotalNTM.pdf  used on input li
-ne 4506.
+ne 3444.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/BartlettVersusTotalITM.pdf, id=2904, 399.48938pt x 275.02373pt>
+<./figures/BartlettVersusTotalITM.pdf, id=2533, 399.48938pt x 275.02373pt>
 File: ./figures/BartlettVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/BartlettVersusTotalITM.pdf>
 Package pdftex.def Info: ./figures/BartlettVersusTotalITM.pdf  used on input li
-ne 4508.
+ne 3446.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
-<./figures/BartlettVersusTotalOTM.pdf, id=2905, 411.44308pt x 275.02373pt>
+<./figures/BartlettVersusTotalOTM.pdf, id=2534, 411.44308pt x 275.02373pt>
 File: ./figures/BartlettVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/BartlettVersusTotalOTM.pdf>
 Package pdftex.def Info: ./figures/BartlettVersusTotalOTM.pdf  used on input li
-ne 4510.
+ne 3448.
 (pdftex.def)             Requested size: 147.43416pt x 98.55104pt.
-[105] [106 <./figures/BSVersusTotalNTM.pdf> <./figures/BSVersusTotalITM.pdf
+[84] [85 <./figures/BSVersusTotalNTM.pdf> <./figures/BSVersusTotalITM.pdf
 
 pdfTeX warning: pdflatex.exe (file ./figures/BSVersusTotalITM.pdf): PDF inclusi
 on: multiple pdfs with page group included in a single page
@@ -2388,46 +2381,46 @@ nclusion: multiple pdfs with page group included in a single page
 pdfTeX warning: pdflatex.exe (file ./figures/BartlettVersusTotalOTM.pdf): PDF i
 nclusion: multiple pdfs with page group included in a single page
 >]
-Overfull \hbox (20.51991pt too wide) in paragraph at lines 4521--4540
+Overfull \hbox (20.51991pt too wide) in paragraph at lines 3459--3478
  [][] 
  []
 
-<./figures/MBSVersusTotalNTM.pdf, id=3148, 409.71507pt x 275.02373pt>
+<./figures/MBSVersusTotalNTM.pdf, id=2777, 409.71507pt x 275.02373pt>
 File: ./figures/MBSVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/MBSVersusTotalNTM.pdf>
-Package pdftex.def Info: ./figures/MBSVersusTotalNTM.pdf  used on input line 45
-46.
+Package pdftex.def Info: ./figures/MBSVersusTotalNTM.pdf  used on input line 34
+84.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/MBSVersusTotalITM.pdf, id=3149, 399.48938pt x 275.02373pt>
+<./figures/MBSVersusTotalITM.pdf, id=2778, 399.48938pt x 275.02373pt>
 File: ./figures/MBSVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/MBSVersusTotalITM.pdf>
-Package pdftex.def Info: ./figures/MBSVersusTotalITM.pdf  used on input line 45
-48.
+Package pdftex.def Info: ./figures/MBSVersusTotalITM.pdf  used on input line 34
+86.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
-<./figures/MBSVersusTotalOTM.pdf, id=3150, 417.52922pt x 275.02373pt>
+<./figures/MBSVersusTotalOTM.pdf, id=2779, 417.52922pt x 275.02373pt>
 File: ./figures/MBSVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/MBSVersusTotalOTM.pdf>
-Package pdftex.def Info: ./figures/MBSVersusTotalOTM.pdf  used on input line 45
-50.
+Package pdftex.def Info: ./figures/MBSVersusTotalOTM.pdf  used on input line 34
+88.
 (pdftex.def)             Requested size: 147.43416pt x 97.11583pt.
-<./figures/MBartlettVersusTotalNTM.pdf, id=3153, 409.71507pt x 275.02373pt>
+<./figures/MBartlettVersusTotalNTM.pdf, id=2782, 409.71507pt x 275.02373pt>
 File: ./figures/MBartlettVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/MBartlettVersusTotalNTM.pdf>
 Package pdftex.def Info: ./figures/MBartlettVersusTotalNTM.pdf  used on input l
-ine 4554.
+ine 3492.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/MBartlettVersusTotalITM.pdf, id=3154, 399.48938pt x 275.02373pt>
+<./figures/MBartlettVersusTotalITM.pdf, id=2783, 399.48938pt x 275.02373pt>
 File: ./figures/MBartlettVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/MBartlettVersusTotalITM.pdf>
 Package pdftex.def Info: ./figures/MBartlettVersusTotalITM.pdf  used on input l
-ine 4556.
+ine 3494.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
 File: ./figures/BartlettVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/BartlettVersusTotalOTM.pdf>
 Package pdftex.def Info: ./figures/BartlettVersusTotalOTM.pdf  used on input li
-ne 4558.
+ne 3496.
 (pdftex.def)             Requested size: 147.43416pt x 98.55104pt.
-[107] [108 <./figures/MBSVersusTotalNTM.pdf> <./figures/MBSVersusTotalITM.pdf
+[86] [87 <./figures/MBSVersusTotalNTM.pdf> <./figures/MBSVersusTotalITM.pdf
 
 pdfTeX warning: pdflatex.exe (file ./figures/MBSVersusTotalITM.pdf): PDF inclus
 ion: multiple pdfs with page group included in a single page
@@ -2443,24 +2436,24 @@ inclusion: multiple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex.exe (file ./figures/MBartlettVersusTotalITM.pdf): PDF 
 inclusion: multiple pdfs with page group included in a single page
->] [109] [110]
+>] [88] [89]
 Chapter 7.
-[111
+[90
 
 
-] [112] [113] (KeNianThesis.bbl [114
+] [91] [92] (KeNianThesis.bbl [93
 
 
 
 
-] [115] [116] [117] [118] [119]
-[120] [121] [122] [123] [124] [125] [126]) [127]
+] [94] [95] [96] [97] [98] [99] [100]
+[101] [102] [103] [104] [105]) [106]
 Appendix A.
-[128
+[107
 
 
 ]
-Overfull \hbox (17.28152pt too wide) detected at line 4770
+Overfull \hbox (17.28152pt too wide) detected at line 6010
 \OML/ztmcm/m/it/12 V[]\OT1/ztmcm/m/n/12 (\OT1/ptm/b/n/12 x[]\OT1/ztmcm/m/n/12 ;
  [][]) \OMS/ztmcm/m/n/12   \OML/ztmcm/m/it/12 V\OT1/ztmcm/m/n/12 (\OT1/ptm/b/n/
 12 x[]\OT1/ztmcm/m/n/12 ; [][]) = [] \OML/ztmcm/m/it/12 B[]\OT1/ztmcm/m/n/12 (\
@@ -2472,130 +2465,130 @@ it/12 V[]\OT1/ztmcm/m/n/12 (\OT1/ptm/b/n/12 x[]\OT1/ztmcm/m/n/12 ; [][]) \OMS/z
 tmcm/m/n/12   \OML/ztmcm/m/it/12 V[]\OT1/ztmcm/m/n/12 )
  []
 
-[129] [130] [131]
+[108] [109] [110]
 Appendix B.
-[132
+[111
 
 
 ]
-Overfull \hbox (13.95143pt too wide) in paragraph at lines 4879--4880
+Overfull \hbox (13.95143pt too wide) in paragraph at lines 6119--6120
 \OT1/ptm/m/n/12 the SABR for-mula [] for a strike $\OML/ztmcm/m/it/12 K$ \OT1/p
 tm/m/n/12 since the other pa-ram-e-ters in $\OML/ztmcm/m/it/12 []\OT1/ztmcm/m/
 n/12 (\OML/ztmcm/m/it/12 F; t; T; K\OT1/ztmcm/m/n/12 ; \OML/ztmcm/m/it/12 ; ;
  ; \OT1/ztmcm/m/n/12 )$
  []
 
-[133] [134] [135] [136]
+[112] [113] [114] [115]
 Appendix C.
-[137
+[116
 
 
-] [138] [139] [140] [141]
+] [117] [118] [119] [120]
 Appendix D.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 5363.
+(hyperref)                removing `math shift' on input line 6603.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 5363.
+(hyperref)                removing `subscript' on input line 6603.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 5363.
+(hyperref)                removing `math shift' on input line 6603.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 5363.
+(hyperref)                removing `math shift' on input line 6603.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 5363.
+(hyperref)                removing `subscript' on input line 6603.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 5363.
+(hyperref)                removing `superscript' on input line 6603.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 5363.
+(hyperref)                removing `math shift' on input line 6603.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/sc' in size <24.88> not available
-(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 5363.
+(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 6603.
 
-[142
+[121
 
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 5391.
+(hyperref)                removing `math shift' on input line 6631.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 5391.
+(hyperref)                removing `subscript' on input line 6631.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 5391.
+(hyperref)                removing `math shift' on input line 6631.
 
-[143]
+[122]
 Appendix E.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 5411.
+(hyperref)                removing `math shift' on input line 6651.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 5411.
+(hyperref)                removing `subscript' on input line 6651.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 5411.
+(hyperref)                removing `math shift' on input line 6651.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 5411.
+(hyperref)                removing `math shift' on input line 6651.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 5411.
+(hyperref)                removing `subscript' on input line 6651.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 5411.
+(hyperref)                removing `superscript' on input line 6651.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 5411.
+(hyperref)                removing `math shift' on input line 6651.
 
-[144
+[123
 
 
 ]
-Overfull \hbox (22.00487pt too wide) in paragraph at lines 5469--5483
+Overfull \hbox (22.00487pt too wide) in paragraph at lines 6709--6723
  [][] 
  []
 
-<./figures/WLocalVersusTotalCallNTM.pdf, id=3751, 409.71507pt x 275.02373pt>
+<./figures/WLocalVersusTotalCallNTM.pdf, id=3393, 409.71507pt x 275.02373pt>
 File: ./figures/WLocalVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/WLocalVersusTotalCallNTM.pdf>
 Package pdftex.def Info: ./figures/WLocalVersusTotalCallNTM.pdf  used on input 
-line 5488.
+line 6728.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/WLocalVersusTotalCallITM.pdf, id=3752, 409.71507pt x 275.02373pt>
+<./figures/WLocalVersusTotalCallITM.pdf, id=3394, 409.71507pt x 275.02373pt>
 File: ./figures/WLocalVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/WLocalVersusTotalCallITM.pdf>
 Package pdftex.def Info: ./figures/WLocalVersusTotalCallITM.pdf  used on input 
-line 5490.
+line 6730.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/WLocalVersusTotalCallOTM.pdf, id=3753, 399.48938pt x 275.02373pt>
+<./figures/WLocalVersusTotalCallOTM.pdf, id=3395, 399.48938pt x 275.02373pt>
 File: ./figures/WLocalVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/WLocalVersusTotalCallOTM.pdf>
 Package pdftex.def Info: ./figures/WLocalVersusTotalCallOTM.pdf  used on input 
-line 5492.
+line 6732.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
-[145] [146 <./figures/WLocalVersusTotalCallNTM.pdf> <./figures/WLocalVersusTota
+[124] [125 <./figures/WLocalVersusTotalCallNTM.pdf> <./figures/WLocalVersusTota
 lCallITM.pdf
 
 pdfTeX warning: pdflatex.exe (file ./figures/WLocalVersusTotalCallITM.pdf): PDF
@@ -2605,29 +2598,29 @@ pdfTeX warning: pdflatex.exe (file ./figures/WLocalVersusTotalCallITM.pdf): PDF
 pdfTeX warning: pdflatex.exe (file ./figures/WLocalVersusTotalCallOTM.pdf): PDF
  inclusion: multiple pdfs with page group included in a single page
 >]
-Overfull \hbox (22.00487pt too wide) in paragraph at lines 5502--5516
+Overfull \hbox (22.00487pt too wide) in paragraph at lines 6742--6756
  [][] 
  []
 
-<./figures/MLocalVersusTotalCallNTM.pdf, id=3884, 407.94221pt x 275.02373pt>
+<./figures/MLocalVersusTotalCallNTM.pdf, id=3525, 407.94221pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalCallNTM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalCallNTM.pdf>
 Package pdftex.def Info: ./figures/MLocalVersusTotalCallNTM.pdf  used on input 
-line 5521.
+line 6761.
 (pdftex.def)             Requested size: 147.43416pt x 99.39455pt.
-<./figures/MLocalVersusTotalCallITM.pdf, id=3885, 409.71507pt x 275.02373pt>
+<./figures/MLocalVersusTotalCallITM.pdf, id=3526, 409.71507pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalCallITM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalCallITM.pdf>
 Package pdftex.def Info: ./figures/MLocalVersusTotalCallITM.pdf  used on input 
-line 5523.
+line 6763.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/MLocalVersusTotalCallOTM.pdf, id=3886, 399.48938pt x 275.02373pt>
+<./figures/MLocalVersusTotalCallOTM.pdf, id=3527, 399.48938pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalCallOTM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalCallOTM.pdf>
 Package pdftex.def Info: ./figures/MLocalVersusTotalCallOTM.pdf  used on input 
-line 5525.
+line 6765.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
-[147 <./figures/MLocalVersusTotalCallNTM.pdf> <./figures/MLocalVersusTotalCallI
+[126 <./figures/MLocalVersusTotalCallNTM.pdf> <./figures/MLocalVersusTotalCallI
 TM.pdf
 
 pdfTeX warning: pdflatex.exe (file ./figures/MLocalVersusTotalCallITM.pdf): PDF
@@ -2637,29 +2630,29 @@ pdfTeX warning: pdflatex.exe (file ./figures/MLocalVersusTotalCallITM.pdf): PDF
 pdfTeX warning: pdflatex.exe (file ./figures/MLocalVersusTotalCallOTM.pdf): PDF
  inclusion: multiple pdfs with page group included in a single page
 >]
-Overfull \hbox (22.00487pt too wide) in paragraph at lines 5548--5568
+Overfull \hbox (22.00487pt too wide) in paragraph at lines 6788--6808
  [][] 
  []
 
-<./figures/LocalVersusTotalNTM.pdf, id=4013, 409.71507pt x 275.02373pt>
+<./figures/LocalVersusTotalNTM.pdf, id=3654, 409.71507pt x 275.02373pt>
 File: ./figures/LocalVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/LocalVersusTotalNTM.pdf>
 Package pdftex.def Info: ./figures/LocalVersusTotalNTM.pdf  used on input line 
-5574.
+6814.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/LocalVersusTotalITM.pdf, id=4014, 399.48938pt x 275.02373pt>
+<./figures/LocalVersusTotalITM.pdf, id=3655, 399.48938pt x 275.02373pt>
 File: ./figures/LocalVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/LocalVersusTotalITM.pdf>
 Package pdftex.def Info: ./figures/LocalVersusTotalITM.pdf  used on input line 
-5576.
+6816.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
-<./figures/LocalVersusTotalOTM.pdf, id=4015, 411.25832pt x 275.02373pt>
+<./figures/LocalVersusTotalOTM.pdf, id=3656, 411.25832pt x 275.02373pt>
 File: ./figures/LocalVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/LocalVersusTotalOTM.pdf>
 Package pdftex.def Info: ./figures/LocalVersusTotalOTM.pdf  used on input line 
-5578.
+6818.
 (pdftex.def)             Requested size: 147.43416pt x 98.593pt.
-[148] [149 <./figures/LocalVersusTotalNTM.pdf> <./figures/LocalVersusTotalITM.p
+[127] [128 <./figures/LocalVersusTotalNTM.pdf> <./figures/LocalVersusTotalITM.p
 df
 
 pdfTeX warning: pdflatex.exe (file ./figures/LocalVersusTotalITM.pdf): PDF incl
@@ -2669,29 +2662,56 @@ usion: multiple pdfs with page group included in a single page
 pdfTeX warning: pdflatex.exe (file ./figures/LocalVersusTotalOTM.pdf): PDF incl
 usion: multiple pdfs with page group included in a single page
 >]
-Overfull \hbox (22.00487pt too wide) in paragraph at lines 5589--5603
+Overfull \hbox (22.00487pt too wide) in paragraph at lines 6829--6843
  [][] 
  []
 
-<./figures/MLocalVersusTotalNTM.pdf, id=4147, 409.71507pt x 275.02373pt>
+<./figures/MLocalVersusTotalNTM.pdf, id=3789, 409.71507pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalNTM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalNTM.pdf>
 Package pdftex.def Info: ./figures/MLocalVersusTotalNTM.pdf  used on input line
- 5609.
+ 6849.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-<./figures/MLocalVersusTotalITM.pdf, id=4148, 399.48938pt x 275.02373pt>
+<./figures/MLocalVersusTotalITM.pdf, id=3790, 399.48938pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalITM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalITM.pdf>
 Package pdftex.def Info: ./figures/MLocalVersusTotalITM.pdf  used on input line
- 5611.
+ 6851.
 (pdftex.def)             Requested size: 147.43416pt x 101.497pt.
-<./figures/MLocalVersusTotalOTM.pdf, id=4149, 409.71507pt x 275.02373pt>
+<./figures/MLocalVersusTotalOTM.pdf, id=3791, 409.71507pt x 275.02373pt>
 File: ./figures/MLocalVersusTotalOTM.pdf Graphic file (type pdf)
 <use ./figures/MLocalVersusTotalOTM.pdf>
 Package pdftex.def Info: ./figures/MLocalVersusTotalOTM.pdf  used on input line
- 5613.
+ 6853.
 (pdftex.def)             Requested size: 147.43416pt x 98.96649pt.
-[150
+[129 <./figures/MLocalVersusTotalNTM.pdf> <./figures/MLocalVersusTotalITM.pdf
+
+pdfTeX warning: pdflatex.exe (file ./figures/MLocalVersusTotalITM.pdf): PDF inc
+lusion: multiple pdfs with page group included in a single page
+> <./figures/MLocalVersusTotalOTM.pdf
+
+pdfTeX warning: pdflatex.exe (file ./figures/MLocalVersusTotalOTM.pdf): PDF inc
+lusion: multiple pdfs with page group included in a single page
+>]
+Appendix F.
+[130
+
+
+] [131] [132] [133] [134]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 7081.
+
+[135] [136] [137] [138] [139] [140]
+Overfull \hbox (0.435pt too wide) in paragraph at lines 7452--7454
+\OT1/ptm/m/n/12 Interpolation based on the above pro-ce-dure can guar-an-tee th
+e op-tion prices com-puted is arbitrage-
+ []
+
+[141]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 7537.
+
+[142] [143] [144] [145] [146] [147
 runsystem(makeindex -s KeNianThesis.ist -t KeNianThesis.glg -o KeNianThesis.gls
  KeNianThesis.glo)...executed (allowed).
 
@@ -2704,35 +2724,34 @@ ianThesis.nomenclature-gls KeNianThesis.nomenclature-glo)...executed (allowed).
 runsystem(makeindex -s KeNianThesis.ist -t KeNianThesis.symbols-glg -o KeNianTh
 esis.symbols-gls KeNianThesis.symbols-glo)...executed (allowed).
 
- <./figures/MLocalVersusTotalNTM.pdf> <./figures/MLocalVersusTotalITM.pdf
-
-pdfTeX warning: pdflatex.exe (file ./figures/MLocalVersusTotalITM.pdf): PDF inc
-lusion: multiple pdfs with page group included in a single page
-> <./figures/MLocalVersusTotalOTM.pdf
-
-pdfTeX warning: pdflatex.exe (file ./figures/MLocalVersusTotalOTM.pdf): PDF inc
-lusion: multiple pdfs with page group included in a single page
->]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5618.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 5618.
+] [148] [149] [150]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 7936.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 7936.
  (KeNianThesis.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5618.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5618.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 7936.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 7936.
 
 Package rerunfilecheck Info: File `KeNianThesis.out' has not changed.
-(rerunfilecheck)             Checksum: 31303639B17AF314F3273D720D1580D6;5876.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5618.
+(rerunfilecheck)             Checksum: D27C153B407638BA0BBE13C7FA456B85;5862.
+
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 7936.
  ) 
 Here is how much of TeX's memory you used:
- 43450 strings out of 492448
- 847229 string characters out of 3119980
- 1081318 words of memory out of 3000000
- 46085 multiletter control sequences out of 15000+200000
+ 43454 strings out of 492448
+ 847276 string characters out of 3119980
+ 1075526 words of memory out of 3000000
+ 46087 multiletter control sequences out of 15000+200000
  644421 words of font info for 239 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,29n,71p,1833b,1007s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Hfootnote.13} has been referenced but does not ex
+pdfTeX warning (dest): name{Hfootnote.14} has been referenced but does not ex
 ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.13} has been referenced but does not exis
+t, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.12} has been referenced but does not exis
 t, replaced by a fixed one
@@ -2786,9 +2805,9 @@ type1/urw/symbol/usyr.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fon
 ts/type1/urw/times/utmb8a.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9
 /fonts/type1/urw/times/utmr8a.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX
  2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on KeNianThesis.pdf (167 pages, 2665823 bytes).
+Output written on KeNianThesis.pdf (167 pages, 2665769 bytes).
 PDF statistics:
- 4500 PDF objects out of 5155 (max. 8388607)
- 900 named destinations out of 1000 (max. 500000)
+ 4504 PDF objects out of 5155 (max. 8388607)
+ 902 named destinations out of 1000 (max. 500000)
  839 words of extra memory for PDF output out of 10000 (max. 10000000)
 
