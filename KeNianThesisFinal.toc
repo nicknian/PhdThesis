@@ -61,7 +61,7 @@
 \contentsline {subsubsection}{\numberline {6.2.2.1}Call Option Weekly Hedging Comparison}{79}{subsubsection.6.2.2.1}%
 \contentsline {subsubsection}{\numberline {6.2.2.2}Call Option Monthly Hedging Comparison}{81}{subsubsection.6.2.2.2}%
 \contentsline {subsection}{\numberline {6.2.3}Put Option Total Risk Hedging Comparison}{83}{subsection.6.2.3}%
-\contentsline {subsubsection}{\numberline {6.2.3.1}Put Option Weekly Hedging Comparison}{84}{subsubsection.6.2.3.1}%
+\contentsline {subsubsection}{\numberline {6.2.3.1}Put Option Weekly Hedging Comparison}{83}{subsubsection.6.2.3.1}%
 \contentsline {subsubsection}{\numberline {6.2.3.2}Put Option Monthly Hedging Comparison}{86}{subsubsection.6.2.3.2}%
 \contentsline {subsection}{\numberline {6.2.4}Comparison to Local Risk Hedging Model}{86}{subsection.6.2.4}%
 \contentsline {chapter}{\numberline {7}Conclusion and Future Work}{90}{chapter.7}%
