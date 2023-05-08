@@ -20,7 +20,7 @@
 \contentsline {subsubsection}{\numberline {2.3.3.2}Correction With LVF Model For The Black–Scholes Delta Hedging}{24}{subsubsection.2.3.3.2}%
 \contentsline {subsubsection}{\numberline {2.3.3.3}Correction With SABR model for the the Black–Scholes Delta Hedging}{26}{subsubsection.2.3.3.3}%
 \contentsline {section}{\numberline {2.4}Motivation For Direct Nonparametric Data-Driven Hedging Models}{30}{section.2.4}%
-\contentsline {chapter}{\numberline {3}Data-Driven Kernel Learning Framework for Local Hedging Risk}{32}{chapter.3}%
+\contentsline {chapter}{\numberline {3}Data-Driven Kernel Learning Framework for Local Hedging}{32}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Regularized Kernel Pricing Model}{33}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Indirect Hedging Positions From Kernel Pricing Functions}{35}{subsection.3.1.1}%
 \contentsline {section}{\numberline {3.2}Regularized Kernel Hedging Model}{36}{section.3.2}%
@@ -57,11 +57,11 @@
 \contentsline {subsection}{\numberline {6.1.5}Training Procedure For $\textsc {GRU}_{\textsc {total}}$}{76}{subsection.6.1.5}%
 \contentsline {section}{\numberline {6.2}Total Discrete Hedging Performance Comparison Using S\&P 500 index Options}{77}{section.6.2}%
 \contentsline {subsection}{\numberline {6.2.1}Data and Experimental Setting}{78}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Call Option Total Hedging Comparison}{78}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.2}Call Option Total Hedging Comparison}{79}{subsection.6.2.2}%
 \contentsline {subsubsection}{\numberline {6.2.2.1}Call Option Weekly Hedging Comparison}{79}{subsubsection.6.2.2.1}%
-\contentsline {subsubsection}{\numberline {6.2.2.2}Call Option Monthly Hedging Comparison}{81}{subsubsection.6.2.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Put Option Total Risk Hedging Comparison}{83}{subsection.6.2.3}%
-\contentsline {subsubsection}{\numberline {6.2.3.1}Put Option Weekly Hedging Comparison}{83}{subsubsection.6.2.3.1}%
+\contentsline {subsubsection}{\numberline {6.2.2.2}Call Option Monthly Hedging Comparison}{82}{subsubsection.6.2.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Put Option Total Risk Hedging Comparison}{84}{subsection.6.2.3}%
+\contentsline {subsubsection}{\numberline {6.2.3.1}Put Option Weekly Hedging Comparison}{84}{subsubsection.6.2.3.1}%
 \contentsline {subsubsection}{\numberline {6.2.3.2}Put Option Monthly Hedging Comparison}{86}{subsubsection.6.2.3.2}%
 \contentsline {subsection}{\numberline {6.2.4}Comparison to Local Risk Hedging Model}{86}{subsection.6.2.4}%
 \contentsline {chapter}{\numberline {7}Conclusion and Future Work}{90}{chapter.7}%

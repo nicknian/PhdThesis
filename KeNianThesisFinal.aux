@@ -228,11 +228,11 @@
 \citation{hulloptimal}
 \@writefile{toc}{\contentsline {section}{\numberline {2.4}Motivation For Direct Nonparametric Data-Driven Hedging Models}{30}{section.2.4}\protected@file@percent }
 \citation{hutchinson}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Data-Driven Kernel Learning Framework for Local Hedging Risk}{32}{chapter.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Data-Driven Kernel Learning Framework for Local Hedging}{32}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{sec:kernel}{{3}{32}{Data-Driven Kernel Learning Framework for Local Hedging Risk}{chapter.3}{}}
+\newlabel{sec:kernel}{{3}{32}{Data-Driven Kernel Learning Framework for Local Hedging}{chapter.3}{}}
 \citation{hutchinson}
 \citation{yao2000option,bennell2004black,gradojevic2009option,garcia2000pricing,malliaris1993neural}
 \citation{hutchinson}
@@ -247,8 +247,8 @@
 \newlabel{eq:indirect}{{3.1.1}{34}{Regularized Kernel Pricing Model}{equation.3.1.1}{}}
 \newlabel{kr1}{{3.1.2}{34}{Regularized Kernel Pricing Model}{equation.3.1.2}{}}
 \newlabel{kr2}{{3.1.3}{34}{Regularized Kernel Pricing Model}{equation.3.1.3}{}}
+\newlabel{eq:KernelRep}{{3.1.4}{34}{Regularized Kernel Pricing Model}{equation.3.1.4}{}}
 \citation{hutchinson}
-\newlabel{eq:KernelRep}{{3.1.4}{35}{Regularized Kernel Pricing Model}{equation.3.1.4}{}}
 \newlabel{eq:indirectf}{{3.1.5}{35}{Regularized Kernel Pricing Model}{equation.3.1.5}{}}
 \newlabel{eq:RBF}{{3.1.6}{35}{Regularized Kernel Pricing Model}{equation.3.1.6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Indirect Hedging Positions From Kernel Pricing Functions}{35}{subsection.3.1.1}\protected@file@percent }
@@ -259,15 +259,15 @@
 \newlabel{eq:dep}{{3.1.8}{36}{Indirect Hedging Positions From Kernel Pricing Functions}{equation.3.1.8}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3.2}Regularized Kernel Hedging Model}{36}{section.3.2}\protected@file@percent }
 \newlabel{sec:KernelDirect}{{3.2}{36}{Regularized Kernel Hedging Model}{section.3.2}{}}
+\newlabel{eq:HR}{{3.2.1}{36}{Regularized Kernel Hedging Model}{equation.3.2.1}{}}
 \citation{vapnik1998statistical}
 \citation{vapnik1998statistical}
 \citation{pahikkala2006fast}
 \citation{pahikkala2006fast}
-\newlabel{eq:HR}{{3.2.1}{37}{Regularized Kernel Hedging Model}{equation.3.2.1}{}}
-\newlabel{fhedge}{{3.2.2}{37}{Regularized Kernel Hedging Model}{equation.3.2.2}{}}
-\newlabel{eq:directf}{{3.2.3}{37}{Regularized Kernel Hedging Model}{equation.3.2.3}{}}
 \citation{hull2006options}
 \citation{heston1993closed}
+\newlabel{fhedge}{{3.2.2}{37}{Regularized Kernel Hedging Model}{equation.3.2.2}{}}
+\newlabel{eq:directf}{{3.2.3}{37}{Regularized Kernel Hedging Model}{equation.3.2.3}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3.3}Comparison using synthetic data}{38}{section.3.3}\protected@file@percent }
 \newlabel{sec:Synexperiment}{{3.3}{38}{Comparison using synthetic data}{section.3.3}{}}
 \citation{hull2006options}
@@ -359,8 +359,8 @@
 \@writefile{loa}{\contentsline {algocf}{\numberline {4.1}{\ignorespaces Trust-region Algorithm}}{53}{algocf.4.1}\protected@file@percent }
 \newlabel{algorithm}{{4.1}{53}{Optimization}{algocf.4.1}{}}
 \newlabel{alg:trust}{{4.1}{53}{Optimization}{algocf.4.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Meta-parameters for the trust-region algorithm. The trust-region algorithm is used for training all the data-driven models based on neural network framework in this thesis.}}{54}{table.4.1}\protected@file@percent }
-\newlabel{para2}{{4.1}{54}{Meta-parameters for the trust-region algorithm. The trust-region algorithm is used for training all the data-driven models based on neural network framework in this thesis}{table.4.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Parameters for the trust-region algorithm. The trust-region algorithm is used for training all the data-driven models based on neural network framework in this thesis.}}{54}{table.4.1}\protected@file@percent }
+\newlabel{para2}{{4.1}{54}{Parameters for the trust-region algorithm. The trust-region algorithm is used for training all the data-driven models based on neural network framework in this thesis}{table.4.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Pre-training and Regularization}{54}{subsection.4.2.3}\protected@file@percent }
 \newlabel{sec:preT}{{4.2.3}{54}{Pre-training and Regularization}{subsection.4.2.3}{}}
 \newlabel{NLS}{{4.2.1}{54}{Pre-training and Regularization}{equation.4.2.1}{}}
@@ -481,10 +481,8 @@
 \newlabel{sec:totalcriteria}{{6.2}{77}{Total Discrete Hedging Performance Comparison Using S\&P 500 index Options}{section.6.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Data and Experimental Setting}{78}{subsection.6.2.1}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Sequential features for $\textsc  {GRU}_{\textsc  {total}}$ and $\textsc  {GRU}_{\textsc  {total}}^{\textsc  {local}}$ at time $t$ are the time series of features listed in this table. The time series are constructed according to the procedures as in Algorithm \ref  {alg:Construction} and Algorithm \ref  {alg:TestConstruction}.}}{78}{table.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Call Option Total Hedging Comparison}{78}{subsection.6.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Call Option Total Hedging Comparison}{79}{subsection.6.2.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.2.1}Call Option Weekly Hedging Comparison}{79}{subsubsection.6.2.2.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Summary of weekly hedging S\&P 500 call options (testing set) for 100 business days with total hedging evaluation criteria described in section \ref  {sec:totalcriteria}. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{79}{table.6.2}\protected@file@percent }
-\newlabel{table:CallTotalW}{{6.2}{79}{Summary of weekly hedging S\&P 500 call options (testing set) for 100 business days with total hedging evaluation criteria described in section \ref {sec:totalcriteria}. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading}{table.6.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparing total risk hedging model $\textsc  {GRU}_{\textsc  {total}}$ and BS Model on weekly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:relHError}\unskip \@@italiccorr )}}. The distribution in this figure assumes we are on the sell-side of the option trading.}}{80}{figure.6.3}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{80}{figure.6.3}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{80}{figure.6.3}\protected@file@percent }
@@ -496,23 +494,23 @@
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{80}{figure.6.4}\protected@file@percent }
 \newlabel{fig:CallTotalW3}{{6.4}{80}{Comparing total risk hedging model $\modelT $ and Bartlett model on weekly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \eqref {eq:relHError}. The distribution in this figure assumes we are on the sell-side of the option trading}{figure.6.4}{}}
 \citation{chen2011calibration}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.2.2}Call Option Monthly Hedging Comparison}{81}{subsubsection.6.2.2.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing total risk hedging model $\textsc  {GRU}_{\textsc  {total}}$ and BS model on monthly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:relHError}\unskip \@@italiccorr )}}. The distribution in this figure assumes we are on the sell-side of the option trading.}}{82}{figure.6.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{82}{figure.6.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{82}{figure.6.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{82}{figure.6.5}\protected@file@percent }
-\newlabel{fig:CallTotalM2}{{6.5}{82}{Comparing total risk hedging model $\modelT $ and BS model on monthly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \eqref {eq:relHError}. The distribution in this figure assumes we are on the sell-side of the option trading}{figure.6.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing total risk model $\textsc  {GRU}_{\textsc  {total}}$ and bartlett model on monthly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:relHError}\unskip \@@italiccorr )}}. The distribution in this figure assumes we are at the sell-side of the option trading.}}{82}{figure.6.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{82}{figure.6.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{82}{figure.6.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{82}{figure.6.6}\protected@file@percent }
-\newlabel{fig:CallTotalM3}{{6.6}{82}{Comparing total risk model $\modelT $ and bartlett model on monthly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \eqref {eq:relHError}. The distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.6}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces Summary of monthly hedging S\&P 500 call options (testing set) for 100 business days with total risk hedging evaluation criteria described in section \ref  {sec:totalcriteria}. The total hedging evaluation in this table assumes we are on the sell-side of the option trading.}}{83}{table.6.3}\protected@file@percent }
-\newlabel{table:CallTotalM}{{6.3}{83}{Summary of monthly hedging S\&P 500 call options (testing set) for 100 business days with total risk hedging evaluation criteria described in section \ref {sec:totalcriteria}. The total hedging evaluation in this table assumes we are on the sell-side of the option trading}{table.6.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Put Option Total Risk Hedging Comparison}{83}{subsection.6.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.3.1}Put Option Weekly Hedging Comparison}{83}{subsubsection.6.2.3.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces Summary of weekly hedging S\&P 500 put options (testing set) for 100 Business days with total risk hedging evaluation criteria described in section \ref  {sec:totalcriteria}. Please note that the total hedging evaluation in this table assumes we are on the sell-side of the option trading.}}{84}{table.6.4}\protected@file@percent }
-\newlabel{table:putTotalW}{{6.4}{84}{Summary of weekly hedging S\&P 500 put options (testing set) for 100 Business days with total risk hedging evaluation criteria described in section \ref {sec:totalcriteria}. Please note that the total hedging evaluation in this table assumes we are on the sell-side of the option trading}{table.6.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Summary of weekly hedging S\&P 500 call options (testing set) for 100 business days with total hedging evaluation criteria described in section \ref  {sec:totalcriteria}. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading.}}{81}{table.6.2}\protected@file@percent }
+\newlabel{table:CallTotalW}{{6.2}{81}{Summary of weekly hedging S\&P 500 call options (testing set) for 100 business days with total hedging evaluation criteria described in section \ref {sec:totalcriteria}. Please note that the total hedging evaluation in this table assumes we are at the sell-side of the option trading}{table.6.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.2.2}Call Option Monthly Hedging Comparison}{82}{subsubsection.6.2.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces Summary of monthly hedging S\&P 500 call options (testing set) for 100 business days with total risk hedging evaluation criteria described in section \ref  {sec:totalcriteria}. The total hedging evaluation in this table assumes we are on the sell-side of the option trading.}}{82}{table.6.3}\protected@file@percent }
+\newlabel{table:CallTotalM}{{6.3}{82}{Summary of monthly hedging S\&P 500 call options (testing set) for 100 business days with total risk hedging evaluation criteria described in section \ref {sec:totalcriteria}. The total hedging evaluation in this table assumes we are on the sell-side of the option trading}{table.6.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing total risk hedging model $\textsc  {GRU}_{\textsc  {total}}$ and BS model on monthly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:relHError}\unskip \@@italiccorr )}}. The distribution in this figure assumes we are on the sell-side of the option trading.}}{83}{figure.6.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{83}{figure.6.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{83}{figure.6.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{83}{figure.6.5}\protected@file@percent }
+\newlabel{fig:CallTotalM2}{{6.5}{83}{Comparing total risk hedging model $\modelT $ and BS model on monthly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \eqref {eq:relHError}. The distribution in this figure assumes we are on the sell-side of the option trading}{figure.6.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing total risk model $\textsc  {GRU}_{\textsc  {total}}$ and bartlett model on monthly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:relHError}\unskip \@@italiccorr )}}. The distribution in this figure assumes we are at the sell-side of the option trading.}}{83}{figure.6.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{83}{figure.6.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{83}{figure.6.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{83}{figure.6.6}\protected@file@percent }
+\newlabel{fig:CallTotalM3}{{6.6}{83}{Comparing total risk model $\modelT $ and bartlett model on monthly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \eqref {eq:relHError}. The distribution in this figure assumes we are at the sell-side of the option trading}{figure.6.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Put Option Total Risk Hedging Comparison}{84}{subsection.6.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.3.1}Put Option Weekly Hedging Comparison}{84}{subsubsection.6.2.3.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Comparing total risk hedging model $\textsc  {GRU}_{\textsc  {total}}$ and BS model on weekly hedging put options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:relHError}\unskip \@@italiccorr )}}. The distribution in this figure assumes we are on the sell-side of the option trading.}}{85}{figure.6.7}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{85}{figure.6.7}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{85}{figure.6.7}\protected@file@percent }
@@ -523,9 +521,9 @@
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{85}{figure.6.8}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{85}{figure.6.8}\protected@file@percent }
 \newlabel{fig:putTotalW2}{{6.8}{85}{Comparing total risk hedging model $\modelT $ and Bartlett model on weekly hedging put options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \eqref {eq:relHError}. The distribution in this figure assumes we are on the sell-side of the option trading}{figure.6.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces Summary of weekly hedging S\&P 500 put options (testing set) for 100 Business days with total risk hedging evaluation criteria described in section \ref  {sec:totalcriteria}. Please note that the total hedging evaluation in this table assumes we are on the sell-side of the option trading.}}{86}{table.6.4}\protected@file@percent }
+\newlabel{table:putTotalW}{{6.4}{86}{Summary of weekly hedging S\&P 500 put options (testing set) for 100 Business days with total risk hedging evaluation criteria described in section \ref {sec:totalcriteria}. Please note that the total hedging evaluation in this table assumes we are on the sell-side of the option trading}{table.6.4}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.3.2}Put Option Monthly Hedging Comparison}{86}{subsubsection.6.2.3.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.5}{\ignorespaces Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria described in section \ref  {sec:totalcriteria}. The total hedging evaluation in this table assumes we are on the sell-side of the option trading.}}{86}{table.6.5}\protected@file@percent }
-\newlabel{table:putTotalM}{{6.5}{86}{Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria described in section \ref {sec:totalcriteria}. The total hedging evaluation in this table assumes we are on the sell-side of the option trading}{table.6.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.2.4}Comparison to Local Risk Hedging Model}{86}{subsection.6.2.4}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {6.9}{\ignorespaces Comparing total risk hedging model $\textsc  {GRU}_{\textsc  {total}}$ and BS model on monthly hedging put options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:relHError}\unskip \@@italiccorr )}}. The distribution in this figure assumes we are on the sell-side of the option trading.}}{87}{figure.6.9}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {}}}{87}{figure.6.9}\protected@file@percent }
@@ -537,6 +535,8 @@
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {}}}{87}{figure.6.10}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {}}}{87}{figure.6.10}\protected@file@percent }
 \newlabel{fig:putTotalM3}{{6.10}{87}{Comparing total risk hedging model $\modelT $ and Bartlett model on monthly hedging put options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \eqref {eq:relHError}. The distribution in this figure assumes we are on the sell-side of the option trading}{figure.6.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.5}{\ignorespaces Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria described in section \ref  {sec:totalcriteria}. The total hedging evaluation in this table assumes we are on the sell-side of the option trading.}}{88}{table.6.5}\protected@file@percent }
+\newlabel{table:putTotalM}{{6.5}{88}{Summary of monthly hedging S\&P 500 put options for 100 business days with total hedging evaluation criteria described in section \ref {sec:totalcriteria}. The total hedging evaluation in this table assumes we are on the sell-side of the option trading}{table.6.5}{}}
 \newlabel{eq:LocalObjNew}{{6.2.1}{88}{Comparison to Local Risk Hedging Model}{equation.6.2.1}{}}
 \citation{hulloptimal}
 \citation{hulloptimal}
@@ -696,8 +696,8 @@
 \bibcite{mozer1989focused}{{141}{1989}{{Mozer}}{{}}}
 \bibcite{nesterov1983method}{{142}{1983}{{Nesterov}}{{}}}
 \bibcite{knian2017}{{143}{2018}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
-\bibcite{knian2019}{{144}{2019{}}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
-\bibcite{knian2020}{{145}{2019{}}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
+\bibcite{knian2019}{{144}{2021}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
+\bibcite{knian2020}{{145}{2023}{{Nian et~al.}}{{Nian, Coleman, and Li}}}
 \bibcite{olah2015understanding}{{146}{2015}{{Olah}}{{}}}
 \bibcite{optionmetrics2008ivy}{{147}{2008}{{OptionMetrics}}{{}}}
 \bibcite{pahikkala2006fast}{{148}{2006}{{Pahikkala et~al.}}{{Pahikkala, Boberg, and Salakoski}}}
@@ -787,24 +787,25 @@
 \citation{breeden1978prices}
 \@writefile{toc}{\contentsline {section}{\numberline {B.1}Arbitrage-Free Surface From SABR Model}{112}{section.B.1}\protected@file@percent }
 \newlabel{item:butterfly}{{1}{112}{Arbitrage-Free Surface From SABR Model}{Item.31}{}}
+\newlabel{eq:ImpDensity}{{B.1}{112}{Arbitrage-Free Surface From SABR Model}{equation.B.1.1}{}}
 \newlabel{item:calendar}{{2}{112}{Arbitrage-Free Surface From SABR Model}{Item.32}{}}
 \citation{carr2005note}
 \citation{hagan2002managing}
 \citation{hagan2002managing}
 \citation{bartlett2006hedging}
-\newlabel{eq:DiscreteCond1}{{B.1}{113}{Arbitrage-Free Surface From SABR Model}{equation.B.1.1}{}}
-\newlabel{eq:DiscreteCond2}{{B.2}{113}{Arbitrage-Free Surface From SABR Model}{equation.B.1.2}{}}
+\newlabel{eq:DiscreteCond1}{{B.2}{113}{Arbitrage-Free Surface From SABR Model}{equation.B.1.2}{}}
+\newlabel{eq:DiscreteCond2}{{B.3}{113}{Arbitrage-Free Surface From SABR Model}{equation.B.1.3}{}}
 \citation{brunner2003arbitrage}
 \citation{brunner2003arbitrage}
 \citation{brunner2003arbitrage}
-\newlabel{eq:impliedDensity}{{B.3}{114}{Arbitrage-Free Surface From SABR Model}{equation.B.1.3}{}}
+\newlabel{eq:impliedDensity}{{B.4}{114}{Arbitrage-Free Surface From SABR Model}{equation.B.1.4}{}}
 \citation{black1973pricing}
-\newlabel{eq:oriFix}{{B.4}{115}{Arbitrage-Free Surface From SABR Model}{equation.B.1.4}{}}
-\newlabel{eq:OurFix}{{B.5}{115}{Arbitrage-Free Surface From SABR Model}{equation.B.1.5}{}}
-\newlabel{eq:RND1}{{B.6}{115}{Arbitrage-Free Surface From SABR Model}{equation.B.1.6}{}}
-\newlabel{eq:RND2}{{B.7}{115}{Arbitrage-Free Surface From SABR Model}{equation.B.1.7}{}}
-\newlabel{eq:SABRFix3}{{B.8}{116}{Arbitrage-Free Surface From SABR Model}{equation.B.1.8}{}}
-\newlabel{eq:SolSABRFix}{{B.9}{116}{Arbitrage-Free Surface From SABR Model}{equation.B.1.9}{}}
+\newlabel{eq:oriFix}{{B.5}{115}{Arbitrage-Free Surface From SABR Model}{equation.B.1.5}{}}
+\newlabel{eq:OurFix}{{B.6}{115}{Arbitrage-Free Surface From SABR Model}{equation.B.1.6}{}}
+\newlabel{eq:RND1}{{B.7}{115}{Arbitrage-Free Surface From SABR Model}{equation.B.1.7}{}}
+\newlabel{eq:RND2}{{B.8}{115}{Arbitrage-Free Surface From SABR Model}{equation.B.1.8}{}}
+\newlabel{eq:SABRFix3}{{B.9}{116}{Arbitrage-Free Surface From SABR Model}{equation.B.1.9}{}}
+\newlabel{eq:SolSABRFix}{{B.10}{116}{Arbitrage-Free Surface From SABR Model}{equation.B.1.10}{}}
 \citation{carr2005note}
 \citation{gatheral2004parsimonious}
 \citation{gatheral2014arbitrage}
@@ -818,21 +819,21 @@
 \citation{corbetta2019robust,gatheral2014arbitrage}
 \citation{corbetta2019robust}
 \citation{hendriks2017extended,corbetta2019robust}
+\citation{corbetta2019robust}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {B.1.1.1}dd-eSSVI Parameterization}{118}{subsubsection.B.1.1.1}\protected@file@percent }
 \newlabel{sss:SVI}{{B.1.1.1}{118}{dd-eSSVI Parameterization}{subsubsection.B.1.1.1}{}}
-\newlabel{eqn:w}{{B.10}{118}{dd-eSSVI Parameterization}{equation.B.1.10}{}}
-\citation{corbetta2019robust}
+\newlabel{eqn:w}{{B.11}{118}{dd-eSSVI Parameterization}{equation.B.1.11}{}}
 \citation{andreasen2010volatility}
 \citation{dupire1994pricing}
-\@writefile{toc}{\contentsline {section}{\numberline {B.2}Volatility Interpolation Between Expiries}{119}{section.B.2}\protected@file@percent }
 \citation{andreasen2010volatility}
+\@writefile{toc}{\contentsline {section}{\numberline {B.2}Volatility Interpolation Between Expiries}{119}{section.B.2}\protected@file@percent }
 \citation{andreasen2010volatility}
 \newlabel{eq:LVFVolDef}{{B.1}{120}{Volatility Interpolation Between Expiries}{equation.B.2.1}{}}
 \newlabel{eq:LVFCond1}{{B.2}{120}{Volatility Interpolation Between Expiries}{equation.B.2.2}{}}
+\citation{andreasen2010volatility}
 \newlabel{eq:LVFInt}{{B.3}{121}{Volatility Interpolation Between Expiries}{equation.B.2.3}{}}
 \newlabel{eq:LVFMatrixS}{{B.4}{121}{Volatility Interpolation Between Expiries}{equation.B.2.4}{}}
 \newlabel{eq:LVFMatrixD}{{B.5}{121}{Volatility Interpolation Between Expiries}{equation.B.2.5}{}}
-\citation{andreasen2010volatility}
 \newlabel{eq:LVFCal}{{B.6}{122}{Volatility Interpolation Between Expiries}{equation.B.2.6}{}}
 \newlabel{eq:LVFFill}{{B.7}{122}{Volatility Interpolation Between Expiries}{equation.B.2.7}{}}
 \newlabel{eq:SabrAlgRef}{{B.8}{124}{Volatility Interpolation Between Expiries}{equation.B.2.8}{}}
@@ -853,7 +854,7 @@
 \newlabel{alg:Construction}{{C.1}{130}{Construction of Training, Testing and Validation Data Sets For $\modelT $}{algocf.C.1}{}}
 \@writefile{loa}{\contentsline {algocf}{\numberline {C.2}{\ignorespaces Function For Constructing Testing Hedging Scenarios.}}{131}{algocf.C.2}\protected@file@percent }
 \newlabel{alg:TestConstruction}{{C.2}{131}{Construction of Training, Testing and Validation Data Sets For $\modelT $}{algocf.C.2}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {C.3}{\ignorespaces Function For Building Model To Hedge Testing Scenarios.}}{132}{algocf.C.3}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {C.3}{\ignorespaces Building Model To Hedge Testing Scenarios Expiring on $T^{test}$.}}{132}{algocf.C.3}\protected@file@percent }
 \newlabel{alg:ModelBuilding}{{C.3}{132}{Construction of Training, Testing and Validation Data Sets For $\modelT $}{algocf.C.3}{}}
 \@writefile{toc}{\contentsline {chapter}{\numberline {D}Fixing the Butterfly Arbitrage for SABR Model}{133}{appendix.D}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}

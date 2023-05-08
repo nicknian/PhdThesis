@@ -885,16 +885,15 @@ Ke~Nian, Thomas~F Coleman, and Yuying Li.
 \newblock Learning minimum variance discrete hedging directly from the market.
 \newblock \emph{Quantitative Finance}, pages 1--14, 2018.
 
-\bibitem[Nian et~al.(2019{\natexlab{a}})Nian, Coleman, and Li]{knian2019}
+\bibitem[Nian et~al.(2021)Nian, Coleman, and Li]{knian2019}
 Ke~Nian, Thomas~F Coleman, and Yuying Li.
 \newblock Learning sequential option hedging models from market data.
-\newblock \emph{Journal of Banking and Finance}, 2019{\natexlab{a}}.
-\newblock Accepted Pending Revision.
+\newblock \emph{Journal of Banking \& Finance}, 133:\penalty0 106277, 2021.
 
-\bibitem[Nian et~al.(2019{\natexlab{b}})Nian, Coleman, and Li]{knian2020}
+\bibitem[Nian et~al.(2023)Nian, Coleman, and Li]{knian2020}
 Ke~Nian, Thomas~F Coleman, and Yuying Li.
 \newblock Learning sequential total hedging models from market data.
-\newblock Submitted, 2019{\natexlab{b}}.
+\newblock In Preparation, 2023.
 
 \bibitem[Olah(2015)]{olah2015understanding}
 Christopher Olah.

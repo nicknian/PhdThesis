@@ -37,14 +37,14 @@
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{80}{figure.6.4}%
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{80}{figure.6.4}%
 \contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{80}{figure.6.4}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing total risk hedging model $\textsc {GRU}_{\textsc {total}}$ and BS model on monthly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \textup {\hbox {\mathsurround \z@ \normalfont (\ignorespaces \ref {eq:relHError}\unskip \@@italiccorr )}}. The distribution in this figure assumes we are on the sell-side of the option trading.}}{82}{figure.6.5}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{82}{figure.6.5}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{82}{figure.6.5}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{82}{figure.6.5}%
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing total risk model $\textsc {GRU}_{\textsc {total}}$ and bartlett model on monthly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \textup {\hbox {\mathsurround \z@ \normalfont (\ignorespaces \ref {eq:relHError}\unskip \@@italiccorr )}}. The distribution in this figure assumes we are at the sell-side of the option trading.}}{82}{figure.6.6}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{82}{figure.6.6}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{82}{figure.6.6}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{82}{figure.6.6}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Comparing total risk hedging model $\textsc {GRU}_{\textsc {total}}$ and BS model on monthly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \textup {\hbox {\mathsurround \z@ \normalfont (\ignorespaces \ref {eq:relHError}\unskip \@@italiccorr )}}. The distribution in this figure assumes we are on the sell-side of the option trading.}}{83}{figure.6.5}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{83}{figure.6.5}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{83}{figure.6.5}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{83}{figure.6.5}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Comparing total risk model $\textsc {GRU}_{\textsc {total}}$ and bartlett model on monthly hedging S\&P 500 call options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \textup {\hbox {\mathsurround \z@ \normalfont (\ignorespaces \ref {eq:relHError}\unskip \@@italiccorr )}}. The distribution in this figure assumes we are at the sell-side of the option trading.}}{83}{figure.6.6}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{83}{figure.6.6}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{83}{figure.6.6}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{83}{figure.6.6}%
 \contentsline {figure}{\numberline {6.7}{\ignorespaces Comparing total risk hedging model $\textsc {GRU}_{\textsc {total}}$ and BS model on weekly hedging put options (testing set) in terms of the distribution of the relative hedging portfolio value at the expiries as in equation \textup {\hbox {\mathsurround \z@ \normalfont (\ignorespaces \ref {eq:relHError}\unskip \@@italiccorr )}}. The distribution in this figure assumes we are on the sell-side of the option trading.}}{85}{figure.6.7}%
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{85}{figure.6.7}%
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{85}{figure.6.7}%

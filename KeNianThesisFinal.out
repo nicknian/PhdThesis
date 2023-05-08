@@ -17,7 +17,7 @@
 \BOOKMARK [2][-]{subsection.2.3.2}{Parameter Dependence on Underlying Asset Price}{section.2.3}% 17
 \BOOKMARK [2][-]{subsection.2.3.3}{Corrections under the Black-Scholes Framework}{section.2.3}% 18
 \BOOKMARK [1][-]{section.2.4}{Motivation For Direct Nonparametric Data-Driven Hedging Models}{chapter.2}% 19
-\BOOKMARK [0][-]{chapter.3}{Data-Driven Kernel Learning Framework for Local Hedging Risk}{}% 20
+\BOOKMARK [0][-]{chapter.3}{Data-Driven Kernel Learning Framework for Local Hedging}{}% 20
 \BOOKMARK [1][-]{section.3.1}{Regularized Kernel Pricing Model}{chapter.3}% 21
 \BOOKMARK [2][-]{subsection.3.1.1}{Indirect Hedging Positions From Kernel Pricing Functions}{section.3.1}% 22
 \BOOKMARK [1][-]{section.3.2}{Regularized Kernel Hedging Model}{chapter.3}% 23
