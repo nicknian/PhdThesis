@@ -415,7 +415,7 @@ Furthermore,  the estimated pricing function inevitably has errors, due to both 
 The error in the value function can potentially be substantially magnified in computing partial derivatives as hedging positions.
 
 We explore several direct market data-driven approaches to bypass  the challenges mentioned above to achieve effective hedging performance.
-We first propose a  data-driven kernel learning approach \cite{knian2017} to learn a local risk minimization hedging model directly from the market data observed at the hedging time.  We learn a  hedging function from the market data by minimizing  the  empirical local hedging  risk with a suitable regularization. The local risk corresponds directly to the variance of the hedging error in the discrete rebalancing period. A novel encoder-decoder  RNN model $\model$ \cite{knian2019}, to extract both sequential and local features at hedging time $t$ from market prices, is also proposed to learn option hedging positions directly from the market. We include a feature weighting procedure to select the most relevant local features at hedging time and sequential features for the sequential data-driven model $\model$. Lastly, in order to deal with multi-steps discrete total hedging scenarios where we hedge until the expiry of the option \cite{knian2020}, we extend our sequential local hedging model $\model$ to be $\modelT$. We compare our data-driven approaches with the parametric approaches and demonstrate the effectiveness of the data-driven hedging models in terms of both local hedging risk and total hedging risk.
+We firstly propose a  data-driven kernel learning approach \cite{knian2017} to learn a local risk minimization hedging model directly from the market data observed at the hedging time.  We learn a  hedging function from the market data by minimizing  the  empirical local hedging  risk with a suitable regularization. The local risk corresponds directly to the variance of the hedging error in the discrete rebalancing period. A novel encoder-decoder  RNN model $\model$ \cite{knian2019}, to extract both sequential and local features at hedging time $t$ from market prices, is also proposed to learn option hedging positions directly from the market. We include a feature weighting procedure to select the most relevant local features at hedging time and sequential features for the sequential data-driven model $\model$. Lastly, in order to deal with multi-steps discrete total hedging scenarios where we hedge until the expiry of the option \cite{knian2020}, we extend our sequential local hedging model $\model$ to be $\modelT$. We compare our data-driven approaches with the parametric approaches and demonstrate the effectiveness of the data-driven hedging models in terms of both local hedging risk and total hedging risk.
 
 
 
@@ -756,7 +756,7 @@ dS_t=r S_t dt+\sigma S_t \hat{dW_t}
 \]
 It can be shown that $\hat{dW_t}$ is the Brownian motion under the risk-neutral measure $Q$ defined through Radon-Nikodym derivative via Girsanov's theorem \cite{shreve2004stochastic}. Using the fact that the drift rate of underlying asset dynamic under risk-neutral measure $Q$ is $r$, following \eqref{eq:bs2} and \eqref{eq:bs2P}, we can arrive at the same pricing formula as \eqref{eq:bs} and \eqref{eq:bsP}. Interest reader can refer to \cite{shreve2004stochastic} for more details about risk-neutral pricing and change from physical measure to risk-neutral measure $Q$.
 
-Since actual drift $\mu$ is irrelevant in determining the option price under Black-Scholes framework,  when pricing the option using parametric models such as Black-Scholes  model in this thesis, the drift of underlying dynamic is the risk-free interested $r$. 
+Since actual drift $\mu$ is irrelevant in determining the option price under Black-Scholes framework,  when pricing the option using parametric models such as Black-Scholes  model in this thesis, the drift of underlying dynamic is the risk-free interest rate $r$. 
 Lastly, to include the effect of dividend, we can rewrite the $d_1$ and $d_2$ in the Black-Scholes pricing formula as:
 \[
 d_1=\frac{\ln(S/K)+((r-q)+\sigma^2/2)(T-t)}{\sigma \sqrt{T-t}}, \;\; d_2=d_1-\sigma  \sqrt{T-t}
@@ -964,7 +964,7 @@ P_{SABR}=P_B(F,t,T,K;\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho))
 \]
 
 The $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$ under SABR model depends on the forward $F$, the strike $K$, the time to expiry $T-t$, the initial SABR volatility $\alpha$, the power of forward $\beta$, the volatility of volatility $\nu$, and the correlation $\rho$.  Interested readers can refer to \cite{hagan2002managing} for the detailed derivation of the analytical approximation $\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)$. \footnote{Note that equation \eqref{eq:SABRExpansion} is an approximation where higher order terms are dropped, we will disucss in later chapter on how to fix the potential arbitrage created by the approximation.}
-We use $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ to denote the option pricing formula under SABR model regardless whether it is a call toption and a put option  in the latter discussion.
+We use $V_{SABR}(S,t,T,K,r,q;\alpha,\beta,\nu,\rho)$ to denote the option pricing formula under SABR model regardless whether it is a call option and a put option  in the latter discussion.
 
 
 
@@ -988,13 +988,13 @@ The underlying asset price is $S_t$. The calibration can be done by:
 \label{eq:OptCal}
 \end{equation}
 
-Determining a single model solving equation \eqref{eq:OptCal} is chanllenging. In practice. approximations are often made.
+Determining a single model solving equation \eqref{eq:OptCal} is challenging In practice. approximations are often made.
 For the Black-Scholes model, there is only one parameter to be calibrated,
 so  one can match each market prices exactly by:
 \[
 V_{BS}(S_t,t,T_i,K_j;\sigma^{imp}_{t,T_i,K_j})=\Vmkt_{t,T_i,K_i}
 \]
-The volatility $\sigma^{imp}_{t,T_i,K_j}$ that equals the Black–Scholes price with the market option price is called \textbf{Black-Scholes implied volatility}. (In section \ref{sec:SABR}, we have introduced a term called SABR implied volatility which equals the SABR model price with the Black model price. The SABR implied volatility and  Black-Scholes implied volatility are two different but related concepts.)
+The volatility $\sigma^{imp}_{t,T_i,K_j}$ that equals the Black-Scholes price with the market option price is called \textbf{Black-Scholes implied volatility}. (In section \ref{sec:SABR}, we have introduced a term called SABR implied volatility which equals the SABR model price with the Black model price. The SABR implied volatility and  Black-Scholes implied volatility are two different but related concepts.)
 Note that in this way, for different options $\Vmkt_{t,T_i,K_j}$, different models are calibrated.  One can often find that the implied volatility $\sigma^{imp}$ tends to differ across different strikes and expiries.
 
 For stochastic volatility models, such as Heston and SABR, the calibration is usually done by matching the volatility smile for each expiry $T_i$ instead of the entire volatility surface \cite{heston1993closed,hagan2002managing,hulloptimal}. In other words, for a  expiry $T_i$, we solve
@@ -1029,7 +1029,7 @@ Let us further assume the risk-free interest rate and dividend yield $\{r,q\}$ d
 % Unfortunately, the calibration process inevitably relates $S$ and $\theta^*$. 
 
 The derivative pricing theory yields the  risk neutral (or risk-adjusted) option value function $V(\cdot)$.
-The option hedging position is then often determined by the model option function sensitivity $\frac{\partial V}{\partial S}$. However, using $\frac{\partial V}{\partial S}$ as the hedging position only ensures delta neutral with respect to the model option function $V$. Unfortunately this does not ensure delta neutral with respect to the market price $V^{mkt}$ .
+The option hedging position is then often determined by the model option function sensitivity $\frac{\partial V}{\partial S}$. However, using $\frac{\partial V}{\partial S}$ as the hedging position only ensures delta neutral with respect to the model option function $V$. Unfortunately this does not ensure delta neutral with respect to the market price $V^{mkt}$.
 % We note that, using the option calibration approach,  the hedging position depends only on market option prices at hedging time $t$;  change in the (historical) {\em market} option price  and underlying price is irrelevant in the computed hedging position.
 %
 %The hedging position is computed by $\frac{\partial V}{\partial S}$,
@@ -1065,14 +1065,14 @@ hypothetically assuming that (\ref{eq:imp2}) holds at any $S$, which implies
 Even with the perfect case where we can have a pricing model matching all observed market prices, which is often not achievable due to the calibration error following the equation \eqref{eq:MarketDep},
 we still have  the pricing model parameters dependence issue to be addressed. Since it is difficult to account for parameter dependence $\frac{\partial \theta^*}{\partial S}$,  $\frac{\partial \Vmkt}{\partial S} $ can be hard to be captured accurately. Therefore, it is difficult for the classical delta-hedging approach of using $\frac{\partial V}{\partial S}$ as the hedging position to  eliminate the instantaneous hedging risk.
 
-A more complex model usually has more pricing model parameters to be calibrated. Therefore, the parameter dependence likely becomes harder to be addressed. That may be one of the reason why many studies observe poorer hedging performance from more complex pricing model than simple Black-Scholes model in the real market. Even with the simple Black-Scholes model, the Black–Scholes implied volatility still depends on the underlying asset. In the following section, we introduce several corrections under the Black-Scholes framework for the parameter dependence. In addition, complex models like Heston model usually can not match the observed market option prices exactly. The calibration error can also potentially increase the hedging errors when the partial derivative is used as the hedging position.  
+A more complex model usually has more pricing model parameters to be calibrated. Therefore, the parameter dependence likely becomes harder to be addressed. That may be one of the reason why many studies observe poorer hedging performance from more complex pricing model than simple Black-Scholes model in the real market. Even with the simple Black-Scholes model, the Black-Scholes implied volatility still depends on the underlying asset. In the following section, we introduce several corrections under the Black-Scholes framework for the parameter dependence. In addition, complex models like Heston model usually can not match the observed market option prices exactly. The calibration error can also potentially increase the hedging errors when the partial derivative is used as the hedging position.  
 
 
 
 \subsection{Corrections under the Black-Scholes Framework}
 Although the issue of pricing model parameters dependence on underlying asset has been noted, e.g., in \citep{coleman2001,hulloptimal}, correcting for this risk exposure is not straightforward.
 Methods have been proposed to compensate for this missing exposure.  Typically methods are based on analysis of some parametric models, e.g., LVF and SV; these correction methods attempt to minimize the variance of the hedging error \citep{hulloptimal,alexander09,Angelini09,Angelini10,Goutte13}. In this section, we present several correction methods under Black-Scholes  framework. The discussion below is  drawn from \cite{hulloptimal,hagan2017bartlett,bartlett2006hedging}.
-\subsubsection{A Data-Driven Correction for the Black–Scholes Delta Hedging}
+\subsubsection{A Data-Driven Correction for the Black-Scholes Delta Hedging}
 
 
 
@@ -1092,7 +1092,7 @@ To the best of our knowledge, the study
 \cite{hulloptimal} is the first to determine the hedging strategy based on historical observations of the market option prices and 
 underlying prices.  
 
-\citet{hulloptimal} proposed a correction form  based on the following analysis using the Black–Scholes model. 
+\citet{hulloptimal} proposed a correction form  based on the following analysis using the Black-Scholes model. 
 More specifically, assume we have calibrated the implied volatilities $\sigma^{imp}$ to match all the market option prices as what we have discussed in section \ref{sec:Classical}.
 Let us again assume we  are computing  the hedging position  with a fixed $T$ and $K$ at a specific trading time $t$, so for notational simplicity in the following discussion, we drop ${t,T,K}$ in the subscript. Following \eqref{eq:MarketDep}, to determine the  sensitivity accurately, one needs to compute 
 \begin{equation} \label{eq:Chain}
@@ -1101,7 +1101,7 @@ Let us again assume we  are computing  the hedging position  with a fixed $T$ an
 \end{equation}
 $
 \frac{\partial V_\BS}{\partial S}
-$ is the Black–Scholes delta with the implied volatility and $\frac{\partial V_\BS}{\partial \sigma^{imp}}$ is Black–Scholes vega with the implied volatility. Both can be computed analytically. The undetermined part is $\frac{\partial \sigma^{imp}}{\partial S}$.
+$ is the Black–Scholes delta with the implied volatility and $\frac{\partial V_\BS}{\partial \sigma^{imp}}$ is Black-Scholes vega with the implied volatility. Both can be computed analytically. The undetermined part is $\frac{\partial \sigma^{imp}}{\partial S}$.
 %\citet{hulloptimal} computes the delta $\delta_{\MV}$, to correct the implied volatility risk exposure as
 In \cite{hulloptimal}, the authors choose  
 $$
@@ -1248,11 +1248,11 @@ Adding the dependence for $t,T,K$ as what we did in previous sections, we  have:
 where 
 $\delta^{B}_{t,T,K}$ is the Black delta $\frac{\partial V_{B}}{\partial F}$ at time $t$ for option with strike $K$ and expiry $T$. Here
 $\text{vega}^{B}_{t,T,K}$ is the Black vega $\frac{\partial V_{B}}{\partial \sigma_{B}}$ at time $t$ for the option with strike $K$ and expiry $T$, and 
-$\frac{\partial \sigma_B}{\partial F}$ is the shortened form  of $\frac{\partial\sigma_{B}(F_t,t,T,K;\alpha,\beta,\nu,\rho)}{\partial F}$.
+$\frac{\partial \sigma_B}{\partial F}$ is the shortened form  of $\frac{\partial\sigma_{B}(F,t,T,K;\alpha,\beta,\nu,\rho)}{\partial F}$.
 
 %Note that, \eqref{eq:sabrV3} is similar to \eqref{eq:HullWhite}. The major difference lies in the how we compute the sensitivity of implied volatility with regards to the underlying ( or forward) price. 
 
-Although, SABR model can be used to correct for the dependence of implied volatility on the forward price, the formula \eqref{eq:sabrV3} omits the fact the initial SABR volatility $\alpha$ is correlated with the forward $F$. Here whenever the forward $F$ changes,  the initial SABR volatility $\alpha$ changes.  There is still unaccounted parameter dependence  in  equation \eqref{eq:sabrV3}.
+Although, SABR model can be used to correct for the dependence of implied volatility on the forward price, the formula \eqref{eq:sabrV3} omits the fact the initial SABR volatility $\alpha$ is correlated with the forward $F$. Here whenever the forward $F$ changes,  the initial SABR volatility $\alpha$ changes.  There is still an unaccounted parameter dependence  in  equation \eqref{eq:sabrV3}.
 
 Bartlett correction \cite{hagan2017bartlett,bartlett2006hedging} was proposed to account for the dependence of $\alpha$ on $F$.
 The Bartlett correction is based on the following analysis. Recall that, in the SABR model, we assume:
@@ -1288,7 +1288,7 @@ The formula for Bartlett correction is thus:
 \label{eq:bartlett}
 \end{equation}
 with $\frac{\partial \sigma_B}{\partial \alpha}$ being the shortened form for 
-$\frac{\partial \sigma_B (F_t,t,T,K;\alpha,\beta,\nu,\rho)}{\partial \alpha}$.
+$\frac{\partial \sigma_B (F,t,T,K;\alpha,\beta,\nu,\rho)}{\partial \alpha}$.
 The Bartlett correction improves over the SABR delta in two different aspects:
 \begin{itemize}
     \item Empirically, the Bartlett correction is less sensitive to the choice of $\beta$ parameter. In practice,  $\beta$ is often fixed instead of being calibrated together with $\alpha,\nu,\rho$ in SABR model. Different choices of $\beta$ can often all fit the market prices but different choices of $\beta$ can often lead to different SABR delta $\delta^{SABR}_{t,T,K}$ position. On the other hand,  $\delta^{Bartlett}_{t,T,K}$ is consistent with different choices of $\beta$. This phenomenon is shown in Figure \ref{fig:Bartlett}. We calibrate the SABR model for S\&P 500 index options  on  2012-01-04 and the option expiry is 2012-12-31. We compute and compare delta position and we can see that for SABR delta, different choice of $\beta$ can lead to  significantly different hedging position while the Bartlett delta position is consistent.
@@ -1369,7 +1369,7 @@ From chapter \ref{sec:Background}, we have seen various challenges for hedging w
 In this chapters, we indicate that the issue of pricing model parameters dependence still exists even if one estimate the pricing model using a machine learning model with no assumption on the dynamic of the underlying asset movement. 
 
 The organization of this chapter is as the following:
-We discuss how one can compute a hedging positions from partial derivatives of the optimal regularized kernel functions in section \ref{sec:VF}. The proposed data-driven kernel hedging learning method is presented in section \ref{sec:KernelDirect}. In section \ref{sec:cross}, we discuss how cross-validation can be done efficiently for both kernel pricing and kernel hedging model. In section \ref{sec:Synexperiment}, we present experiments using synthetic data to illustrate the drawbacks of determining hedging position from partial derivative of pricing function estimated using machine learning algorithms and the effectiveness of data-driven direct kernel hedging functions.
+We discuss how one can compute a hedging positions from partial derivatives of the optimal regularized kernel functions in section \ref{sec:RegularizedNW}. The proposed data-driven kernel hedging learning method is presented in section \ref{sec:KernelDirect}. In section \ref{sec:Synexperiment}, we present experiments using synthetic data to illustrate the drawbacks of determining hedging position from partial derivative of pricing function estimated using machine learning algorithms and the effectiveness of data-driven direct kernel hedging functions.
 
 \section{Regularized Kernel Pricing Model} 
 \label{sec:RegularizedNW}
@@ -1456,7 +1456,7 @@ Assume that the one dimension  of the attribute vector $\vx_{t}^{T,K} \in \Real^
 \end{equation}
 \citet{hutchinson} demonstrate that this nonparametric hedging approach,  using the partial derivative of a nonparametric pricing function learned from historical market data, can be a useful alternative for option hedging.
 
-However, using \eqref{eq:dV} as the hedging position similarly does not minimize variance of hedge risk in general and the challenge in accounting for parameter dependence on the underlying remains. We can see that from the  following arguments. We made an unrealistic assumption that the estimated kernel function $V(\mathbf{x}_{t}^{T,K};\valpha^*)$ matches the target market option price exactly, i.e.,
+However, using \eqref{eq:dV} as the hedging position similarly does not minimize variance of hedging risk in general and the challenge in accounting for parameter dependence on the underlying remains. We can see that from the  following arguments. We made an unrealistic assumption that the estimated kernel function $V(\mathbf{x}_{t}^{T,K};\valpha^*)$ matches the target market option price exactly, i.e.,
 $$
 V(\mathbf{x}_{t}^{T,K};\valpha^*) = \Vmkt_{t,T,K}
 $$
@@ -1537,7 +1537,7 @@ For multidimensional data, the spline kernel is the product of one-dimensional s
 
 \section{Comparison using synthetic data}\label{sec:Synexperiment}
 Following the S\&P 500  market option specifications in \citep{hull2006options},  we first synthetically generate option data assuming that the underlying price follows a Heston model \citep{heston1993closed}.
-We  compare hedging effectiveness of direct hedging function learning \eqref{fhedge}  and indirect hedging function estimation  \eqref{eq:indirectf}. In addition, we compare their performance to that of using  analytic delta under the  Heston model, which can be regarded as a best case benchmark, at least for daily hedging. Note that there is no model mis-specification  for the underlying price in this synthetic case.
+We  compare hedging effectiveness of direct hedging function learning \eqref{fhedge}  and indirect hedging function estimation  \eqref{eq:indirectf}. In addition, we compare their performance to that of using  analytic delta under the  Heston model, which can be regarded as a benchmark. Note that there is no model mis-specification  for the underlying price in this synthetic case.
 
 The experiments in the this section is to demonstrate the following :
 \begin{itemize}
@@ -1578,7 +1578,7 @@ In addition,  a vector of simulated (traded)  market call option prices  are  ge
 \Vmkt_{t,T,K}=V_{Heston}(S_t,t,T,K,r,q;\Upsilon,\kappa^*,\overline{\Upsilon}^*,\eta,\rho)
  \]
 
-Note that the Heston delta position under this synthetic scenarios does not have the parameter dependence issue, since for the synthetic case all heston parameter are fixed, and can be used as the benchmark.
+Note that the Heston delta position under this synthetic scenarios does not have the parameter dependence issue, since for the synthetic case all heston parameter are fixed, and can be used as the benchmark \footnote{Heston price and delta in this thesis is evaluated using numerical integration methods.}.
  \[
 	 \delta^{Heston}_{t,T,K}=\frac{ \partial V_{Heston}(S_t,t,T,K,r,q;\Upsilon,\kappa^*,\overline{\Upsilon}^*,\eta,\rho)}{\partial S}=\frac{\partial \Vmkt}{\partial S}
  \] 
@@ -2114,12 +2114,12 @@ the decoder as the fixed size vector $\mathbf{\widehat{h}}_E$, which  extracts r
 \subsection{Decoder}
 
 The decoder combines the output of the encoder from the sequential feature $\mathbf{Y}_{t}^{T,K}$  at the hedging time $t$ with the current local feature $\mathbf{x}_{t}^{T,K}$.
-It uses one neural network to firstly compute a candidate output  $\widehat{\delta}^M_{t,T,K}$,  based on both the weighted local input  $\widehat{\vx}_{t}^{T,K}$ and the fixed size vector $\mathbf{\widehat{h}}_E$ :
+It uses one neural network layer to firstly compute a candidate output  $\widehat{\delta}^M_{t,T,K}$,  based on both the weighted local input  $\widehat{\vx}_{t}^{T,K}$ and the fixed size vector $\mathbf{\widehat{h}}_E$ :
 $$
 \widehat{\delta}^M_{t,T,K}=sigmoid (\vv^T_{out} \ tanh( \vU_{out} \mathbf{\widehat{h}}_E + \vW_{out} \widehat{\vx}_{t}^{T,K}+ \vb_{out})).
 $$
 
-The the output gate value $W_{\delta}$ is given by another neural network, based on both the weighted local input  $\widehat{\vx}_{t}^{T,K}$ and the fixed size vector $\mathbf{\widehat{h}}_E$ :
+The the output gate value $W_{\delta}$ is given by another neural network layer, based on both the weighted local input  $\widehat{\vx}_{t}^{T,K}$ and the fixed size vector $\mathbf{\widehat{h}}_E$ :
 \begin{equation}\label{WDel}
 W_{\delta}=sigmoid (\vv^T_{Gate} \ tanh( \vU_{Gate} \mathbf{\widehat{h}}_E + \vW_{Gate} \widehat{\vx}_{t}^{T,K}+ \vb_{Gate})).
 \end{equation}
@@ -3051,7 +3051,7 @@ Obj_{total}=\sum_{i=1}^M \left|\text{Rel}^{total}_{t_0^{i},T_i,K_i}\right|
 where the relative total hedging error is defined as:
 \begin{equation}
 \text{Rel}^{total}_{t_0,T,K}
-=\frac{D(t_0,T_i)  \text{Risk}^{total}_{t_0,T,K}}{V_{t_0,T,K}}
+=\frac{D(t_0,T)  \text{Risk}^{total}_{t_0,T,K}}{V_{t_0,T,K}}
 \label{eq:relHError}
 \end{equation}
 
@@ -3575,7 +3575,8 @@ For extending our work, we note that there are several directions:
 	Indeed, for this direction, there are already several attempts. For example, \citet{bergeron2021variational} apply the variational autoencoders \cite{kingma2013auto} on generating synthetic volatility surface  that are indistinguishable from those observed historically. \citet{pardo2020mitigating} apply the  Generative Adversarial Networks (GANs) \cite{goodfellow2014generative} on learning  the underlying structure inherent to the dynamics of financial series and acquiring the capacity to generate scenarios that share many similarities to those seen in the historic  time series.  
 	\item In this thesis, we use S\&P 500 index options for experimental comparison. It will be interesting to explore  effectiveness of the data-driven models on more complex derivatives such as basket options where the dimensionality of the underlying is higher. 
 	\item In this thesis, we have not included transaction cost into our models. A more realistic model should include the effect of the transaction cost as in \cite{buehler2019deep}. 
-	\item  In this thesis, for total hedging  model, we assume we rebalance every 5 business days or 20 business days. In reality, we do not have to fix the interval length between two rebalancing times. It may be interesting to extend the model so that the data-driven model determines when is the best time to rebalance the hedging portfolio. 
+	\item  In this thesis, for total hedging  model, we assume we rebalance every 5 business days or 20 business days. In reality, we do not have to fix the interval length between two rebalancing times. It may be interesting to extend the model so that the data-driven model determines when is the best time to rebalance the hedging portfolio.
+	\item Trader in real worlds  may use the  financial derivatives from one asset class to hedge the financial derivatives from another asset classes. For example, credit default swaption on credit index is very  illiquid in market. Therefore, in practice, trader may use equity index option to hedge the risk of the credit default swap since there exists strong correlation between equity index and credit index. Traditional parametric model cannot easily capture this kind of implicit exposure from equity option  towards credit index. However, with the help of the data-driven model, such  implicit sensitivity can be learned directly from market data.  This is another potential area of extension for this data-driven approach.
 \end{itemize}
 
 
@@ -5182,7 +5183,7 @@ In this thesis, we  use the  risk neutral adjustment \eqref{eq:AppOurFix} with 4
  %  \] and  
   \[
 	 \widehat{C}_{SABR}(T_{i+1},\widehat{K}_j)=\frac{\widetilde {C_{SABR}}(T_{i+1},K_j)}{D(t,T_{i+1})F(t,T_{i+1})},
- \] $Vega_{B}(T_{i+1},\widehat{K}_j)$ is the Vega computed using SABR model calibrated to market prices at $T_{i+1}$ and $\widetilde {C_{SABR}}(T,K)$ is the arbitrage-free SABR model value we produce in previous section.
+ \] $Vega_{B}(T_{i+1},\widehat{K}_j)$ is the vega computed using SABR model calibrated to market prices at $T_{i+1}$ and $\widetilde {C_{SABR}}(T,K)$ is the arbitrage-free SABR model value we produce in previous section.
  
  Note that for the initial case $T_0=t$, $\widehat{C}(T_0,\widehat{K})=max(1-\widehat{K},0)$ is given as the payoff. Given $\widehat{C}(T_0,\widehat{K})$, we firstly solve \eqref{eq:AppLVFCal} for the $\widehat{\sigma}(T_0,.).$ After obtaining $\widehat{\sigma}(T_0,.)$, we can then solve the forward system  \eqref{eq:AppLVFCal} to get \[
 	 \begin{bmatrix}

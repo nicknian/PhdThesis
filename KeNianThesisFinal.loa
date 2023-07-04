@@ -2,20 +2,20 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {algocf}{\numberline {4.1}{\ignorespaces Trust-region Algorithm}}{53}{algocf.4.1}%
+\contentsline {algocf}{\numberline {4.1}{\ignorespaces Trust-region Algorithm}}{54}{algocf.4.1}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {algocf}{\numberline {B.1}{\ignorespaces Function For SABR Calibration }}{124}{algocf.B.1}%
-\contentsline {algocf}{\numberline {B.2}{\ignorespaces Function For Arbitrage Free Smile With SABR Model.}}{125}{algocf.B.2}%
-\contentsline {algocf}{\numberline {B.3}{\ignorespaces Function For LVF Calibration.}}{126}{algocf.B.3}%
-\contentsline {algocf}{\numberline {B.4}{\ignorespaces Function For Arbitrage Free Surface Construction.}}{127}{algocf.B.4}%
+\contentsline {algocf}{\numberline {B.1}{\ignorespaces Function For SABR Calibration }}{125}{algocf.B.1}%
+\contentsline {algocf}{\numberline {B.2}{\ignorespaces Function For Arbitrage Free Smile With SABR Model.}}{126}{algocf.B.2}%
+\contentsline {algocf}{\numberline {B.3}{\ignorespaces Function For LVF Calibration.}}{127}{algocf.B.3}%
+\contentsline {algocf}{\numberline {B.4}{\ignorespaces Function For Arbitrage Free Surface Construction.}}{128}{algocf.B.4}%
 \addvspace {10\p@ }
-\contentsline {algocf}{\numberline {C.1}{\ignorespaces Function For Constructing Training Hedging Scenarios.}}{130}{algocf.C.1}%
-\contentsline {algocf}{\numberline {C.2}{\ignorespaces Function For Constructing Testing Hedging Scenarios.}}{131}{algocf.C.2}%
-\contentsline {algocf}{\numberline {C.3}{\ignorespaces Building Model To Hedge Testing Scenarios Expiring on $T^{test}$.}}{132}{algocf.C.3}%
+\contentsline {algocf}{\numberline {C.1}{\ignorespaces Function For Constructing Training Hedging Scenarios.}}{131}{algocf.C.1}%
+\contentsline {algocf}{\numberline {C.2}{\ignorespaces Function For Constructing Testing Hedging Scenarios.}}{132}{algocf.C.2}%
+\contentsline {algocf}{\numberline {C.3}{\ignorespaces Building Model To Hedge Testing Scenarios Expiring on $T^{test}$.}}{133}{algocf.C.3}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
