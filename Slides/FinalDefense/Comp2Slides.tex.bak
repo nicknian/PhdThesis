@@ -1,0 +1,842 @@
+\documentclass[10pt,table,mathserif]{beamer}
+\usetheme[
+%%% options passed to the outer theme
+%    hidetitle,           % hide the (short) title in the sidebar
+%    hideauthor,          % hide the (short) author in the sidebar
+%    hideinstitute,       % hide the (short) institute in the bottom of the sidebar
+%    shownavsym,          % show the navigation symbols
+%    width=2cm,           % width of the sidebar (default is 2 cm)
+%    hideothersubsections,% hide all subsections but the subsections in the current section
+%    hideallsubsections,  % hide all subsections
+%    right                % right of left position of sidebar (default is right)
+  ]{Aalborg}
+
+\setbeamertemplate{theorems}[numbered]
+
+\definecolor{watred}{cmyk}{.00,1,1,0.00}
+\definecolor{watyellow}{cmyk}{0,0.12,1,0}
+\definecolor{watgray}{cmyk}{0,0,0,0.5}
+
+% If you want to change the colors of the various elements in the theme, edit and uncomment the following lines
+% Change the bar and sidebar colors:
+\setbeamercolor{Aalborg}{fg=black,bg=watred}
+\setbeamercolor{sidebar}{bg=white}
+% Change the color of the structural elements:
+\setbeamercolor{structure}{fg=red}
+% Change the frame title text color:
+%\setbeamercolor{frametitle}{fg=blue}
+% Change the normal text color background:
+\setbeamercolor{normal text}{bg=white, fg=black}
+\setbeamercolor{alerted text}{bg=white, fg=red}
+% ... and you can of course change a lot more - see the beamer user manual.
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{threeparttable}
+% ... or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+\usepackage{lmodern} %optional
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{colortbl}
+\usepackage{biblatex}
+\usepackage{bibentry}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{multirow}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning, fit, arrows.meta}
+\usepackage{tkz-graph}
+\usetikzlibrary{backgrounds,automata}
+
+
+
+
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{$#2$}}%
+\newcommand*{\Resize}[2]{\resizebox{#1}{!}{$#2$}}%
+\newcommand{\vt}[1]{\mathbf{#1}}
+\newcommand{\vw}{\mathbf{w}}
+%\newcommand{\pm}{\stackrel{+}{-}}
+\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vi}{\mathbf{i}}
+\newcommand{\vo}{\mathbf{o}}
+\newcommand{\vxt}{\tilde{\mathbf{x}}}
+\newcommand{\vy}{\mathbf{y}}
+\newcommand{\impsigma}{\breve{\sigma}}
+\newcommand{\barK}{\overline{K}}
+\newcommand{\barC}{\overline{C}}
+\newcommand{\vz}{\mathbf{z}}
+\newcommand{\fnp}{\tilde{f}}
+\newcommand{\vu}{\mathbf{u}}
+\newcommand{\vs}{\mathbf{s}}
+\newcommand{\vc}{\mathbf{c}}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\HK}{\mathcal{H}_K}
+\newcommand{\XS}{\mathcal{X}}
+\newcommand{\DS}{\Delta S}
+\newcommand{\Heston}{\textsc{Heston}}
+\newcommand{\DVmkt}{\Delta \breve{V}}
+\newcommand{\DT}{\Delta_t}
+\newcommand{\vuu}{\mathbf{\widetilde u}}
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\vdot}[2]{{#1}^T{#2}}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\newcommand{\sym}{\textsc{sym}}
+\newcommand{\BS}{\textsc{BS}}
+\newcommand{\LOF}{\textsc{lof}}
+\newcommand{\svm}{\textsc{svm}}
+\newcommand{\AMflag}{\text{mFLAG}}
+\newcommand{\rw}{\textsc{rw}}
+\newcommand{\diag}{\textsc{diag}}
+\newcommand{\sign}{\textsc{sign}}
+\newcommand{\MeanAbs}{\E(|\DVmkt-\DS f(\vx)|)}
+\newcommand{\Cluster}{\textsc{C}}
+\newcommand{\bi}{\text{bi}}
+\newcommand{\g}{\mathbf{g}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\valpha}{\pmb{\alpha}}
+\newcommand{\vK}{\pmb{K}}
+\newcommand{\vV}{\pmb{\breve{V}}}
+\newcommand{\e}{\mathbf{e}}
+\newcommand{\vol}{\upsilon}
+\newcommand{\vd}{\mathbf{d}}
+\newcommand{\vh}{\mathbf{h}}
+\newcommand{\vf}{\mathbf{f}}
+\newcommand{\vW}{\pmb{W}}
+\newcommand{\np}{\text{np}}
+\newcommand{\pt}{^{+\Delta t}}
+\newcommand{\norm}{\text{norm}}
+\newcommand{\row}{\text{row}}
+\newcommand{\Vmkt}{\breve{V}}
+\newcommand{\vecVmkt}{\mathbf{\breve{V}}}
+\newcommand{\Ncut}{\text{Ncut}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\DKLs}{\bf\textsc{DKL}_{\text{SPL}}}
+\newcommand{\DKLg}{\bf\textsc{DKL}_{\text{RBF}}}
+\newcommand{\IKLs}{\bf\textsc{IKL}_{\text{SPL}}}
+\newcommand{\IKLg}{\bf\textsc{IKL}_{\text{RBF}}}
+\newcommand{\LVF}{\textsc{LVF}}
+\newcommand{\Del}{\delta^{\textsc{BS}}}
+\newcommand{\SABR}{\bf\textsc{SABR}}
+\newcommand{\MV}{\bf \textsc{MV}}
+
+
+
+
+
+\nobibliography{Ref.bib}
+\definecolor{mycyan}{cmyk}{.2,0,0,0}
+\definecolor{mycyan1}{cmyk}{.1,0,0,0}
+\definecolor{mycyan3}{cmyk}{.3,0,0,0}
+% colored hyperlinks
+\newcommand{\chref}[2]{%
+  \href{#1}{{\usebeamercolor[bg]{Aalborg}#2}}
+}
+
+\title[Data-Driven Models for Discrete
+Hedging Problem ]% optional, use only with long paper titles
+{Data-Driven Models for   Discrete
+Hedging Problem}
+
+
+\author[Ke Nian ] % optional, use only with lots of authors
+{ Ke Nian\\
+ Supervisors: Prof.Yuying Li and Prof.Thomas.F.Coleman
+}
+
+
+% - Give the names in the same order as they appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation. See the beamer manual for an example
+
+%specify some optional logos
+\pgfdeclareimage[height=1.4cm]{mainlogo}{logo.png} % placed in the upper left/right corner
+\logo{\pgfuseimage{mainlogo}}
+
+\pgfdeclareimage[height=0.75cm]{logo2}{tu-logo} % placed in the lower left/right corner if the \pgfuseimage{logo2} command is uncommented in the \institute command below
+
+\institute[
+%  {\pgfuseimage{logo2}}\\ %insert a company or department logo
+  David R. Cheriton School of Computer Science, University of Waterloo
+] % optional - is placed in the bottom of the sidebar on every slide
+{%
+  David R. Cheriton School of Computer Science,\\
+  University of Waterloo,\\
+  Waterloo, Canada
+  %there must be an empty line above this line - otherwise some unwanted space is added between the university and the country (I do not know why;( )
+}
+\date{\today}
+
+\begin{document}
+% the titlepage
+\begin{frame}[plain] % the plain option removes the sidebar and header from the title page
+  \titlepage
+\end{frame}
+%%%%%%%%%%%%%%%%
+
+% TOC
+\begin{frame}{Agenda}{}
+\tableofcontents
+\end{frame}
+%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+
+\begin{frame}{Practitioner Black-Scholes (BS) Delta Hedging}
+
+\begin{itemize}
+  \item BS model:
+\[
+\frac{d S}{ S}= \mu dt +\sigma dZ
+\]
+
+\[
+\sigma:\; \text{Constant}
+\]
+\item Implied Volatility
+  \[
+  \sigma_{imp}=V_{BS}^{-1}(V_{mkt},.)
+  \]
+  \begin{center}
+  $V_{mkt}$: market option price \\ $V_{BS}^{-1}$ : inverse of BS pricing function
+  \end{center}
+
+\item BS Delta:
+\[
+\delta_{BS}=\frac{\partial V_{BS}}{ \partial S}
+\]
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Problem with Black-Scholes Delta}
+Problem with the traditional Black-Scholes delta:
+\begin{itemize}
+  \item Market violates BS assumption
+  \item Dependence of volatility on underlying asset price
+\end{itemize}
+Variants of Hedging Strategy:
+\begin{itemize}
+  \item Stochastic Volatility Model
+  \item Local Volatility Model
+  \item Minimum Variance Approach
+  \item Indirect Data-Driven Approach
+  \item \textbf{Direct Data-Driven Approach}
+\end{itemize}
+\end{frame}
+\section{Delta Hedging Variants}
+\subsection{Stochastic Volatility Model}
+\begin{frame}{Stochastic Volatility Model}
+Stochastic volatility models:
+\begin{itemize}
+  \item Heston Model
+\[
+\begin{split}
+dS_t&=r S_t dt + \sqrt{\upsilon_t} S_t dW_t\\
+d\upsilon_t&=\kappa(\overline{\upsilon}-\upsilon_t)dt+\eta \sqrt{\upsilon_t}dZ_t\\
+dZ_tdW_t&=\rho dt
+\end{split}
+\]
+\item Many stochastic volatility models do not have analytical formula for pricing and hedging function.
+\end{itemize}
+\end{frame}
+
+
+
+\subsection{Minimum Variance Approach}
+\begin{frame}{Minimum Variance Approach}
+Considering the  the dependence of imply volatility on asset price:
+\begin{itemize}
+\item The  Minimum Variance (MV) delta:
+\[
+\delta_{MV}=\frac{\partial V_{BS}}{\partial S}+\frac{\partial V_{BS}}{\partial \sigma_{imp}}\frac{\partial \sigma_{imp}}{ \partial S}
+\]
+\item The authors \footnotemark propose:
+\begin{equation}
+\frac{\partial \sigma_{imp}}{ \partial S}=\frac{a+b\delta_{BS}+c \delta_{BS}^2}{S\sqrt{T}}
+\end{equation}
+$a, b \text{ and  } c$ are the parameter to be fitted using market data.
+\end{itemize}
+\footnotetext[1]{Hull, J. and White, A., "Optimal delta hedging for options."
+\\Journal of Banking  and  Finance 82 (2017): 180-190.}
+\end{frame}
+
+\subsection{Local Volatility Model}
+\begin{frame}{Local Volatility Model}
+The local volatility function (LVF) \footnotemark : volatility is a deterministic function of $S$ and $t$.
+ \[
+\delta_{MV}=\frac{\partial V_{BS}}{\partial S}+\frac{\partial V_{BS}}{\partial \sigma_{imp}}\frac{\partial \sigma_{imp}}{ \partial S}
+\]
+Local volatility model can also be used to calculate the $\frac{\partial \sigma_{imp}}{ \partial S}$.
+
+\footnotetext[2]{Coleman, T.F., Kim, Y., Li, Y. and Verma, A.,\\ 'Dynamic hedging with a deterministic local volatility function model,' \\Journal of risk, 4 ,1 (2001):63-89}
+
+\end{frame}
+\section{Data Driven Approach}
+\subsection{Indirect Data-Driven Approach}
+\begin{frame}{Problem with Parametric Approach}
+Parametric approaches:
+\begin{itemize}
+  \item Model mis-specification.
+  \item Sub-optimal for discrete hedging problems.
+\end{itemize}
+
+Data-driven approaches:.
+\begin{itemize}
+  \item Minimum assumptions on $S$.
+  \item Model is determined by market data.
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}{Indirect Data-driven Approach}
+The indirect data-driven approach \footnotemark can be summarized as following:
+\begin{itemize}
+\item Let $X$ be the features from market.
+\begin{itemize}
+  \item Asset price $S$
+  \item Strike Price $K$
+  \item Time to expiration $T-t$
+\end{itemize}
+\item Determine the data driven pricing function $V(X)$ using regression model.
+\item Compute
+\[
+\delta_{ID}=\frac{ \partial V(X) }{ \partial S}
+\]
+\end{itemize}
+\footnotetext[3]{Hutchinson, J.M., Lo, A.W. and Poggio, T., "A \\
+nonparametric approach to pricing and hedging derivative securities via learning networks." The Journal of Finance 49.3 (1994): 851-889.}
+\end{frame}
+
+\subsection{Direct Data-Driven Approach}
+\begin{frame}{Problem with Indirect Data-Driven Approach}
+Problem with the Indirect Data-Driven Approach:
+\begin{itemize}
+  \item Unnecessary intermediate procedure.
+  \item Sub-optimal for discrete hedging.
+  \item Model parameters depend on the asset price.
+\end{itemize}
+
+Direct data-driven approach can be more useful in practice.
+\begin{itemize}
+  \item Customized hedging position function.
+  \item Directly compute the hedging position.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Direct Data-driven Approach}
+
+The direct data-driven approach is
+\[
+\min_{f}\left[\frac{1}{N} \sum_{i=1}^N (\Delta V_i-\Delta S_i f(X_i))^2 \right]
+\]
+
+\begin{center}
+$\Delta V_i$ : the change of option value in data instance $i$\\
+$\Delta S_i$ : the change of asset price in data instance $i$ \\
+\end{center}
+\end{frame}
+
+
+
+\subsection{Real Data Experiments}
+\begin{frame}{Real Data  Hedging Experiments}
+\begin{itemize}
+  \item Data: S\&P 500 index option from Jan 2007 and Aug 2015
+  \item Model Calibration:
+    \begin{itemize}
+      \item SABR: daily calibration
+      \item LVF: $\frac{\partial \sigma_{imp}}{ \partial S}$ from implied volatility surface
+      \item MV: Use a 36 months time window to train
+      \item $\DKLs$: Use a 36 months time window to train. Models are separately calibrated for different Black-Sholes delta range.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Evaluation Criteria: Local Risk}
+The percentage increase in the effectiveness over the BS hedging:
+\[
+Gain=1-\frac{SSE[\Delta V_i-\Delta S_i\delta^i]}{SSE[\Delta V_i-\Delta S_i\delta^i_{BS}]}
+\]
+\begin{center}
+
+SSE: sum of squared errors\\
+ $\delta$: hedging position computed from different models\\
+ $\delta_{BS}$: BS delta\\
+ \end{center}
+\end{frame}
+
+\begin{frame}{S\&P 500 Call Options}
+\begin{table}[htp!]
+\centering
+\begin{threeparttable}
+\begin{tabular}{|c |r r r r r|}
+\hline
+\multirow{3}{*}{Delta}&\multirow{3}{*}{SABR (\%)}&\multirow{3}{*}{\LVF\;(\%)}&\multirow{3}{*}{MV (\%)}&\multicolumn{2}{c|}{$\DKLs$ (\%)}\\
+&&&&\multicolumn{2}{c|}{\small Leave-One-Out\tnote{1} }\\
+&&&&\multicolumn{1}{c}{\small Traded}&\multicolumn{1}{c|}{\small All}\\ \hline
+  0.1 & 42.1 & 39.4 & 42.6 & \textbf{44.1} & \textbf{44.4}  \\
+  0.2 & 35.8 & 33.4 & 36.2 & \textbf{37.8} & \textbf{38.1} \\
+  0.3 & 31.1 & 29.4 & 30.3 & \textbf{33.1} & \textbf{33.6} \\
+  0.4 & 28.5 & 26.3 & 26.7 & \textbf{30.9} & \textbf{31.3}   \\
+  0.5 & 27.1 & 24.9 & 25.5 & \textbf{30.0}& \textbf{30.4}  \\
+  0.6 & 25.7 & 25.2 & 25.2 & \textbf{29.3}& \textbf{29.8}  \\
+  0.7 & 25.4 & 24.7 & 25.8 & \textbf{28.4} & \textbf{30.2}  \\
+  0.8 & 24.1 & 23.5 & 25.4&   22.5& \textbf{28.0}  \\
+  0.9 & 16.6 & \textbf{17.0} & 16.9 & 8.1  & 12.7  \\
+  Overall & 25.7 & 24.6 & 25.5 & \textbf{31.3} & \textbf{26.8}  \\
+  \hline
+\end{tabular}
+\caption{S\&P 500 Call Option Daily Hedging: bold entry indicating best Gain}
+\label{SP500Call}
+  \begin{tablenotes}
+    \small
+  \item[1] For each month, the penalties for models are determined by leave-one-out cross validation.
+\end{tablenotes}
+
+\end{threeparttable}
+
+\end{table}
+\end{frame}
+
+
+\section{Sequential Learning Framework}
+\subsection{Motivation}
+\begin{frame}{Volatility Clustering and Financial Time Series}
+\begin{itemize}
+\item
+Sequential learning framework may further improve the performance:
+\begin{itemize}
+  \item Volatility clustering observed in the financial market.
+  \item Autocorrelation between data instances near in time.
+\end{itemize}
+\item Recurrent Neural Networks (RNNs) are popular models that have been widely used in time series analysis.
+\end{itemize}
+\end{frame}
+\subsection{Recurrent Neural Network}
+\begin{frame}{Recurrent Neural Network (1)}
+\begin{columns}
+\begin{column}{0.45\linewidth}
+\begin{figure}
+\resizebox{0.80\textwidth}{!}{
+\begin{tikzpicture}
+\node[draw, outer sep=2, circle] (x_t) {Input};
+\node[draw, align=center, outer sep=2] (unit_t1) [above=of x_t] {Hidden States};
+\node[draw, align=center, outer sep=2] (unit_t2) [above=of unit_t1] {Output};
+%\node[align=center, outer sep=2] (unit_tprev1) [left=of unit_t1] {$\vh_{t-1}$};
+%\node[align=center, outer sep=2] (unit_tnext1) [right=of unit_t1] {$\vh_{t}$};
+%\node[align=center, outer sep=2] (unit_tprev2) [left=of unit_t2] {$\vh_{t-1}^{(2)}$};
+%\node[align=center, outer sep=2] (unit_tnext2) [right=of unit_t2] {$\vh_{t}^{(2)}$};
+%\node[outer sep=2, circle] (y_t) [above=of unit_t2] {$...$};
+\path[->] (x_t) edge (unit_t1);
+\draw[->] (unit_t1) to node[left]{} (unit_t2);
+%\path[->] (unit_t2) edge (y_t);
+%\path[->] (unit_tprev1) edge (unit_t1);
+%\path[->] (unit_t1) edge (unit_tnext1);
+%\path[->] (unit_tprev2) edge (unit_t2);
+%\path[->] (unit_t2) edge (unit_tnext2);
+\end{tikzpicture}
+}
+\caption{Neural Network}
+\end{figure}
+\end{column}
+\hfill
+\begin{column}{0.48\linewidth}
+\begin{figure}
+\resizebox{0.80\textwidth}{!}{
+\begin{tikzpicture}
+\node[draw, outer sep=2, circle] (x_t) {Input};
+\node[draw, align=center, outer sep=2] (unit_t1) [above=of x_t] {Hidden States};
+\node[draw, align=center, outer sep=2] (unit_t2) [above=of unit_t1] {Output};
+%\node[align=center, outer sep=2] (unit_tprev1) [left=of unit_t1] {$\vh_{t-1}$};
+%\node[align=center, outer sep=2] (unit_tnext1) [right=of unit_t1] {$\vh_{t}$};
+%\node[align=center, outer sep=2] (unit_tprev2) [left=of unit_t2] {$\vh_{t-1}^{(2)}$};
+%\node[align=center, outer sep=2] (unit_tnext2) [right=of unit_t2] {$\vh_{t}^{(2)}$};
+%\node[outer sep=2, circle] (y_t) [above=of unit_t2] {$...$};
+\path[->] (x_t) edge (unit_t1);
+\draw[->] (unit_t1) to node[left]{} (unit_t2);
+\draw[red,thick,->] (unit_t1.90) arc (0:222:6.5mm) ;
+%\path[->] (unit_t2) edge (y_t);
+%\path[->] (unit_tprev1) edge (unit_t1);
+%\path[->] (unit_t1) edge (unit_tnext1);
+%\path[->] (unit_tprev2) edge (unit_t2);
+%\path[->] (unit_t2) edge (unit_tnext2);
+\end{tikzpicture}
+}
+\caption{Recurrent Neural Network}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Recurrent Neural Network (2)}
+\begin{columns}
+\begin{column}{0.50\linewidth}
+\resizebox{0.90\textwidth}{!}{
+\begin{tikzpicture}
+\node[draw, outer sep=2, circle] (x_t) {$\vx_t$};
+\node[draw, align=center, outer sep=2] (unit_t1) [above=of x_t] {RNN Cell\\ Layer 1};
+\node[draw, align=center, outer sep=2] (unit_t2) [above=of unit_t1] {Output $\hat{y_t}$};
+\node[align=center, outer sep=2] (unit_tprev1) [left=of unit_t1] {$\vh_{t-1}$};
+\node[align=center, outer sep=2] (unit_tnext1) [right=of unit_t1] {$\vh_{t}$};
+%\node[align=center, outer sep=2] (unit_tprev2) [left=of unit_t2] {$\vh_{t-1}^{(2)}$};
+%\node[align=center, outer sep=2] (unit_tnext2) [right=of unit_t2] {$\vh_{t}^{(2)}$};
+%\node[outer sep=2, circle] (y_t) [above=of unit_t2] {$...$};
+\path[->] (x_t) edge (unit_t1);
+\draw[->] (unit_t1) to node[left]{$\vh_t$} (unit_t2);
+%\path[->] (unit_t2) edge (y_t);
+\path[->] (unit_tprev1) edge (unit_t1);
+\path[->] (unit_t1) edge (unit_tnext1);
+%\path[->] (unit_tprev2) edge (unit_t2);
+%\path[->] (unit_t2) edge (unit_tnext2);
+\end{tikzpicture}
+}
+\end{column}
+\hfill
+\begin{column}{0.48\linewidth}
+In each RNN cell:
+\[\small
+\begin{split}
+\vh_t&=f_{act}(\vW_{hx}\vx_t +\vW_{hh}\vh_{t-1}+b_h)\\
+\hat{y_t}&=f_{out}(\vW_{yh}\vh_t +b_y)
+\end{split}
+\]
+\end{column}
+\end{columns}
+
+\begin{itemize}
+\item The original RNN model suffers from the problem of vanishing gradients.
+\item Long Short Term Memory (LSTM) \footnotemark model is introduced  to combat vanishing gradients through a gating mechanism.
+\end{itemize}
+\footnotetext[4]{Hochreiter, S., and Schmidhuber, J. (1997). "Long short-term memory." \\Neural computation 9.8 (1997): 1735-1780.}
+\end{frame}
+
+
+
+\begin{frame}{Long Short-Term Memory(LSTM) Model}
+\begin{figure}
+\resizebox{0.90\textwidth}{!}{
+\begin{tikzpicture}[
+    prod/.style={circle, draw, inner sep=0pt},
+    ct/.style={circle, draw, inner sep=5pt, ultra thick, minimum width=10mm},
+    ft/.style={circle, draw, minimum width=8mm, inner sep=1pt},
+    filter/.style={circle, draw, minimum width=7mm, inner sep=1pt, path picture={\draw[thick, rounded corners] (path picture bounding box.center)--++(65:2mm)--++(0:1mm);
+    \draw[thick, rounded corners] (path picture bounding box.center)--++(245:2mm)--++(180:1mm);}},
+    mylabel/.style={font=\scriptsize\sffamily},
+    >=LaTeX
+    ]
+\node[prod] (ct) {$+$};
+\node[filter, right=of ct] (int1) {};
+\node[prod, right=of int1, label={[mylabel]below:Output}] (x1) {$\times$};
+\node[right=of x1] (ht) {$\vh_t$};
+\node[prod, left=of ct] (x2) {$\times$};
+\node[filter, left=of x2, label={[mylabel]below:Input}] (int2) {};
+\node[prod, below=5mm of ct, label={[mylabel]right:Cell State}] (x3) {$\times$};
+\node[ft, below=10mm of x2, label={[mylabel]left:Forget Gate}] (ft) {$\sigma$};
+\node[ft, above=of x2, label={[mylabel]left:Input Gate}] (it) {$\sigma$};
+\node[ft, above=of x1, label={[mylabel]left:Output Gate}] (ot) {$\sigma$};
+
+\foreach \i/\j in {int2/x2, x2/ct, ct/int1, int1/x1,
+            x1/ht, it/x2,  ot/x1, ft/x3}
+\draw[->] (\i)--(\j);
+
+\draw[->] (int2) to  node[below]{$\vz_t$}  (x2);
+\draw[->] (it) to  node[right]{$\vi_t$} (x2);
+\draw[->] (ft) to  node[above]{$\vf_t$} (x3);
+\draw[->] (ot) to  node[left]{$\vo_t$} (x1);
+\draw[->] (ct) to  node[above]{$\vc_t$} (int1);
+%\draw[->] (ct) to[bend right=45] (ft);
+
+%\draw[->] (ct) to[bend right=30] (x3);
+\draw[->] (x3) to  (ct);
+
+\node[fit=(int2) (it) (ot) (ft), draw, inner sep=0pt] (fit) {};
+\draw[->] (fit.south-|ct) to (x3);
+
+
+\draw[<-] (fit.west|-int2) coordinate (aux)--++(225:7mm) node[left]{$\vx_t$ };
+\draw[<-] (fit.west|-int2) coordinate (aux)--++(135:7mm) node[left]{$\vh_{t-1}$};
+
+\draw[<-] (fit.north-|it) coordinate (aux)--++(45:7mm) node[above]{$\vx_t$ };
+\draw[<-] (fit.north-|it) coordinate (aux)--++(135:7mm) node[above]{$\vh_{t-1}$};
+\draw[<-] (fit.north-|it) coordinate (aux)--++(90:10mm) node[above]{$\vc_{t-1}$};
+
+\draw[<-] (fit.north-|ot) coordinate (aux)--++(45:7mm) node[above]{$\vx_t$ };
+\draw[<-] (fit.north-|ot) coordinate (aux)--++(135:7mm) node[above]{$\vh_{t-1}$};
+\draw[<-] (fit.north-|ot) coordinate (aux)--++(90:10mm) node[above]{$\vc_{t-1}$};
+
+\draw[<-] (fit.south-|ft) coordinate (aux)--++(-135:7mm) node[below]{ $\vh_{t-1}$};
+\draw[<-] (fit.south-|ft) coordinate (aux)--++(-90:10mm) node[below]{ $\vc_{t-1}$};
+\draw[<-] (fit.south-|ft) coordinate (aux)--++(-45:7mm) node[below]{$\vx_t$ };
+
+\draw[<-] (x3.south) coordinate (aux)--++(-90:15mm) node[below]{$\vc_{t-1}$ };
+\draw[->] (ct.north) coordinate (aux)--++(90:25mm) node[above]{$\vc_{t}$ };
+
+\node[filter, below=33mm of int2, label={[mylabel]right:tanh}] (ex1) {};
+\node[ft, right=10mm of ex1, label={[mylabel]right:sigmoid}] (ex3) {$\sigma$};
+\node[prod, right=30mm of ex1] (ex2) {$\times$};
+\node[prod, right=1mm of ex2, label={[mylabel]right: Element-wise Operations}] (ex3) {$+$};
+\end{tikzpicture}}
+\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}{Potential Usage: Many-to-one Model}
+\begin{center}
+\resizebox{0.60\textwidth}{!}{
+\begin{tikzpicture}
+\node[draw, outer sep=2, circle] (x_t) {$\vx_t$};
+\node[draw, align=center, outer sep=2] (unit_t1) [above=of x_t] {RNN/LSTM Cell\\ Layer 1};
+\node[align=center, outer sep=2] (unit_t_dot) [above=of unit_t1] {$...$};
+\node[draw, align=center, outer sep=2] (unit_t2) [above=of unit_t_dot] {RNN/LSTM Cell\\ Layer N};
+\node[align=center, outer sep=2] (unit_tprev1) [left=of unit_t1] {$...$};
+\node[align=center, outer sep=2] (unit_tnext1) [right=of unit_t1] {$...$};
+\node[align=center, outer sep=2] (unit_tprev2) [left=of unit_t2] {$...$};
+\node[align=center, outer sep=2] (unit_tnext2) [right=of unit_t2] {$...$};
+\draw[->] (x_t) to  (unit_t1);
+\draw[->] (unit_t1) to node[left]{$\vh_t^{(1)}$} (unit_t_dot);
+\draw[->] (unit_t_dot) to node[left]{$\vh_t^{(N-1)}$} (unit_t2);
+\draw[->] (unit_tprev1) to node[above]{$\vh_{t-1}^{(1)}$} (unit_t1);
+\draw[->] (unit_t1) to node[above]{$\vh_t^{(1)}$} (unit_tnext1);
+\draw[->] (unit_tprev2) to node[above]{$\vh_{t-1}^{(N)}$} (unit_t2);
+\draw[->] (unit_t2) to node[above]{$\vh_t^{(N)}$} (unit_tnext2);
+
+\node[draw, align=center, outer sep=2] (unit_t1_T) [right=of unit_tnext1]  {RNN/LSTM Cell\\ Layer 1};
+\node[align=center, outer sep=2] (unit_t_dot_T) [above=of unit_t1_T] {$...$};
+\node[draw, align=center, outer sep=2] (unit_t2_T) [right=of unit_tnext2] {RNN/LSTM Cell\\ Layer N};
+\node[draw, outer sep=2, circle] (x_T) [below=of unit_t1_T] {$\vx_T$};
+
+\node[draw, align=center, outer sep=2] (unit_output) [above=of unit_t2_T] {Output};
+\draw[->] (x_T) to  (unit_t1_T);
+\draw[->] (unit_t1_T) to node[left]{$\vh_T^{(1)}$} (unit_t_dot_T);
+\draw[->] (unit_t_dot_T) to node[left]{$\vh_T^{(N-1)}$} (unit_t2_T);
+\draw[->] (unit_tnext1) to node[above]{$\vh_{T-1}^{(1)}$} (unit_t1_T);
+\draw[->]  (unit_tnext2) to node[above]{$\vh_{T-1}^{(N)}$}  (unit_t2_T);
+\draw[->]  (unit_t2_T) to node[left]{$\vh_{T}^{(N)}$}  (unit_output);
+\end{tikzpicture}
+}
+\end{center}
+
+This framework is suitable for one-step discrete hedging problems.
+\end{frame}
+
+
+
+
+\begin{frame}{Potential Usage: Many-to-many Model}
+\begin{center}
+\resizebox{0.60\textwidth}{!}{\begin{tikzpicture}
+\node[draw, outer sep=2, circle] (x_t) {$\vx_t$};
+\node[draw, align=center, outer sep=2] (unit_t1) [above=of x_t] {RNN/LSTM Cell\\ Layer 1};
+\node[align=center, outer sep=2] (unit_t_dot) [above=of unit_t1] {$...$};
+\node[draw, align=center, outer sep=2] (unit_t2) [above=of unit_t_dot] {RNN/LSTM Cell\\ Layer N};
+\node[align=center, outer sep=2] (unit_tprev1) [left=of unit_t1] {$...$};
+\node[align=center, outer sep=2] (unit_tnext1) [right=of unit_t1] {$...$};
+\node[align=center, outer sep=2] (unit_tprev2) [left=of unit_t2] {$...$};
+\node[align=center, outer sep=2] (unit_tnext2) [right=of unit_t2] {$...$};
+
+
+
+\draw[->] (x_t) to  (unit_t1);
+\draw[->] (unit_t1) to node[left]{$\vh_t^{(1)}$} (unit_t_dot);
+\draw[->] (unit_t_dot) to node[left]{$\vh_t^{(N-1)}$} (unit_t2);
+\draw[->] (unit_tprev1) to node[above]{$\vh_{t-1}^{(1)}$} (unit_t1);
+\draw[->] (unit_t1) to node[above]{$\vh_t^{(1)}$} (unit_tnext1);
+\draw[->] (unit_tprev2) to node[above]{$\vh_{t-1}^{(N)}$} (unit_t2);
+\draw[->] (unit_t2) to node[above]{$\vh_t^{(N)}$} (unit_tnext2);
+
+\node[draw, align=center, outer sep=2] (unit_t1_T) [right=of unit_tnext1]  {RNN/LSTM Cell\\ Layer 1};
+\node[align=center, outer sep=2] (unit_t_dot_T) [above=of unit_t1_T] {$...$};
+\node[draw, align=center, outer sep=2] (unit_t2_T) [right=of unit_tnext2] {RNN/LSTM Cell\\ Layer N};
+\node[draw, outer sep=2, circle] (x_T) [below=of unit_t1_T] {$\vx_T$};
+
+\node[draw, align=center, outer sep=2] (unit_output) [above=of unit_t2_T] {Output};
+\node[draw, align=center, outer sep=2] (unit_output2) [above=of unit_t2] {Output};
+\draw[->] (x_T) to  (unit_t1_T);
+\draw[->] (unit_t1_T) to node[left]{$\vh_T^{(1)}$} (unit_t_dot_T);
+\draw[->] (unit_t_dot_T) to node[left]{$\vh_T^{(N-1)}$} (unit_t2_T);
+\draw[->] (unit_tnext1) to node[above]{$\vh_{T-1}^{(1)}$} (unit_t1_T);
+\draw[->]  (unit_tnext2) to node[above]{$\vh_{T-1}^{(N)}$}  (unit_t2_T);
+\draw[->]  (unit_t2_T) to node[left]{$\vh_{T}^{(N)}$}  (unit_output);
+\draw[->]  (unit_t2) to node[left]{$\vh_{t}^{(N)}$}  (unit_output2);
+\end{tikzpicture}
+}\\
+This framework is suitable for multi-step discrete hedging problems.
+\end{center}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Potential Usage: Feature Extraction}
+\begin{center}
+\resizebox{0.70\textwidth}{!}{
+\begin{tikzpicture}[
+  hid/.style 2 args={
+    rectangle split,
+    rectangle split horizontal,
+    draw=#2,
+    rectangle split parts=#1,
+    fill=#2!20,
+    outer sep=1mm}]
+  % draw input nodes
+  \foreach \i [count=\step from 1] in {A,B,C,{{$<$eos$>$}}}
+    \node (i\step) at (2*\step, -2) {\i};
+  % draw output nodes
+  \foreach \t [count=\step from 4] in {A,B,C,{{$<$eos$>$}}} {
+    \node[align=center] (o\step) at (2*\step, +2.75) {\t};
+  }
+
+  % draw embedding and hidden layers for text input
+  \foreach \step in {1,...,3} {
+    \node[hid={3}{red}] (h\step) at (2*\step, 0) {};
+    \node[hid={3}{red}] (e\step) at (2*\step, -1) {};
+    \draw[->] (i\step.north) -> (e\step.south);
+    \draw[->] (e\step.north) -> (h\step.south);
+  }
+  \node[fit=(h1) (h2) (h3) (e1) (e2) (e3), draw, inner sep=0pt] (fit1) { };
+   \node[align=center, outer sep=0] (encoder) [above=of fit1] {encoder};
+  % draw embedding and hidden layers for label input
+  \foreach \step in {4,...,7} {
+    \node[hid={3}{yellow}] (s\step) at (2*\step, 1.25) {};
+    \node[hid={3}{blue}] (h\step) at (2*\step, 0) {};
+    \node[hid={3}{blue}] (e\step) at (2*\step, -1) {};
+    \draw[->] (e\step.north) -> (h\step.south);
+    \draw[->] (h\step.north) -> (s\step.south);
+    \draw[->] (s\step.north) -> (o\step.south);
+  }
+
+  \node[fit=(h4) (h5) (h6) (h7) (e4) (e5) (e6) (e7) , draw, inner sep=0pt] (fit2) { };
+  \node[align=center, outer sep=0] (decoder) [below=of fit2] {decoder};
+  % edge case: draw edge for special input token
+  \draw[->] (i4.north) -> (e4.south);
+  % draw recurrent links
+  \foreach \step in {1,...,6} {
+    \pgfmathtruncatemacro{\next}{add(\step,1)}
+    \draw[->] (h\step.east) -> (h\next.west);
+  }
+  % draw predicted-labels-as-inputs links
+  \foreach \step in {4,...,6} {
+    \pgfmathtruncatemacro{\next}{add(\step,1)}
+    \path (o\step.north) edge[->,out=45,in=225] (e\next.south);
+  }
+  \draw[->] (h3) to node[above]{$\vh_E$}  (h4);
+\end{tikzpicture}
+}\\
+Transformation of sequences of variable lengths to fixed size feature vectors $h_E$.
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Benefits of RNN framework}
+Benefits:
+\begin{itemize}
+\item Ability to cope with sequences of variable lengths.
+\item Ability to learn dependence of data near in time.
+\item Online learning.
+\end{itemize}
+\end{frame}
+
+\section{Research Focuses and Potential Contributions}
+\begin{frame}{Exploration based on RNN framework}
+\begin{itemize}
+  \item
+  Investigating the effectiveness for RNN/LSTM framework on discrete hedging problems:
+  \begin{itemize}
+  \item Effectiveness on one-step hedging problems.
+  \item Effectiveness on multi-step hedging problems.
+  \end{itemize}
+  \item Feature selection and feature extraction:
+  \begin{itemize}
+  \item Identify important features for discrete hedging problems.
+  \item Extract useful features from time series data.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Challenge: Non-convex Problem}
+Computation issues related non-convexity:
+\begin{itemize}
+  \item 1st-order method vs 2nd-order method
+  \begin{itemize}
+    \item LSTM has more parameters and tends to over-fit the data.
+    \item Simple RNN with 2nd-order method may perform better.
+  \end{itemize}
+  \item Weight initialization
+  \item Model pre-training
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Challenge: Regularization}
+The RNN/LSTM models tend to over-fit the data and they are hard to be regularized.
+We plan to investigate approaches to alleviate the over-fitting problems.
+\begin{itemize}
+\item L1/L2 regularization of the weight matrices.
+\item Data augmentation.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Comparison of Different Methods}
+Comparison of different machine learning frameworks on the discrete hedging problems:
+\begin{itemize}
+  \item \textbf{Robustness}: The learning framework should be robust to the existence of the market crashes.
+  \item \textbf{Efficient Computation}: The learning framework should be computational efficient so that large scale training is possible.
+  \item \textbf{Online Learning}: The learning framework should be able to incorporate the data whenever it is observed in the market to quickly adjust itself to the market changes.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Potential Contributions}
+\begin{itemize}
+  \item Identify the drawbacks of classical parametric hedging models.
+  \item Propose and demonstrate the effectiveness of data-driven hedging models based on state-of-the-art machine learning frameworks.
+  \item Identify important features for discrete hedging problem and provide feature extraction framework for the learning process.
+\end{itemize}
+\end{frame}
+
+\section{Timeline}
+\begin{frame}{Timeline and Progress}
+\begin{tabular}{|c|c|c|}
+  \hline
+  \small
+  Timeline& Work & Progress\\
+   & Data-driven Kernel Model & Completed \footnotemark  \\
+   Winter 2018& Exploration of RNN Framework & In Progress\\
+   Spring 2018& Exploration of RNN Framework & In Progress\\
+   Fall   2018& Exploration of RNN Framework & In Progress\\
+   Winter 2019& Comparison of Different Models &In Progress\\
+   Spring 2019& Thesis Writing & In Progress\\
+   Fall 2019& Thesis Defense & In Progress\\
+  \hline
+\end{tabular}
+\footnotetext[5]{Nian,K., Coleman,T.F. and Li, Y. "Learning Minimum Variance \\Discrete Hedging Directly from Market.", Quantitative Finance }
+\end{frame}
+
+\begin{frame}{Q \& A}
+  \LARGE
+  \begin{quote}
+    \alert{Thank you very much!}\\
+    \hspace{8ex} Any Questions?
+  \end{quote}
+\end{frame}
+\end{document}
+

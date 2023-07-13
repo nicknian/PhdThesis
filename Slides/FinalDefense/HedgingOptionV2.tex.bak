@@ -1,0 +1,600 @@
+\documentclass[10pt,table,mathserif]{beamer}
+\usetheme[
+%%% options passed to the outer theme
+%    hidetitle,           % hide the (short) title in the sidebar
+%    hideauthor,          % hide the (short) author in the sidebar
+%    hideinstitute,       % hide the (short) institute in the bottom of the sidebar
+%    shownavsym,          % show the navigation symbols
+%    width=2cm,           % width of the sidebar (default is 2 cm)
+%    hideothersubsections,% hide all subsections but the subsections in the current section
+%    hideallsubsections,  % hide all subsections
+%    right                % right of left position of sidebar (default is right)
+  ]{Aalborg}
+
+\setbeamertemplate{theorems}[numbered]
+
+\definecolor{watred}{cmyk}{.00,1,1,0.00}
+\definecolor{watyellow}{cmyk}{0,0.12,1,0}
+\definecolor{watgray}{cmyk}{0,0,0,0.5}
+
+% If you want to change the colors of the various elements in the theme, edit and uncomment the following lines
+% Change the bar and sidebar colors:
+\setbeamercolor{Aalborg}{fg=black,bg=watred}
+\setbeamercolor{sidebar}{bg=white}
+% Change the color of the structural elements:
+\setbeamercolor{structure}{fg=red}
+% Change the frame title text color:
+%\setbeamercolor{frametitle}{fg=blue}
+% Change the normal text color background:
+\setbeamercolor{normal text}{bg=white, fg=black}
+\setbeamercolor{alerted text}{bg=white, fg=red}
+% ... and you can of course change a lot more - see the beamer user manual.
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{threeparttable}
+% ... or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+\usepackage{lmodern} %optional
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{colortbl}
+\usepackage{biblatex}
+\usepackage{bibentry}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{multirow}
+
+
+
+
+
+
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{$#2$}}%
+\newcommand*{\Resize}[2]{\resizebox{#1}{!}{$#2$}}%
+\newcommand{\vt}[1]{\mathbf{#1}}
+\newcommand{\vw}{\mathbf{w}}
+%\newcommand{\pm}{\stackrel{+}{-}}
+\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vxt}{\tilde{\mathbf{x}}}
+\newcommand{\vy}{\mathbf{y}}
+\newcommand{\impsigma}{\breve{\sigma}}
+\newcommand{\barK}{\overline{K}}
+\newcommand{\barC}{\overline{C}}
+\newcommand{\vz}{\mathbf{z}}
+\newcommand{\fnp}{\tilde{f}}
+\newcommand{\vu}{\mathbf{u}}
+
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\HK}{\mathcal{H}_K}
+\newcommand{\XS}{\mathcal{X}}
+\newcommand{\DS}{\Delta S}
+\newcommand{\Heston}{\textsc{Heston}}
+\newcommand{\DVmkt}{\Delta \breve{V}}
+\newcommand{\DT}{\Delta_t}
+\newcommand{\vuu}{\mathbf{\widetilde u}}
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\vdot}[2]{{#1}^T{#2}}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\newcommand{\sym}{\textsc{sym}}
+\newcommand{\BS}{\textsc{BS}}
+\newcommand{\LOF}{\textsc{lof}}
+\newcommand{\svm}{\textsc{svm}}
+\newcommand{\AMflag}{\text{mFLAG}}
+\newcommand{\rw}{\textsc{rw}}
+\newcommand{\diag}{\textsc{diag}}
+\newcommand{\sign}{\textsc{sign}}
+\newcommand{\MeanAbs}{\E(|\DVmkt-\DS f(\vx)|)}
+\newcommand{\Cluster}{\textsc{C}}
+\newcommand{\bi}{\text{bi}}
+\newcommand{\g}{\mathbf{g}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\valpha}{\pmb{\alpha}}
+\newcommand{\e}{\mathbf{e}}
+\newcommand{\vol}{\upsilon}
+\newcommand{\vd}{\mathbf{d}}
+\newcommand{\vf}{\mathbf{f}}
+\newcommand{\np}{\text{np}}
+\newcommand{\pt}{^{+\Delta t}}
+\newcommand{\norm}{\text{norm}}
+\newcommand{\row}{\text{row}}
+\newcommand{\Vmkt}{\breve{V}}
+\newcommand{\vecVmkt}{\mathbf{\breve{V}}}
+\newcommand{\Ncut}{\text{Ncut}}
+\newcommand{\half}{\frac{1}{2}}
+
+\newcommand{\DKLs}{\bf\textsc{DKL}_{\text{SPL}}}
+\newcommand{\DKLg}{\bf\textsc{DKL}_{\text{RBF}}}
+\newcommand{\IKLs}{\bf\textsc{IKL}_{\text{SPL}}}
+\newcommand{\IKLg}{\bf\textsc{IKL}_{\text{RBF}}}
+\newcommand{\LVF}{\textsc{LVF}}
+\newcommand{\Del}{\delta^{\textsc{BS}}}
+\newcommand{\SABR}{\bf\textsc{SABR}}
+\newcommand{\MV}{\bf \textsc{MV}}
+
+
+
+
+
+\nobibliography{Ref.bib}
+\definecolor{mycyan}{cmyk}{.2,0,0,0}
+\definecolor{mycyan1}{cmyk}{.1,0,0,0}
+\definecolor{mycyan3}{cmyk}{.3,0,0,0}
+% colored hyperlinks
+\newcommand{\chref}[2]{%
+  \href{#1}{{\usebeamercolor[bg]{Aalborg}#2}}
+}
+
+\title[Learning Minimum Variance Discrete Hedging Directly From Market]% optional, use only with long paper titles
+{Learning Minimum Variance Discrete Hedging \\Directly From Market}
+
+
+\author[Ke Nian ] % optional, use only with lots of authors
+{ Ke Nian\\
+ Supervisors: Prof.Yuying Li and Prof.Thomas.F.Coleman
+}
+
+
+% - Give the names in the same order as they appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation. See the beamer manual for an example
+
+%specify some optional logos
+\pgfdeclareimage[height=1.4cm]{mainlogo}{logo.png} % placed in the upper left/right corner
+\logo{\pgfuseimage{mainlogo}}
+
+\pgfdeclareimage[height=0.75cm]{logo2}{tu-logo} % placed in the lower left/right corner if the \pgfuseimage{logo2} command is uncommented in the \institute command below
+
+\institute[
+%  {\pgfuseimage{logo2}}\\ %insert a company or department logo
+  David R. Cheriton School of Computer Science, University of Waterloo
+] % optional - is placed in the bottom of the sidebar on every slide
+{%
+  David R. Cheriton School of Computer Science,\\
+  University of Waterloo,\\
+  Waterloo, Canada
+  %there must be an empty line above this line - otherwise some unwanted space is added between the university and the country (I do not know why;( )
+}
+\date{\today}
+
+\begin{document}
+% the titlepage
+\begin{frame}[plain] % the plain option removes the sidebar and header from the title page
+  \titlepage
+\end{frame}
+%%%%%%%%%%%%%%%%
+
+% TOC
+\begin{frame}{Agenda}{}
+\tableofcontents
+\end{frame}
+%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+
+\begin{frame}{Practitioner Black-Scholes (BS) Delta Hedging}
+
+\begin{itemize}
+  \item BS model:
+\[
+\frac{d S}{ S}= \mu dt +\sigma dZ
+\]
+
+\[
+\sigma:\; \text{Constant}
+\]
+\item Implied Volatility
+  \[
+  \sigma_{imp}=V_{BS}^{-1}(V_{mkt},.)
+  \]
+  \begin{center}
+  $V_{mkt}$: market option price \\ $V_{BS}^{-1}$ : inverse of BS pricing function
+  \end{center}
+
+\item BS Delta:
+\[
+\delta_{BS}=\frac{\partial V_{BS}}{ \partial S}
+\]
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Problem with Black-Scholes Delta}
+Problem with the traditional Black-Scholes Delta:
+\begin{itemize}
+  \item Market violates BS assumption
+  \item Dependence of volatility on underlying asset price
+\end{itemize}
+Variants of Hedging Strategy:
+\begin{itemize}
+  \item Stochastic Volatility Model
+  \item Local Volatility Model
+  \item Minimum Variance Approach
+  \item Indirect Data-Driven Approach
+  \item \textbf{Direct Data-Driven Approach}
+\end{itemize}
+\end{frame}
+\section{Delta Hedging Variants}
+\subsection{Stochastic Volatility Model}
+\begin{frame}{Stochastic Volatility Model}
+Stochastic volatility models:
+\begin{itemize}
+  \item Heston Model
+  \item SABR Volatility Model
+  \item GARCH Model
+\end{itemize}
+\end{frame}
+
+
+
+\subsection{Minimum Variance Approach}
+\begin{frame}{Minimum Variance Approach}
+Considering the  the dependence of imply volatility on asset price:
+\begin{itemize}
+\item The  Minimum Variance (MV) delta:
+\[
+\delta_{MV}=\frac{\partial V_{BS}}{\partial S}+\frac{\partial V_{BS}}{\partial \sigma_{imp}}\frac{\partial E(\sigma_{imp})}{ \partial S}
+\]
+\item The authors \footnotemark propose: 
+\begin{equation}
+\frac{\partial E(\sigma_{imp})}{ \partial S}=\frac{a+b\delta_{BS}+c \delta_{BS}^2}{S\sqrt{T}}
+\end{equation}
+$a, b \text{ and  } c$ are the parameter to be fitted using market data.
+\end{itemize}
+\footnotetext[1]{Hull,J and White,A ,'Optimal Delta Hedging for Options',
+ \\unpublished manuscript}
+\end{frame}
+
+\subsection{Local Volatility Model}
+\begin{frame}{Local Volatility Model}
+The local volatility function (LVF) \footnotemark : volatility is a deterministic function of $S$ and $t$.
+ \[
+\delta_{MV}=\frac{\partial V_{BS}}{\partial S}+\frac{\partial V_{BS}}{\partial \sigma_{imp}}\frac{\partial E(\sigma_{imp})}{ \partial S}
+\]
+Local volatility model can also be used to calculate the $\frac{\partial E(\sigma_{imp})}{ \partial S}$
+
+\footnotetext[2]{Coleman, T, Y. Kim, Y. Li and A. Verma,\\ 'Dynamic hedging with a deterministic local volatility function model,' \\Journal of risk, 4 ,1 (2001):63-89}
+
+\end{frame}
+\section{Data Driven Approach}
+\subsection{Indirect Data-Driven Approach}
+\begin{frame}{Problem with Parametric Approach}
+Problem with the  previous parametric approaches:
+\begin{itemize}
+  \item Assumptions do not hold in market
+\end{itemize}
+
+Data-driven approach can be more useful in practice.
+\begin{itemize}
+  \item Minimum assumptions on $S$
+  \item Model is determined by market data.
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}{Indirect Data-driven Approach}
+The indirect data-driven approach \footnotemark can be summarized as following:
+\begin{itemize}
+\item Let $X$ the features from market.
+\begin{itemize}
+  \item Asset price $S$
+  \item Strike Price $K$
+  \item Time to expiration $T-t$
+\end{itemize}
+\item Determine the data driven pricing function $V(X)$ using regression model.
+\item Compute
+\[
+\delta_{ID}=\frac{ \partial V(X) }{ \partial S}
+\]
+\end{itemize}
+\footnotetext[3]{Hutchinson, James M., Andrew W. Lo, and Tomaso Poggio. "A \\
+nonparametric approach to pricing and hedging derivative securities via learning networks." The Journal of Finance 49.3 (1994): 851-889.}
+\end{frame}
+
+\subsection{Direct Data-Driven Approach}
+\begin{frame}{Problem with Indirect Data-Driven Approach}
+Problem with the Indirect Data-Driven Approach:
+\begin{itemize}
+  \item Intermediate procedure is not necessary.
+  \item Not suitable for weekly and monthly hedging
+\end{itemize}
+
+Direct data-driven approach can be more useful in practice.
+\begin{itemize}
+  \item Customized hedging position function
+  \item Directly compute the hedging position
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Direct Data-driven Approach}
+
+The direct data-driven approach is 
+\[
+\min_{f}\left[\frac{1}{N} \sum_{i=1}^N (\Delta V_i-\Delta S_i f(X_i))^2 \right]
+\]
+
+\begin{center}
+$\Delta V_i$ : the change of option value in data instance $i$\\
+$\Delta S_i$ : the change of asset price in data instance $i$ \\
+$V_i$ : the option price in data instance $i$ \\
+\end{center}
+\end{frame}
+
+
+
+\section{Model and Experiment}
+\subsection{Kernel Learning}
+\begin{frame}{Regularized Network}
+\begin{itemize}
+  \item Indirect data-driven approach:
+\[
+\min_{f \in RKHS}\left[\frac{1}{N} \sum_{i=1}^N(V_i- f(x_i))^2+\lambda\|f\|^2_K\right]
+\]
+  \item Direct data-driven approach:
+\[
+\min_{f \in RKHS}\left[\frac{1}{N} \sum_{i=1}^N(\Delta V_i-\Delta S_i f(x_i))^2+\lambda\|f\|^2_K \right]
+\]
+\end{itemize}
+\end{frame}
+\begin{frame}{Regularized Network (2)}
+Given
+\[
+f(x)=\sum_{i=1}^N \alpha_iK(x,x_i)
+\]
+Indirect data-driven approach:
+\[
+\min_{\alpha} \; ( K \alpha - V)^T ( K \alpha -V)+ \lambda \alpha^TK\alpha
+\]
+Direct data-driven approach:
+\[
+\min_{\alpha} \;( D K \alpha - \Delta V)^T ( D K \alpha -\Delta V)+ \lambda \alpha^T K \alpha
+\]
+
+Where $D$ is the diagonal matrix with $\Delta S$ on its diagonal
+\end{frame}
+
+
+\begin{frame}{Regularized Network (3)}
+Indirect data-driven approach:
+\[
+\alpha  =(K+\lambda_P I)^{-1}V
+\]
+
+Let $\widetilde{K}=D K$, direct data-driven approach:
+\[\begin{split}
+&\widetilde{K}^T(\widetilde{K} \alpha -\Delta V)+ \lambda K \alpha =0\\
+&(\widetilde{K}^T\widetilde{K}  + \lambda K)\alpha = \widetilde{K}^T \Delta V\\
+&\alpha = (\widetilde{K}^T\widetilde{K}  + \lambda K)^{-1} \widetilde{K}^T \Delta V
+  \end{split}
+\]
+\end{frame}
+
+\begin{frame}{Cross-Validation }
+For the indirect data-driven approach :
+\[
+\alpha  =(K+\lambda_P I)^{-1}V
+\]
+We can calculate the eigen-decomposition of $K=Q \Lambda Q^T$ and then
+\[
+\alpha  =Q(\Lambda + \lambda I)^{-1} Q^TV
+\]
+Given the eigen-decomposition, finding $\alpha(\lambda)$  can be done($O(N^2)$).
+\end{frame}
+
+
+\begin{frame}{Leave-One-Out Cross-Validation }
+\begin{itemize}
+  \item For each data point $x_i$, building a model using the remaining $N-1$ data points, and measuring the error for $x_i$
+  \item It can be further shown that, given the eigen-decomposition of $K=Q \Lambda Q^T$, we can estimate the leave-one-out cross-validation errors in $O(N^2)$.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Modification of the direct data driven model }
+\begin{itemize}
+  \item For our direct data-driven approach:
+  \[
+  \alpha = (\widetilde{K}^T\widetilde{K}  + \lambda K)^{-1} \widetilde{K}^T \Delta V
+  \]
+  \item If we changed the penalty term from  $\alpha^T K \alpha$ to $\alpha^T  \alpha$:
+  \[\alpha = (\widetilde{K}^T\widetilde{K}  + \lambda I)^{-1} \widetilde{K}^T \Delta v\]
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Modification of the direct data driven model (2) }
+Let the SVD of $\widetilde{K}= U \Sigma V^T$,  the $\alpha$ can be determined by
+
+\[
+\begin{split}
+&(\widetilde{K}^T\widetilde{K}  + \lambda I)\alpha = \widetilde{K}^T \Delta V\\
+& ( V \Sigma^T U^T U \Sigma V^T + \lambda I) \alpha =V  \Sigma^T U^T \Delta V \\
+&V (  \Sigma^T  \Sigma  + \lambda I) V^T \alpha =V  \Sigma^T U^T \Delta V \\
+&( \Sigma^T  \Sigma  + \lambda I) V^T \alpha =  \Sigma^T U^T \Delta V \\
+&\alpha = V (\Sigma^T  \Sigma  + \lambda I)^{-1} \Sigma^T U^T \Delta V
+\end{split}
+\]
+
+$(\Sigma^T\Sigma + \lambda I)$ is again a diagonal matrix. Then we can still estimate the leave-one-out cross-validation errors in $O(N^2)$
+
+\end{frame}
+
+\begin{frame}{Kernels}
+In the following experiments, we use:
+\begin{itemize}
+\item The Gaussian kernel
+\[
+K(x,y)=e^{-\frac{\|x-y\|_2^2}{2 \sigma_b^2}}
+\]
+\item The Spline Kernel:
+\[
+K(x,y)=\int_{lb}^{+\infty} (x-t)_+^d (y-t)_+^d dt + \sum_{k=0}^d x^ky^k
+\]
+\end{itemize}
+\end{frame}
+
+\subsection{Evaluation Criteria}
+\begin{frame}{Evaluation Criteria: Local Risk}
+The percentage increase in the effectiveness over the BS hedging:
+\[
+Gain=1-\frac{SSE[\Delta V_i-\Delta S_i\delta^i]}{SSE[\Delta V_i-\Delta S_i\delta^i_{BS}]}
+\]
+\begin{center}
+
+SSE: sum of squared errors\\
+ $\delta$: hedging position computed from different models\\
+ $\delta_{BS}$: BS delta\\
+ \end{center}
+\end{frame}
+
+\subsection{Synthetic Data Experiments}
+\begin{frame}{Synthetic Data: Experimental Setting}
+\begin{itemize}
+\item Dynamic for asset: Heston Model
+\item  Training data: a 2 year stock path
+\item  Testing Data: 100 independent 6-months stock path
+\item  Methods considered:
+ \begin{itemize}
+ \item  ${\Del}$:  implied  volatility BS delta
+ \item $\Heston$:   analytic Heston delta
+ \item $\DKLs$ : direct learning a spline kernel hedging  function
+ \item $\DKLg$ : directly learning a RBF kernel hedging  function
+ \item ${\IKLs}$: Indirectly computing $\frac{\partial f}{\partial S}$  using a spline kernel
+
+\item ${\IKLg}$: Indirectly computing $\frac{\partial f}{\partial S}$ using a RBF kernel
+
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Daily Hedging Performance}
+
+\begin{table}[htp!]
+\small
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{|l|r c c c c|}
+\hline
+Method & Gain (\%)& $\MeanAbs$ & Std& VaR & CVaR   \\ \hline
+$\Del$ & 0.0 & 0.185 & 0.286 & 0.380 & 0.574 \\
+$\IKLg$  & -3.3 & 0.171 & 0.291 & 0.356 & 0.566 \\
+$\IKLs$  & -183.3 & 0.291 & 0.482 & 0.669 & 1.105 \\
+$\DKLg$  & 63.1 & 0.120 & 0.174 & 0.251 & 0.352 \\
+$\DKLs$  & \textbf{64.9} & \textbf{0.121} & \textbf{0.170} & \textbf{0.255} & \textbf{0.345} \\
+$\Heston$ & 63.6 & 0.121 & 0.173 & 0.266 & 0.360 \\
+%$\DKLgd$  & 62.3 & 0.114 & 0.176 & 0.238 & 0.349 \\
+%$\DKLsd$  & \textbf{70.9} &\textbf{ 0.110 }& \textbf{0.154} & \textbf{0.234} & \textbf{0.322} \\
+\hline
+\end{tabular}
+\caption{Daily Hedging Comparison}
+\label{Daily}
+ \begin{tablenotes}
+    \small
+  \item[1] FS \#1: $X=\{\textsc{moneyness,~time-to-expiry}\}$
+  \item[2] Bold entry indicating best Gain
+  \end{tablenotes}
+  \end{threeparttable}
+\end{center}
+\end{table}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+\subsection{Real Data Experiments}
+\begin{frame}{Real Data  Hedging Experiments}
+\begin{itemize}
+  \item Data: S\&P 500 index option from Jan 2007 and Aug 2015
+  \item Model Calibration:
+    \begin{itemize}
+      \item SABR: daily calibration
+      \item LVF: $\frac{\partial E(\sigma_{imp})}{ \partial S}$ from implied volatility surface
+      \item MV: Use a 36 months time window to train
+      \item $\DKLs$: Use a 36 months time window to train. Models are separately calibrated for different Black-Sholes delta range.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{S\&P 500 Call Options}
+\begin{table}[htp!]
+\centering
+\begin{threeparttable}
+\begin{tabular}{|c |r r r r r|}
+\hline
+\multirow{3}{*}{Delta}&\multirow{3}{*}{SABR (\%)}&\multirow{3}{*}{\LVF\;(\%)}&\multirow{3}{*}{MV (\%)}&\multicolumn{2}{c|}{$\DKLs$ (\%)}\\
+&&&&\multicolumn{2}{c|}{\small Leave-One-Out\tnote{1} }\\
+&&&&\multicolumn{1}{c}{\small Traded}&\multicolumn{1}{c|}{\small All}\\ \hline
+  0.1 & 42.1 & 39.4 & 42.6 & \textbf{44.1} & \textbf{44.4}  \\
+  0.2 & 35.8 & 33.4 & 36.2 & \textbf{37.8} & \textbf{38.1} \\
+  0.3 & 31.1 & 29.4 & 30.3 & \textbf{33.1} & \textbf{33.6} \\
+  0.4 & 28.5 & 26.3 & 26.7 & \textbf{30.9} & \textbf{31.3}   \\
+  0.5 & 27.1 & 24.9 & 25.5 & \textbf{30.0}& \textbf{30.4}  \\
+  0.6 & 25.7 & 25.2 & 25.2 & \textbf{29.3}& \textbf{29.8}  \\
+  0.7 & 25.4 & 24.7 & 25.8 & \textbf{28.4} & \textbf{30.2}  \\
+  0.8 & 24.1 & 23.5 & 25.4&   22.5& \textbf{28.0}  \\
+  0.9 & 16.6 & \textbf{17.0} & 16.9 & 8.1  & 12.7  \\
+  Overall & 25.7 & 24.6 & 25.5 & \textbf{31.3} & \textbf{26.8}  \\
+  \hline
+\end{tabular}
+\caption{S\&P 500 Call Option Daily Hedging: bold entry indicating best Gain}
+\label{SP500Call}
+  \begin{tablenotes}
+    \small
+  \item[1] For each month, the penalties for models are determined by leave-one-out cross validation.
+\end{tablenotes}
+
+\end{threeparttable}
+
+\end{table}
+\end{frame}
+
+
+\section{Discussion And Future Work}
+\begin{frame}{Discussion and Future Work}
+\begin{itemize}
+ \item Online learning algorithm:
+            \begin{itemize}
+              \item Efficient SVD updating algorithm
+              \item Efficient penalty tuning algorithm for online learning
+            \end{itemize}
+ \item Models for minimizing multi-step hedging errors
+            \begin{itemize}
+              \item Recurrent Neural Network
+            \end{itemize}
+ \item Issue of feature selection
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Q \& A}
+  \LARGE
+  \begin{quote}
+    \alert{Thank you very much!}\\
+    \hspace{8ex} Any Questions?
+  \end{quote}
+\end{frame}
+
+\end{document}
+

@@ -1,0 +1,10 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: Comp2Slides.aux
+The style file: biblatex.bst
+I couldn't open database file Ref.bib
+---line 18 of file Comp2Slides.aux
+ : \bibdata{Comp2Slides-blx,Ref
+ :                             }
+I'm skipping whatever remains of this command
+Database file #1: Comp2Slides-blx.bib
+Biblatex version: 1.7
+(There was 1 error message)

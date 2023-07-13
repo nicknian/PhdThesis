@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.5.4)  12 JUN 2023 14:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.5.4)  10 JUL 2023 13:44
 entering extended mode
 **./KeNianThesisFinal.tex
 (KeNianThesisFinal.tex
@@ -2756,7 +2756,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5627.
 Here is how much of TeX's memory you used:
  43435 strings out of 492448
  847263 string characters out of 3119980
- 1070828 words of memory out of 3000000
+ 1070826 words of memory out of 3000000
  46091 multiletter control sequences out of 15000+200000
  642135 words of font info for 234 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -2819,7 +2819,7 @@ type1/urw/symbol/usyr.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9/fon
 ts/type1/urw/times/utmb8a.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX 2.9
 /fonts/type1/urw/times/utmr8a.pfb><C:/Users/nfswx/AppData/Local/Programs/MiKTeX
  2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on KeNianThesisFinal.pdf (169 pages, 2672356 bytes).
+Output written on KeNianThesisFinal.pdf (169 pages, 2672377 bytes).
 PDF statistics:
  4512 PDF objects out of 5155 (max. 8388607)
  884 named destinations out of 1000 (max. 500000)

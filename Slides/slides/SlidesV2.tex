@@ -1,0 +1,437 @@
+\documentclass[10pt,table,mathserif]{beamer}
+\usetheme[
+%%% options passed to the outer theme
+%    hidetitle,           % hide the (short) title in the sidebar
+%    hideauthor,          % hide the (short) author in the sidebar
+%    hideinstitute,       % hide the (short) institute in the bottom of the sidebar
+%    shownavsym,          % show the navigation symbols
+%    width=2cm,           % width of the sidebar (default is 2 cm)
+%    hideothersubsections,% hide all subsections but the subsections in the current section
+%    hideallsubsections,  % hide all subsections
+%    right                % right of left position of sidebar (default is right)
+  ]{Aalborg}
+
+\setbeamertemplate{theorems}[numbered]
+
+\definecolor{watred}{cmyk}{.00,1,1,0.00}
+\definecolor{watyellow}{cmyk}{0,0.12,1,0}
+\definecolor{watgray}{cmyk}{0,0,0,0.5}
+
+% If you want to change the colors of the various elements in the theme, edit and uncomment the following lines
+% Change the bar and sidebar colors:
+\setbeamercolor{Aalborg}{fg=black,bg=watred}
+\setbeamercolor{sidebar}{bg=white}
+% Change the color of the structural elements:
+\setbeamercolor{structure}{fg=red}
+% Change the frame title text color:
+%\setbeamercolor{frametitle}{fg=blue}
+% Change the normal text color background:
+\setbeamercolor{normal text}{bg=white, fg=black}
+\setbeamercolor{alerted text}{bg=white, fg=red}
+% ... and you can of course change a lot more - see the beamer user manual.
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{threeparttable}
+% ... or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+\usepackage{lmodern}
+\usepackage{subfigure}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{colortbl}
+\usepackage{biblatex}
+\usepackage{bibentry}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{multirow}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning, fit, arrows.meta}
+\usepackage{tkz-graph}
+\usetikzlibrary{backgrounds,automata}
+\bibliography{mybib.bib}
+
+
+
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{$#2$}}%
+\newcommand*{\Resize}[2]{\resizebox{#1}{!}{$#2$}}%
+\newcommand{\vt}[1]{\mathbf{#1}}
+\newcommand{\vw}{\mathbf{w}}
+%\newcommand{\pm}{\stackrel{+}{-}}
+\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vi}{\mathbf{i}}
+\newcommand{\vo}{\mathbf{o}}
+\newcommand{\vxt}{\tilde{\mathbf{x}}}
+\newcommand{\vy}{\mathbf{y}}
+\newcommand{\impsigma}{\breve{\sigma}}
+\newcommand{\barK}{\overline{K}}
+\newcommand{\barC}{\overline{C}}
+\newcommand{\vz}{\mathbf{z}}
+\newcommand{\fnp}{\tilde{f}}
+\newcommand{\vu}{\mathbf{u}}
+\newcommand{\vs}{\mathbf{s}}
+\newcommand{\vc}{\mathbf{c}}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\HK}{\mathcal{H}_K}
+\newcommand{\XS}{\mathcal{X}}
+\newcommand{\DS}{\Delta S}
+\newcommand{\Heston}{\textsc{Heston}}
+\newcommand{\DVmkt}{\Delta \breve{V}}
+\newcommand{\DT}{\Delta_t}
+\newcommand{\vuu}{\mathbf{\widetilde u}}
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\vdot}[2]{{#1}^T{#2}}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\newcommand{\sym}{\textsc{sym}}
+\newcommand{\BS}{\textsc{BS}}
+\newcommand{\LOF}{\textsc{lof}}
+\newcommand{\svm}{\textsc{svm}}
+\newcommand{\AMflag}{\text{mFLAG}}
+\newcommand{\rw}{\textsc{rw}}
+\newcommand{\diag}{\textsc{diag}}
+\newcommand{\sign}{\textsc{sign}}
+\newcommand{\MeanAbs}{\E(|\DVmkt-\DS f(\vx)|)}
+\newcommand{\Cluster}{\textsc{C}}
+\newcommand{\bi}{\text{bi}}
+\newcommand{\g}{\mathbf{g}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\valpha}{\pmb{\alpha}}
+\newcommand{\vK}{\pmb{K}}
+\newcommand{\vV}{\pmb{\breve{V}}}
+\newcommand{\e}{\mathbf{e}}
+\newcommand{\vol}{\upsilon}
+\newcommand{\vd}{\mathbf{d}}
+\newcommand{\vh}{\mathbf{h}}
+\newcommand{\vf}{\mathbf{f}}
+\newcommand{\vW}{\pmb{W}}
+\newcommand{\np}{\text{np}}
+\newcommand{\pt}{^{+\Delta t}}
+\newcommand{\norm}{\text{norm}}
+\newcommand{\row}{\text{row}}
+\newcommand{\Vmkt}{\breve{V}}
+\newcommand{\vecVmkt}{\mathbf{\breve{V}}}
+\newcommand{\Ncut}{\text{Ncut}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\DKLs}{\bf\textsc{DKL}_{\text{SPL}}}
+\newcommand{\DKLg}{\bf\textsc{DKL}_{\text{RBF}}}
+\newcommand{\IKLs}{\bf\textsc{IKL}_{\text{SPL}}}
+\newcommand{\IKLg}{\bf\textsc{IKL}_{\text{RBF}}}
+\newcommand{\LVF}{\textsc{LVF}}
+\newcommand{\Del}{\delta^{\textsc{BS}}}
+\newcommand{\SABR}{\bf\textsc{SABR}}
+\newcommand{\MV}{\bf \textsc{MV}}
+\newcommand{\vU}{\pmb{U}}
+\newcommand{\vb}{\mathbf{b}}
+
+
+
+
+\nobibliography{Ref.bib}
+\definecolor{mycyan}{cmyk}{.2,0,0,0}
+\definecolor{mycyan1}{cmyk}{.1,0,0,0}
+\definecolor{mycyan3}{cmyk}{.3,0,0,0}
+% colored hyperlinks
+\newcommand{\chref}[2]{%
+  \href{#1}{{\usebeamercolor[bg]{Aalborg}#2}}
+}
+
+\title[Data-Driven Models for Discrete
+Hedging Problem ]% optional, use only with long paper titles
+{Data-Driven Models for   Discrete
+Hedging Problem}
+
+
+\author[Ke Nian ] % optional, use only with lots of authors
+{ Ke Nian\\
+ Supervisors: Prof.Yuying Li and Prof.Thomas.F.Coleman
+}
+
+
+% - Give the names in the same order as they appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation. See the beamer manual for an example
+
+%specify some optional logos
+\pgfdeclareimage[height=1.4cm]{mainlogo}{logo.png} % placed in the upper left/right corner
+\logo{\pgfuseimage{mainlogo}}
+
+\pgfdeclareimage[height=0.75cm]{logo2}{tu-logo} % placed in the lower left/right corner if the \pgfuseimage{logo2} command is uncommented in the \institute command below
+
+\institute[
+%  {\pgfuseimage{logo2}}\\ %insert a company or department logo
+  David R. Cheriton School of Computer Science, University of Waterloo
+] % optional - is placed in the bottom of the sidebar on every slide
+{%
+  David R. Cheriton School of Computer Science,\\
+  University of Waterloo,\\
+  Waterloo, Canada
+  %there must be an empty line above this line - otherwise some unwanted space is added between the university and the country (I do not know why;( )
+}
+\date{\today}
+
+\begin{document}
+% the titlepage
+\begin{frame}[plain] % the plain option removes the sidebar and header from the title page
+  \titlepage
+\end{frame}
+%%%%%%%%%%%%%%%%
+
+
+\section{Introduction}
+
+\begin{frame}{Local Volatility Model}
+The Dupire formula enables us to deduce the volatility function in a local volatility
+model from quoted put and call options in the market. 
+\begin{itemize}
+  \item Under a risk-neutral measure, we assume 
+\[
+\frac{d S_t}{ S_t}= r(t) dt +\sigma(t,S_t) dZ_t
+\]
+
+ \item The forward price for delivery at time T:
+\[
+F_t = F(t, T) = S_t e^{\int^T_t r(s)ds}
+\]
+\item We also have:
+\[
+\frac{d F_t}{ F_t}=\widetilde{\sigma}(t,F_t)dZ_t
+\]
+
+\[
+\widetilde{\sigma}(t,F_t)=\sigma(t, F_t e^{-\int^T_t r(s)ds})
+\]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Local Volatility Model}
+\begin{itemize}
+	\item The forward price of a call option for delivery at time T:	$C(T,K)$
+	\item The spot price at t is: $C(T,K) e^{-\int^T_t r(s)ds}$.
+	\item It can be shown that, with $\theta(T,K)$ be the normal density function of $S_T$ :
+	\[
+	C(T,K)=\int_{K}^{\infty} (x-K) \theta(T,x)dx
+	\] 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Breedon-Litzenberger Formulas}
+	If we differentiate pricing function $C(T,K)$ twice we obtain:
+	\[
+	\frac{\partial C(T,K)}{ \partial K}= \Theta(T,K)-1
+	\] 
+	\[
+	\frac{\partial^2 C(T,K)}{ \partial K^2}= \theta(T,K)
+	\] 
+\end{frame}
+
+\begin{frame}{Forward Equation}
+Let $h$ be an arbitrary function and $v(t,x)=E[h(F_T)|F_t=x]$, we can show that:
+\[
+E[h(F_T)]=\int_{0}^{\infty} v(t,x) \theta(t,x)dx
+\]
+Differentiate them with regards to $t$:
+
+\[
+0=\int_{0}^{\infty} \frac{\partial v(t,x)}{\partial t} \theta(t,x)dx+\int_{0}^{\infty} \frac{\partial \theta(t,x)}{\partial t} v(t,x)dx
+\]
+\end{frame}
+
+
+\begin{frame}{Backward Equation}
+Similar to the deduction of Black-Scholes equation, using ito's lemma, we can see that.
+\[
+\frac{\partial v(t,x)}{\partial t}+\frac{1}{2} \widetilde{\sigma}^2(t,x) x^2 \frac{\partial^2 v(t,x)}{\partial x^2}=0
+\]
+Note that we are dealing with forward price, the term with interest rate is dropped.
+\end{frame}
+
+
+\begin{frame}{Link Backward Equation and Forward Equation}
+Plug in the backward equation:
+\[
+\frac{\partial v(t,x)}{\partial t}+\frac{1}{2} \widetilde{\sigma}^2(t,x) x^2 \frac{\partial^2 v(t,x)}{\partial x^2}=0
+\]
+into forward equation:
+\[
+0=\int_{0}^{\infty} \frac{\partial v(t,x)}{\partial t} \theta(t,x)dx+\int_{0}^{\infty} \frac{\partial \theta(t,x)}{\partial t} v(t,x)dx
+\]
+We have:
+\[
+0=-\int_{0}^{\infty}\frac{1}{2} \widetilde{\sigma}^2(t,x) x^2 \frac{\partial^2 v(t,x)}{\partial x^2} \theta(t,x)dx+\int_{0}^{\infty} \frac{\partial \theta(t,x)}{\partial t} v(t,x)dx
+\]
+\end{frame}
+
+
+
+\begin{frame}{Integration By Parts}
+Using the rule of Integration By Parts twice:
+\[\begin{split}
+&\int_{0}^{\infty} \widetilde{\sigma}^2(t,x) x^2 \frac{\partial^2 v(t,x)}{\partial x^2} \theta(t,x)dx\\
+=&\widetilde{\sigma}^2(t,x) x^2 \frac{\partial v(t,x)}{\partial x} \theta(t,x)-
+\int_{0}^{\infty} \frac{\partial v(t,x)}{\partial x} \frac{\partial [\widetilde{\sigma}^2(t,x) x^2  \theta(t,x)]}{\partial x} dx\\
+=&\int_{0}^{\infty}  \frac{\partial^2 [\widetilde{\sigma}^2(t,x) x^2  \theta(t,x)]}{\partial x^2}  v(t,x) dx
+\end{split}
+\]
+Integration By Parts:
+\[
+\int u v' dx =uv-\int u' v dx
+\]
+\end{frame}
+
+
+\begin{frame}{Forward Equation}
+Plug in:
+\[\begin{split}
+&\int_{0}^{\infty} \widetilde{\sigma}^2(t,x) x^2 \frac{\partial^2 v(t,x)}{\partial x^2} \theta(t,x)dx\\
+= &\int_{0}^{\infty} \frac{\partial^2 [\widetilde{\sigma}^2(t,x) x^2  \theta(t,x)]}{\partial x^2}  v(t,x)dx
+\end{split}
+\]
+We finally have:
+\[\begin{split}
+0=&\int_{0}^{\infty} \frac{1}{2} \frac{\partial^2 [\widetilde{\sigma}^2(t,x) x^2  \theta(t,x)]}{\partial x^2}v(t,x) dx-\int_{0}^{\infty} \frac{\partial \theta(t,x)}{\partial t} v(t,x)dx\\
+=&\int_{0}^{\infty} [\frac{1}{2} \frac{\partial^2 [\widetilde{\sigma}^2(t,x) x^2  \theta(t,x)]}{\partial x^2} -\frac{\partial \theta(t,x)}{\partial t}] v(t,x)dx
+\end{split}
+\]
+\end{frame}
+
+
+\begin{frame}{Forward Equation}
+Note that, it holds for arbitrary $h(F_t)$ and $v(t,x)$:
+\[
+0=\int_{0}^{\infty} [\frac{1}{2} \frac{\partial^2 [\widetilde{\sigma}^2(t,x) x^2  \theta(t,x)]}{\partial x^2} -\frac{\partial \theta(t,x)}{\partial t}] v(t,x)dx
+\]
+
+We then must have:
+\begin{equation}
+\frac{\partial \theta(t,x)}{\partial t}=\frac{1}{2} \frac{\partial^2 [\widetilde{\sigma}^2(t,x) x^2  \theta(t,x)]}{\partial x^2}   \label{eq:forward1}
+\end{equation}
+\end{frame}
+
+
+
+\begin{frame}{Dupire’s equation}
+
+\[\begin{split}
+&\frac{\partial C(T,K)}{\partial T}=\int_{K}^{\infty} (x-K) \frac{\partial \theta(T,x)}{\partial T} dx\\
+= &\int_{K}^{\infty} (x-K) \frac{1}{2} \frac{\partial^2 [\widetilde{\sigma}^2(T,x) x^2  \theta(T,x)]}{\partial x^2} dx\;\;\;  [eq \eqref{eq:forward1}] \\
+=& -\frac{1}{2} \int_{K}^{\infty}  \frac{\partial [\widetilde{\sigma}^2(T,x) x^2  \theta(T,x)]}{\partial x} dx\\
+=&\frac{1}{2} {\sigma}^2(T,K)K^2  \theta(T,K)\\
+=&\frac{1}{2} {\sigma}^2(T,K)K^2  \frac{\partial^2 C(T,K)}{ \partial K^2}
+\end{split}
+\]
+\end{frame}
+
+\begin{frame}{Volatility Interpolation and Option pricing}
+Given a time of grid of expiries $0=t_0 < t_1 < \dots $ and a a set of volatility functions, we recursively solve the finite difference  discretization of the Dupure forward equation:
+\begin{equation}
+\frac{C(t_{i+1},k) -C(t_{i},k)}{t_{i+1}-t_{i}}=\frac{1}{2}\sigma(t_i,k)^2 k^2 \frac{\partial^2 C(t_{i+1},k) }  {\partial k^2} 
+\label{eq:dupire}
+\end{equation}
+\end{frame}
+\begin{frame}{Volatility Interpolation and Option pricing}
+We can assume $\sigma(t_i,k)$  to be a piecewise constant functions for a given $t_i$ and the initial condition is:
+\[C(t_0,k)=max(S(t_0)-k,0)\]
+Given the grid of strike: $k_0<k_1<\dots<k_n$ and a expiry $t_i$ and next expiries $t_{i+1}$, let $C_{kk}^j=\frac{\partial^2 C(t_{i+1},k_j) }{\partial k^2}$ and  $C^{j}=  C(t_{i+1},k_j)$. The $C_{kk}^j$ can approximated by finite difference:
+\[
+C_{kk}^j=\frac{
+	\frac{C_{j+1}-C_{j}}{k_{j+1}-k_{j}}-\frac{C_{j}-C_{j-1}}{k_{j}-k_{j-1}}
+}{\frac{k_{j+1}-k_{j-1}}{2}}
+\]
+\end{frame}
+
+
+
+\begin{frame}{Volatility Interpolation and Option pricing}
+Let us assume $C_{kk}^0=C_{kk}^n=0$. Let 
+\[
+\alpha_{j}=\frac{1}{(k_{j}-k_{j-1})(k_{j+1}-k_{j-1})}
+\]
+\[
+\beta_{j}=\frac{1}{(k_{j+1}-k_{j})(k_{j}-k_{j-1})}
+\]
+\[
+\eta_{j}=\frac{1}{(k_{j+1}-k_{j})(k_{j+1}-k_{j-1})}
+\]
+\[
+z_j=\sigma(t_i,k_j)^2 k^2 (t_{i+1}-t_{i})
+\]
+
+We have:
+\[\begin{split}
+C(t_{i},k_1)&=-z_1 \alpha_{1}C(t_{i+1},k_1) \\
+&+ (1+z_1\beta_{1}) C(t_{i+1},k_2) -z_1\eta_{1} C(t_{i+1},k_2)
+\end{split}
+\]
+\end{frame}
+
+
+
+\begin{frame}{Volatility Interpolation and Option pricing}
+In matrix form let matrix M be::
+\[\tiny
+\begin{bmatrix} 
+1&  \\
+-z_1 \alpha_{1}
+& 1+z_1\beta_{1} 
+&-z_1\eta_{1}\\
+&-z_2 \alpha_{2}
+& 1+z_2\beta_{2} 
+&-z_2\eta_{2}\\
+& & \ddots&\ddots&\ddots \\
+&&	&-z_{n-1} \alpha_{n-1}
+& 1+z_{n-1}\beta_{n-1}
+&-z_{n-1}\eta_{n-1}\\
+&&&&&1
+\end{bmatrix}
+\]
+\[M^{-1}\begin{bmatrix}
+C(t_{i},k_0)\\
+C(t_{i},k_1)\\
+C(t_{i},k_2)\\
+\vdots\\
+C(t_{i},k_{n-1}) \\
+C(t_{i},k_{n})
+\end{bmatrix}=
+\begin{bmatrix}
+C(t_{i+1},k_0)\\
+C(t_{i+1},k_1)\\
+C(t_{i+1},k_2)\\
+\vdots\\
+C(t_{i+1},k_{n-1}) \\
+C(t_{i+1},k_{n})
+\end{bmatrix}
+\]
+\end{frame}
+
+
+\begin{frame}{Model Calibration}
+\[M^{-1}\begin{bmatrix}
+C(t_{i},k_0)\\
+C(t_{i},k_1)\\
+C(t_{i},k_2)\\
+\vdots\\
+C(t_{i},k_{n-1}) \\
+C(t_{i},k_{n})
+\end{bmatrix}=
+\begin{bmatrix}
+C(t_{i+1},k_0)\\
+C(t_{i+1},k_1)\\
+C(t_{i+1},k_2)\\
+\vdots\\
+C(t_{i+1},k_{n-1}) \\
+C(t_{i+1},k_{n})
+\end{bmatrix}
+\]
+We try to find M that so that $C(t_{i+1},k_j)=C_mkt(t_{i+1},k_j)$. This can be done by:
+\[
+\inf_{\sigma(t_i,.)} \sum_{j}(\frac{c(t_{i+1},k_j)-c_{mkt}(t_{i+1},k_j)}{Vega_{bs}^{mkt}(t_{i+1},k_j)})^2
+\]
+\end{frame}
+ 
+
+\end{document}
+

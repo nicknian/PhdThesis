@@ -1,0 +1,404 @@
+\documentclass[10pt,table,mathserif]{beamer}
+\usetheme[
+%%% options passed to the outer theme
+%    hidetitle,           % hide the (short) title in the sidebar
+%    hideauthor,          % hide the (short) author in the sidebar
+%    hideinstitute,       % hide the (short) institute in the bottom of the sidebar
+%    shownavsym,          % show the navigation symbols
+%    width=2cm,           % width of the sidebar (default is 2 cm)
+%    hideothersubsections,% hide all subsections but the subsections in the current section
+%    hideallsubsections,  % hide all subsections
+%    right                % right of left position of sidebar (default is right)
+  ]{Aalborg}
+
+\setbeamertemplate{theorems}[numbered]
+
+\definecolor{watred}{cmyk}{.00,1,1,0.00}
+\definecolor{watyellow}{cmyk}{0,0.12,1,0}
+\definecolor{watgray}{cmyk}{0,0,0,0.5}
+
+% If you want to change the colors of the various elements in the theme, edit and uncomment the following lines
+% Change the bar and sidebar colors:
+\setbeamercolor{Aalborg}{fg=white,bg=watred}
+\setbeamercolor{sidebar}{bg=black}
+% Change the color of the structural elements:
+\setbeamercolor{structure}{fg=watyellow}
+% Change the frame title text color:
+%\setbeamercolor{frametitle}{fg=blue}
+% Change the normal text color background:
+\setbeamercolor{normal text}{bg=black, fg=white}
+\setbeamercolor{alerted text}{bg=black, fg=watyellow}
+% ... and you can of course change a lot more - see the beamer user manual.
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+% ... or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+\usepackage{lmodern} %optional
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{colortbl}
+\definecolor{mycyan}{cmyk}{.2,0,0,0}
+\definecolor{mycyan1}{cmyk}{.1,0,0,0}
+\definecolor{mycyan3}{cmyk}{.3,0,0,0}
+% colored hyperlinks
+\newcommand{\chref}[2]{%
+  \href{#1}{{\usebeamercolor[bg]{Aalborg}#2}}
+}
+
+\title[Vox Populi: Collecting High-Quality Labels from a Crowd]% optional, use only with long paper titles
+{\textsl{Vox Populi}: Collecting High-Quality Labels from a Crowd \\
+}
+
+
+\author[Dekel \& Shamir] % optional, use only with lots of authors
+{
+  Authors: Ofer Dekel, Ohad Shamir (COLT 2009)\\
+  Presenter: Haofan Zhang
+}
+% - Give the names in the same order as they appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation. See the beamer manual for an example
+
+%specify some optional logos
+\pgfdeclareimage[height=1.4cm]{mainlogo}{logo.png} % placed in the upper left/right corner
+\logo{\pgfuseimage{mainlogo}}
+
+\pgfdeclareimage[height=0.75cm]{logo2}{tu-logo} % placed in the lower left/right corner if the \pgfuseimage{logo2} command is uncommented in the \institute command below
+
+\institute[
+%  {\pgfuseimage{logo2}}\\ %insert a company or department logo
+  David R. Cheriton School of Computer Science, University of Waterloo
+] % optional - is placed in the bottom of the sidebar on every slide
+{%
+  David R. Cheriton School of Computer Science,\\
+  University of Waterloo,\\
+  Waterloo, Canada
+  %there must be an empty line above this line - otherwise some unwanted space is added between the university and the country (I do not know why;( )
+}
+\date{\today}
+
+\begin{document}
+% the titlepage
+\begin{frame}[plain] % the plain option removes the sidebar and header from the title page
+  \titlepage
+\end{frame}
+%%%%%%%%%%%%%%%%
+
+% TOC
+\begin{frame}{Agenda}{}
+\tableofcontents
+\end{frame}
+%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+\subsection{Background}
+
+\begin{frame}{Introduction}{Learning from Crowd}
+  \begin{itemize}
+    \item Traditional machine learning focuses on the \alert{single-teacher setting} \pause
+    \item We are faced with the problem of \alert{learning from crowd} \pause
+    \item Therefore, we are interested in identifying and removing low-quality teachers
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Introduction}{Learning from Crowd}
+  Several challenges: \pause
+  \begin{itemize}
+    \item No prior knowledge on the identity or the quality of the teacher \pause
+    \item No access to gold-set of perfectly labeled examples \pause
+      \begin{itemize}
+        \item Moreover, a typical teacher only labels a handful set of examples
+      \end{itemize} \pause
+    \item No control on assignment of examples \pause
+      \begin{itemize}
+        \item Prevent us from applying \alert{repeated labeling}.
+        \item Even applicable, should be avoided because of the cost.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Introduction}{Our Goal}
+  Ultimately, our problem is to:
+  \begin{itemize}
+    \item Work with raw labeled data, with \alert{single noisy label per example}
+    \item Detect and eliminate low-quality teaches in a \alert{principled} and \alert{effective} manner
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Introduction}{\textsl{Vox Populi}}
+  \begin{quote}
+    \large
+    \alert{Vox populi, vox Dei}\\
+    --The voice of the people [is] the voice of God.
+  \end{quote}
+\end{frame}
+
+
+\begin{frame}{Introduction}{A Simple Algorithm}
+  Suppose we have \alert{multiple labels} for each example \pause
+  \begin{itemize}
+    \item If most of teaches are good, we can simply take the \alert{average or majority} over repeated labels  \pause
+    \item Then we treat this \alert{aggregated label} as ground truth and count incorrect label provided by each teacher \pause
+    \item Once we identify low-quality teachers, we can ignore them in the future. \pause
+  \end{itemize}
+  \begin{center}
+  However, we don't have aggregated labels\ldots \\\pause
+  \Large We want to \alert{simulate} them!
+  \end{center}
+\end{frame}
+
+\begin{frame}{Introduction}{A Simple Algorithm}
+  Simulating aggregated labels:\pause
+  \begin{itemize}
+    \item Specifically, we train a hypothesis(classifier) on the entire unfiltered dataset \pause
+    \item Then we regard the predictions of this hypothesis as the ground truth. \pause
+    \item We \alert{pretend} that we can rely on it, and eliminate low-quality teachers!
+  \end{itemize}
+\end{frame}
+
+
+\subsection{Settings and Notations}
+
+\begin{frame}{Settings and Notations}
+  We focus on \alert{binary classification} setting:
+  \begin{itemize}
+    \item Instance space: $\mathcal{X} \subseteq \mathbb{R}^n $ \pause
+    \item Test Probability Distribution: $\mathcal{D}: \mathcal{X} \times \{ -1, +1 \} $ \pause
+    \item Given dataset: $S = \{ \mathbf{x}_i, y_i \}^m_{i=1}$ \pause
+    \item The ML algorithm minimizes:
+      \[\hat{F}_{\lambda}(\mathbf{w}, S) = \lambda || \mathbf{w} ||^2 + \frac{1}{m}\sum^m_{i=1}\ell (f(\mathbf{w, x}_i), y_i)\]
+    \item Additionally,
+      \[f(\mathbf{w, x}_i) = \langle \mathbf{w}, \phi (\mathbf{x}_i) \rangle\]
+      represents application of classifier $\mathbf{w}$ to the instance $\mathbf{x}_i$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Settings and Notations}
+  In typical supervised learning setting:
+  \begin{itemize}
+    \item we assume that a training set $S$ is sampled i.i.d from $\mathcal{D}$ \pause
+  \end{itemize}
+  Here, we introduce an \alert{extra stage} where data is labeled by a set of \alert{$k$} teachers: \pause
+  \begin{itemize}
+    \item There exists $k$ classifiers \alert{$\{ h_1(\mathbf{x}), h_2(\mathbf{x}),\cdots, h_k(\mathbf{x}) \} : \mathcal{X} \rightarrow \{ -1, +1\}$} \pause
+    \item For each unlabeled instance $\mathbf{x}$, we choose a teacher \alert{$t \in \{1,\cdots,k\}$} at random (uniformly here for simplicity) \pause
+    \item This results in splitting the sample into $k$ subsets, \alert{$S_1, \cdots, S_k$}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Settings and Notations}
+  \begin{itemize}
+    \item This process can be viewed as sampling an unlabeled dataset and labeling it using \alert{$\bar{h}(\mathbf{x})$},\\ \pause
+          where $\bar{h}(\mathbf{x})$ is the random classifier defined by randomly choosing a hypothesis from $h_1,\cdots,h_k$ \pause
+    \item Remeber we want to minimize $\hat{F}_\lambda (\mathbf{w}, S)$:
+        \[\hat{F}_{\lambda}(\mathbf{w}, S) = \lambda || \mathbf{w} ||^2 + \frac{1}{m}\sum^m_{i=1}\ell (f(\mathbf{w, x}_i), y_i)\] \pause
+    \item Then, it can be seen as the empirical counterpart of minimizing
+      \alert{\[F_\lambda (\mathbf{w}) = \lambda ||\mathbf{w}||^2 + \mathbb{E}\left[\ell (f(\mathbf{w,x}), \bar{h}(\mathbf{x}))\right]\]}
+    \item We denote \alert{$\mathbf{w}^*$} as the minimizer of $F_{\lambda} (\mathbf{w})$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Settings and Notations}
+  \begin{itemize}
+    \item Remember that, our goal is to identify and prune away low-quality teachers. \pause
+    \item After pruning, only a set of high-quality teachers are left \pause
+    \item We denote \alert{$\bar{h}_T(\cdot)$} as randomly pick one classifier from high-quality teachers
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Settings and Notations}
+  \begin{itemize}
+    \item Error rate of teacher $t$:
+      \[e_t = \Pr_{(\mathbf{x}, y) \sim D}(y h_t (\mathbf{x})<0)\] \pause
+    \item Error rate of entire crowd before pruning:
+      \[\bar{e} = \Pr_{(\mathbf{x}, y) \sim D}(y \bar{h} (\mathbf{x})<0)\] \pause
+    \item Error rate of entire crowd after pruning:
+      \[\bar{e}_T  = \Pr_{(\mathbf{x}, y) \sim D}(y \bar{h}_T (\mathbf{x})<0 | S)\] \pause
+  \end{itemize}
+  However, we don't know $\mathcal{D}$ nor $h_t$, we cannot calculate $e_t$ directly!\\ \pause
+  We need to look at something different!
+\end{frame}
+
+\begin{frame}{Settings and Notations}
+  The true ``error-rate'' according to $\mathcal{D}$:
+  \begin{align*}
+    e_t & =  \Pr_{(\mathbf{x}, y) \sim D}(y h_t (\mathbf{x})<0)\\
+    \bar{e} & =  \Pr_{(\mathbf{x}, y) \sim D}(y \bar{h} (\mathbf{x})<0)\\
+    \bar{e}_T & =  \Pr_{(\mathbf{x}, y) \sim D}(y \bar{h}_T (\mathbf{x})<0 |S)\\
+  \end{align*} \pause
+  The idea is to look at the ``error-rate'' with respect to $\mathbf{w}^*$:\\
+  \begin{align*}
+    \epsilon_t & =  \Pr(h_t (\mathbf{x}) f(\mathbf{w^*, x})<0)\\
+    \bar{\epsilon} & =  \Pr (\bar{h}(\mathbf{x}) f(\mathbf{w^*, x})<0)\\
+    \bar{\epsilon}_T & =  \Pr (\bar{h}_T f(\mathbf{w^*, x})<0 | S)\\
+  \end{align*}\vspace{-2ex}
+\end{frame}
+
+\begin{frame}{Settings and Notations}
+  The idea is to look at the ``error-rate'' with respect to $\mathbf{w}^*$:\\
+  \begin{align*}
+    \epsilon_t & =  \Pr(h_t (\mathbf{x}) f(\mathbf{w^*, x})<0)\\
+    \bar{\epsilon} & =  \Pr (\bar{h}(\mathbf{x}) f(\mathbf{w^*, x})<0)\\
+    \bar{\epsilon}_T & =  \Pr (\bar{h}_T f(\mathbf{w^*, x})<0 | S)\\
+  \end{align*}\vspace{-2ex}
+  Also, it is easy to see:\\
+  \[\bar{\epsilon} = \frac{\sum^k_{t=1}\epsilon_t}{k}, \,\,\,\,\, \bar{\epsilon}_T = \frac{\sum^k_{t=1}\mathbf{1}(t \text{ not pruned})\epsilon_t}{|\{t: \text{t not pruned}\}|}\]
+  \pause
+  So, what is the relationship between $\bar{\epsilon}_T$ and classification error?
+\end{frame}
+
+\section{Algorithms and Theories}
+\begin{frame}{Algorithms and Theoretical Foundations}{Relating $\bar{\epsilon}_T$ and Classification Error}
+  \begin{theorem}
+    Assuming $p_D(y|\mathbf{x})\in \{0,1\}$, it holds for any teacher $t$ that
+    \[\epsilon_t = \underset{{(\mathbf{x},y)}\sim D}{\Pr}(yf(\mathbf{w}^*, \mathbf{x})<0) + \mathbb{E}_{(\mathbf{x},y)}[e_t(\mathbf{x})\text{sign}(yf(\mathbf{w}^*,\mathbf{x}))]\]
+    \label{the1}
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Algorithms and Theoretical Foundations}
+  \begin{corollary}
+    Assume that for any teacher $t$, \alert{$e_t(\mathbf{x})\equiv e_t$} is a constant independent of $\mathbf{x}$. If \alert{$\Pr (sign(f(\mathbf{w}^*, \mathbf{x}))\neq y) < 1/2$},
+
+    then \alert{$\{\epsilon_t\}, \bar{\epsilon}, \bar{\epsilon}_T$} are equivalent to \alert{$\{ e_t \}, \bar{e}, \bar{e}_T$} respectively, up to a uniform, monotonically increasing linear transformation.
+    \label{the2}
+  \end{corollary}
+  \pause
+  \begin{itemize}
+    \item This means, $\mathbf{w^*}$ does not have to be particularly good, an error-rate smaller than $1/2$ suffices.
+  \end{itemize}
+\end{frame}
+
+
+\subsection{Pruning Can Help}
+
+\begin{frame}{Pruning Algorithm}
+Motivated by Theorem \ref{the1}, we consider the following simple algorithm to prune teachers: \pause
+  \begin{itemize}
+    \item Train a classifier $\mathbf{w}'$ on the entire dataset and prune away any teacher for which
+      \[\frac{\sum_{i\in S_t}\mathbf{1}(h_t(\mathbf{x}_i)f(\mathbf{w',x}_i)<0)}{|S_t|} > T\]
+      for some threshold $T \in (0,1)$ \pause
+    \item Essentially, this calculates a rough empirical estimate of $\epsilon_t$, and removes all teachers where this estimate exceeds the threshold $T$ \pause
+    \item The question is: Can this actually help???
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink = 5]{Pruning Can Help}
+  \begin{theorem}
+    Assume we use the pruning procedure described previously. Also, let $F : [0, 1] \rightarrow [0,1]$ be a cumulative distribution function, such that $F(a) = \frac{1}{k}\sum^k_{t=1}\mathbf{1}(\epsilon_t \leq a)$. Let $P \sim F(\cdot)$, and let $N \sim Poi(m/k)$ be a Poisson random variable with parameter $m/k$. If we assume $m/k = \Theta(1)$ as $m, k$ increase, it holds that
+    \[\bar{\epsilon} = \mathbb{E}_P[P]\] and with probability at least $1 - \delta$ over the training sample
+    \[ \bar{\epsilon}_T \leq \frac{\mathbb{E}_{P,N}[\Pr (X^P_N \leq NT)P] + r(m, \delta)}{\mathbb{E}_{P,N}[\Pr (X^P_N \leq NT)] - r(m, \delta)}\]
+    where $X^P_N$ is a binomial random variable, representing sum of $N$ independent Bernoulli random variables with parameter $P$, and
+    \[r(m, \delta) = O \left(\sqrt{\frac{\log (6/\delta)}{m}}\right)\]
+    \label{the3}
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Pruning Can Help}
+
+\end{frame}
+
+\subsection{Pruning Can't Hurt}
+
+\begin{frame}{Pruning Can't Hurt}
+  Another question is:\\
+  Can we guarantee that $\bar{\epsilon}_T$ is never considerably larger than $\bar{\epsilon}$? \pause
+
+  \begin{theorem}
+    In the setting of Theorem \ref{the3}, it holds for any $\{\epsilon_t\}$ that
+    \[\bar{\epsilon}_T \leq \bar{\epsilon} + \frac{2r(m, \delta)}{\mathbb{E}_{P,N}[\Pr (X^P_N \leq NT)]-r(m,\delta)}\]
+    where
+    \[r(m, \delta) = O \left(\sqrt{\frac{\log (6/\delta)}{m}}\right)\]
+    \label{the5}
+  \end{theorem}
+\end{frame}
+\subsection{Setting the Threshold $T$}
+
+\begin{frame}{Setting the Threshold $T$}
+  One final question is, how to choose the threshold $T$? \pause
+  \begin{corollary}
+    In the setting of Theorem \ref{the1}, a sufficient condition for $e_t > \bar{e}$ is
+    \[\epsilon_t > \underset{(\mathbf{x},y)\sim D}{\Pr}(y f(\mathbf{w^*,x})<0)+\bar{e}\]
+    \label{the6}
+  \end{corollary} \pause
+  \begin{itemize}
+    \item This corollary implies that, if $\epsilon_t$ is larger than a certain quantity, it is definitely worse than average
+    \item This suggests a reasonable choice for $T$ is:
+        \[\underset{(\mathbf{x},y)\sim D}{\Pr}(y f(\mathbf{w',x})<0)+\bar{e}\]
+  \end{itemize}
+\end{frame}
+
+\subsection{Reusing the Cleaned Dataset}
+
+\begin{frame}{Reusing the Cleaned Dataset}
+  \begin{itemize}
+    \item If pruning is successful, we expect to have a cleaner dataset \pause
+    \item A more accurate classifier is thereby obtainable \pause
+    \item However, the pruning is data-dependent, therefore generalization will be an issue!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Reusing the Cleaned Dataset}
+ Fortunately, we can address this easily:
+ \begin{itemize}
+    \item First, randomly split $S$ into $S_1$ and $S_2$ \pause
+    \item Second, we get low-quality teacher set $B_1$ and $B_2$ according to $S_1$ and $S_2$ \pause
+    \item Third, use $B_1$ clean $S_2$ to get $S'_2$ and use $B_2$ clean $S_1$ to get $S'_1$ \pause
+    \item Finally, train a classifier on $S'$, where
+      \[S' = S'_1 \cup S'_2\]
+  \end{itemize}
+\end{frame}
+\section{Experiments}
+
+\subsection{Experiment Settings}
+\begin{frame}{Experiments} \pause
+  \begin{itemize}
+    \item The data-pruning approach is tested using \alert{\textsl{Amazon.com's Mechanical Turk}} \pause
+    \item We create an unlabeled set of over \alert{$8,000$} examples, each consists
+      \begin{itemize}
+        \item A search engine query
+        \item An Internet URL \pause
+      \end{itemize}
+    \item Task was to determine if they are relevant match or not \pause
+    \item Each example was labeled by \alert{15} different teachers \pause
+    \item A total of \alert{375} individual teachers contributed to the dataset
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Experiments}
+  \begin{table}
+    \centering
+    \begin{tabular}{c|c|c|c}
+     $\mu$ & $\mu = \infty$(original)  & $\mu = 200$ & $\mu = 50$ \\
+     \hline
+     No. of Teachers & 375 & 881 & 2509 \\
+     Typical Label / Teacher & NA & 14 & 4 \\
+    \end{tabular}
+    \caption{Description of 3 Datasets}
+  \end{table}
+  \begin{itemize}
+    \item Parameter \alert{$\mu$}: each teacher labels at most \alert{$\mu$} examples \pause
+    \item The average of 15 labels are trated as ground truth \pause
+    \item The training algorithm is \alert{well-tuned linear SVM}
+  \end{itemize}
+\end{frame}
+
+\subsection{Experiment Results}
+\begin{frame}{Experiments}
+ 
+\end{frame}
+
+\section{Q \& A}
+\begin{frame}{Q \& A}
+  \LARGE
+  \begin{quote}
+    \alert{Thank you very much!}\\
+    \hspace{8ex} Any Questions?
+  \end{quote}
+\end{frame}
+\end{document}
+

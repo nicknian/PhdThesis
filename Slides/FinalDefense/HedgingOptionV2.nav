@@ -1,0 +1,159 @@
+\defcounter {refsection}{0}\relax 
+\beamer@endinputifotherversion {3.14pt}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {1}{1}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {2}{2}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\sectionentry {1}{Introduction}{3}{Introduction}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@sectionpages {1}{2}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionpages {1}{2}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {1}{0}{3}{3/3}{}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {3}{3}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {1}{0}{4}{4/4}{}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {4}{4}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\sectionentry {2}{Delta Hedging Variants}{5}{Delta Hedging Variants}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@sectionpages {3}{4}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionpages {3}{4}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{2}{1}{5}{Stochastic Volatility Model}}\headcommand {\beamer@subsectionpages {5}{4}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {2}{1}{1}{5/5}{Stochastic Volatility Model}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {5}{5}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{2}{2}{6}{Minimum Variance Approach}}\headcommand {\beamer@subsectionpages {5}{5}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {2}{2}{1}{6/6}{Minimum Variance Approach}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {6}{6}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{2}{3}{7}{Local Volatility Model}}\headcommand {\beamer@subsectionpages {6}{6}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {2}{3}{1}{7/7}{Local Volatility Model}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {7}{7}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\sectionentry {3}{Data Driven Approach}{8}{Data Driven Approach}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@sectionpages {5}{7}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionpages {7}{7}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{3}{1}{8}{Indirect Data-Driven Approach}}\headcommand {\beamer@subsectionpages {8}{7}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {3}{1}{1}{8/8}{Indirect Data-Driven Approach}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {8}{8}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {3}{1}{2}{9/9}{Indirect Data-Driven Approach}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {9}{9}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{3}{2}{10}{Direct Data-Driven Approach}}\headcommand {\beamer@subsectionpages {8}{9}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {3}{2}{1}{10/10}{Direct Data-Driven Approach}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {10}{10}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {3}{2}{2}{11/11}{Direct Data-Driven Approach}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {11}{11}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\sectionentry {4}{Model and Experiment}{12}{Model and Experiment}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@sectionpages {8}{11}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionpages {10}{11}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{4}{1}{12}{Kernel Learning}}\headcommand {\beamer@subsectionpages {12}{11}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{1}{1}{12/12}{Kernel Learning}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {12}{12}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{1}{2}{13/13}{Kernel Learning}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {13}{13}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{1}{3}{14/14}{Kernel Learning}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {14}{14}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{1}{4}{15/15}{Kernel Learning}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {15}{15}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{1}{5}{16/16}{Kernel Learning}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {16}{16}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{1}{6}{17/17}{Kernel Learning}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {17}{17}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{1}{7}{18/18}{Kernel Learning}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {18}{18}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{1}{8}{19/19}{Kernel Learning}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {19}{19}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{4}{2}{20}{Evaluation Criteria}}\headcommand {\beamer@subsectionpages {12}{19}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{2}{1}{20/20}{Evaluation Criteria}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {20}{20}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{4}{3}{21}{Synthetic Data Experiments}}\headcommand {\beamer@subsectionpages {20}{20}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{3}{1}{21/21}{Synthetic Data Experiments}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {21}{21}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{3}{2}{22/22}{Synthetic Data Experiments}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {22}{22}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{4}{4}{23}{Real Data Experiments}}\headcommand {\beamer@subsectionpages {21}{22}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{4}{1}{23/23}{Real Data Experiments}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {23}{23}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{4}{2}{24/24}{Real Data Experiments}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {24}{24}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\sectionentry {5}{Conclusion and Discussion}{25}{Conclusion and Discussion}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@sectionpages {12}{24}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionpages {23}{24}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {5}{0}{3}{25/25}{}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {25}{25}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {5}{0}{4}{26/26}{}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {26}{26}}
+\headcommand {\beamer@partpages {1}{26}}
+\headcommand {\beamer@subsectionpages {25}{26}}
+\headcommand {\beamer@sectionpages {25}{26}}
+\headcommand {\beamer@documentpages {26}}
+\headcommand {\def \inserttotalframenumber {26}}

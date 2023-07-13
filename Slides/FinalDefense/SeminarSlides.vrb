@@ -1,0 +1,7 @@
+\frametitle{Sequential Feature Score ($\alpha $) for Monthly Hedging}
+\begin{figure}[htp]
+  \centering
+  \subfigure[Sequential Features ]{
+    \includegraphics[width=0.90\textwidth]{C2}}
+  \caption{Feature Score of S\&P500 Call Option} \label{fig:call1}
+\end{figure}

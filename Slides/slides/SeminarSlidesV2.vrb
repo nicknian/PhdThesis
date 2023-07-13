@@ -1,0 +1,274 @@
+\frametitle{Total Hedging Model for Real Data Case}
+\begin{figure}[htp!]
+	\centering
+	\resizebox{0.90\textwidth}{!}{
+		\begin{tikzpicture}[
+		prod/.style={circle, draw, inner sep=0pt},
+		ct/.style={circle, draw, inner sep=5pt, ultra thick, minimum width=10mm},
+		ft/.style={circle, draw, minimum width=8mm, inner sep=1pt},
+		filter/.style={circle, draw, minimum width=7mm, inner sep=1pt, path picture={\draw[thick, rounded corners] (path picture bounding box.center)--++(65:2mm)--++(0:1mm);
+				\draw[thick, rounded corners] (path picture bounding box.center)--++(245:2mm)--++(180:1mm);}},
+		mylabel/.style={font=\scriptsize\sffamily},
+		>=LaTeX
+		]
+		%		\node[draw,rectangle]  (ps1) at (4.5-8, -1) {softmax};
+		%		\node[draw,rectangle]  (ps3) at (7.5-8, -1) {softmax};
+		%		\node [draw,circle,inner sep=0pt] (prp1) at (3*1-8, -1) {$\times$};
+		%		\node  (prp2) at (3*2-8, -1.5) {$\dots$};
+		%		\node [draw,circle,inner sep=0pt] (prp3) at (3*3-8, -1) {$\times$};
+		
+		%		\foreach \i [count=\step from 1] in {$\vx_1^P$,$\dots$,$\vx_O^P$}
+		%		\node (pri\step) at (3*\step-8, -2) {\i};
+		%		\node  (psw1) at (4.5-8, -2) {$SW_P$};
+		%		\node  (psw3) at (7.5-8, -2) {$SW_P$};
+		%		\draw[->] (ps1.west) to node[below]{$\mathbf{\beta}$} (prp1.east);
+		%		\draw[->] (ps3.east) to node[below]{$\mathbf{\beta}$} (prp3.west);
+		%		\draw[->] (pri1.north) to (prp1.south);
+		%		\draw[->] (pri3.north) to (prp3.south);
+		%		\draw[->] (psw1.north) to (ps1.south);
+		%		\draw[->] (psw3.north) to (ps3.south);
+		%		\node (ph2) at (3*2-8, 0.0) {$\dots$};
+		%		\foreach \step in {1,3} {
+		%			\node[draw,rectangle] (ph\step) at (3*\step-8, 0.0) {GRU};
+		%		}
+		%		\draw[->] (prp1.north) to node[left]{$\widehat{\vx}_1^P$} (ph1.south);
+		%		\draw[->] (prp3.north) to node[left]{$\widehat{\vx}_O^P$} (ph3.south);
+		%				
+		%		\foreach \step in {1,...,2} {
+		%			\pgfmathtruncatemacro{\next}{add(\step,1)}
+		%			\draw[->] (ph\step.east) -> (ph\next.west);
+		%		}
+		%		\node[fit=(pri1) (pri3) (ps1) (ps3) (ph1) (ph3), draw, inner sep=0pt] (fit1) { };
+		%		\node[align=center, outer sep=0] (encoder) [left=of fit1] {Local Hedging \\ Encoder};
+		
+		
+		
+		\node[filter] (poe2) at (9-7, 4.5) {};
+		\node[filter] (poe3) at (6-7, 4.5) {};
+		\node [draw,circle,inner sep=0pt] (poe4) at (6-7, 5.5) {$\times$};
+		\node [draw,circle,inner sep=0pt] (poe5) at (9-7, 5.5) {$\times$};
+		\node [draw,circle,inner sep=0pt] (poe6) at (7.5-7, 6) {$+$};
+		\node (poe7) at (7.5-7, 7) {$V^M_{t_0}$};
+		\node  (pbs) at (4.5-7, 5.5) {$V^{mkt}_{t_0}$};
+		\draw[->] (poe3.north) to node[left]{$1-o$} (poe4.south);
+		\draw[->] (poe3.north) to node[above]{$o$} (poe5.west);
+		\draw[->] (poe2.north) to node[left]{$\widehat{V}^M_{t_0}$} (poe5.south);
+		\draw[->] (poe4.north) to node[left]{} (poe6.west);
+		\draw[->] (poe5.north) to node[left]{} (poe6.east);
+		\draw[->] (poe6.north) to node[left]{} (poe7.south);
+		\draw[->] (pbs.east) to node[left]{} (poe4.west);
+		
+		
+		\draw[->] (poe7.east) to node[left]{} (loss.west);
+		
+		
+		\node[draw,circle,inner sep=0pt]  (pl1) at (7.5-7, 2) {$\times$};
+		\node[draw,rectangle]  (pl3) at (7.5-7, 1) {softmax};
+		\node  (pl2) at (6-7, 2) {$\vy_P$};
+		\node  (pl4) at (6-7, 1) {$LW_P$};
+		\draw[->] (pl4.east) to (pl3.west);
+		\draw[->] (pl2.east) to (pl1.west);
+		\draw[->] (pl3.north) to node[left]{$\eta$} (pl1.south);
+		
+		
+		\node (phe2) at (7.5-8, 3) {$\widehat{\vy}_P$};
+		%		\node (phe3) at (9-8, 3) {$\widehat{\mathbf{h}}_E^P$};
+		\draw[->] (pl1.north) to (phe2.south);
+		%		\draw[->] (ph3.north) to  (phe3.south);
+		%		\draw[->] (phe3.north) to  (poe2.south);
+		%		\draw[->] (phe3.north) to  (poe3.south);
+		
+		\draw[->] (phe2.north) to (poe2.south);
+		\draw[->] (phe2.north) to (poe3.south);
+		
+		\node[fit=(poe2) (poe3) (poe5) (poe6)  (pbs) (phe2) (pl3), draw, inner sep=4pt] (fit3) { };
+		\node[align=center, outer sep=0] (encoder) [below=of fit3] {\Large Pricing Model};
+		
+		
+		
+		
+		
+		
+		\node[draw,rectangle]  (s1) at (4.5, -1) {softmax};
+		\node[draw,rectangle]  (s3) at (7.5, -1) {softmax};
+		\node [draw,circle,inner sep=0pt] (rp1) at (3*1, -1) {$\times$};
+		\node  (rp2) at (3*2, -1.5) {$\dots$};
+		\node [draw,circle,inner sep=0pt] (rp3) at (3*3, -1) {$\times$};
+		
+		\foreach \i [count=\step from 1] in {$\vx_1^{t_i}$,$\dots$,$\vx_K^{t_i}$}
+		\node (ri\step) at (3*\step, -2) {\i};
+		\node  (sw1) at (4.5, -2) {SW};
+		\node  (sw3) at (7.5, -2) {SW};
+		\draw[->] (s1.west) to node[below]{$\mathbf{\alpha}$} (rp1.east);
+		\draw[->] (s3.east) to node[below]{$\mathbf{\alpha}$} (rp3.west);
+		\draw[->] (ri1.north) to (rp1.south);
+		\draw[->] (ri3.north) to (rp3.south);
+		\draw[->] (sw1.north) to (s1.south);
+		\draw[->] (sw3.north) to (s3.south);
+		\node (h2) at (3*2, 0.0) {$\dots$};
+		\foreach \step in {1,3} {
+			\node[draw,rectangle] (h\step) at (3*\step, 0.0) {GRU};
+		}
+		\draw[->] (rp1.north) to node[left]{$\widehat{\vx}_1^{t_i}$} (h1.south);
+		\draw[->] (rp3.north) to node[left]{$\widehat{\vx}_K^{t_i}$} (h3.south);
+		
+		\foreach \step in {1,...,2} {
+			\pgfmathtruncatemacro{\next}{add(\step,1)}
+			\draw[->] (h\step.east) -> (h\next.west);
+		}
+		\node[fit=(ri1) (ri3) (s1) (s3) (h1) (h3), draw, inner sep=0pt] (fit4) { };
+		%\node[align=center, outer sep=0] (encoder) [right=of fit4] {Hedging \\Encoder};
+		\node[draw,circle,inner sep=0pt]  (l1) at (6, 2) {$\times$};
+		\node[draw,rectangle]  (l3) at (6, 1) {softmax};
+		\node  (l2) at (4.5, 2) {$\vy_{t_i}$};
+		\node  (l4) at (4.5, 1) {$LW$};
+		\draw[->] (l4.east) to (l3.west);
+		\draw[->] (l2.east) to (l1.west);
+		\draw[->] (l3.north) to node[left]{$\omega$} (l1.south);
+		\node (he2) at (6, 3) {$\widehat{\vy}_{t_i}$};
+		\node (he3) at (9, 3) {$\widehat{\mathbf{h}}_E^{t_i}$};
+		\node[fit=(he2) (he3), draw, inner sep=0pt] (fit6) { };
+		\node[draw,rectangle]  (hedge) at (7.5, 4) {GRU};
+		\node[filter](output) at (7.5, 5) {};
+		\node[draw,rectangle] (loss) at (7.5, 7) {Loss};
+		%        \node (V0) at (7.5, 8) {$V_{t_0}$};
+		\node  (outputPre) at (6, 5) {...};
+		\node  (outputNext) at (9, 5) {...};
+		\node  (hedgePre) at (6, 4) {...};
+		\node (hedgeNext) at (9, 4) {...};
+		
+		
+		
+		
+		\node[draw,rectangle]  (hedge0) at (4.5, 4) {GRU};
+		\node[filter](output0) at (4.5, 5) {};
+		\node[draw,rectangle]  (hedgeF) at (10.5, 4) {GRU};
+		\node[filter](outputF) at (10.5, 5) {};
+		\draw[->] (l1.north) -> (he2.south);
+		\draw[->] (h3.north) -> (he3.south);
+		\draw[->] (he2.north) -> (hedge.south);
+		\draw[->] (he3.north) -> (hedge.south);
+		%\draw[->] (V0.south) -> (loss.north);
+		\draw[->] (hedge0.east) -> (hedgePre.west);
+		\draw[->] (hedgeNext.east) -> (hedgeF.west);
+		
+		\draw[->] (hedge.north) to node[left]{${\mathbf{c}}_{t_i}$} (output.south);
+		\draw[->] (hedge.north) to node[left]{${\mathbf{c}}_{t_i}$} (output.south);
+		
+		\draw[->] (hedge0.north) to node[left]{${\mathbf{c}}_{t_0}$} (output0.south);
+		\draw[->] (hedgeF.north) to node[left]{${\mathbf{c}}_{t_{N-1}}$} (outputF.south);
+		
+		\draw[->] (hedgePre.east) to  (hedge.west);
+		\draw[->] (hedge.east) to (hedgeNext.west);
+		
+		\node[fit=(hedge) (hedge0) (hedgeF) (output0) (output) (outputF), draw, inner sep=0pt] (fit5) { };
+		\node[align=center, outer sep=0] (encoder) [below=of fit4] { \Large Total hedging Model};
+		\node[rectangle]  (delta0) at (4.5, 6) {$\delta_{t_0}$};
+		\node[rectangle]  (deltaP) at (6, 6) {...};
+		\node[rectangle]  (delta) at (7.5, 6) {$\delta_{t_i}$};
+		\node[rectangle]  (deltaN) at (9, 6) {...};
+		\node[rectangle]  (deltaF) at (10.5, 6) {$\delta_{t_{N-1}}$};
+		\draw[->] (delta0.north) -> (loss.south);
+		\draw[->] (deltaP.north) -> (loss.south);
+		\draw[->] (delta.north) -> (loss.south);
+		\draw[->] (deltaN.north) -> (loss.south);
+		\draw[->] (deltaF.north) -> (loss.south);
+		\draw[->] (output0.north) -> (delta0.south);
+		\draw[->] (output.north) -> (delta.south);
+		\draw[->] (outputF.north) -> (deltaF.south);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		%\node[draw,rectangle]  (ls1) at (4.5+10, -1) {softmax};
+		%\node[draw,rectangle]  (ls3) at (7.5+10, -1) {softmax};
+		%\node [draw,circle,inner sep=0pt] (lrp1) at (3*1+10, -1) {$\times$};
+		%\node  (lrp2) at (3*2, -1.5) {$\dots$};
+		%\node [draw,circle,inner sep=0pt] (lrp3) at (3*3+10, -1) {$\times$};
+		%
+		%\foreach \i [count=\step from 1] in {$\vx_1$,$\dots$,$\vx_N$}
+		%\node (lri\step) at (3*\step+10, -2) {\i};
+		%\node  (lsw1) at (4.5+10, -2) {SW};
+		%\node  (lsw3) at (7.5+10, -2) {SW};
+		%\draw[->] (ls1.west) to node[below]{$\mathbf{\alpha}$} (lrp1.east);
+		%\draw[->] (ls3.east) to node[below]{$\mathbf{\alpha}$} (lrp3.west);
+		%\draw[->] (lri1.north) to (lrp1.south);
+		%\draw[->] (lri3.north) to (lrp3.south);
+		%\draw[->] (lsw1.north) to (ls1.south);
+		%\draw[->] (lsw3.north) to (ls3.south);
+		%\node (lh2) at (3*2+10, 0.0) {$\dots$};
+		%\foreach \step in {1,3} {
+		%	\node[draw,rectangle] (lh\step) at (3*\step+10, 0.0) {GRU};
+		%}
+		%\draw[->] (lrp1.north) to node[left]{$\hat{\vx}_1$} (lh1.south);
+		%\draw[->] (lrp3.north) to node[left]{$\hat{\vx}_N$} (lh3.south);
+		%
+		%%\draw[->] (i4) -> (h4.south);
+		%
+		%\foreach \step in {1,2} {
+		%	\pgfmathtruncatemacro{\next}{add(\step,1)}
+		%	\draw[->] (lh\step.east) -> (lh\next.west);
+		%}
+		%%\node[fit=(lri1) (lri3) (ls1) (ls3) (h1) (h3), draw, inner sep=0pt] (fit1) { };
+		%%\node[align=center, outer sep=0] (encoder) [right=of fit1] {Encoder};
+		
+		
+		
+		\node[filter] (loe2) at (9+7, 4.5) {};
+		\node[filter] (loe3) at (6+7, 4.5) {};
+		\node [draw,circle,inner sep=0pt] (loe4) at (6+7, 5.5) {$\times$};
+		\node [draw,circle,inner sep=0pt] (loe5) at (9+7, 5.5) {$\times$};
+		\node [draw,circle,inner sep=0pt] (loe6) at (7.5+7, 6.5) {$+$};
+		\node (loe7) at (7.5+7, 7.5) {$\delta_L^{t_i}$};
+		\node  (lbs) at (10+7, 5.5) {$\delta_{BS}^{t_i}$};
+		\draw[->] (loe3.north) to node[left]{$\widehat{\delta_L}^{t_i}$} (loe4.south);
+		\draw[->] (loe2.north) to node[above]{$o$} (loe4.east);
+		\draw[->] (loe2.north) to node[right]{$1-o$} (loe5.south);
+		\draw[->] (loe4.north) to node[left]{} (loe6.west);
+		\draw[->] (loe5.north) to node[left]{} (loe6.east);
+		\draw[->] (loe6.north) to node[left]{} (loe7.south);
+		\draw[->] (lbs.west) to node[left]{} (loe5.east);
+		
+		\draw [->]  (deltaP.east) to[out=0,in=180] (hedge.west);
+		\draw [->]  (delta0.east) to[out=0,in=180] (hedgePre.west);
+		\draw [->]  (delta.east) to[out=0,in=180] (hedgeNext.west);	
+		\draw [->]  (deltaN.east) to[out=0,in=180] (hedgeF.west);	
+		
+		
+		%\node[draw,circle,inner sep=0pt]  (ll1) at (6+10, 2) {$\times$};
+		%\node[draw,rectangle]  (ll3) at (6+10, 1) {softmax};
+		%\node  (ll2) at (4.5+10, 2) {$\vx_L$};
+		%\node  (ll4) at (4.5+10, 1) {$LW$};
+		%\draw[->] (ll4.east) to (ll3.west);
+		%\draw[->] (ll2.east) to (ll1.west);
+		%\draw[->] (ll3.north) to node[left]{$\omega$} (ll1.south);
+		
+		
+		\node (lhe2) at (6+7, 3) {$\widehat{\vy}_{t_i}$};
+		\node (lhe3) at (9+7, 3) {$\hat{\mathbf{h}}_E^{t_i}$};
+		%\draw[->] (ll1.north) to (lhe2.south);
+		%\draw[->] (lh3.north) to  (lhe3.south);
+		\draw[->] (lhe3.north) to  (loe2.south);
+		\draw[->] (lhe3.north) to  (loe3.south);
+		
+		\draw[->] (lhe2.north) to (loe2.south);
+		\draw[->] (lhe2.north) to (loe3.south);
+		\node[fit=(lhe2) (lhe3), draw, inner sep=0pt] (fit7) { };
+		\node[align=center, outer sep=0] (encoder) [below=of fit7] { \Large Local hedging model};
+		\draw[->] (fit6) to (fit7);
+		%\node[fit=(loe2) (loe3) (loe5) (loe6)  (loe7)  (lbs) (lhe2) (lhe3) (lh1) (lh3) (lri1) (lri3), draw, inner sep=4pt] (fit3) { };
+		%\node[align=center, outer sep=0] (encoder) [below=of fit3] {Local hedging model};
+		%\draw[->] (fit3) -> (he3.east);
+		
+		
+		
+		\end{tikzpicture}
+	}
+	\caption{Refined Model For Real Cases}
+	\label{fig:RNNModel}
+\end{figure}

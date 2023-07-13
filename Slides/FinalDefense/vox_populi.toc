@@ -1,0 +1,14 @@
+\beamer@endinputifotherversion {3.14pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Background}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Settings and Notations}{24}{0}{1}
+\beamer@sectionintoc {2}{Algorithms and Theories}{49}{0}{2}
+\beamer@subsectionintoc {2}{1}{Pruning Can Help}{52}{0}{2}
+\beamer@subsectionintoc {2}{2}{Pruning Can't Hurt}{58}{0}{2}
+\beamer@subsectionintoc {2}{3}{Setting the Threshold $T$}{60}{0}{2}
+\beamer@subsectionintoc {2}{4}{Reusing the Cleaned Dataset}{63}{0}{2}
+\beamer@sectionintoc {3}{Experiments}{70}{0}{3}
+\beamer@subsectionintoc {3}{1}{Experiment Settings}{70}{0}{3}
+\beamer@subsectionintoc {3}{2}{Experiment Results}{79}{0}{3}
+\beamer@sectionintoc {4}{Q \& A}{80}{0}{4}

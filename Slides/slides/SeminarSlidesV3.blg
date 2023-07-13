@@ -1,0 +1,11 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: SeminarSlidesV3.aux
+The style file: biblatex.bst
+I couldn't open database file Ref.bib
+---line 18 of file SeminarSlidesV3.aux
+ : \bibdata{SeminarSlidesV3-blx,mybib,Ref
+ :                                       }
+I'm skipping whatever remains of this command
+Database file #1: SeminarSlidesV3-blx.bib
+Database file #2: mybib.bib
+Biblatex version: 1.7
+(There was 1 error message)

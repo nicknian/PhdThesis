@@ -1,0 +1,7 @@
+\frametitle{Summary}
+\begin{itemize}
+  \item Loosing assumption on the market dynamic is a good practise
+  \item Data-driven approach can lead to better performance.
+  \item Incorporating the information about the past history can further improve the hedging performance.
+  \item Robust losses and robust model design are also beneficiary.
+\end{itemize}

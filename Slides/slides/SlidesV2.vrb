@@ -1,0 +1,41 @@
+\frametitle{Call Option Weekly Hedging and Monthly Hedging}
+\begin{table}[htp!]
+\resizebox{0.45\textwidth}{!}{
+\begin{tabular}{|c|r r r r|}
+\hline
+\multirow{4}{*}{Delta}&\multicolumn{4}{c|}{Data-Driven Model}\\
+&\multicolumn{2}{c}{$\DKLs(\%)$  }&\multicolumn{2}{c|}{DRNN(\%)}\\ %\cline{2-5}
+ &\multicolumn{1}{c}{\small Traded}& \multicolumn{1}{c}{\small All} &\multicolumn{1}{c}{\small Traded} & \multicolumn{1}{c|}{\small All} \\ \hline
+  0.1    &38.9     &38.3      &\textbf{47.8}    & \textbf{45.6}    \\
+  0.2    &29.0     &26.9      &\textbf{48.5}    &  \textbf{46.0}  \\
+  0.3    &23.5     &25.3      &\textbf{48.5}    &  \textbf{46.6} \\
+  0.4    &20.8     &24.3      &\textbf{45.9}    & \textbf{45.4}  \\
+  0.5    &19.9     &22.8      &\textbf{46.6}    &  \textbf{45.0}  \\
+  0.6    &17.3     &19.5      &\textbf{44.8}    &  \textbf{43.1}  \\
+  0.7    &16.8     &17.7      &\textbf{43.9}    &  \textbf{42.4}   \\
+  0.8    &12.5     &12.3      &\textbf{37.7}    &  \textbf{39.0}   \\
+  0.9    &6.2      &5.1       &\textbf{16.4}    &  \textbf{29.1}   \\
+  Overall&20.2     &17.1      &\textbf{43.7}    &  \textbf{40.5} \\
+  \hline
+\end{tabular}
+}
+\resizebox{0.45\textwidth}{!}{
+\begin{tabular}{|c|r r r r|}
+\hline
+\multirow{4}{*}{Delta}&\multicolumn{4}{c|}{Data-Driven Model}\\
+&\multicolumn{2}{c}{$\DKLs$ (\%) }&\multicolumn{2}{c|}{DRNN (\%)}\\ %\cline{2-5}
+ &\multicolumn{1}{c}{\small Traded}& \multicolumn{1}{c}{\small All} &\multicolumn{1}{c}{\small Traded} & \multicolumn{1}{c|}{\small All} \\ \hline
+  0.1          &22.7    & 24.8 &\textbf{53.9} &\textbf{39.4} \\
+  0.2          &23.5    & 25.5 &\textbf{51.7} &\textbf{48.3} \\
+  0.3          &24.0    & 24.6 &\textbf{50.2} &\textbf{49.1} \\
+  0.4          &21.0    & 20.7 &\textbf{47.8} &\textbf{48.3}\\
+  0.5          &13.5    & 12.7 &\textbf{44.5} &\textbf{47.6}\\
+  0.6          &14.3    & 13.5 &\textbf{44.6} &\textbf{47.4}\\
+  0.7          &6.1     & 7.0  &\textbf{35.3} &\textbf{42.9}\\
+  0.8          &5.3     & 4.1  &\textbf{24.8} &\textbf{34.1}\\
+  0.9          &4.1     & 2.3  &\textbf{10.5} &\textbf{19.9}\\
+  Overall      &16.3    & 12.5 &\textbf{44.5} &\textbf{42.3} \\
+  \hline
+\end{tabular}
+}\caption{Weekly(Left) and Monthly(Right)}
+\end{table}

@@ -3131,7 +3131,7 @@ As an example, in Figure \ref{fig:CaliExp}, we show the calibrated price surface
 	\subfigure[Price Surface]{
 		\includegraphics[width=0.8\textwidth]{./figures/Price}
 	}
-	\caption{The price surface and implied volatility surface calibrated to SP500 index call options on 2012-01-04. The smile is more pronounced for the shorter maturities than the longer maturities, which is consistent with observations from various studies \cite{chance2017bias,rogers2010can} using market data. Interested readers can also refer to \cite{rogers2010can} for some mathematicaly explaination on why the smile becomes more and more flattened as $\tau$ increases.}
+	\caption{The price surface and implied volatility surface calibrated to SP500 index call options on 2012-01-04. The smile is more pronounced for the shorter maturities than the longer maturities, which is consistent with observations from various studies \cite{chance2017bias,rogers2010can} using market data. Interested readers can also refer to \cite{rogers2010can} for some mathematical explanation on why the smile becomes more and more flattened as $\tau$ increases.}
 	\label{fig:CaliExp}
 \end{figure}
 
@@ -3576,7 +3576,7 @@ For extending our work, we note that there are several directions:
 	\item In this thesis, we use S\&P 500 index options for experimental comparison. It will be interesting to explore  effectiveness of the data-driven models on more complex derivatives such as basket options where the dimensionality of the underlying is higher. 
 	\item In this thesis, we have not included transaction cost into our models. A more realistic model should include the effect of the transaction cost as in \cite{buehler2019deep}. 
 	\item  In this thesis, for total hedging  model, we assume we rebalance every 5 business days or 20 business days. In reality, we do not have to fix the interval length between two rebalancing times. It may be interesting to extend the model so that the data-driven model determines when is the best time to rebalance the hedging portfolio.
-	\item Trader in real worlds  may use the  financial derivatives from one asset class to hedge the financial derivatives from another asset classes. For example, credit default swaption on credit index is very  illiquid in market. Therefore, in practice, trader may use equity index option to hedge the risk of the credit default swap since there exists strong correlation between equity index and credit index. Traditional parametric model cannot easily capture this kind of implicit exposure from equity option  towards credit index. However, with the help of the data-driven model, such  implicit sensitivity can be learned directly from market data.  This is another potential area of extension for this data-driven approach.
+	\item Trader in real worlds  may use the  financial derivatives from one asset class to hedge the financial derivatives from other asset classes. For example, credit default swaption on credit index is very  illiquid in market. Therefore, in practice, trader may use equity index option to hedge the risk of the credit default swap since there exists strong correlation between equity index and credit index. Traditional parametric model cannot easily capture this kind of implicit exposure from equity option  towards credit index. However, with the help of the data-driven model, such  implicit sensitivity can be learned directly from market data.  This is another potential area of extension for this data-driven approach.
 \end{itemize}
 
 
