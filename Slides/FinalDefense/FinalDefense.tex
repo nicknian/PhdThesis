@@ -54,6 +54,9 @@
 \usepackage{tkz-graph}
 \usetikzlibrary{backgrounds,automata}
 \bibliography{mybib.bib}
+\setbeamertemplate{itemize item}[square]
+\setbeamertemplate{itemize subitem}[circle]
+
 
 
 
@@ -211,6 +214,7 @@ Consider a portfolio $P_{t}$ which is composed of:
 \item A position of $\delta_{t}$, shares on underlying $\Smkt_{t}$,
 \item An amount in the risk-free bank account $B_t$
 \end{itemize}
+\vspace{0.3cm}
 The hedging portfolio is rebalanced at discrete times $t_i$. The hedging position is given by $\delta_{t_i}$
 Initially, we have
 \[
@@ -296,6 +300,7 @@ Problem with the traditional Black-Scholes model:
   \item Market violates Black-Scholes assumption
   \item Dependence of implied volatility on underlying asset price
 \end{itemize}
+\vspace{0.3cm}
 Improvement over Black-Scholes model:
 \begin{itemize}
   \item Stochastic Volatility (SV) Model
@@ -372,7 +377,7 @@ The indirect data-driven approach has the following problems:
   \item Model parameters depend on the asset price.
   \item Data-driven pricing model may introduce arbitrage, 
 \end{itemize}
-
+\vspace{0.3cm}
 Direct data-driven approach: learn hedging function from \textbf{market} underlying and option  price time series data.
 \begin{itemize}
   \item Directly learn the hedging position $\delta(\cdot)$.
